@@ -2,16 +2,26 @@
   Listing all QD data set
 <% end -%>
 
-<table>
+<table class='listing'>
    <tr><th>List Id </th>
        <th> Dealer </th> 
        <th> Name </th>
+       <th> Address </th>
+       <th> City </th>
+       <th> State </th>
+       <th> Zip </th>
+       <th> Crrt </th>
    </tr>
 
    <% @qd_profiles.each do |profile| %>
       <tr> <td> <%= profile.listid %> </td> 
            <td> <%= profile.dealer.profile.name %> </td>
-           <td> <%= profile.fname %> </td>
+           <td> <%= "#{profile.fname} #{profile.lname}" %> </td>
+           <td> <%= profile.address %> </td>
+           <td> <%= profile.city %> </td>
+           <td> <%= profile.state %> </td>
+           <td> <%= profile.zip %> </td>
+           <td> <%= profile.crrt %> </td>
       </tr>
 
     <% end %>

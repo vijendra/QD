@@ -21,7 +21,7 @@
       <%= render :partial => 'shared/global_links' %>
     </div>
 
-    <div id="links">
+    <div id="menu">
       <%= render :partial => 'shared/links' %>
     </div>
 
@@ -32,7 +32,7 @@
 
       <%= flash_message %>
 
-      <h2 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h2>
+     <h3 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h3>
 
       <div id="screen">
         <%= yield %>

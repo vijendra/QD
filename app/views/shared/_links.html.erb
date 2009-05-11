@@ -1,7 +1,6 @@
 <% if logged_in? %>
-   <strong><%= current_user.login %></strong> &nbsp;  |&nbsp; 
-   <%= link_to "Main Page", root_url %> &nbsp; | &nbsp; 
-   <% if admin? -%><%= link_to "Data set", admin_qd_profiles_url %> &nbsp; | &nbsp; <% end -%>
-   <% if admin? -%><%= link_to "Dealers", admin_dealers_url %> &nbsp; | &nbsp; <% end -%>
-   <% if super_admin? -%><%= link_to "Admin List", admin_users_url(:role => 'admin') %> &nbsp;  <% end -%>
+   <%= link_to "Main Page", root_url %>
+   <% if admin? -%><%= link_to "Data Set", admin_qd_profiles_url %><% end -%>
+   <% if admin? -%><%= link_to "Dealers", admin_dealers_url %> <% end -%>
+   <% if super_admin? -%><%= link_to "Admin List", admin_users_url(:role => 'admin') %>  <% end -%>
 <% end %>
