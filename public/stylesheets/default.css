@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Sans-Serif;
 	color: #000;
-	background-color: #FFF3D1;
+	background-color: #FFE9AA;
 	margin: 0;
 	padding: 0;
 	font-size: 0.8em;
@@ -18,8 +18,9 @@ input {
 	font-size: 1.1em;
 }
 
-input.file{
-	border:#7D99B2 1px solid;
+.file{  
+	 padding: 0px;
+         background: #fff;
 	
 }
 
@@ -51,7 +52,7 @@ ul {
 	color: #B40D0D;
 	padding: .1em  0em  0em  1em ;
 	margin: 0px;
-	font-size: 28px;
+	font-size: 30px;
 }
 
 #header h1 span {
@@ -62,7 +63,7 @@ ul {
 /* Menu */
 
 #menu {
-	width: 895px;
+	width: 500px;
 	height: 60px;
 	margin: 0 auto;
         font-weight: bold;
@@ -78,7 +79,7 @@ ul {
 
 #menu li {
 	display: inline;
-}
+         }
 
 #menu a {
 	display: block;
@@ -87,6 +88,7 @@ ul {
 	padding: 1px 10px;
 	text-decoration: none;
 	color: #FFFFFF;
+        background: url(/images/img03.gif) no-repeat right top;
 }
 
 #menu a:hover {
@@ -171,10 +173,10 @@ ul {
 	
         margin: 0 auto;
         background: #fff;
-        width: 97%;
-        min-height: 600px;
+        width: 97.8%;
+        min-height: 550px;
         padding: 10px;
-        border: #ffefc0 5px solid;
+        border: #FFE492 5px solid;
 }
 /** Left column */
 #left, #right {
@@ -190,7 +192,7 @@ ul {
 	background-color: #FFF;
 	padding: 0.2em .5em .5em;
 	margin: 0;
-	font-size: 1.1em;
+	font-size: 1.4em;
 }
 #left #screen {
 	padding: 0 .5em 1em;
@@ -298,9 +300,11 @@ div.progressBar div.background {
 }
 /** Footer */
 #footer {
-	clear: both;
-	padding: 1em 0 0 4em;
-	color: #b5aea1;
+        margin: 0 auto;
+        width: 25%;
+        padding-top: 5px;
+        padding-bottom: 10px;
+	color: #500606;
 	font-size: 0.8em;
 }
 #footer a:link {
@@ -674,7 +678,7 @@ div#Tabs li,
 div#swap_to,
 div.button_to_add_new a,
 div.button_to_add_new a img,
-div.recording div.nubbin a,
+div.recording div.nubbin a, background: #fff;
 div.frame div.hover_container,
 div.show_task,
 div.edit_task,
@@ -734,7 +738,7 @@ div.page_header {
              border:1px solid #ccc;
 }
 
-.listing td { padding: 0.9em .5em .3em .5em; color: #000; border-bottom:1px solid #BDCFE1;}
+.listing td { padding: 1em .5em .3em .5em; color: #000; border-bottom:1px solid #BDCFE1;}
 
 
 .listing    { border-collapse: collapse;

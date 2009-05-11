@@ -6,10 +6,23 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title><%= configatron.site_name %></title>
-
+	
 	<%= stylesheet_link_merged :admin,'facebox' %>
   	<%= javascript_include_merged :base,'facebox' %>
-
+        <%= javascript_include_tag 'jquery-1' %> 
+        <script type="text/javascript">
+           jQuery.noConflict();
+        </script>
+        <script type="text/javascript">
+          $(function() {
+             jQuery("file").filestyle({ 
+             image: "choose-file.gif",
+             imageheight : 22,
+             imagewidth : 82,
+             width : 550
+             });
+           });
+        </script>
 </head>
 
 <body>
@@ -38,14 +51,13 @@
         <%= yield %>
       </div>
 
+    
+  </div>
 
+  <div id= "footer">
+      Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by ISIRI Technologies Ltd
   </div>
-<!--
-  <div id="footer">
-    <%= configatron.site_name %> by <%= configatron.company_name %><br />
-	Copyright © <%= configatron.company_name %>
-  </div>
--->
+
 
 </body>
 </html>

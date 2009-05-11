@@ -2,21 +2,23 @@
   Listing all dealers
 <% end -%>
 
-<table>
+<table class='listing'>
   <tr>
- 	<th> Dealer ID</th>
+ 	<th> ID</th>
  	<th> Name </th>
+        <th> Email </th>
  	<th> Contact Number </th>
  	<th> CSV UPLOAD </th>
- 	<th> Test Name </th>
+ 	<th> QD Fields </th>
   </tr>
 <% @dealers.each do |dealer| %>
        <tr>
          <td> <%= dealer.id %> </td>
          <td> <%= dealer.profile.name %> </td>
+         <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %></td>
          <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
-         <td> <%= link_to "Test Name" , dealer_fields_new_admin_dealer_path(dealer.id) , :rel=> "facebox" %>  </td>
+         <td> <%= link_to "QD Fields" , dealer_fields_new_admin_dealer_path(dealer.id) , :rel=> "facebox" %>  </td>
        </tr>
 
 <% end %>
