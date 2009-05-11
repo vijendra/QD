@@ -93,9 +93,36 @@ class Admin::DealersController < ApplicationController
       data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
       QdProfile.create(data_set)
     end
-   
+
     flash[:notice] = 'CSV data is successfully imported.'
     redirect_to(admin_dealers_url)
   end
+   def dealer_fields_new
+      @dealer = Dealer.find(params[:id])
+  	  @dealer_field = DealerField.new
+  	  respond_to do |format|
+  	  	format.html
+  		 format.js { render :layout => false }
+  	  end
+
+  end
+
+  def dealer_fields_create
+  	 @dealer = Dealer.find(params[:id])
+  	 @dealer_field = @dealer.dealer_field.create(:fields => params[:dealer_fields])
+
+
+    respond_to do |format|
+      if @dealer_field.save
+        flash[:notice] = 'Dealer Fields was successfully created.'
+        format.html { redirect_to(admin_dealers_url) }
+        format.xml  { render :xml => @dealer, :status => :created, :location => @dealer }
+      else
+        format.html { render :action => "dealer_fields_new" }
+        format.xml  { render :xml => @dealer_field.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
 
 end

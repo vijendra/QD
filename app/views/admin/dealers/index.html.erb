@@ -3,9 +3,21 @@
 <% end -%>
 
 <table>
-
+  <tr>
+ 	<th> Dealer ID</th>
+ 	<th> Name </th>
+ 	<th> Contact Number </th>
+ 	<th> CSV UPLOAD </th>
+ 	<th> Test Name </th>
+  </tr>
 <% @dealers.each do |dealer| %>
-<tr> <td> <%= dealer.id %> </td> <td> <%= dealer.profile.name %> </td><td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td> </tr>
+       <tr>
+         <td> <%= dealer.id %> </td>
+         <td> <%= dealer.profile.name %> </td>
+         <td> <%= dealer.profile.phone_1 %></td>
+         <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
+         <td> <%= link_to "Test Name" , dealer_fields_new_admin_dealer_path(dealer.id) , :rel=> "facebox" %>  </td>
+       </tr>
 
 <% end %>
 </table>

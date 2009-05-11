@@ -6,10 +6,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title><%= configatron.site_name %></title>
-	
-	<%= stylesheet_link_merged :admin %>
-  	<%= javascript_include_merged :base %>
-  
+
+	<%= stylesheet_link_merged :admin,'facebox' %>
+  	<%= javascript_include_merged :base,'facebox' %>
+
 </head>
 
 <body>
@@ -38,7 +38,7 @@
         <%= yield %>
       </div>
 
-    
+
   </div>
 <!--
   <div id="footer">

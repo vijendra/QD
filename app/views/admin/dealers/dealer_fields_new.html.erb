@@ -1,0 +1,22 @@
+<% form_for(:dealer_dilelds,:url=>dealer_fields_create_admin_dealer_path(@dealer.id),:method =>:post ) do |f| %>
+<table>
+
+   <tr><td> <%= check_box_tag("dealer_fields[]", 'listid', true)%></td><th>List ID</th></tr>
+   <tr> <td><%= check_box_tag("dealer_fields[]", 'fname', true)%> </td><th>First Name</th></tr>
+   <tr> <td> <%= check_box_tag("dealer_fields[]", 'mname', true)%></td><th> Middle Name</th></tr>
+   <tr> <td><%= check_box_tag("dealer_fields[]", 'lname', true)%> </td><th> Last Name </th></tr>
+   <tr> <td><%= check_box_tag("dealer_fields[]", 'suffix', true)%> </td><th> Suffix</th></tr>
+   <tr> <td> <%= check_box_tag("dealer_fields[]", 'address', true)%></td><th> Address</th></tr>
+   <tr> <td><%= check_box_tag("dealer_fields[]", 'city', true)%> </td><th> City</th></tr>
+   <tr> <td> <%= check_box_tag("dealer_fields[]", 'state', true)%></td><th> State</th></tr>
+   <tr> <td> <%= check_box_tag("dealer_fields[]", 'zip', true)%></td><th> Zip</th></tr>
+   <tr> <td><%= check_box_tag("dealer_fields[]", 'zip4', true)%> </td><th> Zip4</th></tr>
+   <tr> <td> <%= check_box_tag("dealer_fields[]", 'crrt', true)%></td><th> Crrt</th></tr>
+   <tr> <td><%= check_box_tag("dealer_fields[]", 'dpc', true)%> </td><th> Dpc</th></tr>
+   <tr> <td> <%= check_box_tag("dealer_fields[]", 'phone_num', true)%> </td><th> Phone Number </th></tr>
+
+
+   <tr> <td><%=f.submit "Save" %></td>
+
+</table>
+<%end%>
