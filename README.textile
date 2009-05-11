@@ -1,0 +1,81 @@
+h1. Welcome to BaseApp
+
+BaseApp is a default Ruby on Rails project that kick-starts your next Rails project.
+
+Read the next paragraph for a quickstart. Head over to "http://baseapp.org":http://baseapp.org for more detailed documentation or "http://baseapp.lighthouseapp.com":http://baseapp.lighthouseapp.com to report bugs and request features.
+
+h2. Quickstart
+
+Ok, before you dive in :-)
+
+These 6 simple steps are the essentials to get you smoothly up and running...
+
+# Create your own config/database.yml (you can copy one of the sample files in there and edit it)
+# Edit the config/config.yml file to suit your needs
+# Open a shell and run @rake db:migrate@ to create your database and setup the prepared defaults. 
+# Start your server with @./script/server@
+# Open up "http://localhost:3000":http://localhost:3000 and login with username 'admin' and password 'yippeekayea'.
+
+h2. Configatron vs. Settings
+
+Previously, site settings were stored in the database. Now, you have two options for storing configuration settings. 
+
+1. Configatron config/config.yml
+
+All default configuration options that are not 'user changeable' should go in config/config.yml. This uses the Configatron gem (frozen in vendor/gems). 
+
+To retrieve the site name you may use 'configatron.site_name' everywhere in your code. 
+
+2. Settings in database
+
+It's still possible to store user changeable settings in the database model Setting. 
+
+Note: As long as there are no Settings in the database, the 'Settings' tab for the administrator is hidden. Once you add a Setting to the database through a migration (or otherwise), the Settings tab will show up. 
+
+h2. Features
+
+* Layout
+** Tabs
+** Global links
+** Optional sidebar
+** Notice, warning and error flash messages
+** Both a default stylesheet as well as a 'clean' one are included for easy layout development.
+* Default dashboard page
+* Administration panel where you can:
+** Manage users (add, delete, purge, suspend, activate, send new passwords)
+** Manage settings 
+* User authentication, with password recovery and login recovery and account activation (by email)
+* User Profiles:
+** Location, Website, Full name fields by default, easily extendible.
+** Gravatar for avatar support
+* Very useful Rails plugin available:
+** restful_authentication
+** acts_as_state_machine
+** asset_packager
+* Multi-stage deployments according to the D-TAP system (Development, Testing, Acceptance, Production). If you don't want to use, production is the default deployment option. "more info":http://weblog.jamisbuck.org/2007/7/23/capistrano-multistage
+
+h2. Features, bugs and development!
+
+BaseApp is open source software and relies on your contributions to grow! We have some useful utilities that may help you out.
+
+* "http://baseapp.org":http://baseapp.org
+
+The BaseApp website provides you with up-to-date development information and the latest news regarding BaseApp.
+	
+* "http://github.com/ariejan/baseapp":http://github.com/ariejan/baseapp
+
+GitHub always contains the latest BaseApp code. Fork your own development branch here if you wish to contribute code. 
+
+Pull requests should be send to 'ariejan' to include them in the main BaseApp code base.
+	
+* "http://baseapp.lighthouseapp.com":http://baseapp.lighthouseapp.com
+
+Bug reports and feature requests should be posted in LightHouse. 
+	
+Bugs always have priority over new features! But, you're free to help out with whatever you want. 
+
+h2. Credits
+
+BaseAPP is developed by "Kabisa ICT":http://kabisa.nl, "Ariejan de Vroom":http://ariejan.net and a whole bunch of "cool contributors":http://github.com/ariejan/baseapp/network. 
+
+BaseApp is released to the public under the MIT license.
