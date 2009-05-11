@@ -1,0 +1,14 @@
+<%= link_to "Edit Details", edit_profile_url(current_user) %>
+
+<table class="overview">
+   <%= cell "Name:", @profile.name %>
+   <%= cell 'E-mail(s) ( XML, use ";" as delimiter ):', @profile.emails_xml %>
+   <%= cell 'E-mail(s) ( HTML, use ";" as delimiter ):', @profile.emails_html %>
+   <%= cell 'Extra E-mail(s) ( use ";" as delimiter ):', @profile.emails_extra %>
+   <%= cell 'First name:', @profile.first_name %>
+   <%= cell 'Mid name:', @profile.mid_name %>
+   <%= cell 'Last name:', @profile.last_name %>
+   <%= cell 'Contact E-mail:', @profile.user.email%>
+   <tr><td class='label'>Phone:</td><td><%=@profile.phone_1 %>-<%=@profile.phone_2%>-<%=@profile.phone_3%></td></tr>
+   <%= cell 'Address:', "address"%>
+</table>

@@ -1,0 +1,20 @@
+<% content_for :header do -%>
+  Listing all QD data set
+<% end -%>
+
+<table>
+   <tr><th>List Id </th>
+       <th> Dealer </th> 
+       <th> Name </th>
+   </tr>
+
+   <% @qd_profiles.each do |profile| %>
+      <tr> <td> <%= profile.listid %> </td> 
+           <td> <%= profile.dealer.profile.name %> </td>
+           <td> <%= profile.fname %> </td>
+      </tr>
+
+    <% end %>
+</table>
+
+<br />

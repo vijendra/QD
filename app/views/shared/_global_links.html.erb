@@ -1,0 +1,8 @@
+<% if logged_in? %>
+	<%= link_to "Settings", profile_url(current_user) %> &nbsp; | &nbsp; 
+	<% if admin? -%><%= link_to "Administration", admin_root_url %> &nbsp; | &nbsp; <% end -%>
+	<%= link_to "Log out", logout_url, :method => :delete %>
+<% else %>
+	<%= link_to "Sign up", signup_url %> &nbsp;  |  
+	<%= link_to "Log in", login_url %>
+<% end %>

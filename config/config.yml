@@ -1,0 +1,21 @@
+# Configuration options can be accessed as
+#   configatron.site_name
+
+development: &local
+    site_name: QD Robot
+    site_url: localhost:3000
+    
+    company_name: QD Robot
+    admin_email: admin@test.com
+    
+    support_name: Support
+    support_email: support@test.com
+
+production:
+  <<: *local
+  
+staging:
+  <<: *local
+
+test:
+  <<: *local

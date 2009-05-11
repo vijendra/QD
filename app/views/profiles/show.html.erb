@@ -1,0 +1,36 @@
+<% if @profile.nil? -%>
+	<% content_for :header do -%>
+		Profile not be found
+	<% end -%>
+	
+	<p>The profile you requested does not exist.</p>
+<% else -%>	
+	<% content_for :header do -%>
+		<% if current_user == @user -%>
+			My Account
+		<% else -%>
+			Profile for <%= @user.login %>
+		<% end -%>
+	<% end -%>
+
+     <div id="tabs">
+         <ul>
+	    <li><a href="#tabs-1">Profile Details</a></li>
+	    <li><a href="#tabs-2">Account Deatils</a></li>
+         </ul>
+	
+         <div id="tabs-1">
+            <%= render :partial => 'profiles/profile_details' %>
+         </div>
+
+         <div id="tabs-2">
+            <%= render :partial => 'profiles/my_account' if current_user == @user %>
+	
+	<%= render :partial => 'profiles/account_details' if current_user == @user %>
+         </div>
+     </div>
+
+<% end -%>
+
+
+

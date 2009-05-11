@@ -1,0 +1,9 @@
+log/*
+tmp/*
+database.yml
+*.sqlite
+*.sqlite3
+doc/api
+.DS_Store
+.svn
+coverage

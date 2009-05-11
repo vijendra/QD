@@ -1,0 +1,12 @@
+<h1>Editing dealers</h1>
+
+<% form_for(@dealers) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @dealers %> |
+<%= link_to 'Back', dealers_path %>

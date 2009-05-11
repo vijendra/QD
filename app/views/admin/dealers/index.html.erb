@@ -1,0 +1,15 @@
+<% content_for :header do -%>
+  Listing all dealers
+<% end -%>
+
+<table>
+
+<% @dealers.each do |dealer| %>
+<tr> <td> <%= dealer.id %> </td> <td> <%= dealer.profile.name %> </td><td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td> </tr>
+
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New dealer', new_admin_dealer_path %>
