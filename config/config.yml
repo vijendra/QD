@@ -2,10 +2,10 @@
 #   configatron.site_name
 
 development: &local
-    site_name: QD Robot
+    site_name: Quick Data Robot
     site_url: localhost:3000
     
-    company_name: QD Robot
+    company_name: Quick Data Robot
     admin_email: admin@test.com
     
     support_name: Support

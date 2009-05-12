@@ -1,12 +1,29 @@
 body {
-	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
+	font: 10px Verdana, Arial, Sans-Serif;
 	color: #000;
 	background-color: #FFFAE9;
 	margin: 0;
 	padding: 0;
-	font-size: 0.6em;
 	min-width: 900px;
 }
+
+#header {
+	background: #4B0303 url(/images/top_bar_login.png) repeat-x;
+	margin: 0px;
+        padding: 0px;
+        height: 48px;
+	width: 100%;
+}
+
+#header h1 {
+	float: left;
+	font-weight: bold;
+	color: #B40D0D;
+	padding: .3em  0em  0em  1em ;
+	margin: 0px;
+	font-size: 30px;
+}
+
 a:link, a:visited {
 	color: #0054ff;
 }
@@ -50,7 +67,7 @@ label {
 	background-color: #fff;
 	margin: 0 auto;
 	width: 36em;
-	border: 8px solid #580A0B;
+	border: 8px solid #EAE3CF;
 }
 #left .head {
 	color: #204ca0;

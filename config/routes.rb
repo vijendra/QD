@@ -31,6 +31,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Profiles
   map.resources :profiles
+  map.resources :qd_profiles
 
   # Administration
   map.namespace(:admin) do |admin|
