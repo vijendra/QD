@@ -1,9 +1,10 @@
 <% form_tag(admin_dealers_url, :method => :get, :id => "search_form") do %>
    <table class="listing">
      <tr>
-       <th> Dealer Name: </th> 
-       <th> Contact No: </th> 
+       <th> Dealer Name: </th>
+       <th> Contact No: </th>
        <th> Email: </th>
+       <th rowspan='2'><input type="reset" value="Reset"> </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
