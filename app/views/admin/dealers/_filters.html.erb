@@ -1,7 +1,9 @@
 <% form_tag(admin_dealers_url, :method => :get, :id => "search_form") do %>
-   <table class="header">
+   <table class="listing">
      <tr>
-       <th> Name:</th> <th>Contact No :</th> <th>Email :</th>
+       <th> Dealer Name: </th> 
+       <th> Contact No: </th> 
+       <th> Email: </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
@@ -10,10 +12,7 @@
                <td><%= profile.text_field :name_like, :class => 'textbox' %></td>
                <td><%= profile.text_field :phone_1_like, :class => 'textbox' %>  </td>
          <%end%>
-        <td><td><%= p.text_field :email_like, :class => 'textbox' %></td>  </td>
-
-
-
+         <td><%= p.text_field :email_like, :class => 'textbox' %></td>
        <%end%>
        <%end%>
        </tr>

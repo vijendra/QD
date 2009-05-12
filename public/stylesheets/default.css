@@ -17,11 +17,22 @@ input {
 	font-size: 1.1em;
 }
 
-.file{  
-	 padding: 0px;
-         background: #fff;
-	
+input.textbox{
+	border:#7D99B2 1px solid;
+	background:#ffffff url(/images/field-top.gif) repeat-x top;
+	padding:2px 2px;
+
+	width:150px;
+        height: 15px;
 }
+
+input.textbox-tiny{
+	border:#7D99B2 1px solid;
+	background:#ffffff url(/images/field-top.gif) repeat-x top;
+	padding:2px 2px;
+	width:30px;
+}
+
 
 textarea {
 	width: 550px;
@@ -41,7 +52,7 @@ ul {
 	background: url(/images/top_bar.png) repeat-x;
 	margin: 0px;
 	padding: 0.2em 0em 0 0;
-        height: 73px;
+        height: 80px;
 	width: 100%;
 }
 
@@ -67,7 +78,7 @@ ul {
 	margin: 0 auto;
         font-weight: bold;
         font-size: 13px;
-	margin-top: 3.4em;
+	margin-top: 3.8em;
 }
 
 #menu ul {
@@ -144,7 +155,7 @@ ul {
 	color: #590B0B;
 	font-weight: bold;
 	background-color: #FFF;
-	padding: 0.2em .5em .5em;
+	padding: 0.2em .3em .3em;
 	margin: 0;
 	font-size: 1.4em;
 }
@@ -162,7 +173,7 @@ ul {
 }
 #left #error {
 	color: #9f1d20;
-	padding: 0.7em 1em;
+	padding: 0.7em 1em;E5E0D2
 	margin: 1em 1.5em;
 	background-color: #ffb7bc;
 	font-weight: bold;
@@ -654,38 +665,42 @@ div.page_header {
 	margin: 3px;
 }
 .pagination a {
-	padding: 2px 5px 2px 5px;
+	padding: 0px 5px 0px 5px;
 	margin: 2px;
 	border: 1px solid #aaa;
 	text-decoration: none;
-	color: #666;
+	color: #2C5EBF;
+        background-color: #fff;
 }
 .pagination a:hover, .pagination a:active {
 	border: 1px solid #666;
-	background-color: #aaa;
+	background-color: #d8e9f1;
 	color: #000;
 }
 .pagination span.current {
-	padding: 2px 5px 2px 5px;
+	padding: 0px 5px 0px 5px;
 	margin: 2px;
-	border: 1px solid #666;
+	border: 1px solid #aaa;
 	font-weight: bold;
-	background-color: #666;
-	color: #FFF;
+	background: #f6f7f8;
+	color: #434343;
 }
-.pagination span.disabled {
-	padding: 2px 5px 2px 5px;
+.pagination span.disabled_page {
+	padding: 0px 5px 0px 5px;
 	margin: 2px;
 	border: 1px solid #eee;
-	color: #ddd;
+	color: #ccc;
+        background-color: #fff;
+        border: 1px solid #aaa;
 }
+
 #submitbutton {
 	margin: 0.8em;
 	text-align: right;
 }
 
 /* table listing */
-.listing th {background: #EDE3C3;
+.listing th {background: #F6F2E7;
              color: #590B0B;
              text-align: left;
              padding: 0.3em .5em;
@@ -700,7 +715,12 @@ div.page_header {
             color: #000;
             border:1px solid #BDCFE1;
 }
+
 .listing a {
 	        color: #005DB8;
 		text-decoration: none;
            }
+
+.table-footer td {background: #F6F2E7; padding: 4px; }
+
+.table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #ccc;}

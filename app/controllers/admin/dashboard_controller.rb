@@ -3,5 +3,6 @@ class Admin::DashboardController < ApplicationController
   layout 'admin'
   
   def index
+    redirect_to admin_dealers_url
   end
 end

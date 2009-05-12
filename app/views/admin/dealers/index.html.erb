@@ -1,9 +1,10 @@
 <% content_for :header do -%>
-  Listing all dealers
-<% end -%>
-   <%=render :partial=> 'filters'%>
-   <br/>
+ Dealers list filters.
+<% end -%> 
+<%=render :partial=> 'filters'%>
+<br/>
 
-   <div id='dealer-list'>
-     <%=render :partial=> 'dealers_list'%>
-  </div>
+<h3 class="head">  Listing all dealers. </h3>
+<div id='dealer-list'>
+   <%=render :partial=> 'dealers_list'%>
+</div>
