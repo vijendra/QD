@@ -1,0 +1,38 @@
+<% form_tag(admin_qd_profiles_url, :method => :get, :id => "search_form") do %>
+   <table class="listing">
+     <tr>
+        <th> List Id</th> <th> Dealer Name</th><th> First Name</th> <th>Last Name </th>
+        <th rowspan='2'><input type="reset" value="Reset"> </th>
+     </tr>
+     <tr>
+      <%fields_for @search do |f|%>
+        <% f.fields_for @search.conditions do |p| %>
+           <td><%= p.text_field :listid_like, :class => 'textbox' %></td>
+
+               <% p.fields_for p.object.dealer do |dealer| %>
+                  <% dealer.fields_for dealer.object.profile do |profile| %>
+                    <td><%= profile.text_field :name_like, :class => 'textbox' %></td>
+                    <%end%>
+               <%end%>
+
+
+           <td><%= p.text_field :fname_like, :class => 'textbox' %></td>
+           <td><%= p.text_field :lname_like, :class => 'textbox' %></td>
+
+
+       <%end%>
+       <%end%>
+       </tr>
+  </table>
+<% end %>
+
+<%= observe_form("search_form", :frequency => 1.5,
+                 :before => "Element.show('spinner')",
+                 :success => "Element.hide('spinner')",
+                 :url => admin_qd_profiles_url, :method => :get) %>
+
+<%= image_tag("spinner.gif",
+              :align => "absmiddle",
+              :border => 0,
+              :id => "spinner",
+              :style =>"display: none;" ) %>

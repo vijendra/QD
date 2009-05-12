@@ -1,0 +1,53 @@
+<table class='listing'>
+   <tr><th> List Id </th>
+       <th> Dealer </th>
+       <th> First Name </th>
+       <th> Last Name</th>
+       <th> Address </th>
+       <th> City </th>
+       <th> State </th>
+       <th> Zip </th>
+       <th> Crrt </th>
+   </tr>
+
+   <% @qd_profiles.each do |profile| %>
+      <tr> <td> <%= profile.listid %> </td>
+           <td> <%= profile.dealer.profile.name %> </td>
+           <td> <%= profile.fname %> </td>
+           <td> <%= profile.lname  %>
+           <td> <%= profile.address %> </td>
+           <td> <%= profile.city %> </td>
+           <td> <%= profile.state %> </td>
+           <td> <%= profile.zip %> </td>
+           <td> <%= profile.crrt %> </td>
+      </tr>
+
+    <% end %>
+</table>
+ <table class='table-bottom'>
+  <tr class="table-footer">
+  	    <td><%= remote_per_page_select %></td>
+        <td>
+         <% form_tag(admin_qd_profiles_path, :method => :get, :id => "goto") do %>
+             <% fields_for @search do |f|%>
+                     <%= f.text_field :page, :class => 'textbox-tiny' %></td>
+             <%end%>
+         <%end%>
+
+
+        </td>
+         <td> <% unless @qd_profiles.blank? %>
+                             <div class="pagination">
+                                <%= remote_page_links %>
+                             </div>
+                           <% end %>
+         </td>
+  </tr>
+</table>
+<%= observe_form("goto", :frequency => 1,
+                 :before => "Element.show('spinner')",
+                 :success => "Element.hide('spinner')",
+                 :url => admin_qd_profiles_path, :method => :get) %>
+
+
+<br />
