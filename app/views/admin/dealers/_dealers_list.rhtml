@@ -1,0 +1,53 @@
+
+<table class='listing'>
+  <tr>
+ 	<th> ID</th>
+ 	<th> Name </th>
+        <th> Email </th>
+ 	<th> Contact Number </th>
+ 	<th> CSV UPLOAD </th>
+ 	<th> QD Fields </th>
+ 	<th> Show | Edit | Delete </th>
+
+  </tr>
+<% @dealers.each do |dealer| %>
+       <tr>
+         <td> <%= dealer.id %> </td>
+         <td> <%= dealer.profile.name %> </td>
+         <td> <%= dealer.email %> </td>
+         <td> <%= dealer.profile.phone_1 %></td>
+         <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
+         <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" , dealer_fields_new_admin_dealer_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,dealer_fields_edit_admin_dealer_path(dealer.id) , :rel=> "facebox") %>  </td>
+         <td> <%= link_to "show",admin_dealer_path(dealer.id)  %> |
+              <%= link_to "Edit",edit_admin_dealer_path(dealer.id)  %> |
+              <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %>
+         </td>
+       </tr>
+<% end %>
+</table>
+      <%= remote_per_page_select %>
+       <% form_tag(admin_dealers_path, :method => :get, :id => "goto") do %>
+             <% fields_for @search do |f|%>
+                     <%= f.text_field :page, :class => 'textbox-tiny' %></td>
+             <%end%>
+         <%end%>
+<%= observe_form("goto", :frequency => 1,
+                 :before => "Element.show('spinner')",
+                 :success => "Element.hide('spinner')",
+                 :url => admin_dealers_path, :method => :get) %>
+
+
+
+                   <% unless @dealers.blank? %>
+                             <div class="pagination">
+                                <%= remote_page_links %>
+                             </div>
+                           <% end %>
+
+
+
+
+
+<br />
+
+<%= link_to 'New dealer', new_admin_dealer_path %>

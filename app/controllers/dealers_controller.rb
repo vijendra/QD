@@ -13,7 +13,7 @@ class DealersController < ApplicationController
   # GET /dealers/1
   # GET /dealers/1.xml
   def show
-    @dealers = Dealers.find(params[:id])
+    @dealers = Dealer.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class DealersController < ApplicationController
   # GET /dealers/new
   # GET /dealers/new.xml
   def new
-    @dealers = Dealers.new
+    @dealers = Dealer.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class DealersController < ApplicationController
 
   # GET /dealers/1/edit
   def edit
-    @dealers = Dealers.find(params[:id])
+    @dealers = Dealer.find(params[:id])
   end
 
   # POST /dealers
   # POST /dealers.xml
   def create
-    @dealers = Dealers.new(params[:dealers])
+    @dealers = Dealer.new(params[:dealers])
 
     respond_to do |format|
       if @dealers.save
@@ -57,7 +57,7 @@ class DealersController < ApplicationController
   # PUT /dealers/1
   # PUT /dealers/1.xml
   def update
-    @dealers = Dealers.find(params[:id])
+    @dealers = Dealer.find(params[:id])
 
     respond_to do |format|
       if @dealers.update_attributes(params[:dealers])
@@ -74,7 +74,7 @@ class DealersController < ApplicationController
   # DELETE /dealers/1
   # DELETE /dealers/1.xml
   def destroy
-    @dealers = Dealers.find(params[:id])
+    @dealers = Dealer.find(params[:id])
     @dealers.destroy
 
     respond_to do |format|

@@ -4,11 +4,17 @@ class Admin::DealersController < ApplicationController
   require 'fastercsv'
 
   def index
-    @dealers = Dealer.all
+    @search = Dealer.new_search(params[:search])
+    @search.per_page ||=2
+    @dealers = @search.all
 
-    respond_to do |format|
+   respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @dealer }
+      format.js {  render :update do |page|
+      	            page.replace_html 'dealer-list', :partial => 'dealers_list'
+     	           end
+      	        }
     end
   end
 
@@ -50,10 +56,10 @@ class Admin::DealersController < ApplicationController
     respond_to do |format|
       if @dealer.save
         flash[:notice] = 'Dealer was successfully created.'
-        format.html { redirect_to(@dealer) }
+        format.html { redirect_to(admin_dealer_path(@dealer))}
         format.xml  { render :xml => @dealer, :status => :created, :location => @dealer }
       else
-        format.html { render :action => "new" }
+        format.html { render :action => "admin/dealers/new" }
         format.xml  { render :xml => @dealer.errors, :status => :unprocessable_entity }
       end
     end
