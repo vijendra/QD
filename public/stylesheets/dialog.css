@@ -1,7 +1,7 @@
 body {
 	font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif;
 	color: #000;
-	background-color: #535FAE;
+	background-color: #FFFAE9;
 	margin: 0;
 	padding: 0;
 	font-size: 0.6em;
@@ -50,7 +50,7 @@ label {
 	background-color: #fff;
 	margin: 0 auto;
 	width: 36em;
-	border: 8px solid #ccc;
+	border: 8px solid #580A0B;
 }
 #left .head {
 	color: #204ca0;

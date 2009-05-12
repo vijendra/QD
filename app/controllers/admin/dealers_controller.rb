@@ -97,19 +97,19 @@ class Admin::DealersController < ApplicationController
     flash[:notice] = 'CSV data is successfully imported.'
     redirect_to(admin_dealers_url)
   end
-   def dealer_fields_new
-      @dealer = Dealer.find(params[:id])
-  	  @dealer_field = DealerField.new
-  	  respond_to do |format|
-  	  	format.html
-  		 format.js { render :layout => false }
-  	  end
 
+  def dealer_fields_new
+    @dealer = Dealer.find(params[:id])
+    @dealer_field = DealerField.new
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
   end
 
   def dealer_fields_create
-  	 @dealer = Dealer.find(params[:id])
-  	 @dealer_field = @dealer.dealer_field.create(:fields => params[:dealer_fields])
+    #@dealer = Dealer.find(params[:id])
+    @dealer_field = DealerField.create(:fields => params[:dealer_fields], :dealer_id => params[:id])
 
 
     respond_to do |format|
