@@ -125,7 +125,7 @@ class DealersController < ApplicationController
     respond_to do |format|
       if @CsvExtraField.save
         flash[:notice] = 'CSV Extra Fields was Updated successfully '
-        format.html { redirect_to(dealers_url) }
+        format.html { redirect_to(qd_profiles_url) }
         format.xml  { render :xml => @CsvExtraField, :status => :created, :location => @dealer }
       else
         format.html { render :action => "csv_extra_field_edit" }

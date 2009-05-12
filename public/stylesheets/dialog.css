@@ -1,7 +1,7 @@
 body {
 	font: 10px Verdana, Arial, Sans-Serif;
 	color: #000;
-	background-color: #FFFAE9;
+	background-color: #FFE9AA;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -16,12 +16,12 @@ body {
 }
 
 #header h1 {
-	float: left;
 	font-weight: bold;
 	color: #B40D0D;
 	padding: .3em  0em  0em  1em ;
-	margin: 0px;
+	margin: 0 auto;
 	font-size: 30px;
+        width: 30%;
 }
 
 a:link, a:visited {
@@ -70,9 +70,9 @@ label {
 	border: 8px solid #EAE3CF;
 }
 #left .head {
-	color: #204ca0;
+	color: #fff;
 	font-weight: normal;
-	background-color: #d3dbff;
+	background-color: #780001;
 	padding: 0.7em 1em;
 	margin: 0;
 	font-size: 1.8em;
