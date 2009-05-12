@@ -1,0 +1,17 @@
+<%= link_to "Edit Details", edit_admin_dealer_url(@dealer) %>
+
+<table class="overview">
+   <%= cell "Name:", @dealer.profile.name %>
+   <%= cell 'E-mail(s) ( XML, use ";" as delimiter ):', @dealer.profile.emails_xml %>
+   <%= cell 'E-mail(s) ( HTML, use ";" as delimiter ):',@dealer.profile.emails_html %>
+   <%= cell 'Extra E-mail(s) ( use ";" as delimiter ):', @dealer.profile.emails_extra %>
+   <%= cell 'First name:', @dealer.profile.first_name %>
+   <%= cell 'Mid name:', @dealer.profile.mid_name %>
+   <%= cell 'Last name:', @dealer.profile.last_name %>
+   <%= cell 'Contact E-mail:', @dealer.profile.user.email%>
+   <tr><td class='label'>Phone:</td><td><%=@dealer.profile.phone_1 %>-<%=@dealer.profile.phone_2%>-<%=@dealer.profile.phone_3%></td></tr>
+   <%= cell 'Address:', @dealer.address.address %>
+   <%= cell 'City:', @dealer.address.city %>
+   <%= cell 'State:', @dealer.address.state %>
+   <%= cell 'Pin Code:', @dealer.address.postal_code %>
+</table>

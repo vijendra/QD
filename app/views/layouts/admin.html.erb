@@ -6,13 +6,18 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title><%= configatron.site_name %></title>
-	
+
 	<%= stylesheet_link_merged :admin,'facebox' %>
   	<%= javascript_include_merged :base,'facebox' %>
-        <%= javascript_include_tag 'jquery-1' %> 
+        <%= javascript_include_tag 'jquery-1' , 'jquery-ui-1.6.custom.min' %>
         <script type="text/javascript">
            jQuery.noConflict();
         </script>
+          <script type="text/javascript">
+		jQuery(function(){
+                      jQuery('#tabs').tabs();
+			});
+	</script>
 
 </head>
 
@@ -42,7 +47,7 @@
         <%= yield %>
       </div>
 
-    
+
   </div>
 
   <div id= "footer">

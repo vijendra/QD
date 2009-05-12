@@ -2,7 +2,7 @@ class DealersController < ApplicationController
   # GET /dealers
   # GET /dealers.xml
   def index
-    @dealers = Dealers.all
+    @dealers = Dealer.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,4 +82,58 @@ class DealersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def csv_extra_field_new
+      @dealer = Dealer.find(params[:id])
+  	  @csv_extra_field = CsvExtraField.new
+  	  respond_to do |format|
+  	  	format.html
+  		 format.js { render :layout => false }
+  	  end
+
+  end
+
+  def csv_extra_field_create
+  	 @dealer = Dealer.find(params[:id])
+  	 @csv_extra_field = CsvExtraField.create(:fields => params[:csv_extra_fields],:dealer_id => @dealer.id)
+
+    respond_to do |format|
+      if @csv_extra_field.save
+        flash[:notice] = 'CSV Extra Fields was successfully created.'
+        format.html { redirect_to(dealers_url) }
+        format.xml  { render :xml => @dealer, :status => :created, :location => @dealer }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @dealer_field.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def csv_extra_field_edit
+  	 @dealer = Dealer.find(params[:id])
+  	 @fields = @dealer.csv_extra_field.fields
+  	 respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
+  end
+
+  def csv_extra_field_update
+    @dealer = Dealer.find(params[:id])
+    @dealer.csv_extra_field.destroy
+    @CsvExtraField = CsvExtraField.create(:fields => params[:csv_extra_fields], :dealer_id => @dealer.id)
+    respond_to do |format|
+      if @CsvExtraField.save
+        flash[:notice] = 'CSV Extra Fields was Updated successfully '
+        format.html { redirect_to(dealers_url) }
+        format.xml  { render :xml => @CsvExtraField, :status => :created, :location => @dealer }
+      else
+        format.html { render :action => "csv_extra_field_edit" }
+        format.xml  { render :xml => @CsvExtraField.errors, :status => :unprocessable_entity }
+      end
+    end
+
+  end
+
+
 end

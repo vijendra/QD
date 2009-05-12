@@ -4,4 +4,7 @@
    <% unless admin? -%><%= link_to "Data Set", qd_profiles_url %><% end -%>
    <% if admin? -%><%= link_to "Dealers", admin_dealers_url %> <% end -%>
    <% if super_admin? -%><%= link_to "Admin List", admin_users_url(:role => 'admin') %>  <% end -%>
+    <% unless admin? -%>
+     <%= current_user.csv_extra_field.nil? ? (link_to "CSV Fileds" ,  csv_extra_field_new_dealer_path(current_user),:rel =>'facebox') : (link_to "CSV Fileds" ,  csv_extra_field_edit_dealer_path(current_user),:rel =>'facebox') %>
+   <%end-%>
 <% end %>

@@ -10,5 +10,8 @@
    <%= cell 'Last name:', @profile.last_name %>
    <%= cell 'Contact E-mail:', @profile.user.email%>
    <tr><td class='label'>Phone:</td><td><%=@profile.phone_1 %>-<%=@profile.phone_2%>-<%=@profile.phone_3%></td></tr>
-   <%= cell 'Address:', "address"%>
+   <%= cell 'Address:', @user.address.address %>
+   <%= cell 'City:', @user.address.city %>
+   <%= cell 'State:', @user.address.state %>
+   <%= cell 'Pin Code:', @user.address.postal_code %>
 </table>

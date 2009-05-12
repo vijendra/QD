@@ -1,12 +1,110 @@
-<h1>Editing dealers</h1>
+<% content_for :header do -%>
+   Editing Dealer
+<% end -%>
 
-<% form_for(@dealers) do |f| %>
+
+
+<% form_for([:admin, @dealer]) do |f| %>
   <%= f.error_messages %>
+   <p><label for="login">Login</label><br/>
+     <%= f.text_field :login %>
+  </p>
 
+  <p><label for="email">Contact Email</label><br/>
+     <%= f.text_field :email %>
+  </p>
+  <legend>Profile Details</legend>
+
+  <% f.fields_for :profile do |profile_form| %>
+     <p>
+       <label>Name:<label><br/>
+       <%= profile_form.text_field :name %>
+     </p>
+
+     <p>
+       <label>E-mail(s) ( XML, use ";" as delimiter ):</label><br/>
+       <%= profile_form.text_area :emails_xml %>
+     </p>
+
+     <p>
+       <label>E-mail(s) ( HTML, use ";" as delimiter ):<label><br/>
+       <%= profile_form.text_area :emails_html %>
+     </p>
+
+     <p>
+       <label>Extra E-mail(s) ( use ";" as delimiter ):<label><br/>
+       <%= profile_form.text_area :emails_extra %>
+     </p>
+
+     <p>
+       <label>First name:<label><br/>
+       <%= profile_form.text_field :first_name %>
+     </p>
+
+     <p>
+       <label>Mid name:<label><br/>
+       <%= profile_form.text_field :mid_name %>
+     </p>
+
+     <p>
+       <label>Last name:<label><br/>
+       <%= profile_form.text_field :last_name %>
+     </p>
+
+     <p>
+       <label>Phone:<label><br/>
+       <%= profile_form.text_field :phone_1 %>-<%= profile_form.text_field :phone_2 %>-<%= profile_form.text_field :phone_3 %>
+     </p>
+  <% end %>
+
+
+  <% f.fields_for :address do |address_form| %>
+     <p>
+       <label>Address:<label><br/>
+       <%= address_form.text_field :address %>
+     </p>
+
+     <p>
+       <label>City:<label><br/>
+       <%= address_form.text_field :city %>
+     </p>
+
+     <p>
+       <label>State:<label><br/>
+       <%= address_form.text_field :state %>
+     </p>
+
+     <p>
+       <label>Zip:<label><br/>
+       <%= address_form.text_field :postal_code %>
+     </p>
+  <% end %>
+
+  <% f.fields_for :profile do |profile_form| %>
+     <p>
+       <label>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:<label><br/>
+       <%= profile_form.text_area :data_sources %>
+     </p>
+
+     <p>
+       <label>MarketerNet PO:<label><br/>
+       <%= profile_form.text_field :marketer_net_po %>
+     </p>
+
+     <p>
+       <label>Wants data printed:<label><br/>
+       <%= profile_form.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %>
+     </p>
+
+     <p>
+       <label>Comments:<label><br/>
+       <%= profile_form.text_area :comments %>
+     </p>
+     <%end%>
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
 
 <%= link_to 'Show', @dealers %> |
-<%= link_to 'Back', dealers_path %>
+<%= link_to 'Back', admin_dealers_path %>

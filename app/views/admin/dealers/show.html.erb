@@ -1,3 +1,17 @@
+<% content_for :header do -%>
+  Showing Dealer
+<% end -%>
 
-<%= link_to 'Edit', edit_dealer_path(@dealer) %> |
-<%= link_to 'Back', dealer_path %>
+
+<div id="tabs">
+         <ul>
+	        <li><a href="#tabs-1">Profile Details</a></li>
+	      </ul>
+
+         <div id="tabs-1">
+            <%= render :partial => 'admin/dealers/profile_details' %>
+         </div>
+
+
+
+     </div>

@@ -1,4 +1,4 @@
-<% form_for(:dealer_dilelds,:url=>dealer_fields_create_admin_dealer_path(@dealer.id),:method =>:post ) do |f| %>
+<% form_for(:dealer_field,:url=>dealer_fields_create_admin_dealer_path(@dealer.id),:method =>:post ) do |f| %>
 <table>
 
    <tr><td> <%= check_box_tag("dealer_fields[]", 'listid', true)%></td><th>List ID</th></tr>
@@ -16,7 +16,7 @@
    <tr> <td> <%= check_box_tag("dealer_fields[]", 'phone_num', true)%> </td><th> Phone Number </th></tr>
 
 
-   <tr> <td><%=f.submit "Save" %></td>
+   <tr> <td><%=f.submit "Save" %></td></tr>
 
 </table><br/>
  <%= link_to "Back" , admin_dealers_url %>

@@ -1,0 +1,25 @@
+
+
+<% form_for(:csv_extra_field,:url=>csv_extra_field_create_dealer_path(@dealer.id),:method =>:post ) do |f| %>
+<h3>CSV Fields</h3><br/>
+<table>
+
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'fname', true)%> </td><th>First Name</th></tr>
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mname', true)%></td><th> Middle Name</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'lname', true)%> </td><th> Last Name </th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'emails_xml', true)%> </td><th> Emails xml</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'emails_html', true)%> </td><th> Emails Html</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'emails_extra', true)%> </td><th> Emails Extra</th></tr>
+
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'phone_num', true)%> </td><th> Phone Number </th></tr>
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'address', true)%></td><th> Address</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'city', true)%> </td><th> City</th></tr>
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'state', true)%></td><th> State</th></tr>
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'postal_code', true)%></td><th> Zip</th></tr>
+
+
+   <tr> <td><%=f.submit "Save" %></td> </tr>
+
+</table><br/>
+ <%= link_to "Back" ,dealers_url %>
+<%end%>

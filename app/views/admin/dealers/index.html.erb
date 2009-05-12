@@ -10,6 +10,8 @@
  	<th> Contact Number </th>
  	<th> CSV UPLOAD </th>
  	<th> QD Fields </th>
+ 	<th> Show | Edit | Delete </th>
+ 	<th>
   </tr>
 <% @dealers.each do |dealer| %>
        <tr>
@@ -18,7 +20,11 @@
          <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %></td>
          <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
-         <td> <%= link_to "QD Fields" , dealer_fields_new_admin_dealer_path(dealer.id) , :rel=> "facebox" %>  </td>
+         <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" , dealer_fields_new_admin_dealer_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,dealer_fields_edit_admin_dealer_path(dealer.id) , :rel=> "facebox") %>  </td>
+         <td> <%= link_to "show",admin_dealer_path(dealer.id)  %> |
+              <%= link_to "Edit",edit_admin_dealer_path(dealer.id)  %> |
+              <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %>
+         </td>
        </tr>
 
 <% end %>
