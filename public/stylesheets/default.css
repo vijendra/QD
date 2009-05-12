@@ -139,7 +139,7 @@ ul {
         margin: 0 auto;
         background: #fff;
         width: 97.8%;
-        min-height: 550px;
+        min-height: 500px;
         padding: 10px;
         border: #FFE492 5px solid;
 }
@@ -161,7 +161,8 @@ ul {
 }
 #left #screen {
 	padding: 0 .5em 1em;
-        background: #fff;
+        background: #fff;.table-top td {background-color: #F3F7F7; padding: 0.2em }
+.table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
         
 }
 #left #notice {
@@ -198,7 +199,8 @@ ul {
 	padding-bottom: 12px;
 	margin-bottom: 20px;
 	background-color: #f0f0f0;
-}
+}.table-top td {background-color: #F3F7F7; padding: 0.2em }
+.table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
 #errorExplanation h2 {
 	text-align: left;
 	font-weight: bold;
@@ -565,7 +567,8 @@ div.contact_info p {
 	font-size: 13px;
 }
 div.contact_info .no_contact_info p {
-	font-size: 11px;
+	font-size: 11px;.table-top td {background-color: #F3F7F7; padding: 0.2em }
+.table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
 	color: #777;
 }
 .contact_info div.contact_methods {
@@ -650,7 +653,8 @@ div.edit_task,
 div.new_task,
 div.new_task form,
 div.nubbin li a span,
-div.innercol,
+div.innercol,.table-top td {background-color: #F3F7F7; padding: 0.2em }
+.table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
 div.body,
 ul.attachments li a,
 body.groups div#screen_body,
@@ -724,3 +728,6 @@ div.page_header {
 .table-footer td {background: #F6F2E7; padding: 4px; }
 
 .table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #ccc;}
+
+.table-top td {background-color: #F6F6F6; padding: 0.2em }
+.table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
