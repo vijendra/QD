@@ -1,6 +1,10 @@
 # See how all your routes lay out with "rake routes"
 ActionController::Routing::Routes.draw do |map|
-  map.resources :dealers ,:member =>{ :csv_extra_field_create => :post,:csv_extra_field_new => :get,:csv_extra_field_edit => :get,:csv_extra_field_update => :put }
+
+
+
+
+  map.resources :dealers ,:has_one =>[:csv_extra_field]
 
 
   # RESTful rewrites
@@ -37,7 +41,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    admin.resources :dealers ,:member => { :dealer_fields_new => :get , :dealer_fields_create =>:post , :dealer_fields_edit=>:get ,:dealer_fields_update => :put }
+    admin.resources :dealers ,:has_one =>[:dealer_field]
     admin.resources :qd_profiles
     admin.resources :users, :member => { :suspend   => :put,
                                          :unsuspend => :put,

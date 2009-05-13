@@ -16,7 +16,7 @@ module Searchlogic
         # * <tt>Accepts:</tt> Any value in your per_page choices, nil or a blank string means "show all"
         def per_page
           return @per_page if @set_per_page
-          per_page = Helpers.per_page_select_choices[1]
+          per_page = Helpers.per_page_select_choices[2]
           per_page = per_page.last if per_page.is_a?(Array)
           @per_page = per_page
         end
