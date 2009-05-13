@@ -1,12 +1,12 @@
 <% if @profile.nil? -%>
 	<% content_for :header do -%>
-		Profile not be found
+		Profile Not be Found
 	<% end -%>
-	
+
 	<p>The profile you requested does not exist.</p>
 <% else -%>
 	<% content_for :header do -%>
-		Editing my profile
+		Editing My Profile
 	<% end -%>
 
 	<%= render :partial => 'profiles/my_account' if current_user == @user %>
@@ -16,16 +16,75 @@
 		This is your <%= configatron.site_name %> profile. It's not related to your OpenID Identity.
 	</p>
 	<% end %>
-	
-	<% form_for :profile, @profile, :url => profile_url(@profile.user), :html => {:method => :put} do |f| %>
-	
-	<% @profile.public_attributes.each do |column| -%>
-		<p><label><%= column.humanize %></label><br />
-		<%= input "profile", "#{column}", :value => @profile.send(column) %>
-		</p>
-	<% end -%>
-	
+
+
+
+<% form_for :profile, @profile, :url => profile_url(@user), :html => {:method => :put} do |f| %>
+  <%= f.error_messages %>
+
+
+<div id="tabs">
+    <ul>
+
+	   <li><a href="#profile">Profile Details</a></li>
+	   <li><a href="#address">Address Details</a></li>
+	</ul>
+
+    <div id="profile">
+
+         <table>
+            <tr><th>Name: </th><td>
+            <%= f.text_field :name %></td></tr>
+        <tr><th>
+      	   E-mail(s) ( XML, use ";" as delimiter ):</th><td>
+       		<%= f.text_area :emails_xml %></td></tr>
+        <tr><th>E-mail(s) ( HTML, use ";" as delimiter ):</th><td>
+       <%= f.text_area :emails_html %></td></tr>
+      <tr><th>Extra E-mail(s) ( use ";" as delimiter ):</th><td>
+       <%= f.text_area :emails_extra %></td></tr>
+      <tr><th>First name:</th><td>
+       <%= f.text_field :first_name %></td></tr>
+      <tr><th>Mid name:</th><td>
+       <%= f.text_field :mid_name %></td></tr>
+      <tr><th>Last name:</th><td>
+       <%= f.text_field :last_name %></td></tr>
+      <tr><th>Phone:</th><td>
+       <%= f.text_field :phone_1 %>-<%= f.text_field :phone_2 %>-<%= f.text_field :phone_3 %></td></tr>
+      <tr><th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th><td>
+       <%= f.text_area :data_sources %></td></tr>
+      <tr><th>MarketerNet PO:</th><td>
+       <%= f.text_field :marketer_net_po %></td></tr>
+      <tr><th>Wants data printed:</th><td>
+       <%= f.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %></td></tr>
+      <tr><th>Comments:</th><td>
+       <%= f.text_area :comments %></td></tr>
+     </table>
+
+
+ </div>
+
+
+      <div id="address">
+        <%fields_for :address do |p| %>
+      <table>
+
+      <tr><th>Address:</th><td>
+       <%= p.text_field :address %></td></tr>
+     <tr><th>City:</th><td>
+       <%= p.text_field :city %></td></tr>
+     <tr><th>State:</th><td>
+       <%= p.text_field :state %></td></tr>
+     <tr><th>Zip:</th><td>
+       <%= p.text_field :postal_code %></td></tr>
+     </table>
+  <% end %>
+
+    </div>
+
+
+
+
 	<%= submit_tag "Save changes" %>
-	
+
 	<% end %>
 <% end -%>

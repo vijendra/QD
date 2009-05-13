@@ -1,25 +1,26 @@
 class ProfilesController < ApplicationController
   before_filter :find_profile
   before_filter :check_owner_access, :only => [:edit, :update]
-  
+
   def show
     # render show.html.erb
   end
-  
+
   def edit
-    # render edit.html.erb
+
   end
-  
-  def update    
+
+  def update
     unless @profile.nil?
       @profile.update_attributes(params[:profile])
+      @address.update_attributes(params[:address])
       flash[:notice] = "Your profile has been succesfully updated."
       redirect_to profile_url(@profile.user)
     else
       render :edit
     end
   end
-  
+
   protected
 
   def find_profile
@@ -29,8 +30,9 @@ class ProfilesController < ApplicationController
       @user = nil
     end
     @profile = @user.nil? ? nil : @user.profile
-  end    
-  
+    @address = @user.nil? ? nil : @user.address
+  end
+
   def check_owner_access
     redirect_to profile_url(params[:id]) if logged_in? && current_user != @user
   end
