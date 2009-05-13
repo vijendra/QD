@@ -1,4 +1,8 @@
+<% if @dealers.blank?%>
+    No Record Found.
+<% else %>
 
+<h3 class="head">  Listing all dealers. </h3>
 <table class='listing'>
   <tr>
  	<th><%= remote_order_by_link (:id,:text =>"ID") %></th>
@@ -54,3 +58,4 @@
 
 
 <br />
+<%end%>

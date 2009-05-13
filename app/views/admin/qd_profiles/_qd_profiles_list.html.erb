@@ -1,3 +1,7 @@
+<% if @qd_profiles.blank?%>
+    No Record Found.
+<% else %>
+ <h3 class="head">  Listing QD data set </h3>
 <table class='listing'>
    <tr><th><%= remote_order_by_link (:listid ,:text =>"List Id ") %></th>
        <th> <%= remote_order_by_link ({:dealer =>{ :profile => :name} } ,:text =>"Dealer") %></th>
@@ -51,3 +55,4 @@
 
 
 <br />
+<%end%>
