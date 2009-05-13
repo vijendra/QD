@@ -5,7 +5,7 @@ class Admin::DealersController < ApplicationController
 
   def index
     @search = Dealer.new_search(params[:search])
-    @search.per_page ||=2
+    @search.per_page ||=10
     @dealers = @search.all
 
    respond_to do |format|

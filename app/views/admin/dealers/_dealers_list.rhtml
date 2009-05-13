@@ -1,10 +1,10 @@
 
 <table class='listing'>
   <tr>
- 	<th> ID</th>
- 	<th> Name </th>
-        <th> Email </th>
- 	<th> Contact Number </th>
+ 	<th><%= remote_order_by_link (:id,:text =>"ID") %></th>
+ 	<th><%= remote_order_by_link ({:profile => :name} ,:text => "Name" )%> </th>
+    <th><%= remote_order_by_link (:email ,:text =>"Email" ) %></th>
+ 	<th><%= remote_order_by_link ({:profile => :phone_1} ,:text => "Contact Number" )%>  </th>
  	<th> CSV UPLOAD </th>
  	<th> QD Fields </th>
  	<th> Show | Edit | Delete </th>
@@ -30,7 +30,7 @@
   <tr class="table-footer">
   	<td><%= link_to 'Create New Dealer', new_admin_dealer_path %></td>
         <td><%= remote_per_page_select %></td>
-        <td> 
+        <td>
          <% form_tag(admin_dealers_path, :method => :get, :id => "goto") do %>
              <% fields_for @search do |f|%>
                      <%= f.text_field :page, :class => 'textbox-tiny' %></td>
@@ -54,5 +54,3 @@
 
 
 <br />
-
-

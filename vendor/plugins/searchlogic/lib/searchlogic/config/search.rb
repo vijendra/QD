@@ -20,12 +20,12 @@ module Searchlogic
           per_page = per_page.last if per_page.is_a?(Array)
           @per_page = per_page
         end
-        
+
         def per_page=(value)
           @set_per_page = true
           @per_page = value
         end
-        
+
         # If you are using ActiveRecord < 2.2.0 then ActiveRecord does not remove duplicates when using the :joins option, when it should. To fix this problem searchlogic does this for you. Searchlogic tries to act
         # just like ActiveRecord, but in this instance it doesn't make sense.
         #
@@ -42,7 +42,7 @@ module Searchlogic
         def remove_duplicates? # :nodoc:
           remove_duplicates == true
         end
-        
+
         def remove_duplicates=(value) # :nodoc:
           @set_remove_duplicates = true
           @remove_duplicates = value
