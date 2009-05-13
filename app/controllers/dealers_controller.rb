@@ -62,7 +62,7 @@ class DealersController < ApplicationController
     respond_to do |format|
       if @dealers.update_attributes(params[:dealers])
         flash[:notice] = 'Dealers was successfully updated.'
-        format.html { redirect_to(@dealers) }
+        format.html { redirect_to(dealers_url) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

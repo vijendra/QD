@@ -1,0 +1,50 @@
+<% content_for :header do -%>
+Listing All Administrators
+<% end -%>
+<% if @administrators.blank?%>
+    No Record Found.
+<% else %>
+
+
+<table class='listing'>
+  <tr>
+ 	<th>ID</th>
+ 	<th>Login </th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>  </th>
+
+
+  </tr>
+<% @administrators.each do |administrator| %>
+       <tr>
+         <td> <%= administrator.id %> </td>
+         <td> <%= link_to h(administrator.login), admin_administrator_url(administrator) %> </td>
+         <td> <%= administrator.email %> </td>
+         <td> <%= administrator.state %> </td>
+          <td class="actions">
+		<% if administrator.pending? %>
+			<%= link_to 'activate', activate_admin_administrator_url(administrator), :method => :put %> |
+			<%= link_to 'suspend', suspend_admin_administrator_url(administrator), :method => :put %> |
+			<%= link_to 'delete', admin_administrator_url(administrator), :method => :delete, :confirm => "Are you sure?" %>
+		<% elsif administrator.passive? %>
+			<%= link_to 'activate', activate_admin_administrator_url(administrator), :method => :put %> |
+			<%= link_to 'suspend', suspend_admin_administrator_url(administrator), :method => :put %> |
+			<%= link_to 'delete', admin_administrator_url(administrator), :method => :delete, :confirm => "Are you sure?" %>
+		<% elsif administrator.active? %>
+			<%= link_to 'suspend', suspend_admin_administrator_url(administrator), :method => :put %> |
+			<%= link_to 'delete', admin_administrator_url(administrator), :method => :delete, :confirm => "Are you sure?" %>
+		<% elsif administrator.suspended? %>
+			<%= link_to 'unsuspend', unsuspend_admin_administrator_url(administrator), :method => :put %> |
+			<%= link_to 'delete', admin_administrator_url(administrator), :method => :delete, :confirm => "Are you sure?" %>
+		<% end %>
+	 </td>
+
+
+       </tr>
+<% end %>
+</table>
+<%end%>
+<br/>
+
+<%= link_to "Create new Admin",  new_admin_administrator_path %>

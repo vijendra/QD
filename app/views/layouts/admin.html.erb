@@ -7,7 +7,7 @@
 
 	<title><%= configatron.site_name %></title>
 
-	<%= stylesheet_link_merged :admin,'facebox' %>
+	<%= stylesheet_link_merged :base ,'facebox'%>
   	<%= javascript_include_merged :base,'facebox' %>
         <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
         <script type="text/javascript">
@@ -19,7 +19,6 @@
                       jQuery('#tabs').tabs();
 			});
 	</script>
-        
 </head>
 
 <body>
@@ -48,7 +47,7 @@
         <%= yield %>
       </div>
 
-    
+
   </div>
 
   <div id= "footer">

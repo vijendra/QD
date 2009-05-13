@@ -1,6 +1,6 @@
 <h3 class ='head'> Extra columns appended to the CSV file exported. </h3>
 
-<% form_for(:csv_extra_field,:url=>csv_extra_field_update_dealer_path(@dealer),:html => { :method => :put }) do |f| %>
+<% form_for(:csv_extra_field,:url=>dealer_csv_extra_field_path(@dealer),:html => { :method => :put }) do |f| %>
 <table class = 'listing'>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'first_name', @fields.include?("first_name"))%> </td><th>First Name</th></tr>

@@ -42,7 +42,7 @@
 			<%= link_to 'delete', admin_user_url(user), :method => :delete, :confirm => "Are you sure?" %>
 		<% elsif user.suspended? %>
 			<%= link_to 'unsuspend', unsuspend_admin_user_url(user), :method => :put %>
-			<%= link_to 'delete', admin_user_url(user), :method => :delete, :confirm => "Are you sure?" %>		
+			<%= link_to 'delete', admin_user_url(user), :method => :delete, :confirm => "Are you sure?" %>
 		<% end %>
 	</td>
   </tr>
@@ -52,5 +52,5 @@
 
 
 <p>
-	<%= link_to "Create new #{params[:role]}", new_admin_user_path %>
+	<%= link_to "Create new Admin",  new_admin_administrator_path %>
 </p>

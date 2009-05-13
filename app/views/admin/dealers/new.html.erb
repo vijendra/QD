@@ -4,39 +4,38 @@
 
 <% form_for([:admin, @dealer]) do |f| %>
   <%= f.error_messages %>
-  <legend>Login Details</legend>
-  <p><label for="login">Login</label><br/>
-     <%= f.text_field :login %>
-  </p>
 
-  <p><label for="email">Contact Email</label><br/>
-     <%= f.text_field :email %>
-  </p>
+ <div id="tabs">
+    <ul>
+	   <li><a href="#login">Login Details</a></li>
+	   <li><a href="#profile">Profile Details</a></li>
+	   <li><a href="#address">Address Details</a></li>
+	</ul>
 
-  <p><label for="password">Password</label><br/>
-     <%= f.password_field :password %>
-  </p>
+    <div id="login">
+         <p><label for="login">Login</label><br/>
+   			  <%= f.text_field :login %>
+  		</p>
 
-  <p><label for="password_confirmation">Confirm Password</label><br/>
-     <%= f.password_field :password_confirmation %>
-  </p>
-  <br />
+ 		 <p><label for="email">Contact Email</label><br/>
+   				  <%= f.text_field :email %>
+ 		 </p>
 
-  <legend>Profile Details</legend>
+    </div>
+    <div id="profile">
+       <% f.fields_for :profile do |profile_form| %>
+       <p>
+          <label>Name:<label><br/>
+            <%= profile_form.text_field :name %>
+       </p>
 
-  <% f.fields_for :profile do |profile_form| %>
-     <p>
-       <label>Name:<label><br/>
-       <%= profile_form.text_field :name %>
-     </p>
+       <p>
+      	   <label>E-mail(s) ( XML, use ";" as delimiter ):</label><br/>
+       		<%= profile_form.text_area :emails_xml %>
+       </p>
 
-     <p>
-       <label>E-mail(s) ( XML, use ";" as delimiter ):</label><br/>
-       <%= profile_form.text_area :emails_xml %>
-     </p>
-
-     <p>
-       <label>E-mail(s) ( HTML, use ";" as delimiter ):<label><br/>
+       <p>
+         <label>E-mail(s) ( HTML, use ";" as delimiter ):<label><br/>
        <%= profile_form.text_area :emails_html %>
      </p>
 
@@ -64,10 +63,31 @@
        <label>Phone:<label><br/>
        <%= profile_form.text_field :phone_1 %>-<%= profile_form.text_field :phone_2 %>-<%= profile_form.text_field :phone_3 %>
      </p>
-  <% end %>
 
+    <p>
+       <label>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:<label><br/>
+       <%= profile_form.text_area :data_sources %>
+     </p>
 
-  <% f.fields_for :address do |address_form| %>
+     <p>
+       <label>MarketerNet PO:<label><br/>
+       <%= profile_form.text_field :marketer_net_po %>
+     </p>
+
+     <p>
+       <label>Wants data printed:<label><br/>
+       <%= profile_form.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %>
+     </p>
+
+     <p>
+       <label>Comments:<label><br/>
+       <%= profile_form.text_area :comments %>
+     </p>
+
+      <% end %>
+    </div>
+    <div id="address">
+        <% f.fields_for :address do |address_form| %>
      <p>
        <label>Address:<label><br/>
        <%= address_form.text_field :address %>
@@ -89,28 +109,18 @@
      </p>
   <% end %>
 
-  <% f.fields_for :profile do |profile_form| %>
-     <p>
-       <label>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:<label><br/>
-       <%= profile_form.text_area :data_sources %>
-     </p>
+    </div>
 
-     <p>
-       <label>MarketerNet PO:<label><br/>
-       <%= profile_form.text_field :marketer_net_po %>
-     </p>
 
-     <p>
-       <label>Wants data printed:<label><br/>
-       <%= profile_form.select :wants_data_printed, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %>
-     </p>
 
-     <p>
-       <label>Comments:<label><br/>
-       <%= profile_form.text_area :comments %>
-     </p>
+ </div>
 
-  <% end %>
+
+
+
+
+
+
   <p>
     <%= f.submit 'Create' %>
   </p>

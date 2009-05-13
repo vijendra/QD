@@ -44,8 +44,7 @@ class Admin::DealersController < ApplicationController
   # GET /dealers/1/edit
   def edit
     @dealer = Dealer.find(params[:id])
-    @profile = @dealer.profile
-    @address = @dealer.address
+
   end
 
   # POST /dealers
@@ -67,17 +66,13 @@ class Admin::DealersController < ApplicationController
     end
   end
 
-  # PUT /dealers/1
-  # PUT /dealers/1.xml
+
   def update
     @dealer = Dealer.find(params[:id])
-    @dealer.profile.update_attributes(params[:profile_attributes])
-    @dealer.address.update_attributes(params[:address_attributes])
-
     respond_to do |format|
-      if @dealer.update_attributes(params[:dealers])
+      if @dealer.update_attributes(params[:dealer])
         flash[:notice] = 'Dealer was successfully updated.'
-        format.html { redirect_to(@dealer) }
+        format.html { redirect_to(admin_dealers_path) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
