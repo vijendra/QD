@@ -1,9 +1,8 @@
 <h3 class ='head'> Extra columns appended to the CSV file exported. </h3>
+<% form_for(:csv_extra_field,:url=>dealer_csv_extra_field_path(@dealer.id),:method =>:post ) do |f| %>
+<h3> New CSV Extra Fields </h3><br/>
+<table>
 
-<% form_for(:csv_extra_field,:url=>csv_extra_field_create_dealer_path(@dealer.id),:method =>:post ) do |f| %>
-<h3>CSV Fields</h3><br/>
-<table class = 'listing'>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'fname', true)%> </td><th>First Name</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mname', true)%></td><th> Middle Name</th></tr>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'lname', true)%> </td><th> Last Name </th></tr>
@@ -13,9 +12,8 @@
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'state', true)%></td><th> State</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'postal_code', true)%></td><th> Zip</th></tr>
 
-
    <tr> <td><%=f.submit "Save" %></td> </tr>
 
 </table><br/>
- <%= link_to "Back" ,dealers_url %>
+ <%= link_to "Back" ,"/dashboard/index" %>
 <%end%>

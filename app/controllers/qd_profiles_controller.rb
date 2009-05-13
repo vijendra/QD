@@ -2,11 +2,20 @@ class QdProfilesController < ApplicationController
   require 'fastercsv'
 
   def index
-    @qd_profiles = current_user.qd_profiles
+    #@qd_profiles = current_user.qd_profiles
+
+    @search = QdProfile.new_search(params[:search])
+    @search.conditions.dealer_id = current_user.id
+    @search.per_page ||= 2
+    @qd_profiles = @search.all
     @fields_to_be_shown = current_user.dealer_field.fields rescue []
 
     respond_to do |format|
                    format.html
+                   format.js {  render :update do |page|
+      	                           page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
+     	                        end
+      	                      }
                    format.csv {
                                csv_file = FasterCSV.generate do |csv|
                                   csv_headers = {:name => 'Dealer Name', :first_name => 'Dealer F Name', :last_name => 'Dealer L Name', :phone_num => 'Dealer Phone num', :address => 'Dealer Address', :city => 'Dealer City', :state => 'Dealer State', :postal_code => 'Dealer Postal Code'}

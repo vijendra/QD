@@ -1,5 +1,6 @@
-<% form_for(:dealer_field,:url=>dealer_fields_update_admin_dealer_path(@dealer),:html => { :method => :put }) do |f| %>
 
+<% form_for(:dealer_field,:url=>admin_dealer_dealer_field_path(@dealer),:html => { :method => :put }) do |f| %>
+<h3> Edit Dealer Fields </h3><br/>
 <table>
 
    <tr><td> <%= check_box_tag("dealer_fields[]", 'listid', @fields.include?("listid") ) %></td><th>List ID</th></tr>
@@ -16,10 +17,9 @@
    <tr> <td><%= check_box_tag("dealer_fields[]", 'dpc', @fields.include?("dpc"))%> </td><th> Dpc</th></tr>
    <tr> <td> <%= check_box_tag("dealer_fields[]", 'phone_num', @fields.include?("phone_num"))%> </td><th> Phone Number </th></tr>
 
-
-   <tr> <td><%=f.submit "update" %></td></tr>
-
 </table><br/>
+  <%=f.submit "update" %>
+  <br/>
  <%= link_to "Back" , admin_dealers_url %>
 
 <%end%>
