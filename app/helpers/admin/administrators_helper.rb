@@ -1,2 +1,2 @@
-module Admin::AdminsHelper
+module Admin::AdministratorsHelper
 end
