@@ -14,25 +14,25 @@
 
 <body>
   <div id="header">
-        <h1><%= image_tag('logo.gif') %></h1>
-     </div>
+     <h1><%= image_tag('logo.gif') %></h1>
+  </div>
+
   <div id="main">
-	<div id="left">
-		
+     <div id="left">
 	<h2 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h2>
 	
-     <%= flash_message %>
+        <%= flash_message %>
 
-      <div id="screen">
-        <%= yield %>
-      </div>
-    </div>
+        <div id="screen">
+           <%= yield %>
+        </div>
+     </div>
+  </div>
 
+  <div id= "footer">
+      Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://isiritech.com" , {:target => "_blank" }%>
   </div>
-  <div id="footer">
-    <%= configatron.site_name %> by <%= configatron.company_name %><br />
-	Copyright © <%= configatron.company_name %>
-  </div>
+
 
 
 </body>

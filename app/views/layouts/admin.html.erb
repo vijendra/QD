@@ -9,7 +9,16 @@
 
 	<%= stylesheet_link_merged :admin,'facebox' %>
   	<%= javascript_include_merged :base,'facebox' %>
-        
+        <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
+        <script type="text/javascript">
+           jQuery.noConflict();
+        </script>
+
+        <script type="text/javascript">
+		jQuery(function(){
+                      jQuery('#tabs').tabs();
+			});
+	</script>
         
 </head>
 
@@ -43,7 +52,7 @@
   </div>
 
   <div id= "footer">
-      Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by ISIRI Technologies Pvt Ltd.
+      Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://isiritech.com" , {:target => "_blank" }%>
   </div>
 
 

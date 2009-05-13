@@ -1,25 +1,18 @@
+<h3 class ='head'> Extra columns appended to the CSV file exported. </h3>
+
 <% form_for(:csv_extra_field,:url=>csv_extra_field_update_dealer_path(@dealer),:html => { :method => :put }) do |f| %>
-
-<table>
-
-
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'fname', @fields.include?("fname"))%> </td><th>First Name</th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mname', @fields.include?("mname"))%></td><th> Middle Name</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'lname', @fields.include?("lname"))%> </td><th> Last Name </th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'emails_xml', @fields.include?("emails_xml"))%> </td><th> Emails xml</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'emails_html', @fields.include?("emails_html"))%> </td><th> Emails Html</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'emails_extra', @fields.include?("emails_extra"))%> </td><th> Emails Extra</th></tr>
-
+<table class = 'listing'>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'first_name', @fields.include?("first_name"))%> </td><th>First Name</th></tr>
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mid_name', @fields.include?("mid_name"))%></td><th> Middle Name</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'last_name', @fields.include?("last_name"))%> </td><th> Last Name </th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'phone_num', @fields.include?("phone_num"))%> </td><th> Phone Number </th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'address', @fields.include?("address"))%></td><th> Address</th></tr>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'city', @fields.include?("city"))%> </td><th> City</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'state', @fields.include?("state"))%></td><th> State</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'postal_code', @fields.include?("postal_code"))%></td><th> Zip</th></tr>
-
-
-   <tr> <td><%=f.submit "update" %></td></tr>
-
 </table><br/>
+<%=f.submit "update" %>
  <%= link_to "Back" , dealers_url %>
 
 <%end%>

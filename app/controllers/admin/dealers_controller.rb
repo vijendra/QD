@@ -55,6 +55,8 @@ class Admin::DealersController < ApplicationController
 
     respond_to do |format|
       if @dealer.save
+        @dealer.register!
+        @dealer.activate!
         flash[:notice] = 'Dealer was successfully created.'
         format.html { redirect_to(admin_dealer_path(@dealer))}
         format.xml  { render :xml => @dealer, :status => :created, :location => @dealer }
