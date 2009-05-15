@@ -11,7 +11,13 @@
         <% f.fields_for @search.conditions do |p| %>
          <% p.fields_for p.object.profile do |profile| %>
                <td><%= profile.text_field :name_like, :class => 'textbox' %></td>
-               <td><%= profile.text_field :phone_1_like, :class => 'textbox' %>  </td>
+               <td><%= profile.text_field :phone_1_like, :class => 'textbox-tiny' %> -
+                   <%= profile.text_field :phone_2_like, :class => 'textbox-tiny' %> -
+                   <%= profile.text_field :phone_3_like, :class => 'textbox-tiny' %>
+
+
+
+                </td>
          <%end%>
          <td><%= p.text_field :email_like, :class => 'textbox' %></td>
        <%end%>

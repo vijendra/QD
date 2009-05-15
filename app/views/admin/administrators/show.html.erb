@@ -30,6 +30,7 @@
     -->
 </ul>
 <% end -%>
+   <%= image_tag (@administrator.administrator_profile.administrator_logo.url(:thumb)) %>
 
 <table class="overview">
 	<%= cell "Login", "#{in_place_editor_field :administrator, 'login'}" %>

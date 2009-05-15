@@ -1,24 +1,64 @@
 <% content_for :header do -%>
-   Editing Administration
+   Editing Administrator
 <% end -%>
 
+<% form_for([:admin, @administrator] ,:html => { :multipart => true }) do |f| %>
+<label> Administrator Logo </label>
+   <%= image_tag (@administrator.administrator_profile.administrator_logo.url(:thumb)) %>
+  <div id="tabs">
+    <ul>
+	   <li><a href="#login">Login Details</a></li>
+	   <li><a href="#profile">Profile Details</a></li>
+	   <li><a href="#address">Address Details</a></li>
+	</ul>
+  <div id="login">
+  <table>
+         <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
+         <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
+  </table>
 
 
-<% form_for([:admin, @administrator]) do |f| %>
-  <%= f.error_messages %>
-   <p><label for="login">Login</label><br/>
-     <%= f.text_field :login %>
-  </p>
+   <br/>
+   </div>
+    <div id="profile">
+      <% f.fields_for :administrator_profile do |administrator_profile_form| %>
 
-  <p><label for="email">Contact Email</label><br/>
-     <%= f.text_field :email %>
-  </p>
+       <table>
+        <tr> <th>Change Administrator Logo :</th><td> <%= administrator_profile_form.file_field  :administrator_logo   %> </td></tr>
 
 
-  <p>
+        <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
+        <tr><th>Corporation Name :</th><td><%= administrator_profile_form.text_field :corp_name ,:class =>"textbox" %>
+        <tr><th>Email :</th><td><%= administrator_profile_form.text_field :emails_extra ,:class =>"textbox" %>
+        <tr><th>Fax :</th><td><%= administrator_profile_form.text_field :fax ,:class =>"textbox" %>
+          <tr><th>Phone :</th><td> <%= administrator_profile_form.text_field :phone_1 ,:class =>'textbox-tiny' %>-<%= administrator_profile_form.text_field :phone_2,:class =>'textbox-tiny'  %>-<%= administrator_profile_form.text_field :phone_3,:class =>'textbox-tiny'  %></td></tr>
+
+       <tr> <th>Comments:</th><td>
+                           <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
+
+
+   </table>
+
+     <%end%>
+       </div>
+       <div id="address">
+      <% f.fields_for :address do |address_form| %>
+      <table>
+         <tr> <th> Address: </th><td> <%= address_form.text_field :address ,:class =>'textbox'%> </td></tr>
+         <tr> <th> City:</th><td> <%= address_form.text_field :city ,:class =>'textbox'%> </td></tr>
+         <tr> <th>State:</th><td> <%= address_form.text_field :state ,:class =>'textbox'%> </td></tr>
+        <tr> <th>Zip:</th><td> <%= address_form.text_field :postal_code ,:class =>'textbox'%> </td></tr>
+      </table>
+  <% end %>
+  </div>
+<br/>
     <%= f.submit 'Update' %>
-  </p>
+
 <% end %>
+
+
+
+
 
 <%= link_to 'Show', admin_administrator_path(@administrator) %> |
 <%= link_to 'Back', admin_administrators_path %>

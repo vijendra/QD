@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
   include Authorization::AasmRoles
-  
+
   # Validations
   validates_presence_of :login, :if => :not_using_openid?
   validates_length_of :login, :within => 3..40, :if => :not_using_openid?
@@ -24,18 +24,19 @@ class User < ActiveRecord::Base
   # Relations
   has_and_belongs_to_many :roles
   has_one :profile
-  has_one :address 
+  has_one :address
+
   accepts_nested_attributes_for :profile, :address
 
   # Hooks
   #after_create :create_profile
-  
+
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-   attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url, :address_attributes, :profile_attributes
-  
-  # has_role? simply needs to return true or false whether a user has a role or not.  
+       attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url, :address_attributes, :profile_attributes, :administrator_profile_attributes
+
+  # has_role? simply needs to return true or false whether a user has a role or not.
   # It may be a good idea to have "admin" roles return true always
   def has_role?(role)
     list ||= self.roles.collect(&:name)
@@ -51,7 +52,7 @@ class User < ActiveRecord::Base
   def not_using_openid?
     identity_url.blank?
   end
-  
+
   def password_required?
     new_record? ? not_using_openid? && (crypted_password.blank? || !password.blank?) : !password.blank?
   end
@@ -61,7 +62,7 @@ class User < ActiveRecord::Base
   rescue
     errors.add_to_base("Invalid OpenID URL")
   end
-  
+
   # Creates a new password for the user, and notifies him with an email
   def reset_password!
     password = PasswordGenerator.random_pronouncable_password(3)
@@ -69,22 +70,22 @@ class User < ActiveRecord::Base
     self.password_confirmation = password
     self.password_reset_code = nil
     save
-    
+
     UserMailer.deliver_reset_password(self)
   end
-  
+
   def forgot_password
     self.make_password_reset_code
     save
     UserMailer.deliver_forgot_password(self)
   end
-  
+
   def self.find_by_login_or_email(login_or_email)
     find(:first, :conditions => ['login = ? OR email = ?', login_or_email, login_or_email])
   rescue
     nil
   end
-    
+
 protected
 
   def make_activation_code
@@ -95,10 +96,10 @@ protected
   def make_password_reset_code
     self.password_reset_code = self.class.make_token
   end
-  
+
   def create_profile
     # Give the user a profile
-    self.profile = Profile.create    
+    self.profile = Profile.create
   end
 
 end

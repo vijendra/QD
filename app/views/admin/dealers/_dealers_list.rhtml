@@ -8,7 +8,7 @@
  	<th><%= remote_order_by_link (:id,:text =>"ID") %></th>
  	<th><%= remote_order_by_link ({:profile => :name} ,:text => "Name" )%> </th>
     <th><%= remote_order_by_link (:email ,:text =>"Email" ) %></th>
- 	<th><%= remote_order_by_link ({:profile => :phone_1} ,:text => "Contact Number" )%>  </th>
+ 	<th> Contact Number </th>
  	<th> CSV UPLOAD </th>
  	<th> QD Fields </th>
  	<th> Show | Edit | Delete </th>
@@ -19,7 +19,7 @@
          <td> <%= dealer.id %> </td>
          <td> <%= dealer.profile.name %> </td>
          <td> <%= dealer.email %> </td>
-         <td> <%= dealer.profile.phone_1 %></td>
+         <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
          <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>
          <td> <%= link_to "show",admin_dealer_path(dealer.id)  %> |
@@ -29,7 +29,7 @@
        </tr>
 <% end %>
 </table>
-
+<%end%>
 <table class='table-bottom'>
   <tr class="table-footer">
   	<td><%= link_to 'Create New Dealer', new_admin_dealer_path %></td>
@@ -58,4 +58,3 @@
 
 
 <br />
-<%end%>

@@ -3,23 +3,52 @@ Create a new Administrator
 <% end -%>
 
 
+<br/>
 
+
+<% form_for([:admin, @administrator], :html => { :multipart => true } ) do |f| %>
 <%= error_messages_for :administrator %>
+  <table>
+         <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
+         <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
 
-<% form_for :administrator, :url => admin_administrators_path do |f| -%>
-<p><label for="login">Login</label><br/>
-<%= f.text_field :login %></p>
+         <tr> <th>Password : </th> <td> <%= f.password_field :password ,:class => 'textbox'%> </td></tr>
 
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
+         <tr> <th> Confirm Password : </th> <td> <%= f.password_field :password_confirmation ,:class => 'textbox'%></td></tr>
 
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
+   </table>
+   <br/>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field :password_confirmation %></p>
+      <% f.fields_for :administrator_profile do |administrator_profile_form| %>
+      <table>
 
-<p><%= submit_tag 'Create account' %></p>
+        <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
+        <tr> <th>First name:</th><td>
+                                         <%= administrator_profile_form.text_field :first_name ,:class =>'textbox' %></td></tr>
+            <tr> <th>Mid name:</th><td>
+                                           <%= administrator_profile_form.text_field :mid_name ,:class =>'textbox'  %></td></tr>
+            <tr> <th>Last name:</th><td>
+                                          <%= administrator_profile_form.text_field :last_name ,:class =>'textbox' %></td></tr>
+        <tr><th>Corporation Name :</th><td><%= administrator_profile_form.text_field :corp_name ,:class =>"textbox" %>
+        <tr><th>Email :</th><td><%= administrator_profile_form.text_field :emails_extra ,:class =>"textbox" %>
+        <tr><th>Fax :</th><td><%= administrator_profile_form.text_field :fax ,:class =>"textbox" %>
+          <tr><th>Phone :</th><td> <%= administrator_profile_form.text_field :phone_1 ,:class =>'textbox-tiny' %>-<%= administrator_profile_form.text_field :phone_2,:class =>'textbox-tiny'  %>-<%= administrator_profile_form.text_field :phone_3,:class =>'textbox-tiny'  %></td></tr>
+
+       <tr> <th>Comments:</th><td>
+                           <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
+    <tr> <th>Logo upload:</th><td> <%= administrator_profile_form.file_field  :administrator_logo   %> </td></tr>
+   </table>
+     <%end%>
+      <% f.fields_for :address do |address_form| %>
+      <table>
+         <tr> <th> Address: </th><td> <%= address_form.text_field :address ,:class =>'textbox'%> </td></tr>
+         <tr> <th> City:</th><td> <%= address_form.text_field :city ,:class =>'textbox'%> </td></tr>
+         <tr> <th>State:</th><td> <%= address_form.text_field :state ,:class =>'textbox'%> </td></tr>
+        <tr> <th>Zip:</th><td> <%= address_form.text_field :postal_code ,:class =>'textbox'%> </td></tr>
+      </table>
+  <% end %>
+
+   <%= submit_tag 'Create account' %>
 <% end -%>
 
 <%= link_to 'Back', admin_administrators_path %>

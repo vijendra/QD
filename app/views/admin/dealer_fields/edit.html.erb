@@ -1,7 +1,7 @@
 
 <% form_for(:dealer_field,:url=>admin_dealer_dealer_field_path(@dealer),:html => { :method => :put }) do |f| %>
 <h3> Edit Dealer Fields </h3><br/>
-<table>
+<table class = 'listing'>
 
    <tr><td> <%= check_box_tag("dealer_fields[]", 'listid', @fields.include?("listid") ) %></td><th>List ID</th></tr>
    <tr> <td><%= check_box_tag("dealer_fields[]", 'fname', @fields.include?("fname"))%> </td><th>First Name</th></tr>

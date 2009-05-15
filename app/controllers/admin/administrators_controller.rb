@@ -25,7 +25,8 @@ class Admin::AdministratorsController < ApplicationController
 
   def new
     @administrator = Administrator.new
-
+    @administrator.build_administrator_profile
+    @administrator.build_address
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @administrator }
@@ -43,6 +44,7 @@ class Admin::AdministratorsController < ApplicationController
 
     respond_to do |format|
       if @administrator.save
+
       	@administrator.register!
         @administrator.activate!
         flash[:notice] = 'Administrator was successfully created.'

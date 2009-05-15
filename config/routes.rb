@@ -3,9 +3,6 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-
-
-
   map.resources :dealers ,:has_one =>[:csv_extra_field]
 
 
@@ -45,7 +42,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :settings
     admin.resources :dealers ,:has_one =>[:dealer_field]
     admin.resources :qd_profiles
-    admin.resources :administrators ,:member => { :suspend   => :put,
+
+    admin.resources :administrators ,:has_one =>[:administrator_profile] ,:member => { :suspend   => :put,
                                          :unsuspend => :put,
                                          :activate  => :put,
                                          :purge     => :delete,

@@ -34,30 +34,30 @@
 
          <table>
             <tr><th>Name: </th><td>
-            <%= f.text_field :name %></td></tr>
+            <%= f.text_field :name ,:class =>'textbox'%></td></tr>
         <tr><th>
       	   E-mail(s) ( XML, use ";" as delimiter ):</th><td>
-       		<%= f.text_area :emails_xml %></td></tr>
+       		<%= f.text_area :emails_xml ,:class =>"textarea" %></td></tr>
         <tr><th>E-mail(s) ( HTML, use ";" as delimiter ):</th><td>
-       <%= f.text_area :emails_html %></td></tr>
+       <%= f.text_area :emails_html ,:class =>"textarea"%></td></tr>
       <tr><th>Extra E-mail(s) ( use ";" as delimiter ):</th><td>
-       <%= f.text_area :emails_extra %></td></tr>
+       <%= f.text_area :emails_extra ,:class =>"textarea"%></td></tr>
       <tr><th>First name:</th><td>
-       <%= f.text_field :first_name %></td></tr>
+       <%= f.text_field :first_name ,:class =>'textbox' %></td></tr>
       <tr><th>Mid name:</th><td>
-       <%= f.text_field :mid_name %></td></tr>
+       <%= f.text_field :mid_name ,:class =>'textbox'%></td></tr>
       <tr><th>Last name:</th><td>
-       <%= f.text_field :last_name %></td></tr>
+       <%= f.text_field :last_name ,:class =>'textbox'%></td></tr>
       <tr><th>Phone:</th><td>
-       <%= f.text_field :phone_1 %>-<%= f.text_field :phone_2 %>-<%= f.text_field :phone_3 %></td></tr>
+       <%= f.text_field :phone_1 ,:class =>'textbox-tiny'%>-<%= f.text_field :phone_2,:class =>'textbox-tiny' %>-<%= f.text_field :phone_3,:class =>'textbox-tiny' %></td></tr>
       <tr><th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th><td>
        <%= f.text_area :data_sources %></td></tr>
       <tr><th>MarketerNet PO:</th><td>
-       <%= f.text_field :marketer_net_po %></td></tr>
+       <%= f.text_field :marketer_net_po ,:class =>'textbox' %></td></tr>
       <tr><th>Wants data printed:</th><td>
        <%= f.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %></td></tr>
       <tr><th>Comments:</th><td>
-       <%= f.text_area :comments %></td></tr>
+       <%= f.text_area :comments ,:class =>"textarea" %></td></tr>
      </table>
 
 
@@ -69,13 +69,13 @@
       <table>
 
       <tr><th>Address:</th><td>
-       <%= p.text_field :address %></td></tr>
+       <%= p.text_field :address ,:class =>'textbox' %></td></tr>
      <tr><th>City:</th><td>
-       <%= p.text_field :city %></td></tr>
+       <%= p.text_field :city ,:class =>'textbox' %></td></tr>
      <tr><th>State:</th><td>
-       <%= p.text_field :state %></td></tr>
+       <%= p.text_field :state ,:class =>'textbox' %></td></tr>
      <tr><th>Zip:</th><td>
-       <%= p.text_field :postal_code %></td></tr>
+       <%= p.text_field :postal_code ,:class =>'textbox'  %></td></tr>
      </table>
   <% end %>
 

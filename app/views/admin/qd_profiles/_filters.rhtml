@@ -11,10 +11,12 @@
 
                <% p.fields_for p.object.dealer do |dealer| %>
                   <% dealer.fields_for dealer.object.profile do |profile| %>
-                    <td><%= profile.text_field :name_like, :class => 'textbox' %></td>
+                    <td><%= profile.text_field :name_like, :class => 'textbox' %>
                     <%end%>
                <%end%>
+          / <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
 
+             </td>
 
            <td><%= p.text_field :fname_like, :class => 'textbox' %></td>
            <td><%= p.text_field :lname_like, :class => 'textbox' %></td>
