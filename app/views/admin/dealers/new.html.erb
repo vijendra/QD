@@ -14,7 +14,7 @@
 
     <div id="login">
        <br/>
-         <table> <tr> <th> Login : </th><td> <%= f.text_field :login ,:class =>'textbox' %> </td></tr>
+         <table class ='form-table'> <tr> <th> Login : </th><td> <%= f.text_field :login ,:class =>'textbox' %> </td></tr>
                  <tr> <th> Contact Email : </th><td> <%= f.text_field :email ,:class =>'textbox'  %> </td></tr>
                  <tr> <th>Password : </th> <td> <%= f.password_field :password ,:class => 'textbox'%> </td></tr>
          <tr> <th> Confirm Password : </th> <td> <%= f.password_field :password_confirmation ,:class => 'textbox'%></td></tr>
@@ -26,7 +26,7 @@
     <div id="profile">
        <% f.fields_for :profile do |profile_form| %>
        <br/>
-         <table>
+         <table class ='form-table'>
             <tr> <th>Name:</th><td> <%= profile_form.text_field :name ,:class =>'textbox'  %> </td></tr>
             <tr> <th>E-mail(s) ( XML, use ";" as delimiter ):</th><td>
        	                                  <%= profile_form.text_area :emails_xml ,:class =>'textarea'%></td></tr>
@@ -45,7 +45,7 @@
             <tr> <th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th><td>
                                                  <%= profile_form.text_area :data_sources %></td></tr>
             <tr> <th>MarketerNet PO:</th><td>
-                                    <%= profile_form.text_field :marketer_net_po,:class =>'textbox'  %></td></tr>
+                                    <%= profile_form.text_field :marketer_net_po, :class =>'textbox'  %></td></tr>
             <tr> <th>Wants data printed:</th><td>
                    <%= profile_form.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']]  %></td></tr>
             <tr> <th>Comments:</th><td>
@@ -58,11 +58,11 @@
     <div id="address">
        <br/>
         <% f.fields_for :address do |address_form| %>
-      <table>
-         <tr> <th> Address: </th><td> <%= address_form.text_field :address %> </td></tr>
-         <tr> <th> City:</th><td> <%= address_form.text_field :city %> </td></tr>
-         <tr> <th>State:</th><td> <%= address_form.text_field :state %> </td></tr>
-        <tr> <th>Zip:</th><td> <%= address_form.text_field :postal_code %> </td></tr>
+      <table class ='form-table'>
+         <tr> <th> Address: </th><td> <%= address_form.text_field :address, :class =>'textbox' %> </td></tr>
+         <tr> <th> City:</th><td> <%= address_form.text_field :city, :class =>'textbox' %> </td></tr>
+         <tr> <th>State:</th><td> <%= address_form.text_field :state, :class =>'textbox' %> </td></tr>
+        <tr> <th>Zip:</th><td> <%= address_form.text_field :postal_code, :class =>'textbox' %> </td></tr>
       </table>
   <% end %>
      <br/>

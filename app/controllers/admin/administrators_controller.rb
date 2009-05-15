@@ -2,24 +2,13 @@ class Admin::AdministratorsController < ApplicationController
   require_role :admin
   layout 'admin'
 
-
   def index
     @administrators = Administrator.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @administrator }
-    end
   end
 
 
   def show
     @administrator = Administrator.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @administrator }
-    end
   end
 
 
@@ -27,10 +16,6 @@ class Admin::AdministratorsController < ApplicationController
     @administrator = Administrator.new
     @administrator.build_administrator_profile
     @administrator.build_address
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @administrator }
-    end
   end
 
 
@@ -38,50 +23,36 @@ class Admin::AdministratorsController < ApplicationController
     @administrator = Administrator.find(params[:id])
   end
 
-
   def create
     @administrator = Administrator.new(params[:administrator])
-
-    respond_to do |format|
-      if @administrator.save
-
-      	@administrator.register!
-        @administrator.activate!
-        flash[:notice] = 'Administrator was successfully created.'
-        format.html { redirect_to(admin_administrators_url) }
-        format.xml  { render :xml => @administrator, :status => :created, :location => @administrator }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @administrator.errors, :status => :unprocessable_entity }
-      end
+      
+    if @administrator.save
+      @administrator.register!
+      @administrator.activate!
+      flash[:notice] = 'Administrator was successfully created.'
+      redirect_to(admin_administrators_url)
+    else
+      render :action => "new"
     end
-  end
 
+  end
 
   def update
     @administrator = Administrator.find(params[:id])
 
-    respond_to do |format|
       if @administrator.update_attributes(params[:administrator])
         flash[:notice] = 'Administrator was successfully updated.'
-        format.html { redirect_to(admin_administrator_path(@administrator) ) }
-        format.xml  { head :ok }
+        redirect_to(admin_administrator_path(@administrator) )
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @administrator.errors, :status => :unprocessable_entity }
+        render :action => "edit"  
       end
-    end
   end
 
 
   def destroy
     @administrator = Administrator.find(params[:id])
     @administrator.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(admin_administrators_url) }
-      format.xml  { head :ok }
-    end
+    redirect_to(admin_administrators_url)
   end
 
   def activate

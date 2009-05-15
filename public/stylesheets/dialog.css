@@ -18,10 +18,10 @@ body {
 #header h1 {
 	font-weight: bold;
 	color: #B40D0D;
-	padding: .3em  0em  0em  1em ;
+        	padding: .3em  0em  0em  0em ;
 	margin: 0 auto;
 	font-size: 30px;
-        width: 30%;
+        width: 25%;
 }
 
 a:link, a:visited {
@@ -36,24 +36,24 @@ fieldset {
 	border-top: 1px solid #999;
 }
 fieldset legend {
-	font-size: 140%;
+	font-size: 120%;
 	margin: 0 10px 0 15px;
 	padding: 0 5px;
 }
 fieldset div.js_option {
-	text-align: right;
+	text-align: right;	padding: .3em  0em  0em  1em ;
 	font-size: 87%;
 }
 input[type="text"], input[type="password"] {
-	font-size: 1.4em;
+	font-size: 1.2em;
 	width: 92%;
 	margin: 0.4em;
 }
 input[type="submit"] {
-	font-size:  1.4em;
+	font-size:  1.2em;
 }
 label {
-	font-size: 1.4em;
+	font-size: 1.2em;
 }
 #submitbutton {
 	margin: 0.8em;
@@ -152,5 +152,17 @@ div.progressBar div.background {
 }
 /** Footer */
 #footer {
-	display: none;
+        margin: 0 auto;
+        width: 25%;
+        padding-top: 15px;
+        padding-bottom: 10px;
+	color: #500606;
+	font-size: 0.8em;
+}
+#footer a:link {
+	color: #b5aea1;
+	font-size: 0.8em;
+}
+#footer a:hover {
+	color: #fff;
 }
