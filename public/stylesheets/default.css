@@ -25,11 +25,20 @@ input.textbox{
         height: 17px;
 }
 
+input.textbox-small{
+	border:#7D99B2 1px solid;
+	background:#ffffff url(/images/field-top.gif) repeat-x top;
+	padding:2px 2px;
+
+	width:100px;
+        height: 17px;
+}
+
 input.textbox-tiny{
 	border:#7D99B2 1px solid;
 	background:#ffffff url(/images/field-top.gif) repeat-x top;
 	padding:2px 2px;
-	width:30px;
+	width:40px;
 }
 
 

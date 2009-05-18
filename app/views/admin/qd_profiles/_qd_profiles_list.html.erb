@@ -8,6 +8,7 @@
        <th> State </th>
        <th> Zip </th>
        <th> Crrt </th>
+       <th> Imported on </th>
    </tr>
 
  <% if @qd_profiles.blank?%>
@@ -23,6 +24,7 @@
            <td> <%= profile.state %> </td>
            <td> <%= profile.zip %> </td>
            <td> <%= profile.crrt %> </td>
+           <td> <%= Time.parse(profile.created_at.to_s).to_date %> </td>
       </tr>
 
     <% end %>
