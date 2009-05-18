@@ -11,7 +11,7 @@
    </tr>
 
  <% if @qd_profiles.blank?%>
-     No Record Found.
+     No Records Found.
  <% else %>
    <% @qd_profiles.each do |profile| %>
       <tr> <td> <%= profile.listid %> </td>
@@ -27,6 +27,7 @@
 
     <% end %>
 </table>
+
  <table class='table-bottom'>
   <tr class="table-footer">
   	    <td><%= remote_per_page_select %></td>

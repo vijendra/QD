@@ -84,7 +84,7 @@ class Baseapp < ActiveRecord::Migration
     
     user = User.create do |u|
       u.login = 'admin'
-      u.password = u.password_confirmation = 'yippeekayea'
+      u.password = u.password_confirmation = 'password'
       u.email = 'nospam@example.com'
     end
     

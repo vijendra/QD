@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090508093436) do
+ActiveRecord::Schema.define(:version => 20090512053129) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address"
@@ -22,23 +22,16 @@ ActiveRecord::Schema.define(:version => 20090508093436) do
     t.datetime "updated_at"
   end
 
-  create_table "dealers", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.string   "auth_code"
-    t.text     "emails_xml"
-    t.text     "emails_html"
-    t.text     "emails_extra"
-    t.string   "first_name"
-    t.string   "mid_name"
-    t.string   "last_name"
-    t.string   "phone_1"
-    t.string   "phone_2"
-    t.string   "phone_3"
-    t.text     "data_sources"
-    t.string   "marketer_net_po"
-    t.boolean  "wants_data_printed"
-    t.text     "comments"
+  create_table "csv_extra_fields", :force => true do |t|
+    t.text     "fields"
+    t.integer  "dealer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dealer_fields", :force => true do |t|
+    t.text     "fields"
+    t.integer  "dealer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
