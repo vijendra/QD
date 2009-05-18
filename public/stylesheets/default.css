@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Sans-Serif;
 	color: #000;
-	background-color: #F9EFD6;
+	background-color: #F4E6C0;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -87,12 +87,12 @@ ul {
 /* Menu */
 
 #menu {
-	width: 500px;
+	width: 380px;
 	height: 60px;
 	margin: 0 auto;
         font-weight: bold;
-        font-size: 13px;
-	margin-top: 3.8em;
+        font-size: 12px;
+	margin-top: 4.2em;
 }
 
 #menu ul {
@@ -121,7 +121,8 @@ ul {
 
 #menu .current {
 
-       background: #E8922B url(/images/img03.gif) no-repeat right top;
+       background: #FFD167 url(/images/img03.gif) no-repeat right top;
+       color: #6F0404;
 }
 
 #menu .current_page_item a {

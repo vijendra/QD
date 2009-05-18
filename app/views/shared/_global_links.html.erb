@@ -1,5 +1,11 @@
 <% if logged_in? %>
-	<%= link_to "Settings", profile_url(current_user) %> &nbsp; | &nbsp; 
+
+	<% if super_admin? -%>
+           <%= link_to "Settings", admin_user_url(current_user) %> &nbsp; | &nbsp; 
+        <% else %>
+           <% if admin? -%><%= link_to "Settings", edit_admin_administrator_url(current_user) %> &nbsp; | &nbsp;<% end -%>
+        <% end -%>
+
 	<% if admin? -%><%= link_to "Administration", admin_root_url %> &nbsp; | &nbsp; <% end -%>
 	<%= link_to "Log out", logout_url, :method => :delete %>
 <% else %>

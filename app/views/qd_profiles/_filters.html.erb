@@ -7,9 +7,9 @@
      <tr>
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
-           <td><%= p.text_field :listid_like, :class => 'textbox' %></td>
-           <td><%= p.text_field :fname_like, :class => 'textbox' %></td>
-           <td><%= p.text_field :lname_like, :class => 'textbox' %></td>
+           <td><%= p.text_field :listid_like, :class => 'textbox-small' %></td>
+           <td><%= p.text_field :fname_like, :class => 'textbox-small' %></td>
+           <td><%= p.text_field :lname_like, :class => 'textbox-small' %></td>
 
 
        <%end%>

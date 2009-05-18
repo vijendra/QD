@@ -96,14 +96,20 @@ class Admin::DealersController < ApplicationController
   end
 
   def csv_import
+    dealer = Dealer.find(params[:dealer_id])
+    balance = dealer.profile.current_balance
+
     data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
+      balance = balance -1
       data_set = {:dealer_id => params[:dealer_id]}
       data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
       QdProfile.create(data_set)
     end
 
+    dealer.profile.update_attribute('current_balance', balance)
     flash[:notice] = 'CSV data is successfully imported.'
+
     redirect_to(admin_dealers_url)
   end
 

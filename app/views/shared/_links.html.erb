@@ -1,6 +1,6 @@
 <% if logged_in? %>
-   <%= link_to "Main Page", root_url %>
-   <% if admin? -%><%= link_to "Data Set", admin_qd_profiles_url , :class => ('current' if request.request_uri =~ /qd_profiles/) %><% end -%>
+   <%= link_to "Main Page", root_url%>
+   <% if admin? -%><%= link_to "Data Set", admin_qd_profiles_url %><% end -%>
    <% unless admin? -%><%= link_to "Data Set", qd_profiles_url, :class => ('current' if request.request_uri =~ /qd_profiles/) %><% end -%>
    <% if admin? -%><%= link_to "Dealers", admin_dealers_url , :class => ('current' if request.request_uri =~ /dealers/) %> <% end -%>
    <% if super_admin? -%><%= link_to "Admin List", admin_administrators_url() , :class => ('current' if request.request_uri =~ /administrators/)%>  <% end -%>

@@ -9,9 +9,13 @@ class QdProfilesController < ApplicationController
     @search.per_page ||= 2
     @qd_profiles = @search.all
     @fields_to_be_shown = current_user.dealer_field.fields rescue []
+    dealer = current_user.profile 
+    unless dealer.blank?
+      flash[:notice] = "Order starting balance: #{dealer.starting_balance}, Current balance: #{dealer.current_balance} "
+    end
 
     respond_to do |format|
-                   format.html
+                   format.html {}
                    format.js {  render :update do |page|
       	                           page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
      	                        end
