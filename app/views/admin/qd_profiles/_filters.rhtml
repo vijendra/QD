@@ -1,7 +1,7 @@
 <% form_tag(admin_qd_profiles_url, :method => :get, :id => "search_form") do %>
    <table class="listing">
      <tr>
-        <th> List Id</th> <th> Dealer Name</th><th> First Name</th> <th>Last Name </th>
+        <th> List Id</th> <th> Dealer Name</th><th> First Name / Last Name </th> <th> Imported On</th>
         <th rowspan='2'><input type="reset" value="Reset"> </th>
      </tr>
      <tr>
@@ -16,10 +16,9 @@
                <%end%>
           / <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
 
-             </td>
+                  <td><%= text_field :name, '', :class => 'textbox-small' %></td>
+                  <td> <%= calendar_date_select_tag "created_at" ,"",:class =>"textbox" %> </td>
 
-           <td><%= p.text_field :fname_like, :class => 'textbox-small' %></td>
-           <td><%= p.text_field :lname_like, :class => 'textbox-small' %></td>
 
 
        <%end%>

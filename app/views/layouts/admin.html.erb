@@ -7,9 +7,21 @@
 
 	<title><%= configatron.site_name %></title>
 
-	<%= stylesheet_link_merged :base ,'facebox'%>
-  	<%= javascript_include_merged :base,'facebox' %>
-        <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
+
+    <%= javascript_include_merged :base,'facebox'  %>
+
+    <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
+
+    <%= calendar_date_select_includes  %>
+
+	<%= stylesheet_link_merged :base, 'calendar/option2- blue/style' ,'facebox' %>
+
+
+
+
+
+
+
         <script type="text/javascript">
            jQuery.noConflict();
         </script>

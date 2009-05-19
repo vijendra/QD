@@ -14,14 +14,17 @@
 	</ul>
 
     <div id="login">
-         <table>
+         <table class="form-table">
             <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
             <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
+
+            <tr> <th>Password :</th> <td> <%=  "#{"*"*8} <small>#{link_to "send new password", reset_password_admin_dealer_url(@dealer), :method => :put}</small>" %> </td></tr>
+
         </table>
     </div>
     <div id="profile">
        <% f.fields_for :profile do |profile_form| %>
-       <table>
+       <table class="form-table">
             <tr> <th>Name:</th> <td>
             <%= profile_form.text_field :name ,:class => 'textbox'%> </td></tr>
        <tr> <th>E-mail(s) ( XML, use ";" as delimiter ):</th> <td>
@@ -31,11 +34,11 @@
      <tr> <th>Extra E-mail(s) ( use ";" as delimiter ):</th> <td>
        <%= profile_form.text_area :emails_extra %> </td></tr>
      <tr> <th>First name:</th> <td>
-       <%= profile_form.text_field :first_name ,:class => 'textbox'%> </td></tr>
+       <%= profile_form.text_area :first_name ,:class => 'textbox'%> </td></tr>
      <tr> <th>Mid name:</th> <td>
-       <%= profile_form.text_field :mid_name,:class => 'textbox' %> </td></tr>
+       <%= profile_form.text_area :mid_name,:class => 'textbox' %> </td></tr>
      <tr> <th>Last name:</th> <td>
-       <%= profile_form.text_field :last_name,:class => 'textbox' %> </td></tr>
+       <%= profile_form.text_area :last_name,:class => 'textbox' %> </td></tr>
      <tr> <th>Phone:</th> <td>
        <%= profile_form.text_field :phone_1 ,:class => 'textbox-tiny' %>-<%= profile_form.text_field :phone_2 ,:class => 'textbox-tiny'%>-<%= profile_form.text_field :phone_3 ,:class => 'textbox-tiny'%> </td></tr>
      <tr> <th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th> <td>
@@ -52,7 +55,7 @@
     </div>
     <div id="address">
         <% f.fields_for :address do |address_form| %>
-        <table>
+       <table class="form-table">
      <tr> <th>Address:</th> <td>
        <%= address_form.text_field :address ,:class => 'textbox'%> </td></tr>
      <tr> <th>City:</th> <td>

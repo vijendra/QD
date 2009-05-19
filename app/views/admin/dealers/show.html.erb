@@ -1,17 +1,30 @@
 <% content_for :header do -%>
   Showing Dealer
 <% end -%>
+<br/>
+
+<table class="form-table">
+   <tr> <th> Name:  </th> <td> <%=   @dealer.profile.name %>  </td> </tr>
+   <tr> <th> E-mail(s) ( XML, use ";" as delimiter ): </th> <td> <%=   @dealer.profile.emails_xml%>  </td> </tr>
+   <tr> <th> E-mail(s) ( HTML, use ";" as delimiter ): </th> <td> <%=   @dealer.profile.emails_html%> </td> </tr>
+   <tr> <th> Extra E-mail(s) ( use ";" as delimiter ): </th> <td> <%=   @dealer.profile.emails_extra%> </td> </tr>
+   <tr> <th> First name: </th> <td> <%=   @dealer.profile.first_name  %> </td> </tr>
+   <tr> <th> Mid name: </th> <td>  <%=   @dealer.profile.mid_name %> </td> </tr>
+   <tr> <th> Last name: </th> <td>  <%=  @dealer.profile.last_name %> </td> </tr>
+   <tr> <th> Contact E-mail: </th> <td> <%=   @dealer.profile.user.email%>   </td> </tr>
+   <tr> <th> Phone:  </th> <td><%=@dealer.profile.phone_1 %>-<%=@dealer.profile.phone_2%>-<%=@dealer.profile.phone_3%> </td> </tr>
+   <tr> <th> Data Sources </th><td> <%= @dealer.profile.data_sources %> </td></tr>
+   <tr> <th> Marketer Net Po </th> <td> <%= @dealer.profile.marketer_net_po %> </td></tr>
+   <tr> <th> Wants Printed data </th> <td><%= @dealer.profile.wants_data_printed %></td></tr>
+   <tr> <th> comments </th><td> <%= @dealer.profile.comments %>
+   <tr> <th> Address: </th> <td>  <%=  @dealer.address.address %>  </td> </tr>
+   <tr> <th> City: </th> <td>   <%=  @dealer.address.city %> </td> </tr>
+   <tr> <th> State:  </th> <td>  <%=  @dealer.address.state %> </td> </tr>
+   <tr> <th> Pin Code:</th> <td> <%= @dealer.address.postal_code %> </td> </tr>
 
 
-<div id="tabs">
-         <ul>
-	        <li><a href="#tabs-1">Profile Details</a></li>
-	      </ul>
 
-         <div id="tabs-1">
-            <%= render :partial => 'admin/dealers/profile_details' %>
-         </div>
-
-
-
-     </div>
+</table>
+<br/>
+<%= link_to "Back" ,admin_dealers_path %> |
+<%= link_to "Edit Details", edit_admin_dealer_url(@dealer) %>

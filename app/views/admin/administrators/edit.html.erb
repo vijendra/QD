@@ -3,8 +3,13 @@
 <% end -%>
 
 <% form_for([:admin, @administrator] ,:html => { :multipart => true }) do |f| %>
-<label> Administrator Logo </label>
    <%= image_tag (@administrator.administrator_profile.administrator_logo.url(:thumb)) %>
+      <% f.fields_for :administrator_profile do |administrator_profile_form| %>
+           Change Administrator Logo : <%= administrator_profile_form.file_field  :administrator_logo   %>
+       <%end%>
+    <br/>
+    <br/>
+
   <div id="tabs">
     <ul>
 	   <li><a href="#login">Login Details</a></li>
@@ -24,10 +29,16 @@
       <% f.fields_for :administrator_profile do |administrator_profile_form| %>
 
        <table>
-        <tr> <th>Change Administrator Logo :</th><td> <%= administrator_profile_form.file_field  :administrator_logo   %> </td></tr>
+
 
 
         <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
+        <tr><th> First Name :</th><td> <%= administrator_profile_form.text_area :first_name ,:class =>"textbox"%></td></tr>
+        <tr><th> Mid Name :</th><td> <%= administrator_profile_form.text_area :mid_name ,:class =>"textbox"%></td></tr>
+        <tr><th> Last Name :</th><td><%= administrator_profile_form.text_area :last_name ,:class =>"textbox" %></td></tr>
+
+
+
         <tr><th>Corporation Name :</th><td><%= administrator_profile_form.text_field :corp_name ,:class =>"textbox" %>
         <tr><th>Email :</th><td><%= administrator_profile_form.text_field :emails_extra ,:class =>"textbox" %>
         <tr><th>Fax :</th><td><%= administrator_profile_form.text_field :fax ,:class =>"textbox" %>
