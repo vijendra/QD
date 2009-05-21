@@ -17,7 +17,7 @@
           / <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
 
                   <td><%= text_field :name, '', :class => 'textbox-small' %></td>
-                  <td> <%= calendar_date_select_tag "created_at" ,"",:class =>"textbox" %> </td>
+                  <td> <%= calendar_date_select_tag "created_at" ,"",:class =>"textbox-small" %> </td>
 
 
 

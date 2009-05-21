@@ -21,7 +21,7 @@ Create a new Administrator
 
       <% f.fields_for :administrator_profile do |administrator_profile_form| %>
 
-
+        <tr> <th>Administrator Logo : </th> <td> <%= administrator_profile_form.file_field  :administrator_logo   %> </td></tr>
         <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
         <tr> <th>First name:</th><td>
                                          <%= administrator_profile_form.text_area:first_name ,:class =>'textbox' %></td></tr>

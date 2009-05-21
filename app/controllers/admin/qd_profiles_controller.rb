@@ -3,12 +3,12 @@ class Admin::QdProfilesController < ApplicationController
   layout 'admin'
 
   def index
-    @search = QdProfile.new_search(params[:search])
+
+  	@search = QdProfile.new_search(params[:search])
     @search.per_page ||= 15
     unless params[:created_at].blank?
     	 date = params[:created_at].to_date
-
-    	 @search.conditions.created_at_after = date.beginning_of_day()
+         @search.conditions.created_at_after = date.beginning_of_day()
     	 @search.conditions.created_at_before =  date.end_of_day()
    	end
     unless params[:name].blank?
@@ -18,14 +18,13 @@ class Admin::QdProfilesController < ApplicationController
     end
    	@qd_profiles = @search.all
 
-
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @qd_profiles }
-      format.js {  render :update do |page|
-      	            page.replace_html 'qd_profile-list', :partial => 'qd_profiles_list'
-     	           end
-      	        }
+      format.xml { render :xml => @qd_profiles }
+      format.js  {  render :update do |page|
+      	              page.replace_html 'qd_profile-list', :partial => 'qd_profiles_list'
+     	            end
+      	         }
     end
   end
 
