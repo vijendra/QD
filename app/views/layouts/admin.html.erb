@@ -6,30 +6,18 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title><%= configatron.site_name %></title>
-
-
     <%= javascript_include_merged :base,'facebox'  %>
-
     <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
-
     <%= calendar_date_select_includes  %>
-
-	<%= stylesheet_link_merged :base, 'calendar/option2- blue/style' ,'facebox' %>
-
-
-
-
-
-
-
-        <script type="text/javascript">
+  	<%= stylesheet_link_merged :base, 'calendar/option2- blue/style' ,'facebox' %>
+    <script type="text/javascript">
            jQuery.noConflict();
-        </script>
+    </script>
 
-        <script type="text/javascript">
-		jQuery(function(){
-                      jQuery('#tabs').tabs();
-			});
+    <script type="text/javascript">
+	  	jQuery(function() {
+                          jQuery('#tabs').tabs();
+	                  		});
 	</script>
 </head>
 
