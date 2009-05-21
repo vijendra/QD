@@ -3,7 +3,7 @@ class Admin::QdProfilesController < ApplicationController
   layout 'admin'
 
   def index
-  	@search = QdProfile.new_search(params[:search])
+    @search = QdProfile.new_search(params[:search])
     @search.per_page ||= 2
     @qd_profiles = @search.all
 

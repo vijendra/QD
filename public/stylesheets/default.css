@@ -87,7 +87,7 @@ ul {
 /* Menu */
 
 #menu {
-	width: 380px;
+	width: 450px;
 	height: 60px;
 	margin: 0 auto;
         font-weight: bold;
@@ -183,11 +183,12 @@ ul {
 
 }
 #notice {
-	color: #6d9100;
-	padding: 0.7em 1em;
-	margin: .2em .2em;
-	background-color: #e5ffba;
+	color: #2B3A16;
+	padding: 0.5em 1em;
+	margin: .2em .1em;
+	background-color: #CCE4A5;
 	font-weight: bold;
+        border: 1px solid #BDCFE1;
 }
 #left #error {
 	color: #9f1d20;

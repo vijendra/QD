@@ -1,5 +1,5 @@
 class Admin::AdministratorsController < ApplicationController
-  require_role :admin
+  require_role :super_admin
   layout 'admin'
 
   def index
