@@ -2,6 +2,16 @@
 Listing All Administrators
 <% end -%>
 <% if @administrators.blank?%>
+<table class='listing'>
+  <tr>
+ 	<th>ID</th>
+ 	<th>Login </th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>  </th>
+  </tr>
+  </table>
+   <br/>
     No Record Found.
 <% else %>
 

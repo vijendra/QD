@@ -113,6 +113,12 @@ class Admin::DealersController < ApplicationController
     redirect_to(admin_dealers_url)
   end
 
+   def reset_password
+    @dealer = Dealer.find(params[:id])
+    @dealer.reset_password!
+    flash[:notice] = "A new password has been sent to the Dealer by email."
+    redirect_to edit_admin_dealer_path(@dealer)
+  end
 
 
 end

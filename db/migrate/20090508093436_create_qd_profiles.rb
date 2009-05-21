@@ -2,9 +2,9 @@ class CreateQdProfiles < ActiveRecord::Migration
   def self.up
     create_table :qd_profiles do |t|
       t.string :listid
-      t.string :fname
-      t.string :mname
-      t.string :lname 
+      t.text :fname
+      t.text :mname
+      t.text :lname
       t.string :suffix
       t.string :address
       t.string :city

@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    admin.resources :dealers ,:has_one =>[:dealer_field]
+    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:reset_password => :put }
     admin.resources :qd_profiles
 
     admin.resources :administrators ,:has_one =>[:administrator_profile] ,:member => { :suspend   => :put,

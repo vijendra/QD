@@ -8,7 +8,7 @@ Create a new Administrator
 
 <% form_for([:admin, @administrator], :html => { :multipart => true } ) do |f| %>
 <%= error_messages_for :administrator %>
-  <table>
+  <table class ='form-table'>
          <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
          <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
 
@@ -16,19 +16,19 @@ Create a new Administrator
 
          <tr> <th> Confirm Password : </th> <td> <%= f.password_field :password_confirmation ,:class => 'textbox'%></td></tr>
 
-   </table>
-   <br/>
+
+
 
       <% f.fields_for :administrator_profile do |administrator_profile_form| %>
-      <table>
+
 
         <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
         <tr> <th>First name:</th><td>
-                                         <%= administrator_profile_form.text_field :first_name ,:class =>'textbox' %></td></tr>
+                                         <%= administrator_profile_form.text_area:first_name ,:class =>'textbox' %></td></tr>
             <tr> <th>Mid name:</th><td>
-                                           <%= administrator_profile_form.text_field :mid_name ,:class =>'textbox'  %></td></tr>
+                                           <%= administrator_profile_form.text_area :mid_name ,:class =>'textbox'  %></td></tr>
             <tr> <th>Last name:</th><td>
-                                          <%= administrator_profile_form.text_field :last_name ,:class =>'textbox' %></td></tr>
+                                          <%= administrator_profile_form.text_area :last_name ,:class =>'textbox' %></td></tr>
         <tr><th>Corporation Name :</th><td><%= administrator_profile_form.text_field :corp_name ,:class =>"textbox" %>
         <tr><th>Email :</th><td><%= administrator_profile_form.text_field :emails_extra ,:class =>"textbox" %>
         <tr><th>Fax :</th><td><%= administrator_profile_form.text_field :fax ,:class =>"textbox" %>
@@ -36,17 +36,18 @@ Create a new Administrator
 
        <tr> <th>Comments:</th><td>
                            <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
-    <tr> <th>Logo upload:</th><td> <%= administrator_profile_form.file_field  :administrator_logo   %> </td></tr>
-   </table>
+
+
      <%end%>
       <% f.fields_for :address do |address_form| %>
-      <table>
+
          <tr> <th> Address: </th><td> <%= address_form.text_field :address ,:class =>'textbox'%> </td></tr>
          <tr> <th> City:</th><td> <%= address_form.text_field :city ,:class =>'textbox'%> </td></tr>
          <tr> <th>State:</th><td> <%= address_form.text_field :state ,:class =>'textbox'%> </td></tr>
         <tr> <th>Zip:</th><td> <%= address_form.text_field :postal_code ,:class =>'textbox'%> </td></tr>
-      </table>
+</table>
   <% end %>
+  <br/>
 
    <%= submit_tag 'Create account' %>
 <% end -%>

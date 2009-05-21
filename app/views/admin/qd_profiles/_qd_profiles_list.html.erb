@@ -1,3 +1,4 @@
+ <% if @qd_profiles.blank?%>
 <table class='listing'>
    <tr><th><%= remote_order_by_link (:listid ,:text =>"List Id ") %></th>
        <th> <%= remote_order_by_link ({:dealer =>{ :profile => :name} } ,:text =>"Dealer") %></th>
@@ -10,10 +11,24 @@
        <th> Crrt </th>
        <th> Imported on </th>
    </tr>
-
- <% if @qd_profiles.blank?%>
+   </table>
+   <br/>
      No Records Found.
  <% else %>
+    <table class='listing'>
+       <tr><th><%= remote_order_by_link (:listid ,:text =>"List Id ") %></th>
+       <th> <%= remote_order_by_link ({:dealer =>{ :profile => :name} } ,:text =>"Dealer") %></th>
+       <th> <%= remote_order_by_link (:fname ,:text => "First Name") %></th>
+       <th><%= remote_order_by_link (:lname ,:text => "Last Name") %></th>
+       <th> Address </th>
+       <th> <%= remote_order_by_link (:city ,:text => "City") %> </th>
+       <th> State </th>
+       <th> Zip </th>
+       <th> Crrt </th>
+       <th> Imported on </th>
+   </tr>
+
+
    <% @qd_profiles.each do |profile| %>
       <tr> <td> <%= profile.listid %> </td>
            <td> <%= profile.dealer.profile.name %> </td>
