@@ -13,7 +13,7 @@
     No Record Found.
 <% else %>
    <% @dealers.each do |dealer| %>
-       <tr>
+       <tr class="<%= cycle('odd', 'even')%>">
          <td> <%= dealer.id %> </td>
          <td> <%= dealer.profile.name %> </td>
          <td> <%= dealer.email %> </td>

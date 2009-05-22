@@ -1,0 +1,17 @@
+development:
+  type: pop
+  server: mail.isiritech.net
+  username: qdrobot@isiritech.net
+  password: qdrobot
+  
+test:
+  type: pop
+  server: localhost
+  username: username
+  password: password
+  
+production:
+  type: pop
+  server: mail.isiritech.com
+  username: qdrobot@isiritech.net
+  password: qdrobot

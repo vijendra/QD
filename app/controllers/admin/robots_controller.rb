@@ -10,6 +10,9 @@ class Admin::RobotsController < ApplicationController
     @config = @config[RAILS_ENV].to_options
     @fetcher = Fetcher.create({:receiver => MailProcessor}.merge(@config))
     @fetcher.fetch
+    flash[:notice] = 'CSV data is successfully imported.'
+
+    redirect_to(admin_dealers_url)
   end
 
   
