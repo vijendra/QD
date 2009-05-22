@@ -7,6 +7,7 @@
  	<!--<th> CSV UPLOAD </th>-->
  	<th> Dealer </th>
  	<th> QD Fields </th>
+ 	<th> CSV upload </th>
  	<th> Show | Edit | Delete </th>
 
   </tr>
@@ -19,7 +20,7 @@
          <td> <%= dealer.profile.name %> </td>
          <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
-          <!-- <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td> -->
+
         <% if super_admin? -%> <td>
              <% if dealer.profile.administrator_id.blank? %>
                  Not Assigned  &nbsp;&nbsp;
@@ -29,7 +30,10 @@
              [ <%= link_to "Assign" ,  assign_administrator_admin_dealer_path(dealer.id) ,:rel => "facebox" %> ]
          </td>
        <%end%>
+
          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>
+         <td> <%= link_to "CSV upload" , csv_admin_dealer_path(:id =>dealer.id) ,:rel=>"facebox" %> </td>
+
          <td> <%= link_to "show",admin_dealer_path(dealer.id)  %> |
               <%= link_to "Edit",edit_admin_dealer_path(dealer.id)  %> |
               <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %>
