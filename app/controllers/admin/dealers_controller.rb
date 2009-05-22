@@ -95,6 +95,11 @@ class Admin::DealersController < ApplicationController
     end
   end
 
+  def csv
+  	@dealer = Dealer.find(params[:id])
+  	render :lauout =>"false"
+ 	end
+
   def csv_import
     dealer = Dealer.find(params[:dealer_id])
     balance = dealer.profile.current_balance
@@ -113,12 +118,16 @@ class Admin::DealersController < ApplicationController
     redirect_to(admin_dealers_url)
   end
 
+
    def reset_password
     @dealer = Dealer.find(params[:id])
     @dealer.reset_password!
     flash[:notice] = "A new password has been sent to the Dealer by email."
     redirect_to edit_admin_dealer_path(@dealer)
   end
+
+
+
 
   def assign_administrator
     @dealer = Dealer.find(params[:id])
