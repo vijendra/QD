@@ -5,6 +5,7 @@
     <th><%= remote_order_by_link(:email ,:text =>"Email" ) %></th>
  	<th> Contact Number </th>
  	<th> CSV UPLOAD </th>
+ 	<th> Dealer </th>
  	<th> QD Fields </th>
  	<th> Show | Edit | Delete </th>
 
@@ -19,6 +20,15 @@
          <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
          <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
+        <% if super_admin? -%> <td>
+             <% if dealer.profile.administrator_id.blank? %>
+                 Not Assigned  &nbsp;&nbsp;
+             <%else%>
+                <%= AdministratorProfile.find_by_administrator_id(dealer.profile.administrator_id).name %>&nbsp;&nbsp;
+            <%end%>
+             [ <%= link_to "Assign" ,  assign_administrator_admin_dealer_path(dealer.id) ,:rel => "facebox" %> ]
+         </td>
+       <%end%>
          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>
          <td> <%= link_to "show",admin_dealer_path(dealer.id)  %> |
               <%= link_to "Edit",edit_admin_dealer_path(dealer.id)  %> |

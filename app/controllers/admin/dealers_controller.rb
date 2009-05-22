@@ -120,5 +120,20 @@ class Admin::DealersController < ApplicationController
     redirect_to edit_admin_dealer_path(@dealer)
   end
 
+  def assign_administrator
+    @dealer = Dealer.find(params[:id])
+    unless (params[:administrator].blank? || params[:administrator][:id].blank?  )
+      profile = @dealer.profile
+      profile.administrator_id = params[:administrator][:id]
+      profile.save
+      redirect_to admin_dealers_url
+  	else
+  	  render :layout => false
+   	end
+ 	end
+
+
+
+
 
 end
