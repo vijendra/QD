@@ -11,6 +11,8 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
+  ORDERS_DOWNLOAD_PATH = %W( #{RAILS_ROOT}/orders)
+
   # Gems
   config.gem "capistrano-ext", :lib => "capistrano"
   config.gem "configatron"

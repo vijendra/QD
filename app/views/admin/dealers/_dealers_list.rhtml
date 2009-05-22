@@ -4,7 +4,7 @@
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
     <th><%= remote_order_by_link(:email ,:text =>"Email" ) %></th>
  	<th> Contact Number </th>
- 	<th> CSV UPLOAD </th>
+ 	<!--<th> CSV UPLOAD </th>-->
  	<th> Dealer </th>
  	<th> QD Fields </th>
  	<th> Show | Edit | Delete </th>
@@ -19,7 +19,7 @@
          <td> <%= dealer.profile.name %> </td>
          <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
-         <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td>
+          <!-- <td> <%= render :partial => 'csv_upload', :locals => {:dealer => dealer} %></td> -->
         <% if super_admin? -%> <td>
              <% if dealer.profile.administrator_id.blank? %>
                  Not Assigned  &nbsp;&nbsp;
