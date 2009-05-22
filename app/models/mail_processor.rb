@@ -66,7 +66,7 @@ class MailProcessor < ActionMailer::Base
     dealer_id = parser.search("table").search("table")[2].at("tr").search("td")[1].at("p").at("span").inner_html.strip
     no_of_records = parser.search("table").search("table")[2].search("tr")[3].search("td")[1].at("p").at("span").inner_html.strip
     file_url = parser.search("table").search("table")[2].search("tr")[4].at("td").at("p").at("b").at("span").at("a").attributes['href']
-    #object_id = URI.split(file_url)[7].split("=")[1].strip
+    order_id = URI.split(file_url)[7].split("=")[1].strip
   
     agent = WWW::Mechanize.new
     page = agent.get(file_url)
@@ -87,10 +87,10 @@ class MailProcessor < ActionMailer::Base
     dealer_profile = Profile.find_by_name(dealer)
     balance = dealer_profile.current_balance
 
-    data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
+    data_source2 = ['listid', 'lname', 'fname', 'mname', 'suffix', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(orders_csv, :headers => :false) do |row|
       balance = balance -1
-      data_set = {:dealer_id => dealer_profile.user_id}
+      data_set = {:dealer_id => dealer_id}
       data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
       QdProfile.create(data_set)
     end

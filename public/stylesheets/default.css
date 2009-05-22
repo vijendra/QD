@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Sans-Serif;
 	color: #000;
-	background-color: #F3EDD6;
+	background-color: #F4F2DF;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -731,7 +731,7 @@ div.page_header {
              border:1px solid #ccc;
 }
 
-.listing td { padding: .3em .5em .3em .5em; color: #000; border-bottom:1px solid #BDCFE1; background: #F9F8F7;}
+.listing td { padding: .5em .5em .3em .5em; color: #000; border-bottom:1px solid #BDCFE1; background: #F8F8F9;}
 
 
 .listing    { border-collapse: collapse;
