@@ -5,6 +5,7 @@
    <% if admin? -%><%= link_to "Dealers", admin_dealers_url , :class => ('current' if request.request_uri =~ /dealers/) %> <% end -%>
    <% if super_admin? -%><%= link_to "Admin List", admin_administrators_url() , :class => ('current' if request.request_uri =~ /administrators/)%> <% end -%>
    <% if super_admin? -%><%= link_to "Run Robot", run_admin_robot_url() , :class => ('current' if request.request_uri =~ /robot/)%> <% end -%>
+   <% if super_admin? -%><%= link_to "Triggers", admin_trigger_details_url() , :class => ('current' if request.request_uri =~ /trigger_details/)%> <% end -%>
    <% unless admin? -%>
      <%= current_user.csv_extra_field.nil? ? (link_to "CSV Fileds" ,    new_dealer_csv_extra_field_path(current_user),:rel =>'facebox') : (link_to "CSV Fileds" ,    edit_dealer_csv_extra_field_path(current_user),:rel =>'facebox') %>
    <%end-%>

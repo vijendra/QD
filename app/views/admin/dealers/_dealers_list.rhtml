@@ -1,4 +1,6 @@
 <table class='listing'>
+  <thead>
+	
   <tr>
  	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
@@ -11,9 +13,13 @@
  	<th> Show | Edit | Delete </th>
 
   </tr>
+  </thead>
+
 <% if @dealers.blank?%>
     No Record Found.
 <% else %>
+   <tbody>
+
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
          <td> <%= dealer.id %> </td>
@@ -41,6 +47,7 @@
          </td>
        </tr>
     <% end %>
+	</tbody>
 </table>
 <%end%>
 <table class='table-bottom'>
@@ -68,6 +75,5 @@
                  :before => "Element.show('spinner')",
                  :success => "Element.hide('spinner')",
                  :url => admin_dealers_path, :method => :get) %>
-
 
 <br />
