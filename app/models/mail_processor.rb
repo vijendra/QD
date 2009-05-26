@@ -10,6 +10,7 @@ class MailProcessor < ActionMailer::Base
    
     #Parsing mail to get required information
     if (mail.from.to_s =~ /@seekerinc.com/ || mail.from.to_s =~ /File Download Instructions/)   
+      puts "ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp inside seekenic"
       table_rows = parser.search("tr")
       dealer = table_rows[1].search("td")[1].at("p").inner_html.strip
       total_recs = table_rows[4].search("td")[1].at("p").inner_html.strip
@@ -64,6 +65,7 @@ class MailProcessor < ActionMailer::Base
     end
     
     if (mail.from.to_s =~ /@tranzactis.com/ || mail.subject =~ /Order Fulfillment Notification/)  
+       puts "ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp inside tranzactis"
       dealer_id = parser.search("table").search("table")[2].at("tr").search("td")[1].at("p").at("span").inner_html.strip
       no_of_records = parser.search("table").search("table")[2].search("tr")[3].search("td")[1].at("p").at("span").inner_html.strip
       file_url = parser.search("table").search("table")[2].search("tr")[4].at("td").at("p").at("b").at("span").at("a").attributes['href']
