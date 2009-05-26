@@ -3,7 +3,9 @@ class CreateTriggerDetails < ActiveRecord::Migration
     create_table :trigger_details do |t|
       t.references :dealer
       t.string :data_source
-
+      t.integer :total_records
+      t.string :order_number
+      
       t.timestamps
     end
   end

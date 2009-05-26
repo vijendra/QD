@@ -1,13 +1,13 @@
 body {
-	font: 12px Verdana, Arial, Sans-Serif;
+	font: 0.7em Verdana, Arial, Helvetica, sans-serif; 
 	color: #000;
-	background-color: #F4F2DF;
+	background-color: #FDF9EE;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
 }
 a:link, a:visited {
-	color: #0054ff;
+	color: #005DB8;
 }
 a:hover {
 	background-color: #ECF5FF;
@@ -22,7 +22,7 @@ input.textbox{
 	padding:2px 2px;
 
 	width:200px;
-        height: 17px;
+        height: 15px;
 }
 
 input.textbox-small{
@@ -31,7 +31,7 @@ input.textbox-small{
 	padding:2px 2px;
 
 	width:100px;
-        height: 17px;
+        height: 15px;
 }
 
 input.textbox-tiny{
@@ -76,7 +76,7 @@ ul {
 	color: #000;
 	padding: 0em  0em  0em  1em ;
 	margin: 0px;
-	font-size: 29px;
+	font-size: 20px;
 }
 
 #header h1 span {
@@ -88,7 +88,6 @@ ul {
 
 #menu {
 	width: 450px;
-	height: 60px;
 	margin: 0 auto;
         font-weight: bold;
         font-size: 12px;
@@ -144,7 +143,7 @@ ul {
         font-weight: bold;
         font-size: 11px;
 }
-#global_links a:hover {590B0B
+#global_links a:hover {
 	color: #00a8c6;
 	background-color: #e3fdff;
 }
@@ -155,10 +154,10 @@ ul {
 
         margin: 0 auto;
         background: #fff;
-        width: 97.8%;
-        min-height: 500px;
+        width: 97%;
+        min-height: 470px;
         padding: 10px;
-        border: #E0D7B6 5px solid;
+        border: #F0DBAA 5px solid;
 }
 /** Left column */
 #left, #right {
@@ -172,16 +171,20 @@ ul {
 	color: #590B0B;
 	font-weight: bold;
 	background-color: #FFF;
-	padding: 0.2em .3em .3em;
+	padding: 0.2em .2em .2em;
 	margin: 0;
 	font-size: 1.4em;
+	line-height: 1px;
 }
 #left #screen {
 	padding: 0 .5em 1em;
-        background: #fff;.table-top td {background-color: #F3F7F7; padding: 0.2em }
+    background: #fff;
+	}
+.table-top td {background-color: #F3F7F7; padding: 0.2em }
+	
 .table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
 
-}
+
 #notice {
 	color: #2B3A16;
 	padding: 0.5em 1em;
@@ -192,7 +195,7 @@ ul {
 }
 #left #error {
 	color: #9f1d20;
-	padding: 0.7em 1em;E5E0D2
+	padding: 0.7em 1em;
 	margin: 1em 1.5em;
 	background-color: #ffb7bc;
 	font-weight: bold;
@@ -585,12 +588,13 @@ div.contact_info p {
 	font-size: 13px;
 }
 div.contact_info .no_contact_info p {
-	font-size: 11px;.table-top td {background-color: #F3F7F7; padding: 0.2em }
+	font-size: 11px;}
+	
+.table-top td {background-color: #F3F7F7; padding: 0.2em }
 .table-top {border-collapse: collapse; width: 100%; border: 1px solid #e8ebec;}
-	color: #777;
-}
+	
 .contact_info div.contact_methods {
-	margin-bottom: 15EDE3C3px;
+	margin-bottom: 15px;
 }
 .contact_info table {
 	margin-bottom: 7px;
@@ -724,14 +728,15 @@ div.page_header {
 /*.even{background: #F1F1F1;}*/
 /*.odd{background: #F1F1F1;}*/
 /* table listing */
-.listing th {background: #F1EFEA;
+.listing th {background: #D9E6F7 ;/*url(/images/table-header.jpg) repeat-x top;*/
              color: #590B0B;
              text-align: left;
              padding: 0.3em .5em;
              border:1px solid #ccc;
+			  
 }
 
-.listing td { padding: .5em .5em .3em .5em; color: #000; border-bottom:1px solid #BDCFE1; background: #F8F8F9;}
+.listing td { padding: .6em .5em .5em .5em; color: #000; border-bottom:1px solid #9BB5C7; background: #FFF;}
 
 
 .listing    { border-collapse: collapse;
@@ -745,7 +750,7 @@ div.page_header {
 		text-decoration: none;
            }
 
-.table-footer td {background: #F1EFEA; padding: 4px; }
+.table-footer td {background: #E6E9EB; padding: 4px; }
 
 .table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #ccc;}
 

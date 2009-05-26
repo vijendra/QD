@@ -4,7 +4,7 @@
        <th> Dealer Name: </th>
        <th> Contact No: </th>
        <th> Email: </th>
-       <th rowspan='2'><input type="reset" value="Reset"> </th>
+       <th >Reset: </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
@@ -14,12 +14,10 @@
                <td><%= profile.text_field :phone_1_like, :class => 'textbox-tiny' %> -
                    <%= profile.text_field :phone_2_like, :class => 'textbox-tiny' %> -
                    <%= profile.text_field :phone_3_like, :class => 'textbox-tiny' %>
-
-
-
                 </td>
          <%end%>
          <td><%= p.text_field :email_like, :class => 'textbox' %></td>
+		 <td> <input type="reset" value="Reset"> </td>
        <%end%>
        <%end%>
        </tr>
