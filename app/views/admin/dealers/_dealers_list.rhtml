@@ -28,15 +28,17 @@
          <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
 
-         <% if super_admin? -%> <td>
-             <% if dealer.profile.administrator_id.blank? %>
-                 Not Assigned
-             <%else%>
-                <%= AdministratorProfile.find_by_administrator_id(dealer.profile.administrator_id).name %>
-            <%end%>
-			</td>
-			<td> [ <%= link_to "Assign" ,  assign_administrator_admin_dealer_path(dealer.id) ,:rel => "facebox" %> ]</td>
+         <% if super_admin? -%> 
+            <td>
+                <% if dealer.profile.administrator_id.blank? %>
+                   Not Assigned
+                <%else%>
+                  <%= AdministratorProfile.find_by_administrator_id(dealer.profile.administrator_id).name %>
+                <%end%>
+	    </td>
+	    <td> [ <%= link_to "Assign" ,  assign_administrator_admin_dealer_path(dealer.id) ,:rel => "facebox" %> ]</td>
          <%end%>
+
          <td> <%= dealer.profile.starting_balance %>/<%= dealer.profile.current_balance %> </td>
          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>
          <td> <%= link_to "CSV upload" , csv_admin_dealer_path(:id =>dealer.id) ,:rel=>"facebox" %> </td>

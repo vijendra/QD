@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #F0FAFF; /* #FCF3DF; #FFF9E5;*/
+	background-color: #F1F2F6; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -66,7 +66,7 @@ ul {
 	background: url(/images/top_bar.png) repeat-x;
 	margin: 0px;
 	padding: 0.2em 0em 0 0;
-        height: 70px;
+        height: 58px;
 	width: 100%;
 }
 
@@ -74,7 +74,7 @@ ul {
 	float: left;
 	font-weight: bold;
 	color: #000;
-	padding: 0em  0em  0em  1em ;
+	padding: .3em  0em  0em  1em ;
 	margin: 0px;
 	font-size: 20px;
 }
@@ -91,7 +91,7 @@ ul {
 	margin: 0 auto;
         font-weight: bold;
         font-size: 12px;
-	margin-top: 3.8em;
+	margin-top: 2.7em;
 }
 
 #menu ul {
@@ -107,24 +107,23 @@ ul {
 #menu a {
 	display: block;
 	float: left;
-	margin: 4px 0px 0px 0px;
-	padding: 4px 10px 7px;
+	margin: 5px 0px 0px 0px;
+	padding: 4px 10px 5px;
 	text-decoration: none;
 	color: #fff;
-    background: #3C7BC8;
-	border-right: #fff 1px solid;	
+	border-right: #fff 2px solid;	
 }
 
 #menu a:hover {
-	background: #E8F6FE;
+	background: #ACCBF2;
 	color: #3C7BC8;
 }
 
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       background: #E8F6FE;
-	color: #3C7BC8;
+       background: #7695BB;
+	color: #fff;
 }
 
 #menu .current_page_item a {
@@ -157,10 +156,12 @@ ul {
 
         margin: 0 auto;
         background: #fff;
-        width: 97.4%;
+        width: 97.9%;
         min-height: 470px;
         padding: 10px;
-        border: #3C7BC8 5px solid;
+       
+        border: #AFC0D4 5px solid;
+         border-top: #507AAA 5px solid;
 }
 /** Left column */
 #left, #right {
@@ -244,7 +245,7 @@ ul {
 	list-style: square;
 }
 div.uploadStatus {
-	margin: 5px;
+	margin: 5px;F4F6F8
 }
 div.progressBar {
 	margin: 5px;
@@ -739,7 +740,7 @@ div.page_header {
 			  
 }
 
-.listing td { padding: 1em .5em .5em .5em; color: #000; border-bottom:1px solid #9BB5C7; background: #fff;}
+.listing td { padding: 1em .5em .5em .5em; color: #000; border-bottom:1px solid #CCD8E1; background: #F4F6F8;}
 
 
 .listing    { border-collapse: collapse;
