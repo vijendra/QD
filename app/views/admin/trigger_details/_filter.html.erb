@@ -2,8 +2,8 @@
    <table class="listing">
      <tr>
        <th> Dealer Name: </th>
-       <th> Contact No: </th>
        <th> Order Number: </th>
+       <th> Date : </th>
        <th >Reset: </th>
      </tr>
      <tr>
@@ -12,13 +12,10 @@
          <% p.fields_for p.object.dealer do |dealer| %>
            <% dealer.fields_for dealer.object.profile do |profile| %>
                <td><%= profile.text_field :name_like, :class => 'textbox' %></td>
-               <td><%= profile.text_field :phone_1_like, :class => 'textbox-tiny' %> -
-                   <%= profile.text_field :phone_2_like, :class => 'textbox-tiny' %> -
-                   <%= profile.text_field :phone_3_like, :class => 'textbox-tiny' %>
-                </td>
-                <%end%>
+           <%end%>
          <%end%>
          <td><%= p.text_field :order_number_like, :class => 'textbox' %></td>
+         <td> <%= calendar_date_select_tag "created_at" ,Date.today,:class =>"textbox-small" %> </td>
 		 <td> <input type="reset" value="Reset"> </td>
        <%end%>
        <%end%>

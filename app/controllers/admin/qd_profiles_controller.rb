@@ -6,6 +6,7 @@ class Admin::QdProfilesController < ApplicationController
 
   	@search = QdProfile.new_search(params[:search])
     @search.per_page ||= 15
+    @search.conditions.created_at = Date.today if params[:created_at].blank?
     unless params[:created_at].blank?
     	 date = params[:created_at].to_date
          @search.conditions.created_at_after = date.beginning_of_day()
