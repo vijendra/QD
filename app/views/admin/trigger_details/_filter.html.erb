@@ -1,0 +1,38 @@
+<% form_tag(admin_trigger_details_url, :method => :get, :id => "search_form") do %>
+   <table class="listing">
+     <tr>
+       <th> Dealer Name: </th>
+       <th> Contact No: </th>
+       <th> Order Number: </th>
+       <th >Reset: </th>
+     </tr>
+     <tr>
+      <%fields_for @search do |f|%>
+        <% f.fields_for @search.conditions do |p| %>
+         <% p.fields_for p.object.dealer do |dealer| %>
+           <% dealer.fields_for dealer.object.profile do |profile| %>
+               <td><%= profile.text_field :name_like, :class => 'textbox' %></td>
+               <td><%= profile.text_field :phone_1_like, :class => 'textbox-tiny' %> -
+                   <%= profile.text_field :phone_2_like, :class => 'textbox-tiny' %> -
+                   <%= profile.text_field :phone_3_like, :class => 'textbox-tiny' %>
+                </td>
+                <%end%>
+         <%end%>
+         <td><%= p.text_field :order_number_like, :class => 'textbox' %></td>
+		 <td> <input type="reset" value="Reset"> </td>
+       <%end%>
+       <%end%>
+       </tr>
+  </table>
+<% end %>
+
+<%= observe_form("search_form", :frequency => 1.5,
+                 :before => "Element.show('spinner')",
+                 :success => "Element.hide('spinner')",
+                 :url => admin_trigger_details_url, :method => :get) %>
+
+<%= image_tag("spinner.gif",
+              :align => "absmiddle",
+              :border => 0,
+              :id => "spinner",
+              :style =>"display: none;" ) %>

@@ -131,7 +131,7 @@ class Admin::DealersController < ApplicationController
 
   def assign_administrator
     @dealer = Dealer.find(params[:id])
-    unless (params[:administrator].blank? || params[:administrator][:id].blank?  )
+    unless (params[:administrator].blank? || params[:administrator][:id].blank?)
       profile = @dealer.profile
       profile.administrator_id = params[:administrator][:id]
       profile.save

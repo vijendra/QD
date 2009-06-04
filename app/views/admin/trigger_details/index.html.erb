@@ -1,41 +1,9 @@
  <% if super_admin? -%><%= link_to "Process", run_admin_robot_url() , :class => ('current' if request.request_uri =~ /robot/)%> <% end -%>
-<% if @triggers.blank?%>
-<table class='listing'>
-  <tr>
-    <th>ID</th>
-    <th>Dealer </th>
-    <th>Data Source </th>
-    <th>Order_number </th>
-    <th>Total Records </th>
-    <th>Balance </th>
-    <th>Date </th>
-  </tr>
-  </table>
-   <br/>
-    No Record Found.
-<% else %>
+<% content_for :header do -%>
+   Trigger Detail list.
+<% end -%>
+<%=render :partial=> 'filter'%>
 
-<table class='listing'>
-  <tr>
-    <th>ID</th>
-    <th>Dealer </th>
-    <th>Data Source</th>
-    <th>Order_number</th>
-    <th>Total Records </th>
-    <th>Balance </th>
-    <th>Date </th>
-  </tr>
-<% @triggers.each do |trigger| %>
-       <tr>
-         <td> <%= trigger.id %> </td>
-         <td> <%= trigger.dealer.profile.name %> </td>
-         <td> <%= trigger.data_source %> </td>
-         <td> <%= trigger.order_number %> </td>
-	 <td> <%= trigger.total_records %> </td>
-         <td> <%= trigger.balance %> </td>
-         <td> <%= Time.parse(trigger.created_at.to_s).to_date %> </td> 
-       </tr>
-<% end %>
-</table>
-<%end%>
-<br/>
+<div id='trigger-list'>
+   <%=render :partial=> 'trigger_details_list'%>
+</div>
