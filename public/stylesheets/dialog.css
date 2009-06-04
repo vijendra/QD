@@ -1,7 +1,7 @@
 body {
-	font: 10px Verdana, Arial, Sans-Serif;
+	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #FFE9AA;
+	background-color: #6289B7;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -11,13 +11,13 @@ body {
 	background: #4B0303 url(/images/top_bar_login.png) repeat-x;
 	margin: 0px;
         padding: 0px;
-        height: 48px;
+        height: 39px;
 	width: 100%;
 }
 
 #header h1 {
 	font-weight: bold;
-	color: #B40D0D;
+	color: #000;
         	padding: .3em  0em  0em  0em ;
 	margin: 0 auto;
 	font-size: 30px;
@@ -36,7 +36,6 @@ fieldset {
 	border-top: 1px solid #999;
 }
 fieldset legend {
-	font-size: 120%;
 	margin: 0 10px 0 15px;
 	padding: 0 5px;
 }
@@ -61,19 +60,19 @@ label {
 }
 /** Main body */
 #main {
-	margin: 7em auto 0 auto;
+	margin: 1em auto 0 auto;
 }
 #left {
 	background-color: #fff;
-	margin: 0 auto;
-	width: 36em;
-	border: 8px solid #EAE3CF;
+	float: left;
+	width: 30%;
+	border: 8px solid #AFC0D4;
 }
 #left .head {
-	color: #fff;
+	color: #204F85;
 	font-weight: normal;
-	background-color: #780001;
-	padding: 0.7em 1em;
+	background-color: #DFEBFA;
+	padding: 0.4em 1em 0.4em;
 	margin: 0;
 	font-size: 1.8em;
 	text-align: center;
@@ -102,6 +101,52 @@ label {
 	background-color: #fff1c0;
 	font-weight: bold;
 }
+
+#right .head {
+	color: #204F85;
+	font-weight: normal;
+	background-color: #DFEBFA;
+	padding: 0.4em 1em 0.4em;
+	margin: 0;
+	font-size: 1.8em;
+	text-align: center;
+}
+
+#right {
+        float: left;
+        width: 65%;
+	color: #000;
+	padding: 0px;
+	margin: 0em 1.5em;
+	background-color: #fff;
+        border: 8px solid #AFC0D4;
+}
+#right p {
+	padding-left: 0.5em;
+}
+#right a {
+	color: #666;
+
+/* TODO: needs yellow tint */
+}
+#right a:hover {
+	color: #fff;
+	background-color: #666;
+
+/* TODO: needs yellow tint */
+}
+#right label {
+	font-weight: bold;
+}
+#right h2 {
+	color: #494949;
+	font-weight: normal;
+	font-size: 1.2em;
+	padding: 0.5em;
+}
+
+.clear { clear: both; background: none; }
+
 /** Scaffold styles */
 .fieldWithErrors {
 	padding: 2px;

@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #F1F2F6; /* #FCF3DF; #FFF9E5;*/
+	background-color: #E6E9F3; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -122,7 +122,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       background: #7695BB;
+       background: #4087d7;
 	color: #fff;
 }
 
@@ -160,8 +160,8 @@ ul {
         min-height: 470px;
         padding: 10px;
        
-        border: #AFC0D4 5px solid;
-         border-top: #507AAA 5px solid;
+        border: #97AEC9 5px solid;
+        border-top: #2D4B85 5px solid;
 }
 /** Left column */
 #left, #right {
@@ -740,7 +740,7 @@ div.page_header {
 			  
 }
 
-.listing td { padding: 1em .5em .5em .5em; color: #000; border-bottom:1px solid #CCD8E1; background: #F4F6F8;}
+.listing td { padding: 1em .5em .5em .5em; color: #000; border-bottom:1px solid #CCD8E1; background: #F8FAFC;}
 
 
 .listing    { border-collapse: collapse;
