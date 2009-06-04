@@ -3,6 +3,7 @@
      <tr>
        <th> Dealer Name: </th>
        <th> Order Number: </th>
+       <th> Data Source </th>
        <th> Date : </th>
        <th >Reset: </th>
      </tr>
@@ -15,7 +16,8 @@
            <%end%>
          <%end%>
          <td><%= p.text_field :order_number_like, :class => 'textbox' %></td>
-         <td> <%= calendar_date_select_tag "created_at" ,Date.today,:class =>"textbox-small" %> </td>
+          <td><%= p.text_field :data_source_like, :class => 'textbox' %></td>
+         <td> <%= calendar_date_select_tag "created_at" ,"",:class =>"textbox-small" %> &nbsp;&nbsp; <%= link_to_remote "Today" ,:url =>{ :controller => "/admin/trigger_details" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/trigger_details" ,:action =>"index" },:method =>:get %> </td>
 		 <td> <input type="reset" value="Reset"> </td>
        <%end%>
        <%end%>

@@ -20,7 +20,7 @@
           / <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
 
                   <td> <%= text_field :name, '', :class => 'textbox-small' %> </td>
-                  <td> <%= calendar_date_select_tag "created_at" ,Date.today,:class =>"textbox-small" %> </td>
+                  <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp; <%= link_to_remote "Today" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" },:method =>:get %> </td>
                   <td> <input type="reset" value="Reset"> </td>
        <%end%>
        <%end%>

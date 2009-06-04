@@ -126,7 +126,17 @@ class Admin::DealersController < ApplicationController
     redirect_to edit_admin_dealer_path(@dealer)
   end
 
+ def inactive
+    @dealer = Dealer.find(params[:id])
+    @dealer.suspend!
+    redirect_to admin_dealers_path
+  end
 
+  def active
+    @dealer = Dealer.find(params[:id])
+    @dealer.unsuspend!
+    redirect_to admin_dealers_path
+  end
 
 
   def assign_administrator

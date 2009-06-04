@@ -1,6 +1,6 @@
 <table class='listing'>
   <thead>
-	
+
   <tr>
  	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
@@ -11,7 +11,9 @@
 	<th> Data Count </th>
  	<th> QD Fields </th>
  	<th> CSV upload </th>
- 	<th> Edit | Delete </th>
+ 	<th> Delete </th>
+ 	<th> Status </th>
+ 	<th> </th>
 
   </tr>
   </thead>
@@ -24,11 +26,11 @@
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
          <td> <%= dealer.id %> </td>
-         <td> <%= link_to dealer.profile.name,admin_dealer_path(dealer.id) %> </td>
+         <td> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> </td>
          <td> <%= dealer.email %> </td>
          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
 
-         <% if super_admin? -%> 
+         <% if super_admin? -%>
             <td>
                 <% if dealer.profile.administrator_id.blank? %>
                    Not Assigned
@@ -43,9 +45,16 @@
          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>
          <td> <%= link_to "CSV upload" , csv_admin_dealer_path(:id =>dealer.id) ,:rel=>"facebox" %> </td>
 
-         <td> <%= link_to "Edit",edit_admin_dealer_path(dealer.id)  %> |
-              <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %>
-         </td>
+         <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
+         <td> <%=h  dealer.state =="suspended"? "Inactive" : dealer.state %> </td>
+
+
+
+         <td>
+           <%=  dealer.state =="suspended"?  (link_to "Activate",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id) : (link_to "InActivate",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id) %>
+
+
+        </td>
        </tr>
     <% end %>
 	</tbody>
