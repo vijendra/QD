@@ -36,10 +36,12 @@
 
   <div id="main">
     <%= flash_message %>
-    <h3 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h3>
 
     <div id="screen">
-       <%= yield %>
+       <div id = "right">
+         <h3 class="head"> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %> </h3>
+         <%= yield %>
+       </div>
     </div>
   </div>
 

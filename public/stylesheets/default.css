@@ -156,11 +156,11 @@ ul {
 
         margin: 0 auto;
         background: #fff;
-        width: 97.9%;
+        width: 97.5%;
         min-height: 470px;
         padding: 10px;
        
-        border: #97AEC9 5px solid;
+        border: #97AEC9 8px solid;
         border-top: #2D4B85 5px solid;
 }
 /** Left column */
@@ -191,7 +191,7 @@ ul {
 
 #notice {
 	color: #2B3A16;
-	padding: 0.5em 1em;
+	padding: 0.3em 1em;
 	margin: .2em .1em 1em;
 	background-color: #CCE4A5;
 	font-weight: bold;
@@ -263,12 +263,23 @@ div.progressBar div.background {
 	height: 18px;
 	width: 0%;
 }
-/** Right column */
-#right {
-	width: 15%;
-	padding: 0 0 1em 1.5em;
+#right .head {
+	color: #204F85;
+	font-weight: normal;
+	background-color: #DFEBFA;
+	padding: 0.6em 1em 0.6em;
 	margin: 0;
-	color: #666;
+	font-size: 1.4em;
+	text-align: left;
+}
+
+#right {
+        width: 99%;
+	color: #000;
+	padding: 0px;
+	margin: 0 auto;
+	background-color: #fefefe;
+        border: 1px solid #E5E9EF;
 }
 #right p {
 	padding-left: 0.5em;
@@ -639,7 +650,7 @@ div.page_header {
 			  
 }
 
-.listing td { padding: 1em .5em .5em .5em; color: #000; border-bottom:1px solid #CCD8E1; background: #fdfefe;}
+.listing td { padding: .7em .5em .5em .5em; color: #000; border-bottom:1px solid #CCD8E1; background: #f8fbfd;}
 
 
 .listing    { border-collapse: collapse;
@@ -691,8 +702,25 @@ table.Design4 thead th {
     color: #FFFFFF;
 }
 
+.part1 {
+	background-color: #fff;
+	float: left;
+	width: 72%;
+	
+}
+
+.part2 {
+        float: left;
+        width: 25%;
+	color: #000;
+	padding: 0px;
+	margin: 0em 1em;
+	background-color: #fff;
+}
 
 
-
-
+fieldset {
+	
+	border: 1px solid #E5E9EF;
+}
 

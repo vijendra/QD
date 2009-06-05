@@ -1,20 +1,42 @@
-<% content_for :header do -%>
-  Welcome to QD Robot.
-<% end -%>
+<div class = part1>
+  <% content_for :header do -%>
+    Welcome to QD Robot.
+  <% end -%>
 
-<p>Quick Data Robot is a flexible hosted platform where our programmers can mimic redundant activates and complex task alike.</p>
+  <%= @home_page_content %>
 
-<p>We make custom program applications affordable to all!</p>
+</div>
 
-<br />
-<p>Quick data robot was born in 2007 out of necessity. While working on a complex data project, we developed our first automatic data processing platform.</p> 
+<% if !logged_in? %>
+  <div class = part2>
+    <% form_tag session_path do -%>
+       <fieldset>  
+          <legend>Member Login </legend> <br />
+           Login with OpenID< 
+	  <p><label for="openid_url">OpenID URL</label><br/>
+	  <%= text_field_tag 'openid_url', '' , :class => 'textbox' %></p>		
+		
+	  Or Your <%= configatron.site_name %> Account
+		
+	  <p><label for="login">Login</label><br/>
+	  <%= text_field_tag 'login', '' , :class => 'textbox' %></p>
 
-<br />
-<p>This single framework allows companies to look at redundant task oriented jobs and cost effectively automate them. This frees up valuable resources without spending months and millions of dollars on a custom configuration.</p>
+	  <p><label for="password">Password</label><br/>
+	  <%= password_field_tag 'password','' , :class => 'textbox' %></p>
 
-<br />
-<p>“The Problem: we were acquiring data from multiple sources, processing and sending each file to end users. We then create a master file at the end of the day from these multiple sources that had variable data in each file.”</p>
+	  <p><label for="remember_me">Remember me:</label>
+	  <%= check_box_tag 'remember_me' %></p>
+	 
+          <ul>
+            <li><%= link_to "Sign up for an account now", signup_url %></li>
+            <li><%= link_to "Having trouble logging in?", user_troubleshooting_url %></li>
+          </ul>
 
-<br />
-<p>Quick Data Robot not only freed us from additional labor it gave our product scalability"</p>
+          <div id="submitbutton">
+	     <p><%= submit_tag 'Log in &raquo;' %></p>
+          </div>
+        </fieldset>
+     <% end -%>
 
+   </div>
+<% end %>
