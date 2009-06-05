@@ -15,6 +15,24 @@ class Admin::DealersController < ApplicationController
       	            page.replace_html 'dealer-list', :partial => 'dealers_list'
      	           end
       	        }
+      	        format.csv  {
+                   csv_file = FasterCSV.generate do |csv|
+                   #Headers
+                   csv << ['Id','Login','Email','Profile Name','Auth Code','Emails xml','Emails Html','Emails Extra','First Name','Middle Name','Phone Number','Data Source',' marketer_net_po','wants_data_printed', 'comments','Stating Balance','Current Balance','Rate','Address','Address2','City','State','Zip']
+                    #Data
+                   @dealers.each do |d|
+                      csv << [ d.id,d.login,d.email,d.profile.name,d.profile.auth_code,d.profile.emails_xml,d.profile.emails_html,
+                               d.profile.emails_html,d.profile.emails_extra,d.profile.first_name,d.profile.mid_name,
+                               d.profile.last_name,"#{d.profile.phone_1}-#{d.profile.phone_2}-#{d.profile.phone_3}",
+                               d.profile.data_sources,d.profile.marketer_net_po,d.profile.wants_data_printed,d.profile.comments,
+                               d.profile.starting_balance,d.profile.current_balance,d.profile.rate,d.address.address,
+                               d.address.address2,d.address.city,d.address.state,a.address.zip
+                             ]
+                    end
+                 end
+                 #sending the file to the browser
+                 send_data(csv_file, :filename => 'qd_profile_list.csv', :type => 'text/csv', :disposition => 'attachment')
+                }
     end
   end
 
@@ -128,13 +146,13 @@ class Admin::DealersController < ApplicationController
 
  def inactive
     @dealer = Dealer.find(params[:id])
-    @dealer.suspend!
+    @dealer.deactivate!
     redirect_to admin_dealers_path
   end
 
   def active
     @dealer = Dealer.find(params[:id])
-    @dealer.unsuspend!
+    @dealer.active!
     redirect_to admin_dealers_path
   end
 

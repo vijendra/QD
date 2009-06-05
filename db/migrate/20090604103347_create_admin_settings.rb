@@ -10,7 +10,9 @@ class CreateAdminSettings < ActiveRecord::Migration
     	t.text :home_text
 
       t.timestamps
+
     end
+     AdminSetting.create(:identifier => "dynamic_content")
   end
 
   def self.down

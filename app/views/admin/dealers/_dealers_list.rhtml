@@ -1,3 +1,7 @@
+<center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv",:search => @params)  )%> &nbsp;
+<%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:search => @params) %>
+</center> <br/>
+
 <table class='listing'>
   <thead>
 
@@ -46,12 +50,9 @@
          <td> <%= link_to "CSV upload" , csv_admin_dealer_path(:id =>dealer.id) ,:rel=>"facebox" %> </td>
 
          <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
-         <td> <%=h  dealer.state =="suspended"? "Inactive" : dealer.state %> </td>
-
-
-
+         <td> <%=h  dealer.state  %> </td>
          <td>
-           <%=  dealer.state =="suspended"?  (link_to "Activate",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id) : (link_to "InActivate",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id) %>
+           <%=  dealer.state =="inactive"?  (link_to "Activate",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id) : (link_to "InActivate",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id) %>
 
 
         </td>

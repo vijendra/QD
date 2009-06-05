@@ -84,7 +84,7 @@ class Admin::UsersController < ApplicationController
   # GET /admin_users/1.xml
   def show
     @user = User.find(params[:id])
-    @admin_setting = AdminSetting.find_or_create_by_id(1)
+    @admin_setting = AdminSetting.find_or_create_by_identifier("dynamic_content")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -120,9 +120,8 @@ class Admin::UsersController < ApplicationController
   end
 
     def admin_setting
-   	  @admin_setting  = AdminSetting.find(1)
+   	  @admin_setting  =AdminSetting.find_by_identifier("dynamic_content")
    	  @user = User.find(params[:user][:id])
-
    	  @admin_setting.update_attributes(params[:admin_setting])
 
    	  redirect_to(admin_user_path(@user))
