@@ -32,27 +32,24 @@ a:hover {
 	color: #fff;
 }
 fieldset {
-	border: none;
-	border-top: 1px solid #999;
+	
+	border: 1px solid #e5e5e5;
 }
-fieldset legend {
-	margin: 0 10px 0 15px;
-	padding: 0 5px;
-}
+
 fieldset div.js_option {
 	text-align: right;	padding: .3em  0em  0em  1em ;
 	font-size: 87%;
 }
 input[type="text"], input[type="password"] {
-	font-size: 1.2em;
-	width: 92%;
+	font-size: 1.1em;
+	width: 75%;
 	margin: 0.4em;
 }
 input[type="submit"] {
-	font-size:  1.2em;
+	font-size:  1.1em;
 }
 label {
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 #submitbutton {
 	margin: 0.8em;
