@@ -5,25 +5,15 @@
 <% form_for([:admin, @dealer]) do |f| %>
   <%= f.error_messages %>
 
-
-<div id="tabs">
-    <ul>
-	   <li><a href="#login">Login Details</a></li>
-	   <li><a href="#profile">Profile Details</a></li>
-	   <li><a href="#address">Address Details</a></li>
-	</ul>
-
-    <div id="login">
-         <table class="form-table">
+      <table class="form-table">
             <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
             <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
 
             <tr> <th>Password :</th> <td> <%=  "#{"*"*8} <small>#{link_to "send new password", reset_password_admin_dealer_url(@dealer), :method => :put}</small>" %> </td></tr>
 
-        </table>
-    </div>
-    <div id="profile">
+       </table>
        <% f.fields_for :profile do |profile_form| %>
+
        <table class="form-table">
             <tr> <th>Name:</th> <td>
             <%= profile_form.text_field :name ,:class => 'textbox'%> </td></tr>
@@ -41,8 +31,20 @@
        <%= profile_form.text_area :last_name,:class => 'textbox' %> </td></tr>
      <tr> <th>Phone:</th> <td>
        <%= profile_form.text_field :phone_1 ,:class => 'textbox-tiny' %>-<%= profile_form.text_field :phone_2 ,:class => 'textbox-tiny'%>-<%= profile_form.text_field :phone_3 ,:class => 'textbox-tiny'%> </td></tr>
+
+       <tr><th>Text Body 1  </th><td> <%= profile_form.text_area :text_body_1 %>  </td> </tr>
+       <tr><th>Text Body 2  </th><td> <%= profile_form.text_area :text_body_2 %> </td> </tr>
+       <tr><th>Text Body 3  </th><td> <%= profile_form.text_area :text_body_3 %> </td> </tr>
+       <tr><th>Variable Data 4</th><td><%= profile_form.text_field :variable_data_4 ,:class => 'textbox'%></td> </tr>
+       <tr><th>Variable Data 5 </th><td><%= profile_form.text_field :variable_data_5 ,:class => 'textbox'%> </td> </tr>
+       <tr><th>Variable Data 6 </th><td><%= profile_form.text_field :variable_data_6 ,:class => 'textbox'%> </td> </tr>
+       <tr><th>Variable Data 7 </th><td><%= profile_form.text_field :variable_data_7 ,:class => 'textbox'%> </td> </tr>
+       <tr><th>Variable Data 8 </th><td> <%= profile_form.text_field :variable_data_8 ,:class => 'textbox'%></td> </tr>
+       <tr><th>Variable Data 9 </th><td><%= profile_form.text_field :variable_data_9 ,:class => 'textbox'%> </td> </tr>
+
+
      <tr> <th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th> <td>
-       <%= profile_form.text_area :data_sources %> </td></tr>
+       <%= profile_form.select :data_sources, [['Select' , ''], ['seekerinc', 'seekerinc'], ['marketernet', 'marketernet']] %> </td></tr>
      <tr> <th>MarketerNet PO:</th> <td>
        <%= profile_form.text_field :marketer_net_po ,:class => 'textbox'%> </td></tr>
      <tr> <th>Wants data printed:</th> <td>
@@ -52,8 +54,7 @@
      </table>
 
       <% end %>
-    </div>
-    <div id="address">
+    </table>
         <% f.fields_for :address do |address_form| %>
        <table class="form-table">
      <tr> <th>Address:</th> <td>
@@ -67,11 +68,7 @@
     </table>
   <% end %>
 
-    </div>
 
-
-
- </div>
 
 
 
