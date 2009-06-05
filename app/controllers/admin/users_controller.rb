@@ -1,54 +1,54 @@
 class Admin::UsersController < ApplicationController
   require_role :admin
   layout 'admin'
-  
+
   %w(email login).each do |attr|
     in_place_edit_for :user, attr.to_sym
   end
-  
+
   def reset_password
     @user = User.find(params[:id])
     @user.reset_password!
-    
+
     flash[:notice] = "A new password has been sent to the user by email."
     redirect_to admin_user_path(@user)
   end
-  
+
   def pending
     @users = User.paginate :all, :conditions => {:state => 'pending'}, :page => params[:page]
     render :action => 'index'
   end
-  
+
   def suspended
     @users = User.paginate :all, :conditions => {:state => 'suspended'}, :page => params[:page]
     render :action => 'index'
   end
-  
+
   def active
     @users = User.paginate :all, :conditions => {:state => 'active'}, :page => params[:page]
     render :action => 'index'
   end
-  
+
   def deleted
     @users = User.paginate :all, :conditions => {:state => 'deleted'}, :page => params[:page]
     render :action => 'index'
   end
-  
+
   def activate
     @user = User.find(params[:id])
     @user.activate!
     redirect_to admin_users_path
   end
-  
+
   def suspend
     @user = User.find(params[:id])
-    @user.suspend! 
+    @user.suspend!
     redirect_to admin_users_path
   end
 
   def unsuspend
     @user = User.find(params[:id])
-    @user.unsuspend! 
+    @user.unsuspend!
     redirect_to admin_users_path
   end
 
@@ -57,7 +57,7 @@ class Admin::UsersController < ApplicationController
     @user.destroy
     redirect_to admin_users_url
   end
-  
+
   # DELETE /admin_users/1
   # DELETE /admin_users/1.xml
   def destroy
@@ -84,6 +84,7 @@ class Admin::UsersController < ApplicationController
   # GET /admin_users/1.xml
   def show
     @user = User.find(params[:id])
+    @admin_setting = AdminSetting.find_or_create_by_id(1)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -117,4 +118,17 @@ class Admin::UsersController < ApplicationController
       end
     end
   end
+
+    def admin_setting
+   	  @admin_setting  = AdminSetting.find(1)
+   	  @user = User.find(params[:user][:id])
+
+   	  @admin_setting.update_attributes(params[:admin_setting])
+
+   	  redirect_to(admin_user_path(@user))
+   	end
+
+  def update
+      @user =  User.find(params[:id])
+ 	end
 end

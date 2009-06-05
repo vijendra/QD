@@ -1,4 +1,9 @@
+ <center>
+<%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv",:search => @params)  )%> &nbsp;
+<%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:search => @params) %>
+</center><br/>
  <% if @qd_profiles.blank?%>
+
 <table class='listing'>
    <tr><th><%= remote_order_by_link (:listid ,:text =>"List Id ") %></th>
        <th> <%= remote_order_by_link ({:dealer =>{ :profile => :name} } ,:text =>"Dealer") %></th>

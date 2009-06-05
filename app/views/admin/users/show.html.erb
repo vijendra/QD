@@ -45,3 +45,30 @@
 	<%= cell "Account created", @user.created_at.to_s(:long) %>
 	<%= cell "Last updated", @user.updated_at.to_s(:long) %>
 </table>
+
+
+<% form_tag('/admin/users/admin_setting') do -%>
+  <table class = 'form-table'></table>
+   Admin Email Setting :<%= fckeditor_textarea("admin_setting","admin_email" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
+   <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
+<%= submit_tag "save"%>
+<%end-%>
+
+<% form_tag('/admin/users/admin_setting') do -%>
+   <table class = 'form-table'></table>
+    Active Dealer Email<%= fckeditor_textarea("admin_setting","active_dealer_email" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
+     <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
+<%= submit_tag "save"%>
+<%end-%>
+<% form_tag('/admin/users/admin_setting') do -%>
+  <table class = 'form-table'></table>
+  Inactive Dealer Email :<%= fckeditor_textarea("admin_setting","inactive_dealer_email" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
+   <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
+<%= submit_tag "save"%>
+<%end-%>
+<% form_tag('/admin/users/admin_setting') do -%>
+  <table class = 'form-table'></table>
+  Home Text :<%= fckeditor_textarea("admin_setting","home_text" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
+   <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
+<%= submit_tag "save"%>
+<%end-%>
