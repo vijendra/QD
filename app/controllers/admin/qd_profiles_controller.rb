@@ -6,7 +6,7 @@ class Admin::QdProfilesController < ApplicationController
   def index
 
   	@search = QdProfile.new_search(params[:search])
-  	#@params = params[:search]
+  	@params = params[:search]
     @search.per_page ||= 15
    unless params[:today].blank?
        @search.conditions.created_at = Date.today
@@ -36,11 +36,32 @@ class Admin::QdProfilesController < ApplicationController
      format.csv  {
                    csv_file = FasterCSV.generate do |csv|
                    #Headers
-                   csv << ['Id','ListId','First Name','Middle Name' ,'Last Id','Suffix','Address','City','State','Zip','Zip4','Crrt','Dpc','Phone No' ,'Dealer Name','Tigger Detail Id','Addres2','level','auto17','pr01']
+                   csv << [ 'Id','ListId','First Name','Middle Name' ,'Last Id','Suffix','Address','City','State',
+                            'Zip','Zip4','Crrt','Dpc','Phone No' ,'Dealer Name','Tigger Detail Id','Addres2',
+                            'level','auto17','pr01'
+                          ]
                     #Data
-                   @qd_profiles.each do |prof|
-                      csv << [prof.id,prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num,prof.dealer.profile.name,prof.trigger_detail_id,prof.address2,prof.level,prof.auto17,prof.pr01]
-                    end
+
+                     if params[:type] == "all"
+                       qd_profiles = QdProfile.find(:all)
+                       qd_profiles.each do |prof|
+                       csv << [ prof.id,prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address,
+                               prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num,
+                               prof.dealer.profile.name,prof.trigger_detail_id,prof.address2,prof.level,prof.auto17,
+                               prof.pr01
+                              ]
+                       end
+                    else
+                    	@qd_profiles.each do |prof|
+                      csv <<[ prof.id,prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address,
+                               prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num,
+                               prof.dealer.profile.name,prof.trigger_detail_id,prof.address2,prof.level,prof.auto17,
+                               prof.pr01
+                            ]
+                      end
+                 	  end
+
+
                  end
                  #sending the file to the browser
                  send_data(csv_file, :filename => 'qd_profile_list.csv', :type => 'text/csv', :disposition => 'attachment')
