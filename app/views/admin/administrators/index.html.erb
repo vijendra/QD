@@ -34,7 +34,7 @@ Listing All Administrators
          <td> <%= link_to h(administrator.login), admin_administrator_url(administrator) %> </td>
          <td> <%= administrator.email %> </td>
          <td> <%= administrator.state %> </td>
-          <td> <%= acitive_inactive_dealer(administrator.id,"active")%></td> <td>  <%= acitive_inactive_dealer(administrator,"inactive")%> </td>
+          <td> <%= acitive_inactive_dealer(administrator.id,"active")%></td> <td>  <%= acitive_inactive_dealer(administrator.id,"inactive")%> </td>
           <td class="actions">
 		<% if administrator.pending? %>
 			<%= link_to 'activate', activate_admin_administrator_url(administrator), :method => :put %> |
