@@ -1,0 +1,36 @@
+<% content_for :header do -%>
+   Dealer : <%=h  @dealer.profile.name %> Account Detail
+<% end -%>
+<br/>
+
+<b> Starting Balance : <%=h @dealer.profile.starting_balance %> </b> <br/><br/>
+
+   <% unless @trigger_details.blank? %>
+     <table class='listing'>
+         <tr> <th> Trigger Detail Imported On </th>
+       <th> Previous Balance </th>
+       <th> Total Records </th>
+       <th> Balance</th>
+    </tr>
+    <% @trigger_details.each do |trigger| %>
+      <tr>
+          <td> <%=h Time.parse(trigger.created_at.to_s).to_date %>  </td>
+          <td> <%= (trigger.balance+trigger.total_records) %></td>
+          <td><%=h trigger.total_records %></td>
+
+          <td> <%=h  trigger.balance %></td>
+          </tr>
+
+
+    <%end%>
+   </table>
+
+   <%else%>
+   <table class='listing'>
+     <tr> <th> Trigger Detail Imported On </th>
+       <th> Previous Balance </th>
+       <th> Total Records </th>
+       <th> Balance</th>
+   </tr></table>  <br/><br/>
+     <b>No Account Detail for Dealer</b>
+   <%end%>

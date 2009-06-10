@@ -1,19 +1,20 @@
-# This controller handles the login/logout function of the site.  
+# This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :create
-  
+
   layout 'login'
-  
+
   def new
+
   end
 
   def create
-    logout_keeping_session!
-    if using_open_id?
-      open_id_authentication
-    else
-      password_authentication
-    end
+     logout_keeping_session!
+     if using_open_id?
+       open_id_authentication
+     else
+       password_authentication
+     end
   end
 
   def destroy
@@ -33,7 +34,22 @@ class SessionsController < ApplicationController
       end
     end
   end
-  
+
+  def terms
+   	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' '
+ 	end
+
+  def accept_terms
+  	if params[:term]
+      flash[:notice] = "Logged in successfully"
+      redirect_back_or_default(root_path)
+    else
+    	flash[:notice] = "Please accept the terms and conditions."
+    	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' '
+    	redirect_to(:controller =>:sessions ,:action =>:terms)
+    end
+ 	end
+
   protected
 
   def password_authentication
@@ -48,11 +64,11 @@ class SessionsController < ApplicationController
       render :action => :new
     end
   end
-  
+
   def successful_login
     # It's possible to use OpenID only, in which
     # case the following would update a user's email and nickname
-    # on login. 
+    # on login.
     #
     # This may give conflicts when used in combination with regular
     # user accounts.
@@ -63,15 +79,24 @@ class SessionsController < ApplicationController
     #   :login => "#{params[:openid.sreg.nickname]}",
     #   :email => "#{params[:openid.sreg.email]}"
     # )
-    
+
     new_cookie_flag = (params[:remember_me] == "1")
     handle_remember_cookie! new_cookie_flag
-    redirect_back_or_default(root_path)
-    flash[:notice] = "Logged in successfully"
+    if !super_admin?
+    	redirect_to(:controller =>:sessions ,:action =>:terms)
+    else
+       redirect_back_or_default(root_path)
+       flash[:notice] = "Logged in successfully"
+   end
   end
 
   def note_failed_signin
     flash[:error] = "Couldn't log you in as '#{params[:login]}'"
     logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
+  end
+
+ 	private
+ 	def super_admin?
+    logged_in? && current_user.has_role?(:super_admin)
   end
 end

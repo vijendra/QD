@@ -46,12 +46,12 @@
 	<%= cell "Last updated", @user.updated_at.to_s(:long) %>
 </table>
 <hr />
-<%= link_to_remote "home_text" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"home_text" ,:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Home Page Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"home_page_content" ,:id =>@user.id} %> <b>| </b>
 <%= link_to_remote "admin_email" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"admin_email",:id =>@user.id} %> <b>| </b>
 <%= link_to_remote "Active Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"active_dealer_email",:id =>@user.id} %> <b>| </b>
 
 <%= link_to_remote "InActive Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"inactive_dealer_email",:id =>@user.id} %> <b>| </b>
-<%= link_to_remote "Disclaimer_Text" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"disclaimer_text",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Disclaimer Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"disclaimer_content",:id =>@user.id} %> <b>| </b>
 <%= link_to_remote "Seekerinc Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"seekerinc_process_instructions",:id =>@user.id} %><b>| </b>
 <%= link_to_remote "Tranzact Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"tranzact_process_instructions",:id =>@user.id} %>
 

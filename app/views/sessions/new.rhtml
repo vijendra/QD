@@ -6,14 +6,14 @@
 	&nbsp;
 	<fieldset>
 		<legend>Login with OpenID</legend>
-	
+
 		<p><label for="openid_url">OpenID URL</label><br/>
-		<%= text_field_tag 'openid_url', '', :class => 'textbox' %></p>		
+		<%= text_field_tag 'openid_url', '', :class => 'textbox' %></p>
 	</fieldset>
 
 	<fieldset>
 		<legend>Or Your <%= configatron.site_name %> Account</legend>
-		
+
 		<p><label for="login">Login</label><br/>
 		<%= text_field_tag 'login', '', :class => 'textbox' %></p>
 
@@ -23,10 +23,10 @@
 		<p><label for="remember_me">Remember me:</label>
 		<%= check_box_tag 'remember_me' %></p>
 	</fieldset>
-	
-        <div id="submitbutton">
-	    <p><%= submit_tag 'Log in &raquo;' %></p>
-        </div>
+
+  <div id="submitbutton">
+	   <p><%= submit_tag 'Log in &raquo;' %></p>
+  </div>
 
 <ul>
 	<li><%= link_to "Sign up for an account now", signup_url %></li>

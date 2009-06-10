@@ -247,9 +247,7 @@ class Admin::DealersController < ApplicationController
    	      end
         end
        end
-       for val in email_list do
-       	 puts "#{val}"
-      end
+
        redirect_to admin_dealers_path
  	  else
   	  render :layout => "false"
