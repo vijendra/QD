@@ -36,16 +36,6 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
        attr_accessible :dealer_id,:login,:email, :name, :password, :password_confirmation, :identity_url, :address_attributes, :profile_attributes, :administrator_profile_attributes
 
-aasm_state :inactive
-
-
-  aasm_event :deactivate do
-    transitions :to => :inactive, :from => [:pending,:active]
-  end
-   aasm_event :active do
-    transitions :to => :active, :from => [:inactive]
-  end
-
   # has_role? simply needs to return true or false whether a user has a role or not.
   # It may be a good idea to have "admin" roles return true always
   def has_role?(role)

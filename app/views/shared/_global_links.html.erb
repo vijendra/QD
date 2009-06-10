@@ -6,8 +6,6 @@
            <% if admin? -%><%= link_to "Settings", edit_admin_administrator_url(current_user) %> &nbsp; | &nbsp; <% end -%>
         <% end -%>
         <% unless admin? -%><%= link_to "Settings", profile_url(current_user) %> &nbsp; | &nbsp; <% end -%>
-
-	<% if admin? -%><%= link_to "Administration", admin_root_url %> &nbsp; | &nbsp; <% end -%>
 	<%= link_to "Log out", logout_url, :method => :delete %>
 <% else %>
 	<%= link_to "Sign up", signup_url %> &nbsp;  |  

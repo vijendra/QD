@@ -1,14 +1,8 @@
- <center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
-<%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
-<%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" , :search => @params)  )%> &nbsp;
-<%= link_to "Export Selected Dealers to CSV",  admin_qd_profiles_path(:format => "csv", :search => @params) %>
-</center> <br/>
-
 <% if @qd_profiles.blank?%>
 
 <table class='listing'>
    <tr>
-       <th> </th>
+       <th> Imported on </th>
        <th><%= remote_order_by_link (:listid ,:text =>"List Id ") %></th>
 
        <th> <%= remote_order_by_link (:fname ,:text => "First Name") %></th>
@@ -18,7 +12,7 @@
        <th> State </th>
        <th> Zip </th>
        <th> Crrt </th>
-       <th> Imported on </th>
+      
        <th> <%= remote_order_by_link ({:dealer =>{ :profile => :name} } ,:text =>"Dealer") %></th>
    </tr>
    </table>
@@ -27,7 +21,7 @@
  <% else %>
     <table class='listing'>
        <tr>
-       <th> </th>
+       <th> Imported on </th>
        <th><%= remote_order_by_link (:listid ,:text =>"List Id ") %></th>
        <th> <%= remote_order_by_link (:fname ,:text => "First Name") %></th>
        <th><%= remote_order_by_link (:lname ,:text => "Last Name") %></th>
@@ -36,13 +30,12 @@
        <th> State </th>
        <th> Zip </th>
        <th> Crrt </th>
-       <th> Imported on </th>
        <th colspan=2> <%= remote_order_by_link ({:dealer =>{ :profile => :name} } ,:text =>"Dealer") %> </th>
    </tr>
 
    <% @qd_profiles.each do |profile| %>
       <tr  class="<%= cycle('odd', 'even')%>">
-           <td> </td>
+           <td> <%= Time.parse(profile.created_at.to_s).to_date %> </td>
            <td> <%= profile.listid %> </td>
            <td> <%= profile.fname %> </td>
            <td> <%= profile.lname  %>
@@ -51,7 +44,6 @@
            <td> <%= profile.state %> </td>
            <td> <%= profile.zip %> </td>
            <td> <%= profile.crrt %> </td>
-           <td> <%= Time.parse(profile.created_at.to_s).to_date %> </td>
            <td> <%= profile.dealer.profile.name %> [ <%= link_to "Assign" ,  assign_dealer_admin_qd_profile_path(profile.id,:page =>@search.page,:per_page => @search.per_page) ,:rel => "facebox" %> ]</td>
        </tr>
 

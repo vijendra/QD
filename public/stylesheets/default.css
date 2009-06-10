@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #E6E9F3; /* #FCF3DF; #FFF9E5;*/
+	background-color: #fff; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -64,10 +64,11 @@ ul {
 /** Header */
 #header {
 	background: url(/images/top_bar.png) repeat-x;
-	margin: 0px;
+	margin: 8px 17px 10px 17px;
 	padding: 0.2em 0em 0 0;
-        height: 58px;
-	width: 100%;
+        height: 66px;
+        border-left: #E7EBF3 1px solid;
+        border-right: #E7EBF3 1px solid;
 }
 
 #header h1 {
@@ -108,7 +109,7 @@ ul {
 	display: block;
 	float: left;
 	margin: 5px 0px 0px 0px;
-	padding: 4px 10px 5px;
+	padding: 4px 10px 4px;
 	text-decoration: none;
 	color: #fff;
 	border-right: #fff 2px solid;	
@@ -122,7 +123,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       background: #5973A7;
+       background: #566FA2;
 	color: #fff;
 }
 
@@ -156,12 +157,12 @@ ul {
 
         margin: 0 auto;
         background: #fff;
-        width: 97.5%;
+        width: 96%;
         min-height: 470px;
-        padding: 10px;
+        padding: 5px;
        
-        border: #97AEC9 8px solid;
-        border-top: #2D4B85 5px solid;
+        border: #A3B4D6 8px solid;
+
 }
 /** Left column */
 #left, #right {
@@ -172,17 +173,18 @@ ul {
 	width: 81%;
 }
 .head {
-	color: #590B0B;
+	color: #294987;
 	font-weight: bold;
-	background-color: #FFF;
-	padding: 0.2em .2em .2em;
+	background-color: #EAEEF1;
 	margin: 0;
-	font-size: 1.4em;
-	line-height: 1px;
+	font-size: 1.5em;
+        padding: 3px 3px 3px 5px;
+        border: #BDCFE1 1px solid;
+        text-align: center;
 }
-#left #screen {
-	padding: 0 .5em 1em;
-    background: #fff;
+ #screen {
+	padding: 5px;
+        background: #fff;
 	}
 .table-top td {background-color: #F3F7F7; padding: 0.2em }
 	
@@ -646,11 +648,11 @@ div.page_header {
              color: #003A66;
              text-align: left;
              padding: 0.3em .5em;
-             border: #A1B5CE 1px solid ;
+             border: #AFC4DC 1px solid ;
 			  
 }
 
-.listing td { padding: .7em .5em .5em .5em; color: #000; border-bottom:1px solid #CCD8E1; background: #f8fbfd;}
+.listing td { padding: .7em .5em .5em .5em; color: #000; border-bottom:1px solid #CEDAE8; background: #fdfdfd;}
 
 
 .listing    { border-collapse: collapse;
@@ -660,7 +662,7 @@ div.page_header {
 }
 
 .listing a {
-	        color: #005DB8;
+	        color: #1F4DAA;
 		text-decoration: none;
            }
 
@@ -705,13 +707,13 @@ table.Design4 thead th {
 .part1 {
 	background-color: #fff;
 	float: left;
-	width: 72%;
+	width: 77%;
 	
 }
 
 .part2 {
         float: left;
-        width: 25%;
+        width: 20%;
 	color: #000;
 	padding: 0px;
 	margin: 0em 1em;

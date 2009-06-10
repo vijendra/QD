@@ -7,5 +7,14 @@ class Dealer < User
   def self.dealers_list
     self.find(:all).collect{|dealer| [dealer.profile.name, dealer.id] }
   end
+  
+  aasm_state :inactive
 
+
+  aasm_event :deactivate do
+    transitions :to => :inactive, :from => [:pending, :active, :passive]
+  end
+   aasm_event :active do
+    transitions :to => :active, :from => [:pending, :inactive, :passive]
+  end
 end

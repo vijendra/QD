@@ -1,10 +1,16 @@
 <% content_for :header do -%>
-   QD Profile List
+  Listing all Data Set
 <% end -%>
 
 <%=render :partial=> 'filters'%>
-
+<br />
 
 <div id='qd_profile-list'>
    <%=render :partial=> 'qd_profiles_list'%>
+  
+    <center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
+<%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
+<%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" , :search => @params)  )%> &nbsp;
+<%= link_to "Export Selected Dealers to CSV",  admin_qd_profiles_path(:format => "csv", :search => @params) %>
+</center> <br/>
 </div>
