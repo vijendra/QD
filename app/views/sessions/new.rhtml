@@ -24,12 +24,12 @@
 		<%= check_box_tag 'remember_me' %></p>
 	</fieldset>
 	
+        <div id="submitbutton">
+	    <p><%= submit_tag 'Log in &raquo;' %></p>
+        </div>
+
 <ul>
 	<li><%= link_to "Sign up for an account now", signup_url %></li>
 	<li><%= link_to "Having trouble logging in?", user_troubleshooting_url %></li>
 </ul>
-
-<div id="submitbutton">
-	<p><%= submit_tag 'Log in &raquo;' %></p>
-</div>
 <% end -%>

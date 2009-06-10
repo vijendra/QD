@@ -11,7 +11,7 @@ body {
 	background: #4B0303 url(/images/top_bar_login.png) repeat-x;
 	margin: 0px;
         padding: 0px;
-        height: 39px;
+        height: 43px;
 	width: 100%;
 }
 
@@ -45,16 +45,12 @@ input.textbox{
 	border:#7D99B2 1px solid;
 	background:#ffffff url(/images/field-top.gif) repeat-x top;
 	padding:2px 2px;
-
-	width:200px;
-        height: 15px;
+        margin: 0.4em;
+	width: 250px;
+        height: 17px;
 }
 
-input[type="text"], input[type="password"] {
-	font-size: 1.1em;
-	width: 75%;
-	margin: 0.4em;
-}
+ 
 input[type="submit"] {
 	font-size:  1.1em;
 }
