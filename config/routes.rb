@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
                                      :edit_avatar => :get,
                                      :update_avatar => :put }
 
-  map.resource :session
+  map.resource :session, :member => { :accept_terms => :post}
 
   # Profiles
   map.resources :profiles
@@ -40,9 +40,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:reset_password => :put ,:csv => :get,:assign_administrator =>:get },:collection => {:import_dealer_csv => :get }
+    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:reset_password => :put ,:csv => :get,:assign_administrator =>:get },:collection => {:import_dealer_csv => :get } ,:has_many =>[:dealer_accounts]
     admin.resources :qd_profiles ,:member => { :assign_dealer => :get }
     admin.resources :trigger_details
+    #admin.resources :
     admin.resource :robot, :member => {:run => :get}
     admin.resources :administrators ,:has_one =>[:administrator_profile] ,:member => { :suspend   => :put,
                                          :unsuspend => :put,
