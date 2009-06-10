@@ -1,4 +1,5 @@
 class QdProfilesController < ApplicationController
+	before_filter :check_terms_conditions
   require 'fastercsv'
 
   def index
@@ -9,7 +10,7 @@ class QdProfilesController < ApplicationController
     @search.per_page ||= 2
     @qd_profiles = @search.all
     @fields_to_be_shown = current_user.dealer_field.fields rescue []
-    dealer = current_user.profile 
+    dealer = current_user.profile
     unless dealer.blank?
       flash[:notice] = "Order starting balance: #{dealer.starting_balance}, Current balance: #{dealer.current_balance} "
     end
@@ -30,7 +31,7 @@ class QdProfilesController < ApplicationController
 
                                   #Data
                                   @qd_profiles.each do |prof|
-                                     csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + field_values(fields_for_csv, prof) 
+                                     csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + field_values(fields_for_csv, prof)
                                   end
                                 end
                                 #sending the file to the browser
@@ -46,11 +47,18 @@ class QdProfilesController < ApplicationController
   def field_values(field_list, prof)
     profile = prof.dealer.profile
     field_list.map{|qd_field| if qd_field == "phone_num"
-                                 "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"  
+                                 "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
                               else
                                 eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
                               end
                  }
-   end      
-     
+   end
+
+
+  def check_terms_conditions
+       if !session[:accept_terms]
+       	 redirect_to (:controller =>"sessions" ,:action =>:terms)
+       end
+ 	end
+
 end

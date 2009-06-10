@@ -1,5 +1,5 @@
 class CsvExtraFieldsController < ApplicationController
-
+  before_filter :check_terms_conditions
  before_filter :find_dealer
 
   def new
@@ -53,5 +53,11 @@ class CsvExtraFieldsController < ApplicationController
   def find_dealer
   	@dealer = Dealer.find(params[:dealer_id])
   end
+
+  def check_terms_conditions
+       if !session[:accept_terms]
+       	 redirect_to (:controller =>"sessions" ,:action =>:terms)
+       end
+ 	end
 
 end

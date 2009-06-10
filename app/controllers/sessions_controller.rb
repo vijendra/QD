@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
 
   def destroy
     logout_killing_session!
+    session[:accept_terms] = nil
     flash[:notice] = "You have been logged out."
     redirect_back_or_default(root_path)
   end
@@ -40,11 +41,12 @@ class SessionsController < ApplicationController
  	end
 
   def accept_terms
-  	if params[:term]
+  	if params[:commit] == 'Accept'
       flash[:notice] = "Logged in successfully"
       redirect_back_or_default(root_path)
+      session[:accept_terms] = true
     else
-    	flash[:notice] = "Please accept the terms and conditions."
+    	flash[:error] = "Please accept the terms and conditions."
     	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' '
     	redirect_to(:controller =>:sessions ,:action =>:terms)
     end

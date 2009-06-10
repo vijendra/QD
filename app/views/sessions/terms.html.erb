@@ -4,8 +4,6 @@
   <%=h @disclaimer_content %>
 <% form_tag(accept_terms_session_url)  do -%>
 
-   <p>	 Accept Terms And Conditions <%= check_box_tag 'term', 1, 0 %> </p>
-
-	<p><%= submit_tag 'submit' %></p>
+	<p><%= submit_tag 'Accept' %> <%= submit_tag 'Deny' %></p>
 
  <%end%>

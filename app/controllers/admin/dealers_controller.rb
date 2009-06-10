@@ -146,17 +146,37 @@ class Admin::DealersController < ApplicationController
 
   def csv_import
     dealer = Dealer.find(params[:dealer_id])
-    balance = dealer.profile.current_balance
-
-    data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
+    @balance = dealer.profile.current_balance
+    no_of_records = 0
+    if params[:type] == "seekerinc"
+    	trigger = TriggerDetail.create(:dealer_id => dealer.id, :data_source => 'seekerinc',
+    	                               :total_records => no_of_records, :order_number => params[:dealer][:order_number],
+    	                               :balance => @balance )
+      data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
-      balance = balance -1
-      data_set = {:dealer_id => params[:dealer_id]}
+      @balance = @balance -1
+      no_of_records =no_of_records + 1
+      data_set = {:dealer_id => params[:dealer_id], :trigger_detail_id => trigger.id}
       data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
       QdProfile.create(data_set)
     end
+    trigger.update_attribute('total_records', no_of_records)
+    trigger.update_attribute('balance', @balance)
+   else
+      trigger = TriggerDetail.create(:dealer_id => dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance )
+       field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
+             FasterCSV.foreach(params[:dealer][:file].read, :headers => :false) do |row|
+         no_of_records +=1
+         @balance = @balance -1
+       	 data_set = {:dealer_id => dealer.id, :trigger_detail_id => trigger.id, :listid => "#{order_number}_#{row[10]}" }
+         field_list.map {|f| data_set[f] = row[field_list.index(f)] unless f.blank?}
+         QdProfile.create(data_set)
+        end
+     trigger.update_attribute('total_records', no_of_records)
+    trigger.update_attribute('balance', @balance)
 
-    dealer.profile.update_attribute('current_balance', balance)
+   end
+    dealer.profile.update_attribute('current_balance', @balance)
     flash[:notice] = 'CSV data is successfully imported.'
 
     redirect_to(admin_dealers_url)

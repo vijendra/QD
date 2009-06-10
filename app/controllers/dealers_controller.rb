@@ -1,6 +1,5 @@
 class DealersController < ApplicationController
-  # GET /dealers
-  # GET /dealers.xml
+  before_filter :check_terms_conditions
   def index
     @dealers = Dealer.all
 
@@ -82,7 +81,13 @@ class DealersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+private
 
+  def check_terms_conditions
+       if !session[:accept_terms]
+       	 redirect_to (:controller =>"sessions" ,:action =>:terms)
+       end
+ 	end
 
 
 
