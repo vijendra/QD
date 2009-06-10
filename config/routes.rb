@@ -40,8 +40,8 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:reset_password => :put ,:csv => :get,:assign_administrator =>:get }
-    admin.resources :qd_profiles
+    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:reset_password => :put ,:csv => :get,:assign_administrator =>:get },:collection => {:import_dealer_csv => :get }
+    admin.resources :qd_profiles ,:member => { :assign_dealer => :get }
     admin.resources :trigger_details
     admin.resource :robot, :member => {:run => :get}
     admin.resources :administrators ,:has_one =>[:administrator_profile] ,:member => { :suspend   => :put,

@@ -1,0 +1,14 @@
+<% form_tag("/admin/qd_profiles/assign_dealer/#{@qd_profile.id}" ,:method =>:get ) do  %>
+<br/>
+<b> <center><label> User Name: <%= @qd_profile.fname %>&nbsp; <%= @qd_profile.mname %> &nbsp;<%= @qd_profile.lname %></label> </center></b><br/><br/>
+<table class ="form-table" >
+   <tr> <th> Select a Dealer : </th><td>
+    <%= select :dealer, :id, [['Select a Dealer','']]+ Dealer.dealers_list,:selected => @qd_profile.dealer_id  %> </td></tr>
+
+  <input id="page" name="page" type="hidden" value="<%=h @page %>" />
+  <input id="per_page" name="per_page" type="hidden" value="<%=h @per_page %>" />
+</table>
+<br/><br/>
+<%= submit_tag "Assign" %>
+
+<%end%>

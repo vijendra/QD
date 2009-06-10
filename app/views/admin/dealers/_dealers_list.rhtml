@@ -1,13 +1,17 @@
 <center><%= link_to(image_tag('excel.png', :border => '0'),  admin_dealers_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
 <%= link_to "Export This Page to CSV",  admin_dealers_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
 <%= link_to(image_tag('excel.png', :border => '0'),  admin_dealers_path(:format => "csv" , :search => @params)  )%> &nbsp;
-<%= link_to "Export Selected Dealers to CSV",  admin_dealers_path(:format => "csv", :search => @params) %>
+<%= link_to "Export Selected Dealers to CSV",  admin_dealers_path(:format => "csv", :search => @params) %> &nbsp;<b>|</b>&nbsp;
+<%= link_to "Import Dealer CSV",  import_dealer_csv_admin_dealers_path(),:rel =>"facebox" %>
+
+
 </center> <br/>
 
 <table class='listing'>
   <thead>
 
   <tr>
+  <th> </th>
  	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
     <th><%= remote_order_by_link(:email ,:text =>"Email" ) %></th>
@@ -31,6 +35,7 @@
 
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
+         <td> </td>
          <td> <%= dealer.id %> </td>
          <td> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> </td>
          <td> <%= dealer.email %> </td>
@@ -44,7 +49,7 @@
                   <%= AdministratorProfile.find_by_administrator_id(dealer.profile.administrator_id).name %>
                 <%end%>
 	    </td>
-	    <td> [ <%= link_to "Assign" ,  assign_administrator_admin_dealer_path(dealer.id) ,:rel => "facebox" %> ]</td>
+	    <td> [ <%= link_to "Assign" ,  assign_administrator_admin_dealer_path(dealer.id,:page =>@search.page,:per_page => @search.per_page) ,:rel => "facebox" %> ]</td>
          <%end%>
 
          <td> <%= dealer.profile.starting_balance %>/<%= dealer.profile.current_balance %> </td>
@@ -54,7 +59,7 @@
          <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
          <td> <%=h  dealer.state  %> </td>
          <td>
-           <%=  dealer.state =="inactive"?  (link_to "Activate",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id) : (link_to "InActivate",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id) %>
+           <%=  dealer.state =="inactive"?  (link_to "Activate",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id ,:page =>@search.page ,:per_page => @search.per_page ) : (link_to "InActivate",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id,:page =>@search.page,:per_page => @search.per_page) %>
 
 
         </td>

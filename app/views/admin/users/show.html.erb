@@ -45,44 +45,23 @@
 	<%= cell "Account created", @user.created_at.to_s(:long) %>
 	<%= cell "Last updated", @user.updated_at.to_s(:long) %>
 </table>
+<hr />
+<%= link_to_remote "home_text" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"home_text" ,:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "admin_email" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"admin_email",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Active Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"active_dealer_email",:id =>@user.id} %> <b>| </b>
+
+<%= link_to_remote "InActive Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"inactive_dealer_email",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Disclaimer_Text" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"disclaimer_text",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Seekerinc Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"seekerinc_process_instructions",:id =>@user.id} %><b>| </b>
+<%= link_to_remote "Tranzact Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"tranzact_process_instructions",:id =>@user.id} %>
 
 
-<% form_tag('/admin/users/admin_setting') do -%>
-  <table class = 'form-table'></table>
-  <b> Home Page Text : </b><%= fckeditor_textarea("admin_setting","home_text" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
-   <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
-<%= submit_tag "Save Home Page Text"%>
-<%end-%>
-<br />
-<br />
 
-<% form_tag('/admin/users/admin_setting') do -%>
-  <table class = 'form-table'></table>
-    <b>Admin Email Setting : </b> <%= fckeditor_textarea("admin_setting","admin_email" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
-   <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
-<%= submit_tag "Save Admin Email Setting"%>
-<%end-%>
-<br />
-<br />
 
-<% form_tag('/admin/users/admin_setting') do -%>
-   <table class = 'form-table'></table>
-    <b> Active Dealer Email: </b> <%= fckeditor_textarea("admin_setting","active_dealer_email" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
-     <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
-     <%= submit_tag "Save Active Dealer Email"%>
-<%end-%>
+<div id="admin_setting">
+
+</div>
+
 
 <br />
 <br />
-
-<% form_tag('/admin/users/admin_setting') do -%>
-  <table class = 'form-table'></table>
-  <b> Inactive Dealer Email :</b> 
-   <%= fckeditor_textarea("admin_setting","inactive_dealer_email" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
-   <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
-   <%= submit_tag "Save Inactive Dealer Email"%>
-<%end-%>
-<br />
-<br />
-
-

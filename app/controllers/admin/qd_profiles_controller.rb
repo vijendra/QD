@@ -8,6 +8,7 @@ class Admin::QdProfilesController < ApplicationController
   	@search = QdProfile.new_search(params[:search])
   	@params = params[:search]
     @search.per_page ||= 15
+    @search.page ||= 1
    unless params[:today].blank?
        @search.conditions.created_at = Date.today
        params[:today] = nil
@@ -69,6 +70,18 @@ class Admin::QdProfilesController < ApplicationController
     end
   end
 
+   def assign_dealer
+    @qd_profile = QdProfile.find(params[:id])
+    if (!params[:dealer].blank? and !params[:dealer][:id].blank?)
+    	@qd_profile.dealer_id = params[:dealer][:id]
+      @qd_profile.save
+      redirect_to admin_qd_profiles_url(:search => {:page =>params[:page],:per_page => params[:per_page]})
+  	else
+  		@page = params[:page]
+      @per_page = params[:per_page]
+  	  render :layout => false
+   	end
+ 	end
 
 
 end

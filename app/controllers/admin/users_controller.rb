@@ -120,7 +120,7 @@ class Admin::UsersController < ApplicationController
   end
 
     def admin_setting
-   	  @admin_setting  =AdminSetting.find_by_identifier("dynamic_content")
+   	  @admin_setting  =AdminSetting.find(params[:adminsetting][:id])
    	  @user = User.find(params[:user][:id])
    	  @admin_setting.update_attributes(params[:admin_setting])
 
@@ -130,4 +130,14 @@ class Admin::UsersController < ApplicationController
   def update
       @user =  User.find(params[:id])
  	end
+
+ 	def dispaly_admin_setting
+ 		@user =  User.find(params[:id])
+ 	  @admin_setting = AdminSetting.find_or_create_by_identifier(params[:identifier])
+ 		render :update do |page|
+                        page.replace_html 'admin_setting', :partial => 'admin/users/admin_settings'
+                      end
+
+
+	end
 end

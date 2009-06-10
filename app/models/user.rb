@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-       attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url, :address_attributes, :profile_attributes, :administrator_profile_attributes
+       attr_accessible :dealer_id,:login,:email, :name, :password, :password_confirmation, :identity_url, :address_attributes, :profile_attributes, :administrator_profile_attributes
 
 aasm_state :inactive
 

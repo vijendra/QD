@@ -4,15 +4,15 @@ class CreateAdminSettings < ActiveRecord::Migration
 
     	t.string :identifier
     	t.text :values
-    	t.text :admin_email
-    	t.text :active_dealer_email
-    	t.text :inactive_dealer_email
-    	t.text :home_text
+   # 	t.text :admin_email
+    #	t.text :active_dealer_email
+    	#t.text :inactive_dealer_email
+    #	t.text :home_text
 
       t.timestamps
 
     end
-     AdminSetting.create(:identifier => "dynamic_content")
+
   end
 
   def self.down
