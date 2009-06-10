@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #fff; /* #FCF3DF; #FFF9E5;*/
+	background-color: #EEF5FA; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -652,7 +652,7 @@ div.page_header {
 			  
 }
 
-.listing td { padding: .7em .5em .5em .5em; color: #000; border-bottom:1px solid #CEDAE8; background: #fdfdfd;}
+.listing td { padding: .6em .5em .5em .5em; color: #000; border-bottom:1px solid #CEDAE8; background: #fdfdfd;}
 
 
 .listing    { border-collapse: collapse;

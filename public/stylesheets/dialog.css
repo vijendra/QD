@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #6289B7;
+	background-color: #CAE5FF;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -68,8 +68,8 @@ label {
 #left {
 	background-color: #fff;
 	margin: 0 auto;
-	width: 50%;
-	border: 8px solid #AFC0D4;
+	width: 96%;
+	border: 3px solid #AFC0D4;
 }
 #left .head {
 	color: #204F85;
