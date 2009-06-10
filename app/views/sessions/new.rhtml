@@ -8,17 +8,17 @@
 		<legend>Login with OpenID</legend>
 	
 		<p><label for="openid_url">OpenID URL</label><br/>
-		<%= text_field_tag 'openid_url' %></p>		
+		<%= text_field_tag 'openid_url', '', :class => 'textbox' %></p>		
 	</fieldset>
 
 	<fieldset>
 		<legend>Or Your <%= configatron.site_name %> Account</legend>
 		
 		<p><label for="login">Login</label><br/>
-		<%= text_field_tag 'login' %></p>
+		<%= text_field_tag 'login', '', :class => 'textbox' %></p>
 
 		<p><label for="password">Password</label><br/>
-		<%= password_field_tag 'password' %></p>
+		<%= password_field_tag 'password', '', :class => 'textbox' %></p>
 
 		<p><label for="remember_me">Remember me:</label>
 		<%= check_box_tag 'remember_me' %></p>
