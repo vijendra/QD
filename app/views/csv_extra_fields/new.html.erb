@@ -1,7 +1,6 @@
-<h3 class ='head'> Extra columns appended to the CSV file exported. </h3>
+<h3 class ='head'> Columns to be appended to the Print file. </h3>
 
 <% form_for(:csv_extra_field,:url=>dealer_csv_extra_field_path(@dealer.id),:method =>:post ) do |f| %>
-<h3> New CSV Extra Fields </h3><br/>
 <br/>
  <table class = 'form-table'>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'fname', true)%> </td><th>First Name</th></tr>
@@ -16,6 +15,4 @@
   </table><br/>
    <%=f.submit "Save" %>
 
-
- <%= link_to "Back" ,"/dashboard/index" %>
 <%end%>
