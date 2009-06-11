@@ -7,8 +7,9 @@
 
 	<title><%= configatron.site_name %></title>
 
-	<%= stylesheet_link_merged :base ,'facebox'%>
+	<%= stylesheet_link_merged :base ,'facebox' ,'calendar/option2- blue/style' %>
   	<%= javascript_include_merged :base,'facebox' %>
+  	<%= calendar_date_select_includes  %>
         <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
         <script type="text/javascript">
            jQuery.noConflict();
@@ -28,14 +29,14 @@
     <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
     </div>
-    
+
     <div id="menu">
       <%= render :partial => 'shared/links' %>
     </div>
   </div>
 
   <div id="main">
-    <h3 class="head"> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %> </h3>   
+    <h3 class="head"> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %> </h3>
 
     <div id="screen">
        <%= flash_message %>

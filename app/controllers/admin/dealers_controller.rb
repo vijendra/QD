@@ -197,8 +197,8 @@ class Admin::DealersController < ApplicationController
   end
 
   def active
-  #	page = params[:page]
- 	#  per_page = params[:per_page]
+    #	page = params[:page]
+    #  per_page = params[:per_page]
     @dealer = Dealer.find(params[:id])
     @dealer.active!
     redirect_to admin_dealers_path(:search => {:page =>params[:page],:per_page => params[:per_page]})

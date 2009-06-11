@@ -3,18 +3,22 @@
 <br/>
    <table class="listing">
      <tr>
-        <th> List Id</th> <th> First Name</th> <th>Last Name </th>
+        <th> Imported On</th>
+        <th> Order Number </th>
         <th rowspan='2'><input type="reset" value="Reset"> </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
-           <td><%= p.text_field :listid_like, :class => 'textbox-small' %></td>
-           <td><%= p.text_field :fname_like, :class => 'textbox-small' %></td>
-           <td><%= p.text_field :lname_like, :class => 'textbox-small' %></td>
+           <td><%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %></td>
 
+          <% p.fields_for p.object.dealer do |dealer| %>
+                  <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>
+                    <td><%= trigger_detail.text_field :order_number_like, :class => 'textbox' %>
+                    <%end%>
+               <%end%>
 
-       <%end%>
+         <%end%>
        <%end%>
        </tr>
   </table>

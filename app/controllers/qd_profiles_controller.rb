@@ -7,7 +7,14 @@ class QdProfilesController < ApplicationController
 
     @search = QdProfile.new_search(params[:search])
     @search.conditions.dealer_id = current_user.id
-    @search.per_page ||= 2
+    @search.per_page ||= 15
+    unless params[:created_at].blank?
+    	 date = params[:created_at].to_date
+         @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+    @search.order_as ||= "DESC"
+    @search.order_by ||= "created_at"
     @qd_profiles = @search.all
     @fields_to_be_shown = current_user.dealer_field.fields rescue []
     dealer = current_user.profile
@@ -43,7 +50,13 @@ class QdProfilesController < ApplicationController
 
 
  def mark_data
-
+   unless params[:profiles].blank?
+   	  params[:profiles].each do |id|
+   	     qd_profile = QdProfile.find(id)
+   	     qd_profile.mark_visited!
+  	  end
+  	  redirect_to (qd_profiles_path)
+   end
  end
 
  private
