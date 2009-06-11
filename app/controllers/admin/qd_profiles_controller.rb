@@ -24,6 +24,8 @@ class Admin::QdProfilesController < ApplicationController
       group1.fname_like = params[:name]
       group1.or_lname_like = params[:name]
     end
+    @search.order_as ||= "DESC"
+    @search.order_by ||= "created_at"
    	@qd_profiles = @search.all
 
     respond_to do |format|
