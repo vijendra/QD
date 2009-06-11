@@ -64,11 +64,11 @@ ul {
 /** Header */
 #header {
 	background: url(/images/top_bar.png) repeat-x;
-	margin: 8px 17px 10px 17px;
+	margin: 8px 15px 10px 15px;
 	padding: 0.2em 0em 0 0;
         height: 66px;
-        border-left: #E7EBF3 1px solid;
-        border-right: #E7EBF3 1px solid;
+        border-left: #E7EBF3 2px solid;
+        border-right: #E7EBF3 2px solid;
 }
 
 #header h1 {
@@ -93,16 +93,20 @@ ul {
         font-weight: bold;
         font-size: 12px;
 	margin-top: 2.7em;
+
+        
 }
 
 #menu ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
+
 }
 
 #menu li {
 	display: inline;
+
          }
 
 #menu a {
@@ -113,6 +117,7 @@ ul {
 	text-decoration: none;
 	color: #fff;
 	border-right: #fff 2px solid;	
+        
 }
 
 #menu a:hover {
@@ -123,7 +128,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       background: #566FA2;
+       background: #5090CC;
 	color: #fff;
 }
 
@@ -161,7 +166,7 @@ ul {
         min-height: 470px;
         padding: 5px;
        
-        border: #A3B4D6 8px solid;
+        border: #DBE2EF 8px solid;
 
 }
 /** Left column */
@@ -185,6 +190,7 @@ ul {
  #screen {
 	padding: 5px;
         background: #fff;
+        height: 100%;
 	}
 .table-top td {background-color: #F3F7F7; padding: 0.2em }
 	
@@ -194,7 +200,7 @@ ul {
 #notice {
 	color: #2B3A16;
 	padding: 0.3em 1em;
-	margin: .2em .1em 1em;
+	margin: .5em .1em .5em;
 	background-color: #CCE4A5;
 	font-weight: bold;
         border: 1px solid #BDCFE1;

@@ -42,6 +42,10 @@ class QdProfilesController < ApplicationController
 
 
 
+ def mark_data
+
+ end
+
  private
 
   def field_values(field_list, prof)
