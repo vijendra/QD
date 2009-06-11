@@ -9,4 +9,5 @@
    <% unless admin? -%>
      <%= current_user.csv_extra_field.nil? ? (link_to "CSV Fileds" , new_dealer_csv_extra_field_path(current_user),:rel =>'facebox') : (link_to "CSV Fileds" , edit_dealer_csv_extra_field_path(current_user),:rel =>'facebox') %>
    <%end-%>
+
 <% end %>

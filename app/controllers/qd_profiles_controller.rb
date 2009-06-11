@@ -19,7 +19,7 @@ class QdProfilesController < ApplicationController
     @fields_to_be_shown = current_user.dealer_field.fields rescue []
     dealer = current_user.profile
     unless dealer.blank?
-      flash[:notice] = "Order starting balance: #{dealer.starting_balance}, Current balance: #{dealer.current_balance} "
+     @header_text = "Starting balance: #{dealer.starting_balance}, Current balance: #{dealer.current_balance} "
     end
 
     respond_to do |format|
@@ -58,6 +58,7 @@ class QdProfilesController < ApplicationController
   	  redirect_to (qd_profiles_path)
    end
  end
+
 
  private
 

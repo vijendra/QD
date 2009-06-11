@@ -50,7 +50,8 @@ module ApplicationHelper
 
 # Return true if the currently logged in user is an admin
   def super_admin?
-    logged_in? && current_user.has_role?(:super_admin)
+    #logged_in? && current_user.has_role?('super_admin')
+     logged_in? && (current_user.roles.map{|role| role.name}).include?('super_admin')
   end
 
   # Write a secure email adress

@@ -80,8 +80,8 @@ class Baseapp < ActiveRecord::Migration
     end
 
     # Create admin role and user
+    super_admin_role = Role.create(:name => 'super_admin')
     admin_role = Role.create(:name => 'admin')
-
     user = User.create do |u|
       u.login = 'admin'
       u.password = u.password_confirmation = 'password'
@@ -91,7 +91,7 @@ class Baseapp < ActiveRecord::Migration
     user.register!
     user.activate!
 
-    user.roles << admin_role
+    user.roles << super_admin_role
   end
 
   def self.down
