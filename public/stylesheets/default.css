@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #E0E5E9; /* #FCF3DF; #FFF9E5;*/
+	background-color: #F3F3E7; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -64,9 +64,9 @@ ul {
 /** Header */
 #header {
 	background: url(/images/top_bar.png) repeat-x;
-	margin: 8px 13px 10px 13px;
+	margin: 8px 13px 8px 13px;
 	padding: 0.2em 0em 0 0;
-        height: 68px;
+        height: 70px;
         border-left: #E7EBF3 2px solid;
         border-right: #E7EBF3 2px solid;
 }
@@ -121,7 +121,7 @@ ul {
 }
 
 #menu a:hover {
-	background: #ACCBF2;
+	background: #E3EBF6;
 	color: #3C7BC8;
 }
 
@@ -169,7 +169,7 @@ ul {
         border: #B1C4D7 1px solid;
 
 }
-/** Left column */
+/** Left column */1F598E
 #left, #right {
 	float: left;
 }
@@ -189,7 +189,7 @@ ul {
 }
  #screen {
 	padding: 10px;
-        background: #F0F2F4;
+        background: #FFF;
         height: 100%;
 	}
 .table-top td {background-color: #F3F7F7; padding: 0.2em }
@@ -291,7 +291,7 @@ div.progressBar div.background {
 }
 #right p {
 	padding-left: 0.5em;
-}
+}0A4174
 #right a {
 	color: #666;
 
@@ -668,7 +668,7 @@ div.page_header {
 }
 
 .listing a {
-	        color: #1F4DAA;
+	        color: #004F99;
 		text-decoration: none;
            }
 

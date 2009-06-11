@@ -1,43 +1,7 @@
-<!--<div class = part1> -->
+
   <% content_for :header do -%>
     Welcome to QD Robot.
   <% end -%>
 
   <%= @home_page_content %>
 
-<!--</div> -->
-<!--
-<% if !logged_in? %>
-  <div class = part2>
-    <% form_tag session_path do -%>
-       <fieldset>  
-          <legend>Member Login </legend> <br />
-           Login with OpenID< 
-	  <p><label for="openid_url">OpenID URL</label><br/>
-	  <%= text_field_tag 'openid_url', '' , :class => 'textbox' %></p>		
-		
-	  Or Your <%= configatron.site_name %> Account
-		
-	  <p><label for="login">Login</label><br/>
-	  <%= text_field_tag 'login', '' , :class => 'textbox' %></p>
-
-	  <p><label for="password">Password</label><br/>
-	  <%= password_field_tag 'password','' , :class => 'textbox' %></p>
-
-	  <p><label for="remember_me">Remember me:</label>
-	  <%= check_box_tag 'remember_me' %></p>
-	 
-          <ul>
-            <li><%= link_to "Sign up for an account now", signup_url %></li>
-            <li><%= link_to "Having trouble logging in?", user_troubleshooting_url %></li>
-          </ul>
-
-          <div id="submitbutton">
-	     <p><%= submit_tag 'Log in &raquo;' %></p>
-          </div>
-        </fieldset>
-     <% end -%>
-
-   </div>
-<% end %>
--->
