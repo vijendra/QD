@@ -63,15 +63,17 @@
 
 
    <table class='table-bottom'>
+      <tbody>
         <tr class="table-footer">
-<td> <%=  submit_tag "Mark Data For Print"%></td>
-<%end%><!-- end of form tag-->
-
+            <td> <%=  submit_tag "Mark Data For Print"%>
+     
+  <%end%><!-- end of form tag-->
+            </td>
   	    <td><%= remote_per_page_select %></td>
             <td>
                 <% form_tag(qd_profiles_path, :method => :get, :id => "goto") do %>
                     <% fields_for @search do |f|%>
-                       <%= f.text_field :page, :class => 'textbox-tiny' %></td>
+                       <%= f.text_field :page, :class => 'textbox-tiny' %>
                     <%end%>
                 <%end%>
             </td>
@@ -82,6 +84,7 @@
                            <% end %>
             </td>
          </tr>
+        </tbody>
      </table>
      <%= observe_form("goto", :frequency => 1,
                  :before => "Element.show('spinner')",

@@ -29,6 +29,7 @@ class Admin::AdministratorsController < ApplicationController
     if @administrator.save
       @administrator.register!
       @administrator.activate!
+      @administrator.roles << Role.find_by_name('admin')
       flash[:notice] = 'Administrator was successfully created.'
       redirect_to(admin_administrators_url)
     else
