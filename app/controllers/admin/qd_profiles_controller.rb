@@ -24,6 +24,7 @@ class Admin::QdProfilesController < ApplicationController
       group1.fname_like = params[:name]
       group1.or_lname_like = params[:name]
     end
+    @search.conditions.administrator_id = current_user.id unless super_admin?
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
    	@qd_profiles = @search.all
@@ -84,6 +85,11 @@ class Admin::QdProfilesController < ApplicationController
   	  render :layout => false
    	end
  	end
+private
 
+   def super_admin?
+    #logged_in? && current_user.has_role?('super_admin')
+     logged_in? && (current_user.roles.map{|role| role.name}).include?('super_admin')
+  end
 
 end

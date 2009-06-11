@@ -34,10 +34,10 @@
 
          <% if super_admin? -%>
             <td>
-                <% if dealer.profile.administrator_id.blank? %>
+                <% if dealer.administrator_id.blank? %>
                    <%= link_to "Not Assigned", assign_administrator_admin_dealer_path(dealer.id,:page =>@search.page,:per_page => @search.per_page) ,:rel => "facebox" %>
                 <%else%>
-                 <%= link_to AdministratorProfile.find_by_administrator_id(dealer.profile.administrator_id).name ,assign_administrator_admin_dealer_path(dealer.id,:page =>@search.page,:per_page => @search.per_page) ,:rel => "facebox" %>
+                 <%= link_to AdministratorProfile.find_by_administrator_id(dealer.administrator_id).name ,assign_administrator_admin_dealer_path(dealer.id,:page =>@search.page,:per_page => @search.per_page) ,:rel => "facebox" %>
                 <%end%>
 	    </td>
 

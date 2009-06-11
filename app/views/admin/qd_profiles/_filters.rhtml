@@ -3,7 +3,7 @@
      <tr>
         <th> Imported On</th>
 
-        <th> Dealer Name</th>
+        <th> Dealer </th>
         <th> Order Number </th>
         <th> Reset </th>
      </tr>
@@ -13,13 +13,8 @@
            <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp; <%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" },:method =>:get %> </td>
 
 
-               <% p.fields_for p.object.dealer do |dealer| %>
-                  <% dealer.fields_for dealer.object.profile do |profile| %>
-                    <td><%= profile.text_field :name_like, :class => 'textbox' %>
-                    <%end%>
-               <%end%>
 
-          / <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
+              <td> <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
 
              <% p.fields_for p.object.dealer do |dealer| %>
                   <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>

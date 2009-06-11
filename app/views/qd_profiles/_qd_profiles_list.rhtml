@@ -12,8 +12,8 @@
          <% if @fields_to_be_shown.blank? %>
             <tr><th> </th>
                 <th><%= remote_order_by_link (:created_at ,:text =>"Imported on") %> </th>
+                <th> Order No </th>
                 <th> List Id </th>
-                <th> Dealer </th>
                 <th> Name </th>
                 <th> Address </th>
                 <th> City </th>
@@ -27,21 +27,25 @@
 
                  <tr> <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
                  <td><%= Time.parse(profile.created_at.to_s).to_date %>  </td>
-                      <td> <%= profile.listid %> </td>
-                      <td> <%= profile.dealer.profile.name %> </td>
-                      <td> <%= "#{profile.fname} #{profile.lname}" %> </td>
-                      <td> <%= profile.address %> </td>
-                      <td> <%= profile.city %> </td>
-                      <td> <%= profile.state %> </td>
-                      <td> <%= profile.zip %> </td>
-                      <td> <%= profile.crrt %> </td>
-                      <td> <%= profile.status %></td>
+                      <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %></td>
+                      <td> <%=h profile.listid %> </td>
+                      <td> <%=h "#{profile.fname} #{profile.lname}" %> </td>
+                      <td> <%=h profile.address %> </td>
+                      <td> <%=h profile.city %> </td>
+                      <td> <%=h profile.state %> </td>
+                      <td> <%=h profile.zip %> </td>
+                      <td> <%=h profile.crrt %> </td>
+                      <td> <%=h profile.status %></td>
                  </tr>
              <% end %>
          <% else %>
+
              <tr> <th /> <th> <%= remote_order_by_link (:created_at ,:text =>"Imported on") %></th>
+                         <th> Order No </th>
                    <% @fields_to_be_shown.each do |qd_field| %>
-                     <%= table_header(qd_field) %>
+                      <% unless qd_field == "listid" %>
+                         <%= table_header(qd_field) %>
+                      <%end%>
                  <% end %>
                  <th> Status </th>
 
@@ -51,8 +55,11 @@
                <tr>
                  <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
                  <td> <%= Time.parse(profile.created_at.to_s).to_date %> </td>
+                 <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>
                  <% @fields_to_be_shown.each do |qd_field| %>
-                         <td> <%= eval("profile.#{qd_field}") %> </td>
+                         <% unless qd_field == "listid" %>
+                           <td> <%= eval("profile.#{qd_field}") %> </td>
+                         <%end%>
                       <% end %>
 									 <td> <%= profile.status %></td>
                  </tr>
@@ -66,7 +73,7 @@
       <tbody>
         <tr class="table-footer">
             <td> <%=  submit_tag "Mark Data For Print"%>
-     
+
   <%end%><!-- end of form tag-->
             </td>
   	    <td><%= remote_per_page_select %></td>

@@ -63,13 +63,25 @@
   <% end %>
   </div>
 <br/>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Update profile' %>
 
 <% end %>
 
-
-
-
-
 <%= link_to 'Show', admin_administrator_path(@administrator) %> |
 <%= link_to 'Back', admin_administrators_path %>
+
+
+
+
+
+
+<% form_tag('/admin/administrators/disclaimer_content_save') do -%>
+  <table class = 'form-table'></table><br/>
+  <b> <%= fckeditor_textarea("admin_disclaimer_content","values" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> <br/>
+   <input id="administrator_id" name="administrator[id]" type="hidden" value="<%=@administrator.id%>" />
+
+   <br/>
+<%= submit_tag "Save Disclaimer Content"%>
+<%end-%>
+<br />
+<br />

@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  require_role :admin
+  require_role :super_admin
   layout 'admin'
 
   %w(email login).each do |attr|

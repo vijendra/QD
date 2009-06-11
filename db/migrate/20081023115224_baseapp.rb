@@ -92,6 +92,7 @@ class Baseapp < ActiveRecord::Migration
     user.activate!
 
     user.roles << super_admin_role
+    user.roles << admin_role
   end
 
   def self.down

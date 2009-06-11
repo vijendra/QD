@@ -209,9 +209,8 @@ class Admin::DealersController < ApplicationController
     @dealer = Dealer.find(params[:id])
 
     unless (params[:administrator].blank? || params[:administrator][:id].blank?)
-      profile = @dealer.profile
-      profile.administrator_id = params[:administrator][:id]
-      profile.save
+      @dealer.update_attributes(:administrator_id => params[:administrator][:id])
+
       redirect_to admin_dealers_url(:search => {:page =>params[:page],:per_page => params[:per_page]})
   	else
   		@page = params[:page]
