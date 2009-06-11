@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_filter :find_profile
+  before_filter :check_terms_conditions
   before_filter :check_owner_access, :only => [:edit, :update]
 
   def show
@@ -36,4 +37,12 @@ class ProfilesController < ApplicationController
   def check_owner_access
     redirect_to profile_url(params[:id]) if logged_in? && current_user != @user
   end
+  private
+  private
+
+  def check_terms_conditions
+       if !session[:accept_terms]
+       	 redirect_to (:controller =>"sessions" ,:action =>:terms)
+       end
+ 	end
 end

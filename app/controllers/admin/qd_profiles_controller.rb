@@ -2,6 +2,7 @@ class Admin::QdProfilesController < ApplicationController
   require_role :admin
   layout 'admin'
   require 'fastercsv'
+  before_filter :check_role
 
   def index
 
@@ -16,15 +17,30 @@ class Admin::QdProfilesController < ApplicationController
 
     unless params[:created_at].blank?
     	 date = params[:created_at].to_date
+    	 @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+   	unless params[:created_at_end].blank?
+    	 date = params[:created_at_end].to_date
          @search.conditions.created_at_after = date.beginning_of_day()
     	 @search.conditions.created_at_before =  date.end_of_day()
    	end
+
+    unless (params[:created_at_end].blank? ||  params[:created_at].blank?)
+    	 start_date = "#{params[:created_at].to_date} "
+    	 time = "00:00:00"
+   	   end_date   =  Time.parse("#{params[:created_at_end].to_date} #{time}").advance(:days => 1)
+    	 @search.conditions.created_at_after   = "#{start_date}#{time}"
+    	 @search.conditions.and_created_at_before = "#{end_date}"
+   	end
+
     unless params[:name].blank?
       group1 = @search.conditions.group
       group1.fname_like = params[:name]
       group1.or_lname_like = params[:name]
     end
-    @search.conditions.administrator_id = current_user.id unless super_admin?
+    @search.conditions.dealer.administrator_id = current_user.id unless super_admin?
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
    	@qd_profiles = @search.all
@@ -90,6 +106,15 @@ private
    def super_admin?
     #logged_in? && current_user.has_role?('super_admin')
      logged_in? && (current_user.roles.map{|role| role.name}).include?('super_admin')
+  end
+  def check_role
+ 		if admin? and !session[:accept_terms]
+    	 redirect_to (:controller =>"/sessions" ,:action =>:terms)
+    end
+	end
+
+  def admin?
+    logged_in? && current_user.has_role?(:admin)
   end
 
 end

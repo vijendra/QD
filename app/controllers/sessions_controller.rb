@@ -37,11 +37,13 @@ class SessionsController < ApplicationController
   end
 
   def terms
-   	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' '
+   	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' ' if admin?
+   	@disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue ' ' if !admin?
+
  	end
 
   def accept_terms
-  	if params[:commit] == 'Accept'
+  	if params[:commit] == 'Agree'
       flash[:notice] = "Logged in successfully"
       redirect_back_or_default(root_path)
       session[:accept_terms] = true
@@ -87,6 +89,7 @@ class SessionsController < ApplicationController
     if !super_admin?
     	redirect_to(:controller =>:sessions ,:action =>:terms)
     else
+    	session[:accept_terms] = true
        redirect_back_or_default(root_path)
        flash[:notice] = "Logged in successfully"
    end
@@ -99,6 +102,9 @@ class SessionsController < ApplicationController
 
  	private
  	def super_admin?
-    logged_in? && current_user.has_role?(:super_admin)
+      logged_in? && (current_user.roles.map{|role| role.name}).include?('super_admin')
+  end
+   def admin?
+    logged_in? && current_user.has_role?(:admin)
   end
 end

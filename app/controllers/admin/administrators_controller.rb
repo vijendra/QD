@@ -1,6 +1,7 @@
 class Admin::AdministratorsController < ApplicationController
 
-   require_role ["super_admin", "admin"]
+   require_role "super_admin"
+   before_filter :check_role
   layout 'admin'
 
   def index
@@ -102,5 +103,15 @@ class Admin::AdministratorsController < ApplicationController
     disclaimer_content.update_attributes(:values => params[:admin_disclaimer_content][:values])
      redirect_to(edit_admin_administrator_url(:id => params[:administrator][:id]))
  	end
+ 	private
 
+ 	def check_role
+ 		if admin? and !session[:accept_terms]
+    	 redirect_to (:controller =>"/sessions" ,:action =>:terms)
+    end
+	end
+
+  def admin?
+    logged_in? && current_user.has_role?(:admin)
+  end
 end

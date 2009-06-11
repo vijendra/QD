@@ -3,7 +3,8 @@
 <% end -%>
 <br/>
 
-<b> Starting Balance : <%=h @dealer.profile.starting_balance %> </b> <br/><br/>
+<b> Starting Balance : <%=h @dealer.profile.starting_balance %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Current Balance : <%=h @dealer.profile.current_balance %> </b><br/>
 
    <% unless @trigger_details.blank? %>
      <table class='listing'>
@@ -31,6 +32,6 @@
        <th> Previous Balance </th>
        <th> Total Records </th>
        <th> Balance</th>
-   </tr></table>  <br/><br/>
+   </tr></table><br/>
      <b>No Account Detail for Dealer</b>
    <%end%>

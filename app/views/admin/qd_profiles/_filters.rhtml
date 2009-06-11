@@ -1,8 +1,7 @@
 <% form_tag(admin_qd_profiles_url, :method => :get, :id => "search_form") do %>
    <table class="listing">
      <tr>
-        <th> Imported On</th>
-
+        <th> Imported On &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Imported End  </th>
         <th> Dealer </th>
         <th> Order Number </th>
         <th> Reset </th>
@@ -10,7 +9,11 @@
      <tr>
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
-           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp; <%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" },:method =>:get %> </td>
+           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+           <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+           <%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" },:method =>:get %>
+
+           </td>
 
 
 

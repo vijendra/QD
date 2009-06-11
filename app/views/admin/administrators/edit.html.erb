@@ -79,6 +79,7 @@
   <table class = 'form-table'></table><br/>
   <b> <%= fckeditor_textarea("admin_disclaimer_content","values" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> <br/>
    <input id="administrator_id" name="administrator[id]" type="hidden" value="<%=@administrator.id%>" />
+   <input id="admin_disclaimer_content_id" name="admin_disclaimer_content[id]" type="hidden" value="<%=@admin_disclaimer_content.id%>" />
 
    <br/>
 <%= submit_tag "Save Disclaimer Content"%>
