@@ -4,6 +4,8 @@
    <table class='table-top'><tr>
        <td class='hide-for-print'> <%= link_to_function("Print this Page", "javascript:print()") %> </td>
        <td class='hide-for-print'> <%= link_to("Export This Page to CSV", qd_profiles_url(:format => "csv", :search => @params) )%> </td>
+       <td class='hide-for-print'> <%= link_to("Print File", print_file_qd_profiles_url(:format => "pdf"), :action => :get )%> </td>
+
        </tr>
    </table>
 <%form_tag mark_data_qd_profiles_path, :method=>:post do %>

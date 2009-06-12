@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Profiles
   map.resources :profiles
-  map.resources :qd_profiles,:collection =>{:mark_data => :post}
+  map.resources :qd_profiles, :collection =>{:mark_data => :post, :print_file => :get}
 
   # Administration
   map.namespace(:admin) do |admin|

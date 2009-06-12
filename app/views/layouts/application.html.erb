@@ -10,7 +10,7 @@
 	<%= stylesheet_link_merged :base ,'facebox' ,'calendar/option2- blue/style' %>
   	<%= javascript_include_merged :base,'facebox' %>
   	<%= calendar_date_select_includes  %>
-        <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
+        <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min', 'jquery_corner' %>
         <script type="text/javascript">
            jQuery.noConflict();
         </script>
@@ -34,7 +34,10 @@
       <%= render :partial => 'shared/links' %>
     </div>
   </div>
+   <script type="text/javascript">
 
+    jQuery("#header").corner("corner 10px")
+ </script>
   <div id="main">
     <h3 class="head"> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %> </h3>
 
@@ -49,7 +52,11 @@
   <div id="footer">
        Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by ISIRI Technologies Pvt Ltd.
   </div>
-
+  
+<script type="text/javascript">
+    jQuery("#header").corner("corner top 12px");
+    jQuery(".head").corner("corner top 12px");
+ </script>
 
 </body>
 </html>
