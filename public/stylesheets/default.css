@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #F3F3E7; /* #FCF3DF; #FFF9E5;*/
+	background-color: #EDE8E2; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -66,7 +66,7 @@ ul {
 	background: url(/images/top_bar.png) repeat-x;
 	margin: 8px 13px 8px 13px;
 	padding: 0.2em 0em 0 0;
-        height: 70px;
+        height: 74px;
         border-left: #E7EBF3 2px solid;
         border-right: #E7EBF3 2px solid;
 }
@@ -74,15 +74,16 @@ ul {
 #header h1 {
 	float: left;
 	font-weight: bold;
-	color: #000;
-	padding: .3em  0em  0em  1em ;
+	color: #A82B1E;
+	padding: .1em  0em  0em  .5em ;
 	margin: 0px;
-	font-size: 20px;
+	font-size: 28px;
+         
 }
 
 #header h1 span {
-	font-size: 0.6em;
-	color: #bfd82d;
+	font-size: 28px;
+	color: #F8981D;
 }
 
 /* Menu */
@@ -113,10 +114,10 @@ ul {
 	display: block;
 	float: left;
 	margin: 5px 0px 0px 0px;
-	padding: 4px 10px 5px;
+	padding: 5px 10px 5px;
 	text-decoration: none;
 	color: #fff;
-	border-right: #fff 2px solid;	
+	border: #87A6C5 1px solid;	
         
 }
 
@@ -128,7 +129,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       background: #3A80C1;
+       background: #2A75BB;
 	color: #fff;
 }
 
@@ -178,17 +179,17 @@ ul {
 	width: 81%;
 }
 .head {
-	color: #294987;
+	color: #fff;
 	font-weight: bold;
-	background-color: #D7E1E8;
+	background-color: #F4BA71;
 	margin: 0;
-	font-size: 1.5em;
+	font-size: 1.4em;
         padding: 3px 3px 3px 5px;
         border: #BDCFE1 1px solid;
-        text-align: center;
+      
 }
  #screen {
-	padding: 10px;
+	padding: 5px;
         background: #FFF;
         height: 100%;
 	}
@@ -654,7 +655,7 @@ div.page_header {
              color: #003A66;
              text-align: left;
              padding: 0.3em .5em;
-             border: #AFC4DC 1px solid ;
+             border: #ccc 1px solid ;
 			  
 }
 
@@ -668,7 +669,7 @@ div.page_header {
 }
 
 .listing a {
-	        color: #004F99;
+	        color: #003C73;
 		text-decoration: none;
            }
 

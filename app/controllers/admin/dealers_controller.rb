@@ -29,8 +29,8 @@ class Admin::DealersController < ApplicationController
                           ]
                     #Data
                     if params[:type] == "all"
-                     dealers = Dealer.find(:all)
-                     dealers.each do |d|
+                 
+                     Dealer.all.each do |d|
                      csv << [ d.id,d.login,d.email,d.profile.name,d.profile.auth_code,d.profile.emails_xml,d.profile.emails_html,
                               d.profile.emails_extra,d.profile.first_name,d.profile.mid_name, d.profile.last_name ,
                               "#{d.profile.phone_1}-#{d.profile.phone_2}-#{d.profile.phone_3}",

@@ -5,12 +5,13 @@ class Admin::QdProfilesController < ApplicationController
   before_filter :check_role
 
   def index
-
-  	@search = QdProfile.new_search(params[:search])
-  	@params = params[:search]
+    @search = QdProfile.new_search(params[:search])
+    @params = params[:search]
     @search.per_page ||= 15
-    @search.page ||= 1
-   unless params[:today].blank?
+    @search.order_as ||= "DESC"
+    @search.order_by ||= "created_at"
+
+    unless params[:today].blank?
        @search.conditions.created_at = Date.today
        params[:today] = nil
     end
@@ -35,15 +36,10 @@ class Admin::QdProfilesController < ApplicationController
     	 @search.conditions.and_created_at_before = "#{end_date}"
    	end
 
-    unless params[:name].blank?
-      group1 = @search.conditions.group
-      group1.fname_like = params[:name]
-      group1.or_lname_like = params[:name]
-    end
+ 
     @search.conditions.dealer.administrator_id = current_user.id unless super_admin?
-    @search.order_as ||= "DESC"
-    @search.order_by ||= "created_at"
-   	@qd_profiles = @search.all
+
+    @qd_profiles = @search.all
 
     respond_to do |format|
       format.html # index.html.erb

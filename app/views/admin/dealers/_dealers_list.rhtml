@@ -8,14 +8,15 @@
     <th><%= remote_order_by_link(:email ,:text =>"Email" ) %></th>
  	<th> Phone Number </th>
  	<!--<th> CSV UPLOAD </th>-->
-
+        <th> Admin </th>
 	<th> S Balance </th> <th> C Balance </th>
  	<th> QD Fields </th>
  	<th> CSV upload </th>
  	<th> Status </th>
  	<th> Flag </th>
+        <th> Print file</th>
  	<th> Delete </th>
-
+ 
   </tr>
   </thead>
 
@@ -52,7 +53,7 @@
          <td> <%=h  dealer.state  %> </td>
            <td><%=  dealer.state =="inactive"?  (link_to "Active",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id ,:page =>@search.page ,:per_page => @search.per_page ) : (link_to "Inactive",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id,:page =>@search.page,:per_page => @search.per_page) %></td>
 
-
+         <td> <%= link_to "print file", '#' %></td>
          <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
        </tr>
     <% end %>

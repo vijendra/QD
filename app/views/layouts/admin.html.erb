@@ -7,7 +7,7 @@
 
 	<title><%= configatron.site_name %></title>
     <%= javascript_include_merged :base,'facebox'  %>
-    <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
+    <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min', 'jquery_corner' %>
     <%= javascript_include_tag :fckeditor %>
     <%= calendar_date_select_includes  %>
   	<%= stylesheet_link_merged :base, 'calendar/option2- blue/style' ,'facebox' %>
@@ -25,7 +25,7 @@
 <body>
 
   <div id="header">
-    <h1><%= image_tag('logo.gif') %></h1>
+    <h1>Quick Data <span>Robot</span></h1>
 
     <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
@@ -53,6 +53,9 @@
       Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://isiritech.com" , {:target => "_blank" }%>
   </div>
 
+   <script type="text/javascript">
 
+    jQuery("#header").corner("corner 10px")
+ </script>
 </body>
 </html>
