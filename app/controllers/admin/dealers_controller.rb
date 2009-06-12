@@ -147,41 +147,46 @@ class Admin::DealersController < ApplicationController
  	end
 
   def csv_import
-    dealer = Dealer.find(params[:dealer_id])
-    @balance = dealer.profile.current_balance
+    @dealer = Dealer.find(params[:dealer_id])
+    @balance = @dealer.profile.current_balance
     no_of_records = 0
-    if params[:type] == "seekerinc"
-    	trigger = TriggerDetail.create(:dealer_id => dealer.id, :data_source => 'seekerinc',
+    unless (params[:dealer][:order_number].blank? or params[:dealer][:file].blank?)
+     if params[:type] == "seekerinc"
+    	trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'seekerinc',
     	                               :total_records => no_of_records, :order_number => params[:dealer][:order_number],
     	                               :balance => @balance )
       data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
       @balance = @balance -1
       no_of_records =no_of_records + 1
-      data_set = {:dealer_id => params[:dealer_id], :trigger_detail_id => trigger.id}
+      data_set = {:dealer_id =>  @dealer.id, :trigger_detail_id => trigger.id}
       data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
       QdProfile.create(data_set)
     end
     trigger.update_attribute('total_records', no_of_records)
     trigger.update_attribute('balance', @balance)
    else
-      trigger = TriggerDetail.create(:dealer_id => dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance )
+      trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance )
        field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
       FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
          no_of_records = no_of_records + 1
          @balance = @balance -1
-       	 data_set = {:dealer_id => dealer.id, :trigger_detail_id => trigger.id, :listid => "#{params[:dealer][:order_number]}_#{row[10]}" }
+       	 data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id, :listid => "#{params[:dealer][:order_number]}_#{row[10]}" }
          field_list.map {|f| data_set[f] = row[field_list.index(f)] unless f.blank?}
          QdProfile.create(data_set)
         end
-     trigger.update_attribute('total_records', no_of_records)
-     trigger.update_attribute('balance', @balance)
+      trigger.update_attribute('total_records', no_of_records)
+      trigger.update_attribute('balance', @balance)
 
-   end
-    dealer.profile.update_attribute('current_balance', @balance)
-    flash[:notice] = 'CSV data is successfully imported.'
+    end
+     dealer.profile.update_attribute('current_balance', @balance)
+     flash[:notice] = 'CSV data is successfully imported.'
+     redirect_to(admin_dealers_url)
+   else
+   	  flash[:notice] ="Please Enter Order No and select a File"
+  	  redirect_to(admin_dealers_url)
+  	end
 
-    redirect_to(admin_dealers_url)
   end
 
 
@@ -274,46 +279,7 @@ class Admin::DealersController < ApplicationController
  	  end
  	end
 
- 	def mark_data_for_printed
- 		 dealer = Dealer.find(params[:id])
- 		 qd_profiles = dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"])
-     csv_file = FasterCSV.generate do |csv|
-     csv_headers = { :name => 'Dealer Name', :first_name => 'Dealer F Name', :mid_name => 'Dealer M Name',
-                     :last_name => 'Dealer L Name', :phone_num => 'Dealer Phone num',:text_body_1 =>' Dealer Text Boby 1',
-                     :text_body_2 =>' Dealer Text Boby 2',:text_body_3 =>' Dealer Text Boby 3',
-                     :variable_data_4 => 'Variable Data 4',:variable_data_5 => 'Variable Data 5',
-                     :variable_data_6 => 'Variable Data 6',:variable_data_7 => 'Variable Data 7',
-                     :variable_data_8 => 'Variable Data 8',:variable_data_9 => 'Variable Data 9',
-                     :address => 'Dealer Address',:city => 'Dealer City', :state => 'Dealer State',
-                     :postal_code => 'Dealer Postal Code'
-                   }
-     fields_for_csv = dealer.csv_extra_field.fields rescue ['name', 'first_name', 'last_name', 'phone_num', 'address', 'city', 'state','postal_code']
 
-
- 		   if dealer.profile.data_sources == "seekerinc"
-
- 		   	csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_sym] }
-        qd_profiles.each do |prof|
-        	csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + field_values(fields_for_csv, prof)
-        	 prof.print!
-
-                         end
-
-       else
-
-       	 	csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ,'ADDRESS 2' ,' LEVEL' ,'AUTO17' ,'PR01' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_sym] }
-       	 	qd_profiles.each do |prof|
-          csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ,prof.address2,prof.level,prof.auto17,prof.pr01] + field_values(fields_for_csv, prof)
-        	 prof.print!
-
-                         end
-       end
-
-     end
-     #sending the file to the browser
-     send_data(csv_file, :filename => 'data_list.csv', :type => 'text/csv', :disposition => 'attachment')
-
-	end
 
  	private
  	def check_role

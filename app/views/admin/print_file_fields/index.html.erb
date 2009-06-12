@@ -1,0 +1,18 @@
+<h1>Listing print_file_fields</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @print_file_fields.each do |print_file_field| %>
+  <tr>
+    <td><%= link_to 'Show', print_file_field %></td>
+    <td><%= link_to 'Edit', edit_print_file_field_path(print_file_field) %></td>
+    <td><%= link_to 'Destroy', print_file_field, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New print_file_field', new_print_file_field_path %>

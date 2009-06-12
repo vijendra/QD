@@ -1,0 +1,12 @@
+<h1>Editing print_file_field</h1>
+
+<% form_for(@print_file_field) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @print_file_field %> |
+<%= link_to 'Back', print_file_fields_path %>

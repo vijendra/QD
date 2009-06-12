@@ -8,7 +8,9 @@
     <th><%= remote_order_by_link(:email ,:text =>"Email" ) %></th>
  	<th> Phone Number </th>
  	<!--<th> CSV UPLOAD </th>-->
-
+  <% if super_admin? -%>
+    <th> Admin </th>
+  <%end%>
 	<th> S Balance </th> <th> C Balance </th>
  	<th> QD Fields </th>
  	<th> CSV upload </th>
@@ -53,7 +55,7 @@
          <td> <%=h  dealer.state  %> </td>
            <td><%=  dealer.state =="inactive"?  (link_to "Active",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id ,:page =>@search.page ,:per_page => @search.per_page ) : (link_to "Inactive",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id,:page =>@search.page,:per_page => @search.per_page) %></td>
 
-         <td> <%= link_to "print file",  mark_data_for_printed_admin_dealers_path(:id => dealer.id) %></td>
+         <td> <%= link_to "print file",  admin_dealer_print_datas_path(:dealer_id => dealer.id) %></td>
          <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
        </tr>
     <% end %>

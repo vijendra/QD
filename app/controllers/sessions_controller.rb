@@ -37,8 +37,8 @@ class SessionsController < ApplicationController
   end
 
   def terms
-   	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' ' if admin?
-   	@disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue ' ' if !admin?
+   	@disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue nil unless (super_admin? or admin? )
+   @disclaimer_content.nil?? @disclaimer_content =AdminSetting.find_by_identifier("disclaimer_content").values : @disclaimer_content
 
  	end
 

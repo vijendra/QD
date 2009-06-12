@@ -60,16 +60,6 @@ class QdProfilesController < ApplicationController
    end
  end
 
- def print_file
-   options = { :left_margin   => 0,
-                              :right_margin  => 0,
-                              :top_margin    => 0,
-                              :bottom_margin => 0
-    				                }
-                  prawnto :inline=>true, :prawn=> options, :page_size => 'A0',  :page_orientation => :portrait, :filename => "appointments.pdf"
-                  render :layout => false
-
- end
 
  private
 

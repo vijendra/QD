@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_one :profile
   has_one :address
 
+
   accepts_nested_attributes_for :profile, :address
 
   # Hooks
