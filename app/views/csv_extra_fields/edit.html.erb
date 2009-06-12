@@ -2,15 +2,28 @@
 <br/>
 <% form_for(:csv_extra_field,:url=>dealer_csv_extra_field_path(@dealer),:html => { :method => :put }) do |f| %>
 <table class = 'form-table'>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'first_name', @fields.include?("first_name"))%> </td><th>First Name</th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mid_name', @fields.include?("mid_name"))%></td><th> Middle Name</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'last_name', @fields.include?("last_name"))%> </td><th> Last Name </th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'phone_num', @fields.include?("phone_num"))%> </td><th> Phone Number </th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'address', @fields.include?("address"))%></td><th> Address</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'city', @fields.include?("city"))%> </td><th> City</th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'state', @fields.include?("state"))%></td><th> State</th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'postal_code', @fields.include?("postal_code"))%></td><th> Zip</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'first_name', @fields.include?("first_name"))%> </td><th>First Name</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'mid_name', @fields.include?("mid_name"))%></td><th> Middle Name</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'last_name', @fields.include?("last_name"))%> </td><th> Last Name </th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'phone_num', @fields.include?("phone_num"))%> </td><th> Phone Number </th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'address', @fields.include?("address"))%></td><th> Address</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'city', @fields.include?("city"))%> </td><th> City</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'state', @fields.include?("state"))%></td><th> State</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'postal_code', @fields.include?("postal_code"))%></td><th> Zip</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_1', @fields.include?("text_body_1"))%></td><th> Text Body 1</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_2', @fields.include?("text_body_2"))%> </td><th>Text Body 2</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_3', @fields.include?("text_body_3"))%></td><th>Text Body 3</th></tr>
+
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_4', @fields.include?("variable_data_4"))%> </td><th> Variable Data 4</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_5', @fields.include?("variable_data_5"))%> </td><th> Variable Data 5</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_6', @fields.include?("variable_data_6"))%> </td><th> Variable Data 6</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_7', @fields.include?("variable_data_7"))%> </td><th> Variable Data 7</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_8', @fields.include?("variable_data_8"))%> </td><th> Variable Data 8</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_9', @fields.include?("variable_data_9"))%> </td><th> Variable Data 9</th></tr>
+
+
+
 </table><br/>
 <%=f.submit "update" %>
  <%= link_to "Back" , qd_profiles_url %>

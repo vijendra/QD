@@ -3,14 +3,27 @@
 <% form_for(:csv_extra_field,:url=>dealer_csv_extra_field_path(@dealer.id),:method =>:post ) do |f| %>
 <br/>
  <table class = 'form-table'>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'fname', true)%> </td><th>First Name</th></tr>
-   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mname', true)%></td><th> Middle Name</th></tr>
-   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'lname', true)%> </td><th> Last Name </th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'first_name', true)%> </td><th>First Name</th></tr>
+   <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mid_name', true)%></td><th> Middle Name</th></tr>
+   <tr> <td><%= check_box_tag("csv_extra_fields[]", 'last_name', true)%> </td><th> Last Name </th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'phone_num', true)%> </td><th> Phone Number </th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'address', true)%></td><th> Address</th></tr>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'city', true)%> </td><th> City</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'state', true)%></td><th> State</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'postal_code', true)%></td><th> Zip</th></tr>
+
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_1', true)%></td><th> Text Body 1</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_2', true)%> </td><th>Text Body 2</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_3', true)%></td><th>Text Body 3</th></tr>
+
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_4', true)%> </td><th> Variable Data 4</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_5', true)%> </td><th> Variable Data 5</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_6', true)%> </td><th> Variable Data 6</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_7', true)%> </td><th> Variable Data 7</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_8', true)%> </td><th> Variable Data 8</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_9', true)%> </td><th> Variable Data 9</th></tr>
+
 
   </table><br/>
    <%=f.submit "Save" %>

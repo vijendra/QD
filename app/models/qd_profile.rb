@@ -7,11 +7,16 @@ class QdProfile < ActiveRecord::Base
   aasm_initial_state :new
 
   aasm_state :new
-  aasm_state :visited
-
+  aasm_state :marked
+  aasm_state :printed
 
 
   aasm_event :mark_visited do
-    transitions :to => :visited, :from => [:new]
+    transitions :to => :marked, :from => [:new ,:marked]
   end
+  aasm_event :print do
+    transitions :to => :printed, :from => [:marked]
+  end
+
+
 end

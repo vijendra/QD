@@ -1,7 +1,7 @@
 <% form_tag(admin_qd_profiles_url, :method => :get, :id => "search_form") do %>
    <table class="listing">
      <tr>
-        <th> Imported On &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Imported End  </th>
+        <th> Imported Date Between </th>
         <th> Dealer </th>
         <th> Order Number </th>
         <th> Reset </th>
@@ -15,9 +15,11 @@
 
            </td>
 
-
-
-              <td> <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
+               <% if super_admin?%>
+                 <td> <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.dealers_list %></td>
+                <%else%>
+                 <td> <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.administrator_dealers_list(current_user.id) %></td>
+                <%end%>
 
              <% p.fields_for p.object.dealer do |dealer| %>
                   <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>

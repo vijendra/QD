@@ -44,8 +44,8 @@ class QdProfilesController < ApplicationController
                                 #sending the file to the browser
                                 send_data(csv_file, :filename => 'data_list.csv', :type => 'text/csv', :disposition => 'attachment')
                                }
-                             end
-                 end
+        end
+    end
 
 
 

@@ -6,21 +6,25 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 	<title><%= configatron.site_name %></title>
-	
+
 	<%= stylesheet_link_merged :dialog %>
   	<%= javascript_include_merged :base %>
-  
+
 </head>
 
 <body>
   <div id="header">
      <h1><%= image_tag('logo.gif') %></h1>
+      <div id="global_links">
+      <%= render :partial => 'shared/global_links' %>
+    </div>
+
   </div>
 
   <div id="main">
      <div id="left">
 	<h2 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h2>
-	
+
         <%= flash_message %>
 
         <div id="screen">
@@ -28,7 +32,7 @@
         </div>
      </div>
 
-    
+
   </div>
   <div class="clear"> </div>
 

@@ -86,7 +86,7 @@ class SessionsController < ApplicationController
 
     new_cookie_flag = (params[:remember_me] == "1")
     handle_remember_cookie! new_cookie_flag
-    if !super_admin?
+    unless (super_admin? || admin?)
     	redirect_to(:controller =>:sessions ,:action =>:terms)
     else
     	session[:accept_terms] = true

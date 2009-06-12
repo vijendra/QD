@@ -7,7 +7,11 @@ class Dealer < User
   def self.dealers_list
     self.find(:all).collect{|dealer| [dealer.profile.name, dealer.id] }
   end
-  
+
+  def self.administrator_dealers_list(id)
+  	  self.find(:all,:conditions => ["administrator_id = ?",id]).collect{|dealer| [dealer.profile.name, dealer.id]}
+  end
+
   aasm_state :inactive
 
 
