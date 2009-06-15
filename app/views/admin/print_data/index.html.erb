@@ -1,0 +1,118 @@
+
+<% content_for :header do -%>
+  Marked Data For Dealer : <%=h  @dealer.profile.name %>
+<% end -%>
+<br/>
+
+<%form_tag admin_print_file_fields_path, :method=>:post do %>
+<table class ="form-table">
+<input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
+  <tr> <th> Identifier </th> <th>Label </th> <th> values </th> </tr>
+  <tr><th> Variable Data 4</th>
+      <% if @variable_data_4.blank? %>
+      <td> <%= text_field_tag "variable_data_4[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_4[values]" ,'',:class => "textbox" %> </td></tr>
+      <%else%>
+       <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_4[values]" ,@variable_data_4.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr> <th>Variable Data 5</th>
+   <% if @variable_data_5.blank? %>
+      <td><%= text_field_tag "variable_data_5[label]",'',:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_5[values]" ,'',:class => "textbox" %> </td></tr>
+     <%else%>
+     <td><%= text_field_tag "variable_data_5[label]",@variable_data_5.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_5[values]" ,@variable_data_5.values,:class => "textbox" %> </td></tr>
+     <%end%>
+
+  <tr> <th>Variable Data 6</th>
+  <% if @variable_data_6.blank? %>
+      <td><%= text_field_tag "variable_data_6[label]" ,'',:class => "textbox"%> </td>
+      <td> <%= text_field_tag "variable_data_6[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_6[values]" ,@variable_data_6.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr><th> Variable Data 7</th>
+  <% if @variable_data_7.blank? %>
+      <td> <%= text_field_tag "variable_data_7[label]" ,'',:class => "textbox"%></td>
+      <td> <%= text_field_tag "variable_data_7[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_7[label]",@variable_data_7.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_7[values]" ,@variable_data_7.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr> <th>Variable Data 8</th>
+  <% if @variable_data_8.blank? %>
+      <td> <%= text_field_tag "variable_data_8[label]",'',:class => "textbox" %></td>
+      <td> <%= text_field_tag "variable_data_8[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_8[label]",@variable_data_8.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_8[values]" ,@variable_data_8.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr><th> Variable Data 9</th>
+  <% if @variable_data_9.blank? %>
+      <td><%= text_field_tag "variable_data_9[label]" ,'',:class => "textbox"%> </td>
+      <td> <%= text_field_tag "variable_data_9[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  </table>
+  <%= submit_tag "save" %>
+<%end%>
+
+
+
+
+
+<%= link_to_remote "Text Body 1" ,:url => { :controller => "admin/print_data" ,:action => :dispaly_admin_setting ,:identifier =>"text_body_1" ,:dealer_id => @dealer.id  } %> <b>|</b>
+<%= link_to_remote "Text Body 2" ,:url => { :controller => "admin/print_data" ,:action => :dispaly_admin_setting ,:identifier =>"text_body_2" ,:dealer_id => @dealer.id  } %> <b>|</b>
+<%= link_to_remote "Text Body 3" ,:url => { :controller => "admin/print_data" ,:action => :dispaly_admin_setting ,:identifier =>"text_body_3" ,:dealer_id => @dealer.id  } %> <b>|</b>
+
+
+<div id="text-body">
+    <%= render :partial => "admin_settings" %>
+</div>
+
+
+
+<% unless @marked_dates.blank? %>
+
+ <%form_tag ("/admin/print_data/mark_data_for_printed", :method=>:post) do %>
+      <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
+      <% @marked_dates.each do |date| %>
+        <b><%=h date %> </b>
+           <% qd_profiles = find_qd_profile_for_date(date) %>
+           <%unless qd_profiles.blank?%>
+            <table class='listing'>
+              <tr> <th></th>
+               <th> Imported on </th> <th> Order No</th><th> First Name</th><th>Last Name</th> <th> Address </th>
+               <th> City </th><th> State </th><th> Zip </th> <th> Crrt </th><th>Dealer </th><th> Status</th>
+              </tr>
+              <% qd_profiles.each do |profile| %>
+               <tr  class="<%= cycle('odd', 'even')%>">
+                  <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
+                  <td> <%=h Time.parse(profile.created_at.to_s).to_date %> </td>
+                  <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>
+                  <td> <%=h profile.fname %> </td>
+                  <td> <%=h profile.lname  %>
+                  <td> <%=h profile.address %> </td>
+                  <td> <%=h profile.city %> </td>
+                  <td> <%=h profile.state %> </td>
+                  <td> <%=h profile.zip %> </td>
+                  <td> <%=h profile.crrt %> </td>
+                  <td> <%=h profile.dealer.profile.name %> </td>
+                  <td> <%=h profile.status%></td>
+              </tr>
+             <%end%>
+            </table>
+            <%else%>
+              No record for this Date
+          <%end%>
+         <%end%>
+
+         <%= submit_tag "Print Data"%>
+   <%end%>
+   <%else%>
+      No Records Found.
+   <%end%>
