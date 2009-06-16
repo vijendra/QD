@@ -10,8 +10,8 @@ class QdProfilesController < ApplicationController
     @search.per_page ||= 15
     unless params[:created_at].blank?
     	 date = params[:created_at].to_date
-         @search.conditions.created_at_after = date.beginning_of_day()
-    	 @search.conditions.created_at_before =  date.end_of_day()
+       @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before = date.end_of_day()
    	end
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
@@ -60,6 +60,12 @@ class QdProfilesController < ApplicationController
    end
  end
 
+ def print_file
+   options = { :left_margin   => 0,:right_margin  => 0,:top_margin    => 0, :bottom_margin => 0      }
+              prawnto :inline=>true, :prawn=> options, :page_size => 'A0',  :page_orientation => :portrait, :filename => "Qd_Profiles.pdf"
+             render :layout => false
+
+ end
 
  private
 

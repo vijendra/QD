@@ -1,8 +1,6 @@
-
 <% content_for :header do -%>
   Marked Data For Dealer : <%=h  @dealer.profile.name %>
 <% end -%>
-<br/>
 
 <%form_tag admin_print_file_fields_path, :method=>:post do %>
 <table class ="form-table">
@@ -55,24 +53,51 @@
       <td> <%= text_field_tag "variable_data_9[values]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td></tr>
-      <%end%>
-  </table>
-  <%= submit_tag "save" %>
+      <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td> </tr>
+      <%end%></table>
+
+      <table class="form-table">
+         <tr> <th> Identifier </th><td> Text Body 1</td></tr>
+         <% if @text_body_1.blank? %>
+           <tr> <th> label </th><td> <%= text_field_tag "text_body_1[label]" ,"",:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td><%= text_area_tag "text_body_1[values]" ,'',:class => "textbox" %> </td></tr>
+         <%else%>
+           <tr> <th> label </th><td> <%= text_field_tag "text_body_1[label]" ,@text_body_1.label,:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td><%= text_area_tag "text_body_1[values]" ,@text_body_1.values,:class => "textbox" %> </td></tr>
+         <%end%>
+
+          <tr> <th> Identifier </th><td> Text Body 2</td></tr>
+         <% if @text_body_2.blank? %>
+           <tr> <th> label </th><td> <%= text_field_tag "text_body_2[label]" ,"",:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td><%= text_area_tag "text_body_2[values]" ,'',:class => "textbox" %> </td></tr>
+         <%else%>
+           <tr> <th> label </th><td> <%= text_field_tag "text_body_2[label]" ,@text_body_2.label,:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td><%= text_area_tag "text_body_2[values]" ,@text_body_2.values,:class => "textbox" %> </td></tr>
+         <%end%>
+
+          <tr> <th> Identifier </th><td> Text Body 3</td></tr>
+         <% if @text_body_3.blank? %>
+           <tr> <th> label </th><td> <%= text_field_tag "text_body_3[label]" ,"",:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td><%= text_area_tag "text_body_3[values]" ,'',:class => "textbox" %> </td></tr>
+         <%else%>
+           <tr> <th> label </th><td> <%= text_field_tag "text_body_3[label]" ,@text_body_3.label,:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td><%= text_area_tag "text_body_3[values]" ,@text_body_3.values,:class => "textbox" %> </td></tr>
+         <%end%>
+
+
+
+
+      </table>
+
+
+
+
+
+
+
+      <%= submit_tag "save" %>
+
 <%end%>
-
-
-
-
-
-<%= link_to_remote "Text Body 1" ,:url => { :controller => "admin/print_data" ,:action => :dispaly_admin_setting ,:identifier =>"text_body_1" ,:dealer_id => @dealer.id  } %> <b>|</b>
-<%= link_to_remote "Text Body 2" ,:url => { :controller => "admin/print_data" ,:action => :dispaly_admin_setting ,:identifier =>"text_body_2" ,:dealer_id => @dealer.id  } %> <b>|</b>
-<%= link_to_remote "Text Body 3" ,:url => { :controller => "admin/print_data" ,:action => :dispaly_admin_setting ,:identifier =>"text_body_3" ,:dealer_id => @dealer.id  } %> <b>|</b>
-
-
-<div id="text-body">
-    <%= render :partial => "admin_settings" %>
-</div>
 
 
 
@@ -106,9 +131,7 @@
               </tr>
              <%end%>
             </table>
-            <%else%>
-              No record for this Date
-          <%end%>
+           <%end%>
          <%end%>
 
          <%= submit_tag "Print Data"%>

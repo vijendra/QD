@@ -1,15 +1,20 @@
 
 <% form_tag('/admin/print_data/admin_setting') do -%>
   <table class = 'form-table'>
-   <tr><th> Identifier : </th> <td> <%=h @print_file_field.identifier %> </td></tr>
-   <tr> <th>Label : </th> <td> <%= text_field_tag "print_file_field[label]" ,'' ,:class =>"textbox"%> </td></tr>
- </table>
-  <%= fckeditor_textarea("print_file_field","values" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %>
+   <tr><th> Identifier  </th> <th> <%=h @print_file_field.identifier %> </th></tr>
+   <tr> <th>Label  </th> <td>
+   <% if @print_file_field.identifier.blank? %>
+      <%= text_field_tag "print_file_field[label]" ,'' ,:class =>"textbox"%>
+   <%else%>
+       <%= text_field_tag "print_file_field[label]" ,@print_file_field.label ,:class =>"textbox"%>
+   <%end%>
+    </td></tr>
+</table>
+  <%= fckeditor_textarea("print_file_field","values" , :toolbarSet => "Simple", :width => '50%', :height => '50%' ) %>
 
    <input id="dealer_id" name="dealer_id" type="hidden" value="<%=@dealer.id%>" />
     <input id="identifier" name="identifier" type="hidden" value="<%=@print_file_field.identifier %>" />
-
+<br/>
 <%= submit_tag "Save Text"%>
 <%end-%>
-<br />
 <br />

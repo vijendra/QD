@@ -24,8 +24,8 @@ class Admin::DealersController < ApplicationController
                    #Headers
                    csv << [ 'Id','Login','Email','Profile Name','Auth Code','Emails xml','Emails Html','Emails Extra',
                             'First Name','Middle Name','Last Name','Phone Number','Data Source',' marketer_net_po',
-                            'wants_data_printed', 'comments','Stating Balance','Current Balance','Rate','Text Body 1','Text Body 2','Text Body 3', 'Variable Data 4','Variable Data 5','Variable Data 6',
-                            'Variable Data 7','Variable Data 8','Variable Data 9','Address','Address2', 'City','State','Zip'
+                            'wants_data_printed', 'comments','Stating Balance','Current Balance','Rate','Address','Address2',
+                            'City','State','Zip'
                           ]
                     #Data
                     if params[:type] == "all"
@@ -34,12 +34,9 @@ class Admin::DealersController < ApplicationController
                      csv << [ d.id,d.login,d.email,d.profile.name,d.profile.auth_code,d.profile.emails_xml,d.profile.emails_html,
                               d.profile.emails_extra,d.profile.first_name,d.profile.mid_name, d.profile.last_name ,
                               "#{d.profile.phone_1}-#{d.profile.phone_2}-#{d.profile.phone_3}",
-                              d.profile.data_sources,d.profile.marketer_net_po,d.profile.wants_data_printed,d.profile.comments,
-                              d.profile.starting_balance,d.profile.current_balance,d.profile.rate,d.profile.text_body_1,
-                              d.profile.text_body_2, d.profile.text_body_3,d.profile.variable_data_4,d.profile.variable_data_5,
-                              d.profile.variable_data_6,d.profile.variable_data_7,d.profile.variable_data_8,
-                              d.profile.variable_data_9, d.address.address,d.address.address2,d.address.city, d.address.state,
-                              d.address.postal_code
+                              d.profile.data_sources ,d.profile.marketer_net_po,d.profile.wants_data_printed,d.profile.comments,
+                              d.profile.starting_balance,d.profile.current_balance,d.profile.rate, d.address.address,
+                              d.address.address2,d.address.city, d.address.state,d.address.postal_code
                             ]
                      end
                    else
@@ -48,11 +45,8 @@ class Admin::DealersController < ApplicationController
                               d.profile.emails_extra,d.profile.first_name,d.profile.mid_name, d.profile.last_name ,
                               "#{d.profile.phone_1}-#{d.profile.phone_2}-#{d.profile.phone_3}",
                               d.profile.data_sources,d.profile.marketer_net_po,d.profile.wants_data_printed,d.profile.comments,
-                              d.profile.starting_balance,d.profile.current_balance,d.profile.rate,d.profile.text_body_1,
-                              d.profile.text_body_2, d.profile.text_body_3,d.profile.variable_data_4,d.profile.variable_data_5,
-                              d.profile.variable_data_6,d.profile.variable_data_7,d.profile.variable_data_8,
-                              d.profile.variable_data_9, d.address.address,d.address.address2,d.address.city, d.address.state,
-                              d.address.postal_code
+                              d.profile.starting_balance,d.profile.current_balance,d.profile.rate,
+                              d.address.address,d.address.address2,d.address.city, d.address.state,d.address.postal_code
                             ]
                      end
                     end
@@ -64,8 +58,6 @@ class Admin::DealersController < ApplicationController
     end
   end
 
-  # GET /dealers/1
-  # GET /dealers/1.xml
   def show
     @dealer = Dealer.find(params[:id])
 
@@ -75,26 +67,22 @@ class Admin::DealersController < ApplicationController
     end
   end
 
-  # GET /dealers/new
-  # GET /dealers/new.xml
+
   def new
     @dealer = Dealer.new
     @dealer.build_profile
     @dealer.build_address
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml  { render :xml => @dealer }
     end
   end
 
-  # GET /dealers/1/edit
   def edit
     @dealer = Dealer.find(params[:id])
 
   end
 
-  # POST /dealers
-  # POST /dealers.xml
   def create
     @dealer = Dealer.new(params[:dealer])
 
@@ -127,8 +115,6 @@ class Admin::DealersController < ApplicationController
     end
   end
 
-  # DELETE /dealers/1
-  # DELETE /dealers/1.xml
   def destroy
     @dealer = Dealer.find(params[:id])
     @dealer.profile.destroy
@@ -152,9 +138,9 @@ class Admin::DealersController < ApplicationController
     no_of_records = 0
     unless (params[:dealer][:order_number].blank? or params[:dealer][:file].blank?)
      if params[:type] == "seekerinc"
-    	trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'seekerinc',
-    	                               :total_records => no_of_records, :order_number => params[:dealer][:order_number],
-    	                               :balance => @balance )
+    	trigger = TriggerDetail.create( :dealer_id => @dealer.id, :data_source => 'seekerinc' ,
+    	                                :total_records => no_of_records, :order_number => params[:dealer][:order_number] ,
+    	                                :balance => @balance )
       data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
       @balance = @balance -1
@@ -177,7 +163,6 @@ class Admin::DealersController < ApplicationController
         end
       trigger.update_attribute('total_records', no_of_records)
       trigger.update_attribute('balance', @balance)
-
     end
      dealer.profile.update_attribute('current_balance', @balance)
      flash[:notice] = 'CSV data is successfully imported.'
@@ -204,13 +189,10 @@ class Admin::DealersController < ApplicationController
   end
 
   def active
-    #	page = params[:page]
-    #  per_page = params[:per_page]
     @dealer = Dealer.find(params[:id])
     @dealer.active!
     redirect_to admin_dealers_path(:search => {:page =>params[:page],:per_page => params[:per_page]})
   end
-
 
   def assign_administrator
     @dealer = Dealer.find(params[:id])
@@ -258,10 +240,7 @@ class Admin::DealersController < ApplicationController
     	    	                :emails_html=>row[6],:emails_extra=>row[7],:first_name=>row[8],:mid_name=>row[9],
     	    	                :last_name=>row[10],:phone_1=>phone[0], :phone_2=>phone[1],:phone_3=> phone[2],
     	    	                :data_sources=>row[12],:marketer_net_po=> row[13],:wants_data_printed=>row[14],
-    	    	                :comments=>row[15],:starting_balance=>row[16],:current_balance=>row[17],:rate =>[18],
-    	    	                :text_body_1=>row[19],:text_body_2 => row[20], :text_body_3 => row[21] ,
-    	    	                :variable_data_4 => row[22] ,:variable_data_5 => row[23] ,:variable_data_6 => row[24],
-    	    	                :variable_data_7 => row[25] ,:variable_data_8 => row[26] ,:variable_data_9 => row[27]
+    	    	                :comments=>row[15],:starting_balance=>row[16],:current_balance=>row[17],:rate =>[18]
     	    	              )
     	    	Address.create( :user_id => dealer.id ,:address =>row[28],:address2 =>row[29],:city =>row[30] ,
     	    	                :state =>row[31],:postal_code =>row[32]
@@ -279,12 +258,11 @@ class Admin::DealersController < ApplicationController
  	  end
  	end
 
-
-
  	private
+
  	def check_role
  		if admin? and !session[:accept_terms]
-    	 redirect_to (:controller =>"/sessions" ,:action =>:terms)
+    	redirect_to (:controller =>"/sessions" ,:action =>:terms)
     end
 	end
 
@@ -293,7 +271,7 @@ class Admin::DealersController < ApplicationController
   end
 
   def super_admin?
-    #logged_in? && current_user.has_role?('super_admin')
+
      logged_in? && (current_user.roles.map{|role| role.name}).include?('super_admin')
   end
 
