@@ -61,13 +61,17 @@ class QdProfilesController < ApplicationController
  end
 
  def print_file
-   options = { :left_margin   => 0,
-                              :right_margin  => 0,
-                              :top_margin    => 0,
-                              :bottom_margin => 0
-    				                }
-                  prawnto :inline=>true, :prawn=> options, :page_size => 'A0',  :page_orientation => :portrait, :filename => "appointments.pdf"
-                  render :layout => false
+   @dealer_profile =  current_user.profile  
+   @dealer_address =  current_user.address
+   options = { :left_margin   => 0, :right_margin  => 0, :top_margin    => 0, :bottom_margin => 0,  :page_size => [610, 1009] }
+               prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => "appointments.pdf"
+   @profiles = current_user.qd_profiles.to_be_printed
+
+   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}" 
+   @auth_code = "123456789"
+   @first_para = 'Would you be interested in buying your next vehicle with a "no hassle" creadit check done at the dealership and without a down payment? If this sounds too good to be true, read on. We can secure your loan quickly, before going to the dealership, many times in less than 5 minutes!'
+   @sec_para = 'Variable, based on your credit history, we areable to offer you a "Pre-Qualified" auto loan between $4,000 and $39,000* for a new, certified pre-owned or pre-owned vehicle. Theres a better way to buy your next vehicle, and it starts with a simple phone call or get your pre-qualified amount.'
+               render :layout => false
 
  end
 

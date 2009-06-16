@@ -37,10 +37,11 @@ class SessionsController < ApplicationController
   end
 
   def terms
-   	@disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue nil unless (super_admin? or admin? )
-   @disclaimer_content.nil?? @disclaimer_content =AdminSetting.find_by_identifier("disclaimer_content").values : @disclaimer_content
-
- 	end
+    unless (super_admin? or admin? )
+      @disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue ''
+      @disclaimer_content.nil?? @disclaimer_content = (AdminSetting.find_by_identifier("disclaimer_content").values rescue '') : @disclaimer_content 
+    end
+  end
 
   def accept_terms
   	if params[:commit] == 'Agree'

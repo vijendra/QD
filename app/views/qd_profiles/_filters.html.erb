@@ -5,7 +5,7 @@
      <tr>
         <th> Imported On</th>
         <th> Order Number </th>
-        <th rowspan='2'><input type="reset" value="Reset"> </th>
+        <th> Reset</th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
@@ -20,6 +20,7 @@
 
          <%end%>
        <%end%>
+       <td><input type="reset" value="Reset"></td>
        </tr>
   </table>
 <% end %>

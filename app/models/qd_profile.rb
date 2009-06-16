@@ -18,5 +18,5 @@ class QdProfile < ActiveRecord::Base
     transitions :to => :printed, :from => [:marked]
   end
 
-
+  named_scope :to_be_printed, {:conditions => ["status like ?",  'marked'] } 
 end

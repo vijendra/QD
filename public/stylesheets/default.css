@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #FFF; /* #FCF3DF; #FFF9E5;*/
+	background-color: #f8fafc; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -64,9 +64,9 @@ ul {
 /** Header */
 #header {
 	background: url(/images/top_bar.png) repeat-x;
-	margin: 10px 17px 0px 17px;
+	margin: 10px 16px 0px 16px;
 	padding: 0.2em 0em 0 0;
-        height: 74px;
+        height: 73px;
         border-left: #E7EBF3 2px solid;
         border-right: #E7EBF3 2px solid;
 }
@@ -74,7 +74,7 @@ ul {
 #header h1 {
 	float: left;
 	font-weight: bold;
-	color: #F8981D;
+	color: #A82B1E;
 	padding: .1em  0em  0em  .5em ;
 	margin: 0px;
 	font-size: 28px;
@@ -83,7 +83,7 @@ ul {
 
 #header h1 span {
 	font-size: 28px;
-	color: #A82B1E;
+	color: #F8981D;
 }
 
 /* Menu */
@@ -163,12 +163,13 @@ ul {
 
         margin: 0 auto;
         background: #fff;
-        width: 96.5%;
+        width: 96.4%;
         min-height: 470px;
         padding: 15px 8px;
        
-        border: #EBE6E0 1px solid;
-        border-top: #fff 1px solid;
+        border-left: #CEDAE8 2px solid;
+        border-right: #CEDAE8 2px solid;
+        border-top: #00539F 1px solid;
 }
 /** Left column */1F598E
 #left, #right {
@@ -181,7 +182,7 @@ ul {
 .head {
 	color: #00407A;
 	font-weight: bold;
-	background-color: #EDEEF3;
+	background-color: #fff;
 	margin: 0;
 	font-size: 1.4em;
         padding: 3px 3px 3px 5px;
@@ -316,11 +317,14 @@ div.progressBar div.background {
 /** Footer */
 #footer {
         margin: 0 auto;
-        width: 40%;
-        padding-top: 5px;
+        width: 97.8%;
+        padding-top: 10px;
         padding-bottom: 10px;
-	color: #003A66;
+	color: #fff;
 	font-size: 0.8em;
+        background: #00539F;
+        height: 15px;
+        text-align: center;
 }
 #footer a:link {
 	color: #003A66;
@@ -732,4 +736,50 @@ fieldset {
 	
 	border: 1px solid #E5E9EF;
 }
+
+/*------------------------- links as buttons --------------*/
+
+a.button {
+    background: transparent url('/images/bg_button_a.gif') no-repeat scroll top right;
+    color: #00407A;
+    display: block;
+    float: left;
+    font-size: 11px;
+    height: 21px;
+    margin-right: 6px;
+    padding-right: 11px; /* sliding doors padding */
+    text-decoration: none;
+
+}
+
+a.button span {
+    background: transparent url('/images/bg_button_span.gif') no-repeat;
+    display: block;
+    line-height: 11px;
+    padding: 5px 0 5px 17px;
+}
+
+a.button:active {
+    background-position: bottom right;
+    color: #496877;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:active span {
+    background-position: bottom left;
+    padding: 5px 0 5px 18px; /* push text down 1px */
+}
+
+a.button:hover {
+    background-position: bottom right;
+    color: #496877;
+    outline: none; /* hide dotted outline in Firefox */
+}
+
+a.button:hover span {
+    background-position: bottom left;
+    padding: 5px 0 5px 17px; /* push text down 1px */
+}
+/*------------------------- links as buttons --------------*/
+
 
