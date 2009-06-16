@@ -1,5 +1,7 @@
-class Admin::PrintDatasController < ApplicationController
+class Admin::PrintDataController < ApplicationController
+	layout 'admin'
   before_filter :find_dealer ,:except =>[:mark_data_for_printed]
+  require 'fastercsv'
 
 	def index
 		@variable_data_4 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_4")
@@ -9,6 +11,11 @@ class Admin::PrintDatasController < ApplicationController
 		@variable_data_8 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_8")
 		@variable_data_9 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_9")
 		@marked_dates = @dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"]).map { |prof| prof.marked_date }
+		@print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_1")
+		if @print_file_field.nil?
+  	  @print_file_field = PrintFileField.new(:dealer_id => @dealer.id,:identifier => "text_body_1")
+  	  @print_file_field.save
+  	end
 		@marked_dates.uniq!
 	end
 
@@ -55,17 +62,41 @@ class Admin::PrintDatasController < ApplicationController
 
 	end
 
+	def dispaly_admin_setting
+
+ 	  @print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
+   	if @print_file_field.nil?
+  	  @print_file_field = PrintFileField.new(:dealer_id => @dealer.id,:identifier => params[:identifier])
+  	  @print_file_field.save
+  	end
+
+ 		render :update do |page|
+                        page.replace_html 'text-body', :partial => 'admin/print_data/admin_settings'
+                   end
+
+
+	end
+
+  def admin_setting
+  	print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
+  	print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:values =>params[:print_file_field][:values] )
+    redirect_to ( admin_dealer_print_data_path(:dealer_id => @dealer.id) )
+
+  end
+
+
 	private
     def find_dealer
     	@dealer = Dealer.find(params[:dealer_id])
     end
-     def field_values(field_list, prof)
-    profile = prof.dealer.profile
-    field_list.map{|qd_field| if qd_field == "phone_num"
-                                 "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
-                              else
-                                eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
-                              end
-                 }
+
+    def field_values(field_list, prof)
+      profile = prof.dealer.profile
+      field_list.map{|qd_field| if qd_field == "phone_num"
+                                  "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
+                                else
+                                   eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
+                                end
+                     }
    end
 end

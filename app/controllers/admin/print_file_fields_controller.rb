@@ -1,14 +1,6 @@
 class Admin::PrintFileFieldsController < ApplicationController
-  # GET /admin_print_file_fields
-  # GET /admin_print_file_fields.xml
-  def index
-    @print_file_fields = PrintFileField.all
+  layout 'admin'
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml =>@print_file_fields }
-    end
-  end
 
   # GET /admin_print_file_fields/1
   # GET /admin_print_file_fields/1.xml
@@ -38,20 +30,17 @@ class Admin::PrintFileFieldsController < ApplicationController
 
   def create
   	 dealer = Dealer.find(params[:dealer][:id])
-  	 dealer.print_file_fields.map {|print| print.destroy }
-     PrintFileField.create(:dealer_id =>params[:dealer][:id] , :identifier =>"variable_data_4" ,:label => params[:variable_data_4][:label],:values => params[:variable_data_4][:values])
+  	 variables = dealer.print_file_fields.map{|rec| rec.identifier}
 
-      PrintFileField.create(:dealer_id =>params[:dealer][:id] , :identifier =>"variable_data_5" ,:label => params[:variable_data_5][:label],:values => params[:variable_data_5][:values])
-
-       PrintFileField.create(:dealer_id =>params[:dealer][:id] , :identifier =>"variable_data_6" ,:label => params[:variable_data_6][:label],:values => params[:variable_data_6][:values])
-
-        PrintFileField.create(:dealer_id =>params[:dealer][:id] , :identifier =>"variable_data_7" ,:label => params[:variable_data_7][:label],:values => params[:variable_data_7][:values])
-         PrintFileField.create(:dealer_id =>params[:dealer][:id] , :identifier =>"variable_data_8" ,:label => params[:variable_data_8][:label],:values => params[:variable_data_8][:values])
-          PrintFileField.create(:dealer_id =>params[:dealer][:id] , :identifier =>"variable_data_9" ,:label => params[:variable_data_9][:label],:values => params[:variable_data_9][:values])
-
-
-   redirect_to  admin_dealer_print_datas_path(:dealer_id => dealer.id)
-
+     for counter in 4..9
+     	 variable = "variable_data_#{counter}"
+     	 unless variables.include?(variable)
+         PrintFileField.create(:dealer_id =>params[:dealer][:id], :identifier => variable, :label => params[variable][:label],:values => params[variable][:values])
+       else
+      	 PrintFileField.find_by_dealer_id_and_identifier(params[:dealer][:id], variable).update_attributes(:label => params[variable][:label], :values => params[variable][:values])
+       end
+     end
+     redirect_to  admin_dealer_print_data_path(:dealer_id => dealer.id)
   end
 
   # PUT /admin_print_file_fields/1
