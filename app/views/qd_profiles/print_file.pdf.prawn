@@ -1,4 +1,6 @@
 require "prawn/format"
+require 'rghost'
+require 'rghost_barcode'
 
 pdf.font "Times-Roman"
 pdf.text_options.update(:size => 13, :spacing => 1)
@@ -11,8 +13,11 @@ for data in @profiles
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
- 
-
+  #generating postnet barcode
+  doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
+  doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#E5DED4"})
+  doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
+  
   pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
 
   pdf.bounding_box([box.right - 225, box.top - 110], :width => 200) do
@@ -30,6 +35,7 @@ for data in @profiles
     pdf.text @name, :size => 14
     pdf.text @address, :size => 14
     pdf.text @place, :size => 14
+    pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left, 0]
   end
 
   pdf.text_options.update(:size => 13, :spacing => 5)
@@ -40,7 +46,7 @@ for data in @profiles
     :width    =>  box.right - 50, :height => 100,
     :at       => [box.left + 50, box.top - 275]
 
-  pdf.text_box @sec_para,
+  pdf.text_box "#{@name}, #{@sec_para}",
     :width    =>  box.right - 50, :height => 100,
     :at       => [box.left + 50, box.top - 360]
 

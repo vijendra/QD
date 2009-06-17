@@ -69,8 +69,8 @@ class QdProfilesController < ApplicationController
 
    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}" 
    @auth_code = "123456789"
-   @first_para = 'Would you be interested in buying your next vehicle with a "no hassle" creadit check done at the dealership and without a down payment? If this sounds too good to be true, read on. We can secure your loan quickly, before going to the dealership, many times in less than 5 minutes!'
-   @sec_para = 'Variable, based on your credit history, we areable to offer you a "Pre-Qualified" auto loan between $4,000 and $39,000* for a new, certified pre-owned or pre-owned vehicle. Theres a better way to buy your next vehicle, and it starts with a simple phone call or get your pre-qualified amount.'
+   @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').values rescue ' '
+   @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').values rescue ' '
                render :layout => false
 
  end

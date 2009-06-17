@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #f8fafc; /* #FCF3DF; #FFF9E5;*/
+	background-color: #EEF1F3; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -163,12 +163,12 @@ ul {
 
         margin: 0 auto;
         background: #fff;
-        width: 96.4%;
+        width: 96.5%;
         min-height: 470px;
         padding: 15px 8px;
        
-        border-left: #CEDAE8 2px solid;
-        border-right: #CEDAE8 2px solid;
+        border-left: #CEDAE8 1px solid;
+        border-right: #CEDAE8 1px solid;
         border-top: #00539F 1px solid;
 }
 /** Left column */1F598E
@@ -742,6 +742,7 @@ fieldset {
 a.button {
     background: transparent url('/images/bg_button_a.gif') no-repeat scroll top right;
     color: #00407A;
+    font-weight: bold;
     display: block;
     float: left;
     font-size: 11px;
