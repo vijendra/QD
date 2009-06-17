@@ -54,20 +54,24 @@ class QdProfilesController < ApplicationController
    	  params[:profiles].each do |id|
    	     qd_profile = QdProfile.find(id)
    	     qd_profile.update_attributes(:marked_date => Date.today)
-   	     qd_profile.mark_visited!
+   	     if qd_profile.new?
+   	       qd_profile.mark_visited!
+  	     end
   	  end
   	  redirect_to (qd_profiles_path)
-   end
+  else
+   redirect_to (qd_profiles_path)
+  end
  end
 
  def print_file
-   @dealer_profile =  current_user.profile  
+   @dealer_profile =  current_user.profile
    @dealer_address =  current_user.address
    options = { :left_margin   => 0, :right_margin  => 0, :top_margin    => 0, :bottom_margin => 0,  :page_size => [610, 1009] }
                prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => "appointments.pdf"
    @profiles = current_user.qd_profiles.to_be_printed
 
-   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}" 
+   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
    @auth_code = "123456789"
    @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').values rescue ' '
    @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').values rescue ' '
@@ -78,9 +82,13 @@ class QdProfilesController < ApplicationController
  private
 
   def field_values(field_list, prof)
+  	 print_file_field_idetifiers = ['text_body_1','text_body_2','text_body_3','variable_data_4','variable_data_5',
+		                               'variable_data_6','variable_data_7','variable_data_8','variable_data_9']
     profile = prof.dealer.profile
     field_list.map{|qd_field| if qd_field == "phone_num"
                                  "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
+                              elsif print_file_field_idetifiers.include?(qd_field)
+                                eval("PrintFileField.find_by_dealer_id_and_identifier(prof.dealer_id,qd_field).values") rescue ' '
                               else
                                 eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
                               end

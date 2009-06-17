@@ -20,6 +20,16 @@
                       jQuery('#tabs').tabs();
 			});
 	</script>
+	<script language='JavaScript'>
+      checked = false;
+      function checkedAll () {
+        if (checked == false){checked = true}else{checked = false}
+	for (var i = 0; i < document.getElementById('myform').elements.length; i++) {
+	  document.getElementById('myform').elements[i].checked = checked;
+	}
+      }
+    </script>
+
 </head>
 
 <body>
@@ -34,13 +44,13 @@
       <%= render :partial => 'shared/links' %>
     </div>
   </div>
-  
+
   <div id="main">
     <h3 class="head"> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %> </h3>
 
     <div id="screen">
        <%= flash_message %>
-       
+
           <%= yield %>
 
     </div>
@@ -49,7 +59,7 @@
   <div id="footer">
        Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by ISIRI Technologies Pvt Ltd.
   </div>
-  
+
 <script type="text/javascript">
     jQuery("#header").corner("corner top 12px");
     jQuery("#footer").corner("corner bottom 12px");

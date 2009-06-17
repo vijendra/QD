@@ -9,11 +9,11 @@
        </tr>
    </table>
 <br />
-<%form_tag mark_data_qd_profiles_path, :method=>:post do %>
+<%form_tag mark_data_qd_profiles_path,:id => 'myform' , :method=>:post do %>
    <table class='listing'>
 
          <% if @fields_to_be_shown.blank? %>
-            <tr><th> </th>
+            <tr><th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
                 <th><%= remote_order_by_link (:created_at ,:text =>"Imported on") %> </th>
                 <th> Order No </th>
                 <th> List Id </th>

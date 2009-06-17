@@ -24,6 +24,12 @@ class Admin::PrintFileFieldsController < ApplicationController
        end
      end
 
+     unless variables.include?("template")
+     	  PrintFileField.create(:dealer_id =>params[:dealer][:id], :identifier => "template", :label => params[:template],:values => params[:template])
+     else
+     	  PrintFileField.find_by_dealer_id_and_identifier(params[:dealer][:id], "template").update_attributes(:label => params[:template],:values => params[:template])
+     end
+
 
      redirect_to  admin_dealer_print_data_path(:dealer_id => dealer.id)
   end

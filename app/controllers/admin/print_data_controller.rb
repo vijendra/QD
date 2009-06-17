@@ -14,6 +14,12 @@ class Admin::PrintDataController < ApplicationController
 		@text_body_1 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_1")
  	  @text_body_2 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_2")
  	  @text_body_3 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_3")
+    @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
+      if @dealer_template.nil?
+      	@dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:label =>"template1",:values =>"template1")
+      	@dealer_template.save
+     	end
+
 		@marked_dates.uniq!
 	end
 
@@ -45,6 +51,7 @@ class Admin::PrintDataController < ApplicationController
        	 	params[:profiles].each do |id|
         	 prof = QdProfile.find(id)
           csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ,prof.address2,prof.level,prof.auto17,prof.pr01] + field_values(fields_for_csv, prof)
+
         	 prof.print!
 
                          end

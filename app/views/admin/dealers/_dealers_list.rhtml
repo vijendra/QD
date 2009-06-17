@@ -5,13 +5,13 @@
   <th> </th>
  	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
-    <th><%= remote_order_by_link(:email ,:text =>"Email" ) %></th>
- 	<th> Phone Number </th>
+
+  <th> Phone Number </th>	<th> Auth Code</th>
  	<!--<th> CSV UPLOAD </th>-->
   <% if super_admin? -%>
     <th> Admin </th>
   <%end%>
-	<th> S Balance </th> <th> C Balance </th>
+	<th> C Balance </th>
  	<th> QD Fields </th>
  	<th> CSV upload </th>
  	<th> Status </th>
@@ -32,8 +32,14 @@
          <td> </td>
          <td> <%= dealer.id %> </td>
          <td> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> </td>
-         <td> <%= dealer.email %> </td>
-         <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
+          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
+         <td> <% if dealer.profile.auth_code.blank?  %>
+                <%= link_to "Enter" ,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
+              <%else%>
+             <%= link_to dealer.profile.auth_code ,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
+              <%end%>
+             </td>
+
 
          <% if super_admin? -%>
             <td>
@@ -46,7 +52,6 @@
 
          <%end%>
 
-        <td> <%=h  dealer.profile.starting_balance %> </td>
          <td> <%= link_to  dealer.profile.current_balance , admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>
          <td> <%= link_to "CSV upload" , csv_admin_dealer_path(:id =>dealer.id) ,:rel=>"facebox" %> </td>

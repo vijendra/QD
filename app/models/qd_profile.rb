@@ -15,8 +15,8 @@ class QdProfile < ActiveRecord::Base
     transitions :to => :marked, :from => [:new ,:marked]
   end
   aasm_event :print do
-    transitions :to => :printed, :from => [:marked]
+    transitions :to => :printed, :from => [:marked ,:printed]
   end
 
-  named_scope :to_be_printed, {:conditions => ["status like ?",  'marked'] } 
+  named_scope :to_be_printed, {:conditions => ["status like ?",  'marked'] }
 end

@@ -1,5 +1,6 @@
 class Admin::DealersController < ApplicationController
   require_role :admin
+
   layout 'admin'
   require 'fastercsv'
   before_filter :check_role
@@ -254,9 +255,20 @@ class Admin::DealersController < ApplicationController
 
        redirect_to admin_dealers_path
  	  else
-  	  render :layout => "false"
+  	  render :layout => false
  	  end
  	end
+
+ 	def authentication_code
+ 		@dealer = Dealer.find(params[:id])
+ 		unless params[:auth_code].blank?
+		  @dealer.profile.update_attributes(:auth_code => params[:auth_code])
+		  redirect_to admin_dealers_path
+	 else
+ 		render :layout => false
+		end
+	end
+
 
  	private
 

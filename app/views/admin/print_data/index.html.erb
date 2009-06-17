@@ -1,7 +1,17 @@
 <% content_for :header do -%>
   Marked Data For Dealer : <%=h  @dealer.profile.name %>
 <% end -%>
-
+<div class="js_option">
+			<%= link_to_function "Show Print File Fields",
+			"Element.hide('hidden1');
+			 Element.show('expand');"
+			%> |
+				<%= link_to_function "Hide",
+			"Element.hide('expand');
+			 Element.show('hide');"
+			%>
+		</div> <br/>
+<div id="expand" style="display: none" >
 <%form_tag admin_print_file_fields_path, :method=>:post do %>
 <table class ="form-table">
 <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
@@ -54,63 +64,68 @@
       <%else%>
       <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td> </tr>
-      <%end%></table>
+      <%end%>
 
-      <table class="form-table">
-         <tr> <th> Identifier </th><td> Text Body 1</td></tr>
+         <tr> <th> Identifier </th><td colspan=2> Text Body 1</td></tr>
          <% if @text_body_1.blank? %>
-           <tr> <th> label </th><td> <%= text_field_tag "text_body_1[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td><%= text_area_tag "text_body_1[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,"",:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
-           <tr> <th> label </th><td> <%= text_field_tag "text_body_1[label]" ,@text_body_1.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td><%= text_area_tag "text_body_1[values]" ,@text_body_1.values,:class => "textbox" %> </td></tr>
+           <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,@text_body_1.label,:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,@text_body_1.values,:class => "textbox" %> </td></tr>
          <%end%>
 
-          <tr> <th> Identifier </th><td> Text Body 2</td></tr>
+          <tr> <th> Identifier </th><td colspan=2> Text Body 2</td></tr>
          <% if @text_body_2.blank? %>
-           <tr> <th> label </th><td> <%= text_field_tag "text_body_2[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td><%= text_area_tag "text_body_2[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,"",:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
-           <tr> <th> label </th><td> <%= text_field_tag "text_body_2[label]" ,@text_body_2.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td><%= text_area_tag "text_body_2[values]" ,@text_body_2.values,:class => "textbox" %> </td></tr>
+           <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,@text_body_2.label,:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,@text_body_2.values,:class => "textbox" %> </td></tr>
          <%end%>
 
-          <tr> <th> Identifier </th><td> Text Body 3</td></tr>
+          <tr> <th> Identifier </th><td colspan=2> Text Body 3</td></tr>
          <% if @text_body_3.blank? %>
-           <tr> <th> label </th><td> <%= text_field_tag "text_body_3[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td><%= text_area_tag "text_body_3[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,"",:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
-           <tr> <th> label </th><td> <%= text_field_tag "text_body_3[label]" ,@text_body_3.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td><%= text_area_tag "text_body_3[values]" ,@text_body_3.values,:class => "textbox" %> </td></tr>
+           <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,@text_body_3.label,:class => "textbox" %> </td></tr>
+           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,@text_body_3.values,:class => "textbox" %> </td></tr>
          <%end%>
 
+      <tr> <th> Select Template </th> <td>
+<%= radio_button_tag ('template', 'template1' , @dealer_template.label == 'template1' ? true : false) %>
+<%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
 
+<%= radio_button_tag ('template', 'template2' , @dealer_template.label == 'template2' ? true : false) %>
+<%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
+<%= radio_button_tag ('template', 'template3', @dealer_template.label == 'template3' ? true : false)%>
+<%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
 
+</td> </tr>
 
-      </table>
+</table>
 
-
-
-
-
-
+ <br/>
 
       <%= submit_tag "save" %>
 
 <%end%>
+</div>
+<div id="hidden1">
+</div>
 
-
-
+<br/>
 <% unless @marked_dates.blank? %>
 
- <%form_tag ("/admin/print_data/mark_data_for_printed", :method=>:post) do %>
+ <%form_tag ("/admin/print_data/mark_data_for_printed", :id => 'myform' ,:method=>:post) do %>
       <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
       <% @marked_dates.each do |date| %>
         <b><%=h date %> </b>
            <% qd_profiles = find_qd_profile_for_date(date) %>
            <%unless qd_profiles.blank?%>
             <table class='listing'>
-              <tr> <th></th>
+              <tr> <th><input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'>  </th>
                <th> Imported on </th> <th> Order No</th><th> First Name</th><th>Last Name</th> <th> Address </th>
                <th> City </th><th> State </th><th> Zip </th> <th> Crrt </th><th>Dealer </th><th> Status</th>
               </tr>
