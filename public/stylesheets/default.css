@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #EEF1F3; /* #FCF3DF; #FFF9E5;*/
+	background-color: #E5EAF3; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -66,7 +66,7 @@ ul {
 	background: url(/images/top_bar.png) repeat-x;
 	margin: 10px 16px 0px 16px;
 	padding: 0.2em 0em 0 0;
-        height: 73px;
+        height: 87px;
         border-left: #E7EBF3 2px solid;
         border-right: #E7EBF3 2px solid;
 }
@@ -75,7 +75,7 @@ ul {
 	float: left;
 	font-weight: bold;
 	color: #A82B1E;
-	padding: .1em  0em  0em  .5em ;
+	padding: .3em  0em  0em  .5em ;
 	margin: 0px;
 	font-size: 28px;
          
@@ -93,7 +93,7 @@ ul {
 	margin: 0 auto;
         font-weight: bold;
         font-size: 12px;
-	margin-top: 2.7em;
+	margin-top: 3.6em;
 
         
 }
@@ -113,11 +113,12 @@ ul {
 #menu a {
 	display: block;
 	float: left;
-	margin: 5px 0px 0px 0px;
+	margin: 5px 5px 0px 0px;
 	padding: 5px 10px 4px;
 	text-decoration: none;
 	color: #fff;
 	border: #87A6C5 1px solid;	
+        background: #2A75BB;
         
 }
 
@@ -129,8 +130,8 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       background: #2A75BB;
-	color: #fff;
+       background: #E3EBF6;
+	color: #00407A;
 }
 
 #menu .current_page_item a {
