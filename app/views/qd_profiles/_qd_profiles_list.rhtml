@@ -1,3 +1,4 @@
+
 <% if @qd_profiles.blank?%>
    No Record Found.
 <% else %>
@@ -9,6 +10,7 @@
        </tr>
    </table>
 <br />
+
 <%form_tag mark_data_qd_profiles_path,:id => 'myform' , :method=>:post do %>
    <table class='listing'>
 
@@ -71,7 +73,6 @@
 
   </table>
 
-
    <table class='table-bottom'>
       <tbody>
         <tr class="table-footer">
@@ -104,3 +105,4 @@
 
      <br />
    <%end%>
+

@@ -3,28 +3,15 @@ class CsvExtraFieldsController < ApplicationController
   before_filter :find_dealer
 
   def new
-      @csv_extra_field = CsvExtraField.new
-       @text_body_1 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"text_body_1")
-  	 @text_body_2 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"text_body_2")
-  	 @text_body_3 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"text_body_3")
-     @variable_data_4 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_4")
-     @variable_data_5 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_5")
-     @variable_data_6 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_6")
-     @variable_data_7 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_7")
-     @variable_data_8 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_8")
-     @variable_data_9 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_9")
-     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
-     if @dealer_template.nil?
-       @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:label =>"template1",:values =>"template1")
-      	@dealer_template.save
-     	end
+    @csv_extra_field = CsvExtraField.new
 
-  	  respond_to do |format|
-  	  	format.html
+    ['text_body_1', 'text_body_2', 'text_body_3', 'variable_data_4', 'variable_data_5', 'variable_data_6', 
+     'variable_data_7', 'variable_data_8', 'variable_data_9'].map{ |identifier| 
+                                                          '@' + identifier = PrintFileField.find_by_dealer_id_and_identifier(current_user.id, identifier)}
 
-  	  end
-
+    @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
   end
+
 
   def create
   	@csv_extra_field = CsvExtraField.create(:fields => params[:csv_extra_fields],:dealer_id => @dealer.id)
@@ -58,23 +45,18 @@ class CsvExtraFieldsController < ApplicationController
   end
 
   def edit
-  	 @fields = @dealer.csv_extra_field.fields
-
-  	 @text_body_1 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"text_body_1")
-  	 @text_body_2 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"text_body_2")
-  	 @text_body_3 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"text_body_3")
-     @variable_data_4 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_4")
-     @variable_data_5 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_5")
-     @variable_data_6 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_6")
-     @variable_data_7 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_7")
-     @variable_data_8 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_8")
-     @variable_data_9 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_9")
-     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
-  	 respond_to do |format|
-      format.html
-
-    end
-  end
+     @fields = @dealer.csv_extra_field.fields
+     @text_body_1 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_1")
+     @text_body_2 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_2")
+     @text_body_3 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_3")
+     @variable_data_4 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "variable_data_4")
+     @variable_data_5 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "variable_data_5")
+     @variable_data_6 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "variable_data_6")
+     @variable_data_7 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "variable_data_7")
+     @variable_data_8 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "variable_data_8")
+     @variable_data_9 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "variable_data_9")
+     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
+   end
 
   def update
     @dealer.csv_extra_field.destroy
