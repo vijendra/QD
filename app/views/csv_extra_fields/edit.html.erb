@@ -1,4 +1,7 @@
-<h3 class ='head'> Columns to be appended to the Print file. </h3>
+ <% content_for :header do -%>
+Columns to be appended to the Print file.
+<% end -%>  <br/>
+
 <br/>
 <% form_for(:csv_extra_field,:url=>dealer_csv_extra_field_path(@dealer),:html => { :method => :put }) do |f| %>
 <table class = 'form-table'>
@@ -22,10 +25,71 @@
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_8', @fields.include?("variable_data_8"))%> </td><th> Variable Data 8</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_9', @fields.include?("variable_data_9"))%> </td><th> Variable Data 9</th></tr>
 
-
-
 </table><br/>
-<%=f.submit "update" %>
- <%= link_to "Back" , qd_profiles_url %>
+
+<table class ="form-table">
+ <tr> <th> Text Body 1 </th> <td colspan ='2'> <% unless @text_body_1.nil? %> <%=h @text_body_1.values %> <%end%></td></tr>
+  <tr> <th> Text Body 2 </th> <td colspan ='2'><% unless @text_body_2.nil? %> <%=h @text_body_2.values %> <%end%></td></tr>
+  <tr> <th> Text Body 3 </th> <td colspan ='2'> <% unless @text_body_3.nil? %><%=h @text_body_3.values %><%end%> </td></tr>
+   <tr> <th> Identifier </th> <th>Label </th> <th> values </th> </tr>
+  <tr><th> Variable Data 4</th>
+      <% if @variable_data_4.blank? %>
+      <td> <%= text_field_tag "variable_data_4[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_4[values]" ,'',:class => "textbox" %> </td></tr>
+      <%else%>
+       <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_4[values]" ,@variable_data_4.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr> <th>Variable Data 5</th>
+   <% if @variable_data_5.blank? %>
+      <td><%= text_field_tag "variable_data_5[label]",'',:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_5[values]" ,'',:class => "textbox" %> </td></tr>
+     <%else%>
+     <td><%= text_field_tag "variable_data_5[label]",@variable_data_5.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_5[values]" ,@variable_data_5.values,:class => "textbox" %> </td></tr>
+     <%end%>
+
+  <tr> <th>Variable Data 6</th>
+  <% if @variable_data_6.blank? %>
+      <td><%= text_field_tag "variable_data_6[label]" ,'',:class => "textbox"%> </td>
+      <td> <%= text_field_tag "variable_data_6[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_6[values]" ,@variable_data_6.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr><th> Variable Data 7</th>
+  <% if @variable_data_7.blank? %>
+      <td> <%= text_field_tag "variable_data_7[label]" ,'',:class => "textbox"%></td>
+      <td> <%= text_field_tag "variable_data_7[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_7[label]",@variable_data_7.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_7[values]" ,@variable_data_7.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr> <th>Variable Data 8</th>
+  <% if @variable_data_8.blank? %>
+      <td> <%= text_field_tag "variable_data_8[label]",'',:class => "textbox" %></td>
+      <td> <%= text_field_tag "variable_data_8[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_8[label]",@variable_data_8.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_8[values]" ,@variable_data_8.values,:class => "textbox" %> </td></tr>
+      <%end%>
+  <tr><th> Variable Data 9</th>
+  <% if @variable_data_9.blank? %>
+      <td><%= text_field_tag "variable_data_9[label]" ,'',:class => "textbox"%> </td>
+      <td> <%= text_field_tag "variable_data_9[values]" ,'',:class => "textbox" %></td></tr>
+      <%else%>
+      <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td> </tr>
+      <%end%>
+
+
+
+
+</table>
+<br/> <br/>
+
+
+<%=f.submit "update" %>  <%= link_to "Back" , qd_profiles_url %>
+<br/>
 
 <%end%>

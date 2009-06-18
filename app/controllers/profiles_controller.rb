@@ -1,5 +1,4 @@
 class ProfilesController < ApplicationController
-	in_place_edit_for :profile, :auth_code
   before_filter :find_profile
   before_filter :check_terms_conditions
   before_filter :check_owner_access, :only => [:edit, :update]

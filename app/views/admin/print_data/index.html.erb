@@ -69,28 +69,28 @@
          <tr> <th> Identifier </th><td colspan=2> Text Body 1</td></tr>
          <% if @text_body_1.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,@text_body_1.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,@text_body_1.values,:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,@text_body_1.values,:class => "textbox" %> </td></tr>
          <%end%>
 
           <tr> <th> Identifier </th><td colspan=2> Text Body 2</td></tr>
          <% if @text_body_2.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,@text_body_2.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,@text_body_2.values,:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,@text_body_2.values,:class => "textbox" %> </td></tr>
          <%end%>
 
           <tr> <th> Identifier </th><td colspan=2> Text Body 3</td></tr>
          <% if @text_body_3.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,@text_body_3.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Values</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,@text_body_3.values,:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,@text_body_3.values,:class => "textbox" %> </td></tr>
          <%end%>
 
       <tr> <th> Select Template </th> <td>
