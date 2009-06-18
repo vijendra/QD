@@ -13,7 +13,11 @@ class CsvExtraFieldsController < ApplicationController
      @variable_data_7 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_7")
      @variable_data_8 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_8")
      @variable_data_9 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.administrator_id,"variable_data_9")
-
+     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
+     if @dealer_template.nil?
+       @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:label =>"template1",:values =>"template1")
+      	@dealer_template.save
+     	end
 
   	  respond_to do |format|
   	  	format.html
@@ -35,6 +39,11 @@ class CsvExtraFieldsController < ApplicationController
        end
      end
 
+     unless variables.include?("template")
+     	  PrintFileField.create(:dealer_id =>params[:dealer][:id], :identifier => "template", :label => params[:template],:values => params[:template])
+     else
+     	  PrintFileField.find_by_dealer_id_and_identifier(params[:dealer][:id], "template").update_attributes(:label => params[:template],:values => params[:template])
+     end
 
     respond_to do |format|
       if @csv_extra_field.save
@@ -60,7 +69,7 @@ class CsvExtraFieldsController < ApplicationController
      @variable_data_7 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_7")
      @variable_data_8 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_8")
      @variable_data_9 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"variable_data_9")
-
+     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
   	 respond_to do |format|
       format.html
 
@@ -81,6 +90,11 @@ class CsvExtraFieldsController < ApplicationController
        end
      end
 
+     unless variables.include?("template")
+     	  PrintFileField.create(:dealer_id =>@dealer.id, :identifier => "template", :label => params[:template],:values => params[:template])
+     else
+     	  PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template").update_attributes(:label => params[:template],:values => params[:template])
+     end
     respond_to do |format|
       if @CsvExtraField.save
         flash[:notice] = 'CSV Extra Fields was Updated successfully '

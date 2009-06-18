@@ -85,7 +85,16 @@ Columns to be appended to the Print file.
       <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td> </tr>
       <%end%>
 
+       <tr> <th> Select Template </th> <td>
+<%= radio_button_tag ('template', 'template1' , @dealer_template.label == 'template1' ? true : false) %>
+<%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
 
+<%= radio_button_tag ('template', 'template2' , @dealer_template.label == 'template2' ? true : false) %>
+<%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
+<%= radio_button_tag ('template', 'template3', @dealer_template.label == 'template3' ? true : false)%>
+<%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
+
+</td> </tr>
 
 
 </table>
