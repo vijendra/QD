@@ -6,7 +6,7 @@ class PrintFileFieldsController < ApplicationController
     @csv_extra_field = CsvExtraField.new
 
     ['text_body_1', 'text_body_2', 'text_body_3', 'variable_data_4', 'variable_data_5', 'variable_data_6',
-     'variable_data_7', 'variable_data_8', 'variable_data_9'].map{
+     'variable_data_7', 'variable_data_8', 'variable_data_9'].map {
      |identifier|  instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(current_user.id, identifier)) }
 
     @dealer_template = PrintFileField.by_dealer(@dealer.id).by_identifier("template").first
@@ -18,7 +18,7 @@ class PrintFileFieldsController < ApplicationController
 
 
   def create
-  	@csv_extra_field = CsvExtraField.create(:fields => params[:csv_extra_fields],:dealer_id => @dealer.id)
+  	@csv_extra_field = CsvExtraField.new(:fields => params[:csv_extra_fields],:dealer_id => @dealer.id)
    	variables = @dealer.print_file_fields.map{|rec| rec.identifier}
 
      for counter in 4..9
