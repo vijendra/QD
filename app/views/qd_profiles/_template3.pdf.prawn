@@ -10,30 +10,8 @@ for data in @profiles
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
-  #generating postnet barcode
-  doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
-  doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#FDFDFD"})
-  doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
-  
-  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template2.jpg", :at => [0, box.top], :scale => 0.9
-
- p_pdf.bounding_box([box.right - 215, box.top - 117], :width => 200) do
-    p_pdf.text "&nbsp; &nbsp; &nbsp;  <b>Call with Confidence!</b>", :size => 15
-    p_pdf.text "&nbsp; &nbsp; <b>You're already pre-qualified*</b>", :size => 13
-    p_pdf.text "&nbsp; &nbsp; &nbsp;   <b>This is a live offer of credit.</b>", :size => 13
-    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  <b>#{@phone} </b>", :size => 14
-    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  <b>Authorization #:</b>", :size => 13
-    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; <b>#{@auth_code} </b>", :size => 14
-    p_pdf.text "<b>or log on www.autoappnow.org</b>", :size => 13
-  end
-
-
-  p_pdf.bounding_box([box.left + 115, box.top - 145], :width => 200) do
-    p_pdf.text @name, :size => 14
-    p_pdf.text @address, :size => 14
-    p_pdf.text @place, :size => 14
-    p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left + 1, -1]
-  end
+    
+  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template3.jpg", :at => [0, box.top]
 
   p_pdf.text_options.update(:size => 12, :spacing => 1)
 

@@ -7,8 +7,8 @@
 
 	<title><%= configatron.site_name %></title>
 
-	<%= stylesheet_link_merged :base ,'facebox' ,'calendar/option2- blue/style' %>
-  	<%= javascript_include_merged :base,'facebox' %>
+	<%= stylesheet_link_merged :base , 'calendar/option2- blue/style' %>
+  	<%= javascript_include_merged :base %>
   	<%= calendar_date_select_includes  %>
         <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min', 'jquery_corner' %>
         <script type="text/javascript">
@@ -61,9 +61,9 @@
   </div>
 
 <script type="text/javascript">
-    jQuery("#header").corner("corner top 12px");
+   
     jQuery("#footer").corner("corner bottom 15px");
-    jQuery(".head").corner("corner 5px");
+    jQuery(".head").corner("corner top 8px");
  </script>
 
 </body>
