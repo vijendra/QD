@@ -39,16 +39,15 @@ class SessionsController < ApplicationController
   def terms
     unless (super_admin? or admin? )
       @disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue ''
-      @disclaimer_content.nil?? @disclaimer_content = (AdminSetting.find_by_identifier("disclaimer_content").values rescue '') : @disclaimer_content
+      @disclaimer_content = @disclaimer_content.blank?? (AdminSetting.find_by_identifier("disclaimer_content").values rescue '') : @disclaimer_content 
     end
   end
 
   def accept_terms
   	if params[:commit] == 'Agree'
       flash[:notice] = "Logged in successfully"
-
+      redirect_back_or_default(root_path)
       session[:accept_terms] = true
-       redirect_to( {:controller=>"dashboard", :action=>"index"})
     else
     	flash[:error] = "Please accept the terms and conditions."
     	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' '
@@ -92,7 +91,7 @@ class SessionsController < ApplicationController
     	redirect_to(:controller =>:sessions ,:action =>:terms)
     else
     	session[:accept_terms] = true
-        redirect_to({:controller=>"dashboard", :action=>"index"})
+       redirect_back_or_default(root_path)
        flash[:notice] = "Logged in successfully"
    end
   end

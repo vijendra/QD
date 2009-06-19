@@ -1,7 +1,6 @@
 p_pdf.font "Times-Roman"
 p_pdf.text_options.update(:size => 13, :spacing => 1)
 counter = 0
-p_pdf.text "hello world"
 
 box = p_pdf.bounds
 

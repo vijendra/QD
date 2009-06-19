@@ -56,12 +56,12 @@ for data in @profiles
   p_pdf.text "<b> 2. No Hassale credit check. </b>", :at => [box.left + 95, box.top - 592]
   p_pdf.text "<b> 3. Vehicles with set pricing and No Haggling </b>.", :at => [box.left + 95, box.top - 609]
  
-  p_pdf.tags[:medium] = { :font_size => "1.2em", :font_family => "Times-Roman" }
-  p_pdf.text " <medium> Phone number #{@phone} </medium>", :at => [150, box.top - 640]
-  p_pdf.text " <medium> Call for the authorized dealer in your area </medium>", :at => [110, box.top - 658]
-  p_pdf.text " <medium> Call for nearest location </medium>", :at => [150, box.top - 676]
-  p_pdf.text " <medium> 800-738-6959 </medium>", :at => [180, box.top - 694]
-
+  p_pdf.tags[:medium] = { :font_size => "1.1em", :font_family => "Times-Roman" }
+  p_pdf.text " <medium> #{@phone} </medium>", :at => [170, box.top - 637]
+  p_pdf.text " <medium> Call for the authorized dealer in your area </medium>", :at => [100, box.top - 652]
+  p_pdf.text " <medium> #{@dealer_profile.name} </medium>", :at => [130, box.top - 667]
+  p_pdf.text " <medium> #{@dealer_address.address} </medium>", :at => [160, box.top - 682]
+  p_pdf.text " <medium> #{@dealer_address.city}, #{@dealer_address.state} </medium>", :at => [160, box.top - 696]
  
   p_pdf.tags[:small] = { :font_size => "0.9em", :font_family => "Times-Roman" }
   text = "<i><small>*You can choose to stop receiving &quot;prescreened&quot; offers of credit from this and other companies by calling Toll Free 1-888-567-8688. See PRESCREEN &amp; OPT-OUT NOTICE on enclosed insert for more information about prescreened offers.</small></i>"

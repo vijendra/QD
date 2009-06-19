@@ -9,12 +9,15 @@
 
 	<%= stylesheet_link_merged :dialog %>
   	<%= javascript_include_merged :base %>
-
+        <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min', 'jquery_corner' %>
+        <script type="text/javascript">
+           jQuery.noConflict();
+        </script>
 </head>
 
 <body>
   <div id="header">
-     <h1><%= image_tag('logo.gif') %></h1>
+      <h1>Quick Data <span>Robot</span></h1>
       <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
     </div>
@@ -22,6 +25,9 @@
   </div>
 
   <div id="main">
+     <br />
+     <br />
+     <br />
      <div id="left">
 	<h2 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h2>
 
@@ -31,8 +37,9 @@
            <%= yield %>
         </div>
      </div>
-
-
+     <br />
+     <br />
+     <br />
   </div>
   <div class="clear"> </div>
 
@@ -40,7 +47,10 @@
       Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://isiritech.com" , {:target => "_blank" }%>
   </div>
 
-
+ <script type="text/javascript">
+    jQuery("#header").corner("corner top 12px");
+    jQuery("#footer").corner("corner bottom 15px");
+ </script>
 
 </body>
 </html>

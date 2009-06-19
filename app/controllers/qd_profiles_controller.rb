@@ -67,16 +67,21 @@ class QdProfilesController < ApplicationController
  def print_file
    @dealer_profile =  current_user.profile
    @dealer_address =  current_user.address
-   options = { :left_margin   => 0, :right_margin  => 0, :top_margin    => 0, :bottom_margin => 0,  :page_size => [610, 1009] }
-               prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => "appointments.pdf"
    @profiles = current_user.qd_profiles.to_be_printed
-
    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
    @auth_code = "123456789"
    @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
    @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
-               render :layout => false
-
+   @print_template = current_user.print_file_fields.find_by_identifier('template').value
+   file_name = case @print_template
+                   when 'template1' then 'Crediplex_Parchment.pdf'
+                   when 'template1' then 'Crediplex_Brochure.pdf'
+                   when 'template1' then 'Letter_Master.pdf'
+                   else 'print_file.pdf'
+                   end
+   options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [610, 1009] }
+   prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+   render :layout => false
  end
 
  private
