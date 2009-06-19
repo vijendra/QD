@@ -1,11 +1,7 @@
 # See how all your routes lay out with "rake routes"
 ActionController::Routing::Routes.draw do |map|
 
-
-
-
-
-  map.resources :dealers ,:has_one =>[:csv_extra_field]
+  map.resources :dealers ,:has_one =>[:print_file_field ,:csv_extra_field]
 
 
   # RESTful rewrites
@@ -71,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # Dashboard as the default location
-  map.root :controller => 'dashboard', :action => 'index'
+      map.root :controller => 'dashboard', :action => 'index'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

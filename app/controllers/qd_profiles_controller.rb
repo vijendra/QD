@@ -73,8 +73,8 @@ class QdProfilesController < ApplicationController
 
    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
    @auth_code = "123456789"
-   @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').values rescue ' '
-   @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').values rescue ' '
+   @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
+   @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
                render :layout => false
 
  end
@@ -88,7 +88,7 @@ class QdProfilesController < ApplicationController
     field_list.map{|qd_field| if qd_field == "phone_num"
                                  "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
                               elsif print_file_field_idetifiers.include?(qd_field)
-                                eval("PrintFileField.find_by_dealer_id_and_identifier(prof.dealer_id,qd_field).values") rescue ' '
+                                eval("PrintFileField.find_by_dealer_id_and_identifier(prof.dealer_id,qd_field).value") rescue ' '
                               else
                                 eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
                               end

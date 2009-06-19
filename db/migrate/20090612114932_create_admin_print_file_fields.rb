@@ -4,7 +4,7 @@ class CreateAdminPrintFileFields < ActiveRecord::Migration
       t.integer :dealer_id
       t.string :identifier
       t.string :label
-      t.text :values
+      t.text :value
       t.timestamps
     end
   end

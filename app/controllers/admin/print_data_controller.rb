@@ -16,7 +16,7 @@ class Admin::PrintDataController < ApplicationController
  	  @text_body_3 = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"text_body_3")
     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
       if @dealer_template.nil?
-      	@dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:label =>"template1",:values =>"template1")
+      	@dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:value =>"template1")
       	@dealer_template.save
      	end
 
@@ -76,7 +76,7 @@ class Admin::PrintDataController < ApplicationController
 
   def admin_setting
   	print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
-  	print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:values =>params[:print_file_field][:values] )
+  	print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:value =>params[:print_file_field][:values] )
     redirect_to ( admin_dealer_print_data_path(:dealer_id => @dealer.id) )
   end
 
@@ -94,7 +94,7 @@ class Admin::PrintDataController < ApplicationController
       field_list.map{|qd_field| if qd_field == "phone_num"
                                   "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
                                 elsif print_file_field_idetifiers.include?(qd_field)
-                                 eval("PrintFileField.find_by_dealer_id_and_identifier(prof.dealer_id,qd_field).values") rescue ''
+                                 eval("PrintFileField.find_by_dealer_id_and_identifier(prof.dealer_id,qd_field).value") rescue ''
                                 else
                                    eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
                                 end

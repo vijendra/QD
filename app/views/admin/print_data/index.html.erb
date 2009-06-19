@@ -15,91 +15,91 @@
 <%form_tag admin_print_file_fields_path, :method=>:post do %>
 <table class ="form-table">
 <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
-  <tr> <th> Identifier </th> <th>Label </th> <th> values </th> </tr>
+  <tr> <th> Identifier </th> <th>Label </th> <th> value </th> </tr>
   <tr><th> Variable Data 4</th>
       <% if @variable_data_4.blank? %>
       <td> <%= text_field_tag "variable_data_4[label]" ,"",:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_4[values]" ,'',:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_4[value]" ,'',:class => "textbox" %> </td></tr>
       <%else%>
        <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_4[values]" ,@variable_data_4.values,:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_4[value]" ,@variable_data_4.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr> <th>Variable Data 5</th>
    <% if @variable_data_5.blank? %>
       <td><%= text_field_tag "variable_data_5[label]",'',:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_5[values]" ,'',:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_5[value]" ,'',:class => "textbox" %> </td></tr>
      <%else%>
      <td><%= text_field_tag "variable_data_5[label]",@variable_data_5.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_5[values]" ,@variable_data_5.values,:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_5[value]" ,@variable_data_5.value,:class => "textbox" %> </td></tr>
      <%end%>
 
   <tr> <th>Variable Data 6</th>
   <% if @variable_data_6.blank? %>
       <td><%= text_field_tag "variable_data_6[label]" ,'',:class => "textbox"%> </td>
-      <td> <%= text_field_tag "variable_data_6[values]" ,'',:class => "textbox" %></td></tr>
+      <td> <%= text_field_tag "variable_data_6[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_6[values]" ,@variable_data_6.values,:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_6[value]" ,@variable_data_6.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr><th> Variable Data 7</th>
   <% if @variable_data_7.blank? %>
       <td> <%= text_field_tag "variable_data_7[label]" ,'',:class => "textbox"%></td>
-      <td> <%= text_field_tag "variable_data_7[values]" ,'',:class => "textbox" %></td></tr>
+      <td> <%= text_field_tag "variable_data_7[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_7[label]",@variable_data_7.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_7[values]" ,@variable_data_7.values,:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_7[value]" ,@variable_data_7.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr> <th>Variable Data 8</th>
   <% if @variable_data_8.blank? %>
       <td> <%= text_field_tag "variable_data_8[label]",'',:class => "textbox" %></td>
-      <td> <%= text_field_tag "variable_data_8[values]" ,'',:class => "textbox" %></td></tr>
+      <td> <%= text_field_tag "variable_data_8[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_8[label]",@variable_data_8.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_8[values]" ,@variable_data_8.values,:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_8[value]" ,@variable_data_8.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr><th> Variable Data 9</th>
   <% if @variable_data_9.blank? %>
       <td><%= text_field_tag "variable_data_9[label]" ,'',:class => "textbox"%> </td>
-      <td> <%= text_field_tag "variable_data_9[values]" ,'',:class => "textbox" %></td></tr>
+      <td> <%= text_field_tag "variable_data_9[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_9[values]" ,@variable_data_9.values,:class => "textbox" %> </td> </tr>
+      <td><%= text_field_tag "variable_data_9[value]" ,@variable_data_9.value,:class => "textbox" %> </td> </tr>
       <%end%>
 
          <tr> <th> Identifier </th><td colspan=2> Text Body 1</td></tr>
          <% if @text_body_1.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[value]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,@text_body_1.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[values]" ,@text_body_1.values,:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[value]" ,@text_body_1.value,:class => "textbox" %> </td></tr>
          <%end%>
 
           <tr> <th> Identifier </th><td colspan=2> Text Body 2</td></tr>
          <% if @text_body_2.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[value]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,@text_body_2.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[values]" ,@text_body_2.values,:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[value]" ,@text_body_2.value,:class => "textbox" %> </td></tr>
          <%end%>
 
           <tr> <th> Identifier </th><td colspan=2> Text Body 3</td></tr>
          <% if @text_body_3.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,"",:class => "textbox" %> </td></tr>
-           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,'',:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[value]" ,'',:class => "textbox" %> </td></tr>
          <%else%>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,@text_body_3.label,:class => "textbox" %> </td></tr>
-           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[values]" ,@text_body_3.values,:class => "textbox" %> </td></tr>
+           <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[value]" ,@text_body_3.value,:class => "textbox" %> </td></tr>
          <%end%>
 
       <tr> <th> Select Template </th> <td>
-<%= radio_button_tag ('template', 'template1' , @dealer_template.label == 'template1' ? true : false) %>
+<%= radio_button_tag ('template', 'template1' , @dealer_template.value == 'template1' ? true : false) %>
 <%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
 
-<%= radio_button_tag ('template', 'template2' , @dealer_template.label == 'template2' ? true : false) %>
+<%= radio_button_tag ('template', 'template2' , @dealer_template.value == 'template2' ? true : false) %>
 <%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
-<%= radio_button_tag ('template', 'template3', @dealer_template.label == 'template3' ? true : false)%>
+<%= radio_button_tag ('template', 'template3', @dealer_template.value == 'template3' ? true : false)%>
 <%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
 
 </td> </tr>
