@@ -29,7 +29,7 @@ class Admin::PrintDataController < ApplicationController
                      :variable_data_5 => 'Variable Data 5',:variable_data_6 => 'Variable Data 6',
                      :variable_data_7 => 'Variable Data 7',:variable_data_8 => 'Variable Data 8',
                      :variable_data_9 => 'Variable Data 9'
-                    }
+                   }
 
      fields_for_csv = dealer.csv_extra_field.fields rescue ['name', 'first_name', 'last_name', 'phone_num', 'address', 'city', 'state','postal_code']
 
