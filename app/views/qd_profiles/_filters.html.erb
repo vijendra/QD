@@ -3,7 +3,7 @@
 <br/>
    <table class="search-table">
      <tr>
-        <th> Imported On</th>
+        <th> Imported Date Between </th>
         <th> Order Number </th>
         <th> Status </th>
         <th> Reset</th>
@@ -11,7 +11,11 @@
      <tr>
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
-           <td><%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %></td>
+           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+           <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+           <%= link_to_remote "Today's" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" },:method =>:get %>
+
+           </td>
 
           <% p.fields_for p.object.dealer do |dealer| %>
                   <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>

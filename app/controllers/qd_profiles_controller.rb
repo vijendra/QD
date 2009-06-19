@@ -8,10 +8,29 @@ class QdProfilesController < ApplicationController
     @search = QdProfile.new_search(params[:search])
     @search.conditions.dealer_id = current_user.id
     @search.per_page ||= 15
+    unless params[:today].blank?
+       @search.conditions.created_at = Date.today
+       params[:today] = nil
+    end
+
     unless params[:created_at].blank?
     	 date = params[:created_at].to_date
+    	 @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+   	unless params[:created_at_end].blank?
+    	 date = params[:created_at_end].to_date
          @search.conditions.created_at_after = date.beginning_of_day()
     	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+    unless (params[:created_at_end].blank? ||  params[:created_at].blank?)
+    	 start_date = "#{params[:created_at].to_date} "
+    	 time = "00:00:00"
+   	   end_date   =  Time.parse("#{params[:created_at_end].to_date} #{time}").advance(:days => 1)
+    	 @search.conditions.created_at_after   = "#{start_date}#{time}"
+    	 @search.conditions.and_created_at_before = "#{end_date}"
    	end
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
