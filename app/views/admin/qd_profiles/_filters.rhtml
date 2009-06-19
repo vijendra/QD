@@ -1,9 +1,10 @@
 <% form_tag(admin_qd_profiles_url, :method => :get, :id => "search_form") do %>
-   <table class="listing">
+   <table class="search-table">
      <tr>
         <th> Imported Date Between </th>
         <th> Dealer </th>
         <th> Order Number </th>
+        <th> Status </th>
         <th> Reset </th>
      </tr>
      <tr>
@@ -26,7 +27,7 @@
                     <td><%= trigger_detail.text_field :order_number_like, :class => 'textbox' %>
                     <%end%>
                <%end%>
-
+                   <td>  <%= p.select :status_like ,[['Select' , ''],['New' ,'new'], ['Marked', 'marked'], ['printed', 'printed']],:class => 'textbox' %> </td>
                   <td> <input type="reset" value="Reset"> </td>
        <%end%>
        <%end%>

@@ -38,8 +38,8 @@ class SessionsController < ApplicationController
 
   def terms
     unless (super_admin? or admin? )
-      @disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).values rescue ''
-      @disclaimer_content = @disclaimer_content.blank?? (AdminSetting.find_by_identifier("disclaimer_content").values rescue '') : @disclaimer_content 
+      @disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).value rescue ''
+      @disclaimer_content = @disclaimer_content.blank?? (AdminSetting.find_by_identifier("disclaimer_content").value rescue '') : @disclaimer_content
     end
   end
 

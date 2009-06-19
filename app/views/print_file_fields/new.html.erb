@@ -1,7 +1,7 @@
 <% content_for :header do -%>
    Print file variable value.
 <% end -%>  <br/>
-
+<% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer.id),:method =>:post ) do |f| %>
 <table class ="form-table">
   <tr> <th> Text Body 1 </th> <td colspan ='2'> <% unless @text_body_1.nil? %> <%=h @text_body_1.value %> <%end%></td></tr>
   <tr> <th> Text Body 2 </th> <td colspan ='2'><% unless @text_body_2.nil? %> <%=h @text_body_2.value %> <%end%></td></tr>
@@ -57,14 +57,14 @@
       <td><%= text_field_tag "variable_data_9[value]" ,@variable_data_9.value,:class => "textbox" %> </td> </tr>
       <%end%>
 
-       <tr> <th> Select Template </th> <td>
-<%= radio_button_tag ('template', 'template1', true) %>
-<%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
+       <tr> <th> Select Template </th> <td colspan ='2'>
+<%= radio_button_tag ('template', 'template1' , @dealer_template.value.include?("template1"))  %>
+<%= image_tag("template4.png",  :alt => "Template 1")  %>
 
-<%= radio_button_tag ('template', 'template2', false ) %>
-<%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
-<%= radio_button_tag ('template', 'template3', false)%>
-<%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
+<%= radio_button_tag ('template', 'template2' , @dealer_template.value.include?("template2")) %>
+<%= image_tag("template5.jpg", :alt => "Template 2")  %>
+<%= radio_button_tag ('template', 'template3', @dealer_template.value.include?("template3")) %>
+<%= image_tag("template6.jpg", :alt => "Template 3")  %>
 
 </td> </tr>
 
@@ -75,7 +75,7 @@
 <br/>
 
 
-<% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer.id),:method =>:post ) do |f| %>
+
 <br/>
  <table class = 'form-table'>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>

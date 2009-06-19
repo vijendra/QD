@@ -1,7 +1,7 @@
 
 <% form_tag('/admin/users/admin_setting') do -%>
   <table class = 'form-table'></table><br/>
-  <b><%=h @admin_setting.identifier %> :</b> <%= fckeditor_textarea("admin_setting","values" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> <br/>
+  <b><%=h @admin_setting.identifier %> :</b> <%= fckeditor_textarea("admin_setting","value" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> <br/>
    <input id="user_id" name="user[id]" type="hidden" value="<%=@user.id%>" />
    <input id="adminsetting_id" name="adminsetting[id]" type="hidden" value="<%=@admin_setting.id%>" /><br/>
 <%= submit_tag "Save Text"%>

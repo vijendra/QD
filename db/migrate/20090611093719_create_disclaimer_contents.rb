@@ -2,7 +2,7 @@ class CreateDisclaimerContents < ActiveRecord::Migration
   def self.up
     create_table :disclaimer_contents do |t|
     	t.integer :administrator_id
-    	t.text :values
+    	t.text :value
 
       t.timestamps
     end

@@ -26,7 +26,7 @@ class Admin::AdministratorsController < ApplicationController
     if @administrator.disclaimer_content.blank?
     	 disclaimer_content = AdminSetting.find_by_identifier("disclaimer_content")
     	 @admin_disclaimer_content = DisclaimerContent.new( :administrator_id => @administrator.id ,
-    	                                                    :values => disclaimer_content.values )
+    	                                                    :value => disclaimer_content.value )
     	 @admin_disclaimer_content.save
     else
        @admin_disclaimer_content = @administrator.disclaimer_content
@@ -100,7 +100,7 @@ class Admin::AdministratorsController < ApplicationController
   def disclaimer_content_save
 
     disclaimer_content = DisclaimerContent.find(params[:admin_disclaimer_content][:id])
-    disclaimer_content.update_attributes(:values => params[:admin_disclaimer_content][:values])
+    disclaimer_content.update_attributes(:value => params[:admin_disclaimer_content][:value])
      redirect_to(edit_admin_administrator_url(:id => params[:administrator][:id]))
  	end
  	private

@@ -3,7 +3,7 @@ class CreateAdminSettings < ActiveRecord::Migration
     create_table :admin_settings do |t|
 
     	t.string :identifier
-    	t.text :values
+    	t.text :value
    # 	t.text :admin_email
     #	t.text :active_dealer_email
     	#t.text :inactive_dealer_email

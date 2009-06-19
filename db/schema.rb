@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090611065219) do
+ActiveRecord::Schema.define(:version => 20090612114932) do
 
   create_table "addresses", :force => true do |t|
     t.string   "address"
@@ -25,19 +25,12 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
   create_table "admin_settings", :force => true do |t|
     t.string   "identifier"
     t.text     "values"
-    t.text     "admin_email"
-    t.text     "active_dealer_email"
-    t.text     "inactive_dealer_email"
-    t.text     "home_text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "administrator_profiles", :force => true do |t|
     t.integer "administrator_id"
-    t.string  "administrator_logo_file_name"
-    t.string  "administrator_logo_content_type"
-    t.integer "administrator_logo_file_size"
     t.string  "name"
     t.string  "auth_code"
     t.string  "corp_name"
@@ -55,6 +48,9 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
     t.string  "marketer_net_po"
     t.boolean "wants_data_printed"
     t.text    "comments"
+    t.string  "administrator_logo_file_name"
+    t.string  "administrator_logo_content_type"
+    t.integer "administrator_logo_file_size"
   end
 
   create_table "csv_extra_fields", :force => true do |t|
@@ -65,8 +61,15 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
   end
 
   create_table "dealer_fields", :force => true do |t|
-    t.text     "fields"
     t.integer  "dealer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "fields"
+  end
+
+  create_table "disclaimer_contents", :force => true do |t|
+    t.integer  "administrator_id"
+    t.text     "values"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -81,9 +84,18 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
   end
 
   create_table "open_id_authentication_nonces", :force => true do |t|
-    t.integer "timestamp",                  :null => false
+    t.integer "timestamp",  :null => false
     t.string  "server_url"
-    t.string  "salt",       :default => "", :null => false
+    t.string  "salt",       :null => false
+  end
+
+  create_table "print_file_fields", :force => true do |t|
+    t.integer  "dealer_id"
+    t.string   "identifier"
+    t.string   "label"
+    t.text     "values"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "profiles", :force => true do |t|
@@ -107,8 +119,8 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
     t.datetime "updated_at"
     t.integer  "starting_balance",   :default => 1000
     t.integer  "current_balance",    :default => 1000
+    t.string   "rate",               :default => "1",  :null => false
     t.integer  "administrator_id"
-    t.string   "rate",               :default => "1"
     t.text     "text_body_1"
     t.text     "text_body_2"
     t.text     "text_body_3"
@@ -143,6 +155,7 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
     t.string   "auto17"
     t.integer  "pr01"
     t.string   "status"
+    t.date     "marked_date"
   end
 
   create_table "roles", :force => true do |t|
@@ -184,14 +197,15 @@ ActiveRecord::Schema.define(:version => 20090611065219) do
     t.string   "remember_token",            :limit => 40
     t.string   "activation_code",           :limit => 40
     t.string   "state",                                    :default => "passive"
+    t.string   "type"
     t.datetime "remember_token_expires_at"
     t.string   "password_reset_code"
     t.datetime "activated_at"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
     t.integer  "dealer_id"
+    t.integer  "administrator_id"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

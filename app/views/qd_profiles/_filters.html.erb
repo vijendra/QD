@@ -5,6 +5,7 @@
      <tr>
         <th> Imported On</th>
         <th> Order Number </th>
+        <th> Status </th>
         <th> Reset</th>
      </tr>
      <tr>
@@ -16,8 +17,8 @@
                   <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>
                     <td><%= trigger_detail.text_field :order_number_like, :class => 'textbox' %>
                     <%end%>
-               <%end%>
-
+                <%end%>
+          <td> <%= p.select :status_like ,[['Select' , ''],['New' ,'new'], ['Marked', 'marked'], ['printed', 'printed']],:class => 'textbox' %> </td>
          <%end%>
        <%end%>
        <td><input type="reset" value="Reset"></td>

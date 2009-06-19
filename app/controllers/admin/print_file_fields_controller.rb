@@ -10,7 +10,7 @@ class Admin::PrintFileFieldsController < ApplicationController
       unless variables.include?(variable)
          PrintFileField.create(:dealer_id =>dealer.id, :identifier => variable, :label => params[variable][:label],:value => params[variable][:value])
       else
-      	 PrintFileField.find_by_dealer_id_and_identifier(dealer.id, variable).update_attributes(:label => params[variable][:label], :value => params[variable][:value])
+      	 PrintFileField.by_dealer(dealer.id).by_identifier(variable).first.update_attributes(:label => params[variable][:label], :value => params[variable][:value])
       end
     end
 
@@ -19,14 +19,14 @@ class Admin::PrintFileFieldsController < ApplicationController
       unless variables.include?(variable)
          PrintFileField.create(:dealer_id => dealer.id, :identifier => variable, :label => params[variable][:label],:value => params[variable][:value])
        else
-      	 PrintFileField.find_by_dealer_id_and_identifier(dealer.id, variable).update_attributes(:label => params[variable][:label], :value => params[variable][:value])
+      	 PrintFileField.by_dealer(dealer.id).by_identifier(variable).first.update_attributes(:label => params[variable][:label], :value => params[variable][:value])
        end
      end
 
      unless variables.include?("template")
      	  PrintFileField.create(:dealer_id =>dealer.id, :identifier => "template", :value => params[:template])
      else
-     	  PrintFileField.find_by_dealer_id_and_identifier(dealer.id, "template").update_attributes(:value => params[:template])
+     	  PrintFileField.by_dealer(dealer.id).by_identifier("template").first.update_attributes(:value => params[:template])
      end
 
 

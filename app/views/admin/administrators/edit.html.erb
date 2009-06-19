@@ -12,26 +12,22 @@
 
   <div id="tabs">
     <ul>
-	   <li><a href="#login">Login Details</a></li>
-	   <li><a href="#profile">Profile Details</a></li>
-	   <li><a href="#address">Address Details</a></li>
-	</ul>
+	     <li><a href="#login">Login Details</a></li>
+	     <li><a href="#profile">Profile Details</a></li>
+	     <li><a href="#address">Address Details</a></li>
+	  </ul>
+	</div>
+
   <div id="login">
-  <table>
+     <table>
          <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
          <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
-  </table>
+     </table>
 
-
-   <br/>
-   </div>
-    <div id="profile">
-      <% f.fields_for :administrator_profile do |administrator_profile_form| %>
-
-       <table>
-
-
-
+  </div>
+  <div id="profile">
+    <% f.fields_for :administrator_profile do |administrator_profile_form| %>
+      <table>
         <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
         <tr><th> First Name :</th><td> <%= administrator_profile_form.text_area :first_name ,:class =>"textbox"%></td></tr>
         <tr><th> Mid Name :</th><td> <%= administrator_profile_form.text_area :mid_name ,:class =>"textbox"%></td></tr>
@@ -51,8 +47,8 @@
    </table>
 
      <%end%>
-       </div>
-       <div id="address">
+    </div>
+    <div id="address">
       <% f.fields_for :address do |address_form| %>
       <table>
          <tr> <th> Address: </th><td> <%= address_form.text_field :address ,:class =>'textbox'%> </td></tr>
@@ -77,12 +73,11 @@
 
 <% form_tag('/admin/administrators/disclaimer_content_save') do -%>
   <table class = 'form-table'></table><br/>
-  <b> <%= fckeditor_textarea("admin_disclaimer_content","values" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> <br/>
+  <b> <%= fckeditor_textarea("admin_disclaimer_content","value" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> <br/>
    <input id="administrator_id" name="administrator[id]" type="hidden" value="<%=@administrator.id%>" />
    <input id="admin_disclaimer_content_id" name="admin_disclaimer_content[id]" type="hidden" value="<%=@admin_disclaimer_content.id%>" />
 
    <br/>
 <%= submit_tag "Save Disclaimer Content"%>
 <%end-%>
-<br />
 <br />

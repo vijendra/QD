@@ -6,12 +6,14 @@ class PrintFileFieldsController < ApplicationController
     @csv_extra_field = CsvExtraField.new
 
     ['text_body_1', 'text_body_2', 'text_body_3', 'variable_data_4', 'variable_data_5', 'variable_data_6',
-     'variable_data_7', 'variable_data_8', 'variable_data_9'].map{ |identifier|
-                                                          id = "@#{identifier}"
+     'variable_data_7', 'variable_data_8', 'variable_data_9'].map{
+     |identifier|  instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(current_user.id, identifier)) }
 
-                                                          id = PrintFileField.find_by_dealer_id_and_identifier(current_user.id, identifier)}
-
-    @dealer_template = PrintFileField.by_dealer(@dealer.id).by_identifier("template")
+    @dealer_template = PrintFileField.by_dealer(@dealer.id).by_identifier("template").first
+    if @dealer_template.nil?
+    	 @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id, :identifier => "template", :value => "template1" )
+       @dealer_template.save
+    end
   end
 
 
@@ -24,14 +26,14 @@ class PrintFileFieldsController < ApplicationController
      	 unless variables.include?(variable)
          PrintFileField.create(:dealer_id =>@dealer.id, :identifier => variable, :label => params[variable][:label],:value => params[variable][:value])
        else
-      	 PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, variable).update_attributes(:label => params[variable][:label], :value => params[variable][:value])
+      	 PrintFileField.by_dealer(@dealer.id).by_identifier(variable).first.update_attributes(:label => params[variable][:label], :value => params[variable][:value])
        end
      end
 
      unless variables.include?("template")
-     	  PrintFileField.create(:dealer_id =>@dealer.id, :identifier => "template", :label => params[:template],:value => params[:template])
+     	  PrintFileField.create(:dealer_id =>@dealer.id, :identifier => "template", :value => params[:template])
      else
-     	  PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template").update_attributes(:label => params[:template],:value => params[:template])
+     	  PrintFileField.by_dealer(@dealer.id).by_identifier("template").first.update_attributes(:value => params[:template])
      end
 
     respond_to do |format|
@@ -48,17 +50,17 @@ class PrintFileFieldsController < ApplicationController
 
   def edit
     @fields = @dealer.csv_extra_field.fields.blank? ? [] : @dealer.csv_extra_field.fields
-  
+
     ['text_body_1', 'text_body_2', 'text_body_3', 'variable_data_4', 'variable_data_5', 'variable_data_6',
-     'variable_data_7', 'variable_data_8', 'variable_data_9'].map{ 
+     'variable_data_7', 'variable_data_8', 'variable_data_9'].map{
      |identifier|  instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(current_user.id, identifier)) }
-     @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
-     
+     @dealer_template = PrintFileField.by_dealer(@dealer.id).by_identifier("template").first
+
    end
 
   def update
     @dealer.csv_extra_field.destroy
-    @CsvExtraField = CsvExtraField.create(:fields => params[:csv_extra_fields], :dealer_id => @dealer.id)
+    @CsvExtraField = CsvExtraField.new(:fields => params[:csv_extra_fields], :dealer_id => @dealer.id)
     variables = @dealer.print_file_fields.map{|rec| rec.identifier}
 
      for counter in 4..9
@@ -66,14 +68,14 @@ class PrintFileFieldsController < ApplicationController
      	 unless variables.include?(variable)
          PrintFileField.create(:dealer_id =>@dealer.id, :identifier => variable, :label => params[variable][:label],:value => params[variable][:value])
        else
-      	 PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, variable).update_attributes(:label => params[variable][:label], :value => params[variable][:value])
+      	 PrintFileField.by_dealer(@dealer.id).by_identifier(variable).first.update_attributes(:label => params[variable][:label], :value => params[variable][:value])
        end
      end
 
      unless variables.include?("template")
      	  PrintFileField.create(:dealer_id =>@dealer.id, :identifier => "template", :value => params[:template])
      else
-     	  PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template").update_attributes(:value => params[:template])
+     	  PrintFileField.by_dealer(@dealer.id).by_identifier("template").first.update_attributes(:value => params[:template])
      end
     respond_to do |format|
       if @CsvExtraField.save

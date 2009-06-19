@@ -35,6 +35,7 @@
          <table>
             <tr><th>Name: </th><td>
             <%= f.text_field :name ,:class =>'textbox'%></td></tr>
+           <tr> <th>Authentication Code :</th> <td>  <%= f.text_field :auth_code ,:disabled =>true ,:class =>"textbox" %> </td> </tr>
         <tr><th>
       	   E-mail(s) ( XML, use ";" as delimiter ):</th><td>
        		<%= f.text_area :emails_xml ,:class =>"textarea" %></td></tr>
@@ -50,8 +51,8 @@
        <%= f.text_field :last_name ,:class =>'textbox'%></td></tr>
       <tr><th>Phone:</th><td>
        <%= f.text_field :phone_1 ,:class =>'textbox-tiny'%>-<%= f.text_field :phone_2,:class =>'textbox-tiny' %>-<%= f.text_field :phone_3,:class =>'textbox-tiny' %></td></tr>
-      <tr><th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th><td>
-       <%= f.text_area :data_sources %></td></tr>
+      <tr> <th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th> <td>
+       <%= f.select :data_sources, [['Select' , ''], ['seekerinc', 'seekerinc'], ['marketernet', 'marketernet']] %> </td></tr>
       <tr><th>MarketerNet PO:</th><td>
        <%= f.text_field :marketer_net_po ,:class =>'textbox' %></td></tr>
       <tr><th>Wants data printed:</th><td>
@@ -80,7 +81,7 @@
   <% end %>
 
     </div>
-
+ <br/>
 
 
 

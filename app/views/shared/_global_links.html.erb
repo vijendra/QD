@@ -7,7 +7,7 @@
             <%= link_to "Settings", edit_admin_administrator_url(current_user) %> &nbsp; | &nbsp;
         <%end%>
      <% end -%>
-     <% unless (admin? or super_admin?)%><%= link_to "Settings", profile_url(current_user) %> &nbsp; | &nbsp;
+     <% unless (admin? or super_admin?)%><%= link_to "Edit Details", edit_profile_url(current_user) %> &nbsp; | &nbsp;
      <% end -%>
      <%= link_to "Log out", logout_url, :method => :delete %>
 <% else %>
