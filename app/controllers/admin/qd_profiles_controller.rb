@@ -102,39 +102,7 @@ class Admin::QdProfilesController < ApplicationController
      end
   end
 
-  def csv_print_file
-     dealer = Dealer.find(params[:dealer_id])
-     csv_file = FasterCSV.generate do |csv|
-     print_file_headers = {}
 
-     ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2', 'variable_data_3','variable_data_4',
-      'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10'].each do |identifier|
-
-             ob = PrintFileField.by_dealer(dealer.id).by_identifier(identifier).first
-	     if ob.blank?
-		print_file_headers[identifier] = identifier
-	     else
-	        print_file_headers[ob.identifier] = ob.label
-             end
-	  end
-
-     csv_headers = { 'name' => 'Dealer Name', 'first_name' => 'Dealer F Name', 'mid_name' => 'Dealer M Name',
-                    'last_name' => 'Dealer L Name', 'phone_num' => 'Dealer Phone num', 'address' => 'Dealer Address' , 'city' => 'Dealer City', 'state' => 'Dealer State','postal_code' => 'Dealer Postal Code'}.merge(print_file_headers)
-
-     fields_for_csv = dealer.csv_extra_field.fields rescue ['name', 'first_name','mid_name', 'last_name', 'phone_num', 'address', 'city', 'state', 'postal_code']
-            #Headers
-      csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
-
-                  #Data
-     qd_profiles = QdProfile.find(:all ,:conditions =>["dealer_id = ? and status = ? ",dealer.id ,"marked"])
-     profile_array = field_values(fields_for_csv, dealer)
-     qd_profiles.each do |prof|
-     csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + profile_array
-                      end
-     end
-     #sending the file to the browser
-     send_data(csv_file, :filename => 'data_list.csv', :type => 'text/csv', :disposition => 'attachment')
- end
 
 private
 
@@ -147,19 +115,6 @@ private
     	 redirect_to (:controller =>"/sessions" ,:action =>:terms)
     end
 	end
-
-	def field_values(field_list,dealer)
-  	 print_file_field_idetifiers = ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2',  'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10']
-  	 profile = dealer.profile
-     field_list.map{|qd_field| if qd_field == "phone_num"
-                                 "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
-                              elsif print_file_field_idetifiers.include?(qd_field)
-                                eval("PrintFileField.find_by_dealer_id_and_identifier(dealer.id,qd_field).value") rescue ' '
-                              else
-                                eval("profile.#{qd_field}") rescue eval("dealer.address.#{qd_field}")
-                              end
-                 }
-   end
 
   def admin?
     logged_in? && current_user.has_role?(:admin)

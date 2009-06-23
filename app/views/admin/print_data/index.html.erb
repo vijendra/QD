@@ -2,7 +2,6 @@
   Marked Data For Dealer : <%=h  @dealer.profile.name %>
 <% end -%>
 
- <%= link_to "<span>Generate CSV Print File</span>", csv_print_file_admin_qd_profiles_url(:dealer_id => @dealer.id), :class=> "button" %>
 <div class="js_option">
 			<%= link_to_function "Show Print File Fields",
 			"Element.hide('hidden1');
@@ -185,7 +184,7 @@
            <%end%>
          <%end%>
 
-         <%= submit_tag "Print Data"%>
+         <%= submit_tag "Generate CSV Print File"%>
    <%end%>
    <%else%>
       No Records Found.

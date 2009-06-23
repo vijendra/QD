@@ -46,7 +46,7 @@ class Admin::PrintDataController < ApplicationController
        else
 
        	 	csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ,'ADDRESS 2' ,' LEVEL' ,'AUTO17' ,'PR01' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
-       	 	params[:profiles].each do |id|
+       	   params[:profiles].each do |id|
         	 prof = QdProfile.find(id)
           csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ,prof.address2,prof.level, prof.auto17, prof.pr01] + profile_array
 
@@ -86,7 +86,7 @@ class Admin::PrintDataController < ApplicationController
     end
 
     def field_values(field_list,dealer)
-  	 print_file_field_idetifiers = ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1','variable_data_2','variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10']
+  	 print_file_field_idetifiers = ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2', 'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10']
   	 profile = dealer.profile
      field_list.map{|qd_field| if qd_field == "phone_num"
                                  "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"

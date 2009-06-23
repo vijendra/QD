@@ -52,28 +52,30 @@ class QdProfilesController < ApplicationController
       	                         page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
      	                         end }
 
-                    format.csv { csv_file = FasterCSV.generate do |csv|
-                               print_file_headers = {}
+                    format.csv {
 
-                    ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2',
-                     'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6',
-                     'variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10'].each do |identifier|
-		                ob = PrintFileField.by_dealer(current_user.id).by_identifier(identifier).first
-		                if ob.blank?
-		                  print_file_headers[identifier] = 'No Name'
-	                  else
-	                  	 print_file_headers[ob.identifier] = ob.label
-                    end
-	              	end
+                        csv_file = FasterCSV.generate do |csv|
+                        print_file_headers = {}
 
-                  csv_headers = { 'name' => 'Dealer Name', 'first_name' => 'Dealer F Name', 'mid_name' => 'Dealer M Name','last_name' => 'Dealer L Name', 'phone_num' => 'Dealer Phone num', 'address' => 'Dealer Address', 'city' => 'Dealer City', 'state' => 'Dealer State', 'postal_code' => 'Dealer Postal Code'}.merge(print_file_headers)
+                        ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2',
+                         'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6',
+                         'variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10'].each do |identifier|
+		                      ob = PrintFileField.by_dealer(current_user.id).by_identifier(identifier).first
+		                      if ob.blank?
+		                        print_file_headers[identifier] = identifier
+	                    	  else
+	                  	    	print_file_headers[ob.identifier] = ob.label
+                       		end
+	              				end
 
-                  fields_for_csv = current_user.csv_extra_field.fields rescue ['name', 'first_name','mid_name', 'last_name', 'phone_num', 'address', 'city', 'state', 'postal_code']
+			                  csv_headers = { 'name' => 'Dealer Name', 'first_name' => 'Dealer F Name', 'mid_name' => 'Dealer M Name','last_name' => 'Dealer L Name', 'phone_num' => 'Dealer Phone num', 'address' => 'Dealer Address', 'city' => 'Dealer City', 'state' => 'Dealer State', 'postal_code' => 'Dealer Postal Code'}.merge(print_file_headers)
+
+      		              fields_for_csv = current_user.csv_extra_field.fields rescue ['name', 'first_name','mid_name', 'last_name', 'phone_num', 'address', 'city', 'state', 'postal_code']
 
 
                   #Headers
-                  csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
-                 qd_profiles = QdProfile.find(:all ,:conditions =>["dealer_id = ? and status = ? ",current_user.id ,"printed"])
+            			      csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
+            			     qd_profiles = QdProfile.find(:all ,:conditions =>["dealer_id = ? and status = ? ",current_user.id ,"marked"])
                   #Data
                     profile_array = field_values(fields_for_csv, current_user)
                   qd_profiles.each do |prof|
