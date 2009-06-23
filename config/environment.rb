@@ -16,8 +16,15 @@ Rails::Initializer.run do |config|
   # Gems
   config.gem "capistrano-ext", :lib => "capistrano"
   config.gem "configatron"
-  config.gem "calendar_date_select" ,:lib => "calendar_date_select"
-  config.gem "prawn"
+  config.gem "calendar_date_select", :lib => "calendar_date_select"
+  config.gem "prawn", :lib => "prawn"
+  config.gem "mechanize", :lib => "mechanize", :version => '0.8.5'
+  config.gem "hpricot"
+  config.gem "fastercsv"
+  config.gem "rghost"
+  config.gem "rghost_barcode"
+  config.gem "rubyzip", :lib => "zip/zip"
+  config.gem "ruby-openid", :lib => "openid"
 
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
