@@ -163,9 +163,9 @@ ul {
 #main {
 
         margin: 0 auto;
-        background: #9CAAC6;
-        width: 98.9%;
-        padding: 8px;
+        background: #02529E;
+        width: 99.6%;
+        padding: 0px 1px;
         border-top: #00539F 1px solid;
 }
 /** Left column */
@@ -179,11 +179,11 @@ ul {
 .head {
 	color: #00407A;
 	font-weight: bold;
-	background-color: #F7F4EE;
+	background-color: #F2F3F7;
 	margin: 0;
 	font-size: 1.4em;
-        padding: 6px 3px 6px 10px;
-        border: #CEDAE8 1px solid;
+        padding: 6px 3px 4px 12px;
+        border-bottom: #5F86AB 1px solid;
       
 }
  #screen {

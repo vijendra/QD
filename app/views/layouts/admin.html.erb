@@ -49,9 +49,11 @@
 
   <div id="main">
      <h3 class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></h3>
-      <%= flash_message %>
+      
 
       <div id="screen">
+        <br />
+        <%= flash_message %>
         <%= yield %>
       </div>
 
@@ -64,7 +66,7 @@
 
    <script type="text/javascript">
       jQuery("#footer").corner("corner bottom 15px");
-      jQuery(".head").corner("corner top 8px");
+      
    </script>
 
 </body>
