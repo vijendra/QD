@@ -1,72 +1,97 @@
 <% content_for :header do -%>
    Print file variable value.
 <% end -%>  <br/>
-
-<% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer),:html => { :method => :put }) do |f| %>
 <table class ="form-table">
  <tr> <th> Text Body 1 </th> <td colspan ='2'> <% unless @text_body_1.nil? %> <%=h @text_body_1.value %> <%end%></td></tr>
   <tr> <th> Text Body 2 </th> <td colspan ='2'><% unless @text_body_2.nil? %> <%=h @text_body_2.value %> <%end%></td></tr>
   <tr> <th> Text Body 3 </th> <td colspan ='2'> <% unless @text_body_3.nil? %><%=h @text_body_3.value %><%end%> </td></tr>
    <tr> <th> Identifier </th> <th>Label </th> <th> value </th> </tr>
+  <tr><th> Variable Data 1</th>
+  <% if @variable_data_1.blank? %>
+      <td> </td><td></td>
+      <%else%>
+      <td><%=h  @variable_data_1.label %> </td><td><%=h @variable_data_1.value %> </td>
+      <%end%></tr>
+  <tr><th> Variable Data 2</th>
+  <% if @variable_data_2.blank? %>
+      <td> </td>
+      <td></td></tr>
+      <%else%>
+      <td><%=h  @variable_data_2.label %> </td>
+      <td><%=h @variable_data_2.value %> </td> </tr>
+      <%end%>
+   <tr><th> Variable Data 3</th>
+  <% if @variable_data_3.blank? %>
+      <td> </td>
+      <td></td></tr>
+      <%else%>
+      <td><%=h  @variable_data_3.label %> </td>
+      <td><%=h @variable_data_3.value %> </td> </tr>
+      <%end%>
+
   <tr><th> Variable Data 4</th>
       <% if @variable_data_4.blank? %>
-      <td> <%= text_field_tag "variable_data_4[label]" ,"",:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_4[value]" ,'',:class => "textbox" %> </td></tr>
+      <td></td><td></td></tr>
       <%else%>
-       <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_4[value]" ,@variable_data_4.value,:class => "textbox" %> </td></tr>
+       <td> <%=h  @variable_data_4.label %> </td> <td><%=h @variable_data_4.value %> </td></tr>
       <%end%>
   <tr> <th>Variable Data 5</th>
    <% if @variable_data_5.blank? %>
-      <td><%= text_field_tag "variable_data_5[label]",'',:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_5[value]" ,'',:class => "textbox" %> </td></tr>
+      <td></td>
+      <td></td></tr>
      <%else%>
-     <td><%= text_field_tag "variable_data_5[label]",@variable_data_5.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_5[value]" ,@variable_data_5.value,:class => "textbox" %> </td></tr>
+     <td><%=h @variable_data_5.label %> </td>
+      <td><%=h  @variable_data_5.value %> </td></tr>
      <%end%>
 
   <tr> <th>Variable Data 6</th>
   <% if @variable_data_6.blank? %>
-      <td><%= text_field_tag "variable_data_6[label]" ,'',:class => "textbox"%> </td>
-      <td> <%= text_field_tag "variable_data_6[value]" ,'',:class => "textbox" %></td></tr>
+      <td> </td>
+      <td> </td></tr>
       <%else%>
-      <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_6[value]" ,@variable_data_6.value,:class => "textbox" %> </td></tr>
+      <td><%=h @variable_data_6.label  %> </td>
+      <td><%=h @variable_data_6.value %> </td></tr>
       <%end%>
   <tr><th> Variable Data 7</th>
   <% if @variable_data_7.blank? %>
-      <td> <%= text_field_tag "variable_data_7[label]" ,'',:class => "textbox"%></td>
-      <td> <%= text_field_tag "variable_data_7[value]" ,'',:class => "textbox" %></td></tr>
+      <td> </td>
+      <td>  </td></tr>
       <%else%>
-      <td><%= text_field_tag "variable_data_7[label]",@variable_data_7.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_7[value]" ,@variable_data_7.value,:class => "textbox" %> </td></tr>
+      <td><%=h @variable_data_7.label  %> </td>
+      <td><%=h @variable_data_7.value %> </td></tr>
       <%end%>
   <tr> <th>Variable Data 8</th>
   <% if @variable_data_8.blank? %>
-      <td> <%= text_field_tag "variable_data_8[label]",'',:class => "textbox" %></td>
-      <td> <%= text_field_tag "variable_data_8[value]" ,'',:class => "textbox" %></td></tr>
+      <td> </td>
+      <td></td></tr>
       <%else%>
-      <td><%= text_field_tag "variable_data_8[label]",@variable_data_8.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_8[value]" ,@variable_data_8.value,:class => "textbox" %> </td></tr>
+      <td><%=h @variable_data_8.label  %> </td>
+      <td><%=h @variable_data_8.value  %> </td></tr>
       <%end%>
   <tr><th> Variable Data 9</th>
   <% if @variable_data_9.blank? %>
-      <td><%= text_field_tag "variable_data_9[label]" ,'',:class => "textbox"%> </td>
-      <td> <%= text_field_tag "variable_data_9[value]" ,'',:class => "textbox" %></td></tr>
+      <td> </td>
+      <td></td></tr>
       <%else%>
-      <td><%= text_field_tag "variable_data_9[label]", @variable_data_9.label, :class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_9[value]" ,@variable_data_9.value, :class => "textbox" %> </td> </tr>
+      <td><%=h  @variable_data_9.label %> </td>
+      <td><%=h @variable_data_9.value %> </td> </tr>
       <%end%>
-
-     <tr> <th> Select Template </th> <td colspan ='2'>
-<%= radio_button_tag ('template', 'template1' , @dealer_template.value.include?("template1"))  %>
-<%= image_tag("template4.png",  :alt => "Template 1")  %>
-
-<%= radio_button_tag ('template', 'template2' , @dealer_template.value.include?("template2")) %>
-<%= image_tag("template5.jpg", :alt => "Template 2")  %>
-<%= radio_button_tag ('template', 'template3', @dealer_template.value.include?("template3")) %>
-<%= image_tag("template6.jpg", :alt => "Template 3")  %>
-
+  <tr><th> Variable Data 10</th>
+  <% if @variable_data_10.blank? %>
+      <td> </td>
+      <td></td></tr>
+      <%else%>
+      <td><%=h  @variable_data_10.label %> </td>
+      <td><%=h @variable_data_10.value %> </td> </tr>
+      <%end%>
+     <tr><th> Selected Template :</th><td>
+      <% if @dealer_template.value.include?("template1")  %>
+             <%= image_tag("template4.png",  :alt => "Template 1")  %>
+       <% elsif  @dealer_template.value.include?("template2") %>
+            <%= image_tag("template5.jpg", :alt => "Template 2")  %>
+       <% else %>
+						<%= image_tag("template6.jpg", :alt => "Template 3")  %>
+       <%end%> </td></tr>
 
 </table>
 
@@ -76,7 +101,7 @@
 
 <h1 class = 'head'>  Columns to be appended to the CSV Print file. </h1>
 <br/>
-
+<% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer),:html => { :method => :put }) do |f| %>
 <table class = 'form-table'>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'name', @fields.include?("name"))%> </td><th>Name</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'first_name', @fields.include?("first_name"))%> </td><th>First Name</th></tr>
@@ -90,13 +115,16 @@
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_1', @fields.include?("text_body_1"))%></td><th> Text Body 1</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_2', @fields.include?("text_body_2"))%> </td><th>Text Body 2</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_3', @fields.include?("text_body_3"))%></td><th>Text Body 3</th></tr>
-
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_1', @fields.include?("variable_data_1"))%> </td><th> Variable Data 1</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_2', @fields.include?("variable_data_2"))%> </td><th> Variable Data 2</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_3', @fields.include?("variable_data_3"))%> </td><th> Variable Data 3</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_4', @fields.include?("variable_data_4"))%> </td><th> Variable Data 4</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_5', @fields.include?("variable_data_5"))%> </td><th> Variable Data 5</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_6', @fields.include?("variable_data_6"))%> </td><th> Variable Data 6</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_7', @fields.include?("variable_data_7"))%> </td><th> Variable Data 7</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_8', @fields.include?("variable_data_8"))%> </td><th> Variable Data 8</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_9', @fields.include?("variable_data_9"))%> </td><th> Variable Data 9</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_10', @fields.include?("variable_data_10"))%> </td><th> Variable Data 10</th></tr>
 
 </table>
 

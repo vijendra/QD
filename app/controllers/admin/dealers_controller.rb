@@ -10,6 +10,34 @@ class Admin::DealersController < ApplicationController
     @params = params[:search]
     @search.page ||=1
     @search.per_page ||=10
+    unless params[:today].blank?
+      if params[:today] == "1"
+       	@search.conditions.created_at_like = Date.today
+      else
+        @search.conditions.created_at_like = Date.yesterday
+      end
+      params[:today] = nil
+    end
+
+    unless params[:created_at].blank?
+    	 date = params[:created_at].to_date
+    	 @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+   	unless params[:created_at_end].blank?
+    	 date = params[:created_at_end].to_date
+         @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+    unless (params[:created_at_end].blank? ||  params[:created_at].blank?)
+    	 start_date = "#{params[:created_at].to_date} "
+    	 time = "00:00:00"
+   	   end_date   =  Time.parse("#{params[:created_at_end].to_date} #{time}").advance(:days => 1)
+    	 @search.conditions.created_at_after   = "#{start_date}#{time}"
+    	 @search.conditions.and_created_at_before = "#{end_date}"
+   	end
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
 
@@ -144,8 +172,8 @@ class Admin::DealersController < ApplicationController
     	                                :balance => @balance )
       data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
-      @balance = @balance -1
-      no_of_records =no_of_records + 1
+      @balance = @balance - 1
+      no_of_records = no_of_records + 1
       data_set = {:dealer_id =>  @dealer.id, :trigger_detail_id => trigger.id}
       data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
       QdProfile.create(data_set)

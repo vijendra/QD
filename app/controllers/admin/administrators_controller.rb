@@ -35,7 +35,6 @@ class Admin::AdministratorsController < ApplicationController
 
   def create
     @administrator = Administrator.new(params[:administrator])
-
     if @administrator.save
       @administrator.register!
       @administrator.activate!
@@ -50,7 +49,6 @@ class Admin::AdministratorsController < ApplicationController
 
   def update
     @administrator = Administrator.find(params[:id])
-
       if @administrator.update_attributes(params[:administrator])
         flash[:notice] = 'Administrator was successfully updated.'
         redirect_to(admin_administrator_path(@administrator) )

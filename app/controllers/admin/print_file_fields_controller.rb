@@ -5,7 +5,7 @@ class Admin::PrintFileFieldsController < ApplicationController
     dealer = Dealer.find(params[:dealer][:id])
     variables = dealer.print_file_fields.map{|rec| rec.identifier}
 
-    for counter in 4..9
+    for counter in 1..10
       variable = "variable_data_#{counter}"
       unless variables.include?(variable)
          PrintFileField.create(:dealer_id =>dealer.id, :identifier => variable, :label => params[variable][:label],:value => params[variable][:value])

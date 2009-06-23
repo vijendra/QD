@@ -4,7 +4,8 @@ class Admin::TriggerDetailsController < ApplicationController
   def index
 
     @search = TriggerDetail.new_search(params[:search])
-    @search.per_page ||=10
+    @search.per_page ||= 15
+    @search.page ||= 1
     unless params[:today].blank?
        @search.conditions.created_at = Date.today
        params[:today] = nil

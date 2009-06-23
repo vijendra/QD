@@ -1,15 +1,13 @@
 class Admin::DealerFieldsController < ApplicationController
+  before_filter :find_dealer
 
- before_filter :find_dealer
-
-   def new
-    @dealer_field = DealerField.new
+  def new
+  	@dealer_field = DealerField.new
     respond_to do |format|
       format.html
       format.js { render :layout => false }
     end
   end
-
 
   def edit
      @fields = @dealer.dealer_field.fields
@@ -18,7 +16,6 @@ class Admin::DealerFieldsController < ApplicationController
       format.js { render :layout => false }
     end
   end
-
 
   def create
    @dealer_field = DealerField.create(:fields => params[:dealer_fields], :dealer_id => @dealer.id)
@@ -33,7 +30,6 @@ class Admin::DealerFieldsController < ApplicationController
       end
     end
   end
-
 
   def update
     @dealer.dealer_field.destroy
@@ -52,7 +48,7 @@ class Admin::DealerFieldsController < ApplicationController
 
   private
 
-  def find_dealer
-  	@dealer = Dealer.find(params[:dealer_id])
-  end
+   def find_dealer
+  	 @dealer = Dealer.find(params[:dealer_id])
+   end
  end

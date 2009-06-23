@@ -2,8 +2,7 @@
 	<% content_for :header do -%>
 		Profile Not be Found
 	<% end -%>
-
-	<p>The profile you requested does not exist.</p>
+	<p> The profile you requested does not exist. </p>
 <% else -%>
 	<% content_for :header do -%>
 		Editing My Profile
@@ -16,8 +15,6 @@
 		This is your <%= configatron.site_name %> profile. It's not related to your OpenID Identity.
 	</p>
 	<% end %>
-
-
 
 <% form_for :profile, @profile, :url => profile_url(@user), :html => {:method => :put} do |f| %>
   <%= f.error_messages %>
@@ -35,7 +32,7 @@
          <table>
             <tr><th>Name: </th><td>
             <%= f.text_field :name ,:class =>'textbox'%></td></tr>
-           <tr> <th>Authentication Code :</th> <td>  <%= f.text_field :auth_code ,:disabled =>true ,:class =>"textbox" %> </td> </tr>
+           <tr> <th>Authentication Code :</th> <td>  <%= f.text_field :auth_code ,:disabled => true ,:class =>"textbox" %> </td> </tr>
         <tr><th>
       	   E-mail(s) ( XML, use ";" as delimiter ):</th><td>
        		<%= f.text_area :emails_xml ,:class =>"textarea" %></td></tr>

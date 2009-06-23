@@ -13,7 +13,7 @@
         <% f.fields_for @search.conditions do |p| %>
            <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
            <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
-           <%= link_to_remote "Today's" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" },:method =>:get %>
+           <%= link_to_remote "Yesterday's" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" ,:today =>2 },:method =>:get %> | <%= link_to_remote "Today's" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" },:method =>:get %>
 
            </td>
 

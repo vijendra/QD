@@ -1,6 +1,8 @@
 <% content_for :header do -%>
   Marked Data For Dealer : <%=h  @dealer.profile.name %>
 <% end -%>
+
+ <%= link_to "<span>Generate CSV Print File</span>", csv_print_file_admin_qd_profiles_url(:dealer_id => @dealer.id), :class=> "button" %>
 <div class="js_option">
 			<%= link_to_function "Show Print File Fields",
 			"Element.hide('hidden1');
@@ -16,6 +18,32 @@
 <table class ="form-table">
 <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
   <tr> <th> Identifier </th> <th>Label </th> <th> value </th> </tr>
+  <tr><th> Variable Data 1</th>
+      <% if @variable_data_1.blank? %>
+      <td> <%= text_field_tag "variable_data_1[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_1[value]" ,'',:class => "textbox" %> </td></tr>
+      <%else%>
+       <td> <%= text_field_tag "variable_data_1[label]" ,@variable_data_1.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_1[value]" ,@variable_data_1.value,:class => "textbox" %> </td></tr>
+      <%end%>
+    <tr><th> Variable Data 2</th>
+      <% if @variable_data_2.blank? %>
+      <td> <%= text_field_tag "variable_data_2[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_2[value]" ,'',:class => "textbox" %> </td></tr>
+      <%else%>
+       <td> <%= text_field_tag "variable_data_2[label]" ,@variable_data_2.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_2[value]" ,@variable_data_2.value,:class => "textbox" %> </td></tr>
+      <%end%>
+
+      <tr><th> Variable Data 3</th>
+      <% if @variable_data_3.blank? %>
+      <td> <%= text_field_tag "variable_data_3[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_3[value]" ,'',:class => "textbox" %> </td></tr>
+      <%else%>
+       <td> <%= text_field_tag "variable_data_3[label]" ,@variable_data_3.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_3[value]" ,@variable_data_3.value,:class => "textbox" %> </td></tr>
+      <%end%>
+
   <tr><th> Variable Data 4</th>
       <% if @variable_data_4.blank? %>
       <td> <%= text_field_tag "variable_data_4[label]" ,"",:class => "textbox" %> </td>
@@ -64,6 +92,14 @@
       <%else%>
       <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_9[value]" ,@variable_data_9.value,:class => "textbox" %> </td> </tr>
+      <%end%>
+      <tr><th> Variable Data 10</th>
+      <% if @variable_data_10.blank? %>
+      <td> <%= text_field_tag "variable_data_10[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_10[value]" ,'',:class => "textbox" %> </td></tr>
+      <%else%>
+       <td> <%= text_field_tag "variable_data_10[label]" ,@variable_data_10.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_10[value]" ,@variable_data_10.value,:class => "textbox" %> </td></tr>
       <%end%>
 
          <tr> <th> Identifier </th><td colspan=2> Text Body 1</td></tr>
@@ -131,7 +167,7 @@
               </tr>
               <% qd_profiles.each do |profile| %>
                <tr  class="<%= cycle('odd', 'even')%>">
-                  <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
+                  <td> <%= check_box_tag("profiles[]", profile.id, true)%></td>
                   <td> <%=h Time.parse(profile.created_at.to_s).to_date %> </td>
                   <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>
                   <td> <%=h profile.fname %> </td>

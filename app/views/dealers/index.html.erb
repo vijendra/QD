@@ -1,18 +1,1 @@
-<h1>Listing dealers</h1>
 
-<table>
-  <tr>
-  </tr>
-
-<% @dealers.each do |dealers| %>
-  <tr>
-    <td><%= link_to 'Show', dealers %></td>
-    <td><%= link_to 'Edit', edit_dealer_path(dealers) %></td>
-    <td><%= link_to 'Destroy', dealers, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New dealers', new_dealer_path %>

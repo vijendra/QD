@@ -5,6 +5,7 @@
        <th> Contact No: </th>
        <th> Email: </th>
        <th> State </th>
+       <th>  Imported Date Between </th>
        <th >Reset: </th>
      </tr>
      <tr>
@@ -19,6 +20,9 @@
          <%end%>
          <td><%= p.text_field :email_like, :class => 'textbox' %></td>
          <td> <%= p.select :state_is ,[['Select' , ''], ['Active', 'active'], ['Inactive', 'inactive']],:class => 'textbox' %> </td>
+           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+                <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+                <%= link_to_remote "Yesterday's" ,:url =>{ :controller => "/admin/dealers" ,:action =>"index" ,:today =>2 },:method =>:get %> |<%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/dealers" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/dealers" ,:action =>"index" },:method =>:get %> </td>
 		 <td> <input type="reset" value="Reset"> </td>
        <%end%>
        <%end%>

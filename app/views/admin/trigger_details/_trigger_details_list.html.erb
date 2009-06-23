@@ -34,4 +34,30 @@
 <% end %>
 </table>
 <%end%>
-<br/>
+<table class='table-bottom'>
+  <tr class="table-footer">
+
+        <td><%= remote_per_page_select %></td>
+        <td>
+         <% form_tag(admin_trigger_details_path, :method => :get, :id => "goto") do %>
+             <% fields_for @search do |f|%>
+                     <%= f.text_field :page, :class => 'textbox-tiny' %></td>
+             <%end%>
+         <%end%>
+
+
+        </td>
+         <td> <% unless @triggers.blank? %>
+                 <div class="pagination">
+                    <%= remote_page_links %>
+                 </div>
+               <%end%>
+         </td>
+  </tr>
+</table>
+<%= observe_form("goto", :frequency => 1,
+                 :before => "Element.show('spinner')",
+                 :success => "Element.hide('spinner')",
+                 :url => admin_trigger_details_path, :method => :get) %>
+
+<br />

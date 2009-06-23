@@ -9,8 +9,12 @@ class QdProfilesController < ApplicationController
     @search.conditions.dealer_id = current_user.id
     @search.per_page ||= 15
     unless params[:today].blank?
-       @search.conditions.created_at = Date.today
-       params[:today] = nil
+      if params[:today] == "1"
+       	@search.conditions.created_at_like = Date.today
+      else
+        @search.conditions.created_at_like = Date.yesterday
+      end
+      params[:today] = nil
     end
 
     unless params[:created_at].blank?
@@ -42,22 +46,38 @@ class QdProfilesController < ApplicationController
     end
 
     respond_to do |format|
-                   format.html {}
-                   format.js {  render :update do |page|
-      	                           page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
-     	                        end
-      	                      }
-                   format.csv {
-                               csv_file = FasterCSV.generate do |csv|
-                                  csv_headers = {:name => 'Dealer Name', :first_name => 'Dealer F Name', :last_name => 'Dealer L Name', :phone_num => 'Dealer Phone num', :address => 'Dealer Address', :city => 'Dealer City', :state => 'Dealer State', :postal_code => 'Dealer Postal Code'}
+                    format.html {}
 
-                                  fields_for_csv = current_user.csv_extra_field.fields rescue ['name', 'fname', 'lname', 'phone_num', 'address', 'city', 'state', 'postal_code']
-                                  #Headers
-                                  csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_sym] }
+                    format.js { render :update do |page|
+      	                         page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
+     	                         end }
 
-                                  #Data
-                                  @qd_profiles.each do |prof|
-                                     csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + field_values(fields_for_csv, prof)
+                    format.csv { csv_file = FasterCSV.generate do |csv|
+                               print_file_headers = {}
+
+                    ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2',
+                     'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6',
+                     'variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10'].each do |identifier|
+		                ob = PrintFileField.by_dealer(current_user.id).by_identifier(identifier).first
+		                if ob.blank?
+		                  print_file_headers[identifier] = 'No Name'
+	                  else
+	                  	 print_file_headers[ob.identifier] = ob.label
+                    end
+	              	end
+
+                  csv_headers = { 'name' => 'Dealer Name', 'first_name' => 'Dealer F Name', 'mid_name' => 'Dealer M Name','last_name' => 'Dealer L Name', 'phone_num' => 'Dealer Phone num', 'address' => 'Dealer Address', 'city' => 'Dealer City', 'state' => 'Dealer State', 'postal_code' => 'Dealer Postal Code'}.merge(print_file_headers)
+
+                  fields_for_csv = current_user.csv_extra_field.fields rescue ['name', 'first_name','mid_name', 'last_name', 'phone_num', 'address', 'city', 'state', 'postal_code']
+
+
+                  #Headers
+                  csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
+                 qd_profiles = QdProfile.find(:all ,:conditions =>["dealer_id = ? and status = ? ",current_user.id ,"printed"])
+                  #Data
+                    profile_array = field_values(fields_for_csv, current_user)
+                  qd_profiles.each do |prof|
+                                     csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + profile_array
                                   end
                                 end
                                 #sending the file to the browser
@@ -105,16 +125,15 @@ class QdProfilesController < ApplicationController
 
  private
 
-  def field_values(field_list, prof)
-  	 print_file_field_idetifiers = ['text_body_1','text_body_2','text_body_3','variable_data_4','variable_data_5',
-		                               'variable_data_6','variable_data_7','variable_data_8','variable_data_9']
-    profile = prof.dealer.profile
-    field_list.map{|qd_field| if qd_field == "phone_num"
+  def field_values(field_list,dealer)
+  	 print_file_field_idetifiers = ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1','variable_data_2','variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10']
+  	 profile = dealer.profile
+     field_list.map{|qd_field| if qd_field == "phone_num"
                                  "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
                               elsif print_file_field_idetifiers.include?(qd_field)
-                                eval("PrintFileField.find_by_dealer_id_and_identifier(prof.dealer_id,qd_field).value") rescue ' '
+                                eval("PrintFileField.find_by_dealer_id_and_identifier(dealer.id,qd_field).value") rescue ' '
                               else
-                                eval("profile.#{qd_field}") rescue eval("prof.dealer.address.#{qd_field}")
+                                eval("profile.#{qd_field}") rescue eval("dealer.address.#{qd_field}")
                               end
                  }
    end
@@ -122,7 +141,7 @@ class QdProfilesController < ApplicationController
 
   def check_terms_conditions
        if !session[:accept_terms]
-       	 redirect_to (:controller =>"sessions" ,:action =>:terms)
+       	 redirect_to(:controller =>"sessions" ,:action =>:terms)
        end
  	end
 
