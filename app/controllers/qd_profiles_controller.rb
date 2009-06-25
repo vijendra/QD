@@ -99,9 +99,9 @@ class QdProfilesController < ApplicationController
    	       qd_profile.mark_visited!
   	     end
   	  end
-  	  redirect_to (qd_profiles_path)
+  	  redirect_to(qd_profiles_path)
   else
-   redirect_to (qd_profiles_path)
+   redirect_to(qd_profiles_path)
   end
  end
 

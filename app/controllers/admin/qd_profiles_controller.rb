@@ -112,7 +112,7 @@ private
   end
   def check_role
  		if admin? and !session[:accept_terms]
-    	 redirect_to (:controller =>"/sessions" ,:action =>:terms)
+    	 redirect_to(:controller =>"/sessions" ,:action =>:terms)
     end
 	end
 
