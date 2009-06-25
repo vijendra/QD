@@ -13,7 +13,7 @@ class Baseapp < ActiveRecord::Migration
     end
 
     # Create Users Table
-    create_table :users do |t|
+    create_table :users , :primary_key => :id, :options => "auto_increment = 126" do |t|
       t.string :login, :limit => 40
       t.string :identity_url
       t.string :name, :limit => 100, :default => '', :null => true
@@ -83,7 +83,7 @@ class Baseapp < ActiveRecord::Migration
     super_admin_role = Role.create(:name => 'super_admin')
     admin_role = Role.create(:name => 'admin')
     user = User.create do |u|
-      u.login = 'admin'
+      u.login = 'superadmin'
       u.password = u.password_confirmation = 'password'
       u.email = 'nospam@example.com'
     end

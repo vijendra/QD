@@ -1,6 +1,6 @@
 
 <% if logged_in? %>
-   <%= link_to "Home Page", root_url%>
+   <%= link_to "Home Page", root_url, :class => ('current' if request.request_uri == '/')%>
 
    <% if admin? -%><%= link_to "Data Set", admin_qd_profiles_url, :class => ('current' if request.request_uri =~ /qd_profiles/) %><% end -%>
 

@@ -7,7 +7,7 @@
 
 	<title><%= configatron.site_name %></title>
     <%= javascript_include_merged :base,'facebox'  %>
-    <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min', 'jquery_corner' %>
+    <%= javascript_include_tag 'jquery-1', 'jquery-ui-1.6.custom.min' %>
     <%= javascript_include_tag :fckeditor %>
     <%= calendar_date_select_includes  %>
   	<%= stylesheet_link_merged :base, 'calendar/option2- blue/style' ,'facebox' %>
@@ -63,7 +63,8 @@
   <div id= "footer">
       Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://isiritech.com" , {:target => "_blank" }%>
   </div>
-
+  <br />
+  <br />
 
 </body>
 </html>

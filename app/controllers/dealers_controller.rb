@@ -51,7 +51,7 @@ private
 
   def check_terms_conditions
   	if !session[:accept_terms]
-    	redirect_to (:controller =>"sessions" ,:action =>:terms)
+    	redirect_to(:controller =>"sessions" ,:action =>:terms)
     end
  	end
 end
