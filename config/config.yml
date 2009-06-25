@@ -9,7 +9,7 @@ development: &local
     admin_email: admin@test.com
     
     support_name: Support
-    support_email: support@test.com
+    support_email: qdrobot@isiritech.net
 
 production:
   <<: *local

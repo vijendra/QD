@@ -1,3 +1,12 @@
+default_run_options[:pty] = true
+set :application, 'Quick Data Robot'
+set :repository, "git://github.com/vijendra/QD.git"
+set :scm, :git
+set :scm_passphrase, "isiri"
+set :user, "vijendra"
+set :branch, "master"
+server "newcarvalet.com", :app, :web, :db, :primary => true
+
 set :stages, %w(testing acceptance production)
 set :default_stage, "production"
 require File.expand_path("#{File.dirname(__FILE__)}/../vendor/gems/capistrano-ext-1.2.1/lib/capistrano/ext/multistage")
