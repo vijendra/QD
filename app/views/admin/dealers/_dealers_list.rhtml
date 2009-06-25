@@ -31,7 +31,7 @@
        <tr class="<%= cycle('odd', 'even')%>">
          <td> </td>
          <td> <%= dealer.id %> </td>
-         <td> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> </td>
+         <td> <%unless dealer.profile.blank? %> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> <%end%> </td>
           <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
          <td> <% if dealer.profile.auth_code.blank?  %>
                 <%= link_to "Enter" ,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>

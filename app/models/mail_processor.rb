@@ -3,20 +3,20 @@ class MailProcessor < ActionMailer::Base
   require 'mechanize'
   require 'zip/zipfilesystem'
   require 'fastercsv'
+  require 'fileutils'
 
   def receive(mail)
     Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
     parser = Hpricot.parse(mail.body)
-    
     #Parsing mail to get required information
     if (mail.from.to_s =~ /@seekerinc.com/ || mail.subject.to_s =~ /File Download Instructions/) 
       table_rows = parser.search("tr")
-      dealer = table_rows[1].search("td")[1].at("p").inner_html.strip
-      no_of_records = table_rows[4].search("td")[1].at("p").inner_html.strip
-      order_number = table_rows[7].search("td")[1].at("p").inner_html.strip
-      file_id = table_rows[8].search("td")[1].at("p").inner_html
-      password = table_rows[9].search("td")[1].at("p").inner_html
-      file_url = table_rows[10].search("td")[1].at("p").at("a").inner_html
+      dealer = table_rows[1].search("td")[1].inner_text.strip
+      no_of_records = table_rows[4].search("td")[1].inner_text.strip
+      order_number = table_rows[7].search("td")[1].inner_text.strip
+      file_id = table_rows[8].search("td")[1].inner_text.strip
+      password = table_rows[9].search("td")[1].inner_text.strip
+      file_url = table_rows[10].search("td")[1].inner_text.strip
       if TriggerDetail.find_by_order_number(order_number).blank?
         #Logging in
         agent = WWW::Mechanize.new
@@ -58,12 +58,16 @@ class MailProcessor < ActionMailer::Base
         end
 
         dealer_profile.update_attribute('current_balance', balance )
+        
+        #delete the downloded folder
+        FileUtils.rm_r zipped_order
+        FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer}_#{order_number}")
       end
     end
     
     if (mail.from.to_s =~ /@tranzactis.com/ || mail.subject =~ /Order Fulfillment Notification/)  
-      dealer_id = parser.search("table").search("table")[2].at("tr").search("td")[1].at("p").at("span").inner_html.strip
-      no_of_records = parser.search("table").search("table")[2].search("tr")[3].search("td")[1].at("p").at("span").inner_html.strip
+      dealer_id = parser.search("table").search("table")[2].at("tr").search("td")[1].inner_text.strip
+      no_of_records = parser.search("table").search("table")[2].search("tr")[3].search("td")[1].inner_text.strip
       file_url = parser.search("table").search("table")[2].search("tr")[4].at("td").at("p").at("b").at("span").at("a").attributes['href']
       order_number = URI.split(file_url)[7].split("=")[1].strip
       if TriggerDetail.find_by_order_number(order_number).blank?
@@ -98,6 +102,8 @@ class MailProcessor < ActionMailer::Base
           QdProfile.create(data_set)
         end
         
+        #delete the downloded folder
+        FileUtils.rm_r orders_csv
       end  
     end 
     

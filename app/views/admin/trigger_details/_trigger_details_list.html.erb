@@ -1,12 +1,13 @@
 <% if @triggers.blank?%>
 <table class='listing'>
   <tr>
- 	<th>ID</th>
- 	<th>Dealer </th>
+    <th>Date </th>
+    <th>ID</th>
+    <th>Dealer </th>
     <th>Data Source</th>
     <th>Order_number</th>
     <th>Total Records </th>
-    <th>Date </th>
+    
   </tr>
   </table>
    <br/>
@@ -15,21 +16,22 @@
 
 <table class='listing'>
   <tr>
- 	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
- 	  <th> <%= remote_order_by_link({:dealer =>{:profile => :name}} ,:text => "Dealer" )%> </th>
+    <th><%= remote_order_by_link(:created_at,:text =>"Date") %> </th>
+    <th><%= remote_order_by_link(:id,:text =>"ID") %></th>
+    <th> <%= remote_order_by_link({:dealer =>{:profile => :name}} ,:text => "Dealer" )%> </th>
     <th>Data Source</th>
     <th><%= remote_order_by_link(:order_number,:text =>"Order Number") %></th>
     <th>Total Records </th>
-    <th><%= remote_order_by_link(:created_at,:text =>"Date") %> </th>
+    
   </tr>
 <% @triggers.each do |trigger| %>
        <tr>
+         <td> <%= Time.parse(trigger.created_at.to_s).strftime('%m-%d-%y') %> </td>
          <td> <%= trigger.id %> </td>
          <td> <%= trigger.dealer.profile.name %> </td>
          <td> <%= trigger.data_source %> </td>
          <td> <%= trigger.order_number %> </td>
-		 <td> <%= trigger.total_records %> </td>
-         <td> <%= Time.parse(trigger.created_at.to_s).to_date %> </td>
+	 <td> <%= trigger.total_records %> </td>
        </tr>
 <% end %>
 </table>

@@ -10,8 +10,6 @@ class Admin::DealersController < ApplicationController
     @params = params[:search]
     @search.page ||=1
     @search.per_page ||=10
-     @search.order_as ||= "DESC"
-    @search.order_by ||= "created_at"
     unless params[:today].blank?
       if params[:today] == "1"
        	@search.conditions.created_at_like = Date.today
@@ -159,9 +157,11 @@ class Admin::DealersController < ApplicationController
   end
 
   def csv
-  	@dealer = Dealer.find(params[:id])
-  	render :lauout =>"false"
- 	end
+    @dealer = Dealer.find(params[:id])
+    render :lauout =>"false"
+  end
+
+
 
   def csv_import
     @dealer = Dealer.find(params[:dealer_id])
@@ -240,54 +240,38 @@ class Admin::DealersController < ApplicationController
  	end
 
   def import_dealer_csv
+    unless ( params[:dealer].blank? ||params[:dealer][:file].blank?)
+      import_file = params[:dealer][:file]
+      FasterCSV.parse(import_file.read).each do |row|
+  	login = "dealer#{row[0]}"
+        dealer = Dealer.new(:dealer_id => row[0].to_i, :login => "#{login}" , :email => (row[2].blank? ? "dummy#{row[0]}@email.com" : row[2]), :password => 'password', :password_confirmation => 'password')
+        if dealer.save
+            if row[11].blank?
+    	       phone =[nil, nil, nil]
+   	    else
+    	       phone = row[11].split("-")
+   	    end
 
-  	unless ( params[:dealer].blank? ||params[:dealer][:file].blank?)
-  		email_list = []
-  		import_file = params[:dealer][:file]
-  		 FasterCSV.parse(import_file.read).each do |row|
-  		     unless row[2]=="Email"
-  		     if row[2].blank?
-  		      	email = row[7].split(";").first
-   		      	if email_list.include?("#{email}")
-   		      		email = row[7].split(";").last
-  		      	end
-  		      	email_list << email
- 		       else
- 		      	 email = row[2]
- 		      	 email_list << email
-		      end
-
-            login = "dealer#{row[0]}"
-            dealer = Dealer.new(:dealer_id => row[0].to_i,:login => "#{login}" ,:email => "#{email}" ,:password =>'password',:password_confirmation =>'password')
-
-    	    if dealer.save
-
-    	      if row[11].blank?
-    	      	phone =[nil,nil,nil]
-   	        else
-    	        phone = row[11].split("-")
-   	        end
-    	    	Profile.create( :user_id => dealer.id, :name=> row[3],:auth_code=>row[4],:emails_xml=>row[5],
-    	    	                :emails_html=>row[6],:emails_extra=>row[7],:first_name=>row[8],:mid_name=>row[9],
-    	    	                :last_name=>row[10],:phone_1=>phone[0], :phone_2=>phone[1],:phone_3=> phone[2],
-    	    	                :data_sources=>row[12],:marketer_net_po=> row[13],:wants_data_printed=>row[14],
-    	    	                :comments=>row[15],:starting_balance=>row[16],:current_balance=>row[17],:rate =>[18]
-    	    	              )
-    	    	Address.create( :user_id => dealer.id ,:address =>row[28],:address2 =>row[29],:city =>row[30] ,
-    	    	                :state =>row[31],:postal_code =>row[32]
-    	    	              )
+            unless dealer.blank?
+    	    Profile.create( :user_id => dealer.id, :name => row[3], :auth_code => row[4],:emails_xml => row[5],
+    	    	            :emails_html => row[6],:emails_extra => row[7],:first_name => row[8],:mid_name => row[9],
+    	    	            :last_name => row[10],:phone_1 => phone[0], :phone_2 => phone[1],:phone_3 => phone[2],
+    	    	            :data_sources => row[12],:marketer_net_po => row[13],:wants_data_printed => row[14],
+    	    	            :comments => row[15],:starting_balance => row[16],:current_balance => row[17],:rate => [18]
+    	    	          ) 
+    	   Address.create( :user_id => dealer.id ,:address => row[28],:address2 => row[29],:city => row[30] ,
+    	    	            :state => row[31], :postal_code => row[32]
+    	    	           )
     	    	dealer.register!
     	    	dealer.activate!
-  	      else
-   	      end
-        end
+          end
        end
-
+      end
        redirect_to admin_dealers_path
- 	  else
-  	  render :layout => false
- 	  end
- 	end
+     else
+       render :layout => false
+     end
+   end
 
  	def authentication_code
  		@dealer = Dealer.find(params[:id])

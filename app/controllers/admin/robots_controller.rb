@@ -12,7 +12,7 @@ class Admin::RobotsController < ApplicationController
     @fetcher.fetch
     flash[:notice] = 'CSV data is successfully imported.'
 
-    redirect_to(admin_dealers_url)
+    redirect_to(admin_trigger_details_url)
   end
 
   

@@ -1,9 +1,12 @@
- <% if super_admin? -%><%= link_to "Process", run_admin_robot_url() , :class => ('current' if request.request_uri =~ /robot/)%> <% end -%>
 <% content_for :header do -%>
-   Trigger Detail list.
+   Listing All Processed Trigger Detail.
 <% end -%>
-<%=render :partial=> 'filter'%>
 
+<% if super_admin? -%><%= link_to("<span> Process Pending Triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end -%> 
+<br /><br /><br />
+
+<%=render :partial=> 'filter'%>
+<br /> <br />
 <div id='trigger-list'>
    <%=render :partial=> 'trigger_details_list'%>
 </div>
