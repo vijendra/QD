@@ -20,8 +20,7 @@ class Admin::TriggerDetailsController < ApplicationController
    	end
     @triggers = @search.all
 
-
-   respond_to do |format|
+    respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @dealer }
       format.js {  render :update do |page|

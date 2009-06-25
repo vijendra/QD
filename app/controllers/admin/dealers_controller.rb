@@ -10,34 +10,7 @@ class Admin::DealersController < ApplicationController
     @params = params[:search]
     @search.page ||=1
     @search.per_page ||=10
-    unless params[:today].blank?
-      if params[:today] == "1"
-       	@search.conditions.created_at_like = Date.today
-      else
-        @search.conditions.created_at_like = Date.yesterday
-      end
-      params[:today] = nil
-    end
 
-    unless params[:created_at].blank?
-    	 date = params[:created_at].to_date
-    	 @search.conditions.created_at_after = date.beginning_of_day()
-    	 @search.conditions.created_at_before =  date.end_of_day()
-   	end
-
-   	unless params[:created_at_end].blank?
-    	 date = params[:created_at_end].to_date
-         @search.conditions.created_at_after = date.beginning_of_day()
-    	 @search.conditions.created_at_before =  date.end_of_day()
-   	end
-
-    unless (params[:created_at_end].blank? ||  params[:created_at].blank?)
-    	 start_date = "#{params[:created_at].to_date} "
-    	 time = "00:00:00"
-   	   end_date   =  Time.parse("#{params[:created_at_end].to_date} #{time}").advance(:days => 1)
-    	 @search.conditions.created_at_after   = "#{start_date}#{time}"
-    	 @search.conditions.and_created_at_before = "#{end_date}"
-   	end
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
 
@@ -258,7 +231,7 @@ class Admin::DealersController < ApplicationController
     	    	            :last_name => row[10],:phone_1 => phone[0], :phone_2 => phone[1],:phone_3 => phone[2],
     	    	            :data_sources => row[12],:marketer_net_po => row[13],:wants_data_printed => row[14],
     	    	            :comments => row[15],:starting_balance => row[16],:current_balance => row[17],:rate => [18]
-    	    	          ) 
+    	    	          )
     	   Address.create( :user_id => dealer.id ,:address => row[28],:address2 => row[29],:city => row[30] ,
     	    	            :state => row[31], :postal_code => row[32]
     	    	           )
