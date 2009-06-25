@@ -165,7 +165,7 @@
                <th> City </th><th> State </th><th> Zip </th> <th> Crrt </th><th>Dealer </th><th> Status</th>
               </tr>
               <% qd_profiles.each do |profile| %>
-               <tr  class="<%= cycle('odd', 'even')%>">
+               <tr class="<%= cycle('odd', 'even')%>">
                   <td> <%= check_box_tag("profiles[]", profile.id, true)%></td>
                   <td> <%=h Time.parse(profile.created_at.to_s).to_date %> </td>
                   <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>

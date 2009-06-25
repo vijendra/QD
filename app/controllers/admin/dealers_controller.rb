@@ -10,6 +10,8 @@ class Admin::DealersController < ApplicationController
     @params = params[:search]
     @search.page ||=1
     @search.per_page ||=10
+     @search.order_as ||= "DESC"
+    @search.order_by ||= "created_at"
     unless params[:today].blank?
       if params[:today] == "1"
        	@search.conditions.created_at_like = Date.today
