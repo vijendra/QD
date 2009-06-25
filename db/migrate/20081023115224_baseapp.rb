@@ -28,6 +28,7 @@ class Baseapp < ActiveRecord::Migration
       t.string :password_reset_code, :default => nil
       t.datetime :activated_at
       t.datetime :deleted_at
+      t.integer :administrator_id
       t.timestamps
     end
 
@@ -36,7 +37,6 @@ class Baseapp < ActiveRecord::Migration
     # Create Profile Table
     create_table :profiles do |t|
       t.references :user
-
       t.string :name
       t.string :auth_code
       t.text :emails_xml
@@ -52,7 +52,10 @@ class Baseapp < ActiveRecord::Migration
       t.string :marketer_net_po
       t.boolean :wants_data_printed
       t.text :comments
-
+      t.integer :starting_balance, :default => 1000
+      t.integer :current_balance, :default => 1000
+      t.string :rate, :default => 1
+      t.integer :administrator_id
       t.timestamps
     end
 

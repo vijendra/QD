@@ -217,15 +217,15 @@ class Admin::DealersController < ApplicationController
       import_file = params[:dealer][:file]
       FasterCSV.parse(import_file.read).each do |row|
   	login = "dealer#{row[0]}"
-        dealer = Dealer.new(:dealer_id => row[0].to_i, :login => "#{login}" , :email => (row[2].blank? ? "dummy#{row[0]}@email.com" : row[2]), :password => 'password', :password_confirmation => 'password')
+        dealer = Dealer.new(:login => "#{login}" , :email => (row[2].blank? ? "dummy#{row[0]}@email.com" : row[2]), :password => 'password', :password_confirmation => 'password')
         if dealer.save
             if row[11].blank?
-    	       phone =[nil, nil, nil]
-   	    else
-    	       phone = row[11].split("-")
-   	    end
+    	        phone =[nil, nil, nil]
+   	        else
+    	        phone = row[11].split("-")
+   	        end
 
-            unless dealer.blank?
+          unless dealer.blank?
     	    Profile.create( :user_id => dealer.id, :name => row[3], :auth_code => row[4],:emails_xml => row[5],
     	    	            :emails_html => row[6],:emails_extra => row[7],:first_name => row[8],:mid_name => row[9],
     	    	            :last_name => row[10],:phone_1 => phone[0], :phone_2 => phone[1],:phone_3 => phone[2],
@@ -240,7 +240,14 @@ class Admin::DealersController < ApplicationController
           end
        end
       end
-       redirect_to admin_dealers_path
+      ['135', '136' , '152', '158'	,'220' , '221'].each do |id|
+         dealer = Dealer.find(id)
+         dealer.profile.destroy
+         dealer.address.destroy
+         dealer.destroy
+      end
+
+      redirect_to admin_dealers_path
      else
        render :layout => false
      end

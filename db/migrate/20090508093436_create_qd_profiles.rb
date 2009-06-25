@@ -14,6 +14,13 @@ class CreateQdProfiles < ActiveRecord::Migration
       t.string :crrt
       t.string :dpc
       t.string :phone_num
+      t.integer :trigger_detail_id
+      t.string  :address2
+      t.integer :level
+      t.string  :auto17
+      t.integer :pr01
+      t.string :status
+      t.date :marked_date
       t.references :dealer
 
       t.timestamps

@@ -5,7 +5,8 @@ class CreateTriggerDetails < ActiveRecord::Migration
       t.string :data_source
       t.integer :total_records
       t.string :order_number
-      
+      t.integer :balance
+
       t.timestamps
     end
   end
