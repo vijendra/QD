@@ -84,7 +84,6 @@ class Admin::UsersController < ApplicationController
   # GET /admin_users/1.xml
   def show
     @user = User.find(params[:id])
-    @admin_setting = AdminSetting.find_or_create_by_identifier("dynamic_content")
 
     respond_to do |format|
       format.html # show.html.erb
@@ -119,25 +118,29 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-    def admin_setting
-   	  @admin_setting  =AdminSetting.find(params[:adminsetting][:id])
-   	  @user = User.find(params[:user][:id])
-   	  @admin_setting.update_attributes(params[:admin_setting])
-
-   	  redirect_to(admin_user_path(@user))
-   	end
+  def update_admin_setting
+     @admin_setting  = AdminSetting.find(params[:adminsetting][:id])
+     @user = User.find(params[:user][:id])
+     @admin_setting.update_attributes(params[:admin_setting])
+     unless params[:subject].blank?
+       @subject = AdminSetting.find(params[:subject][:id])
+       @subject.update_attributes(:value => params[:subject][:value])
+     end
+     flash[:notice] = "#{@admin_setting.identifier.humanize} succeefully updated"
+     redirect_to(admin_user_path(@user))
+  end
 
   def update
-      @user =  User.find(params[:id])
- 	end
+     @user =  User.find(params[:id])
+  end
 
- 	def dispaly_admin_setting
- 		@user =  User.find(params[:id])
- 	  @admin_setting = AdminSetting.find_or_create_by_identifier(params[:identifier])
- 		render :update do |page|
-                        page.replace_html 'admin_setting', :partial => 'admin/users/admin_settings'
-                      end
+  def dispaly_admin_setting
+    @user =  User.find(params[:id])
+    @admin_setting = AdminSetting.find_or_create_by_identifier(params[:identifier])
+    @subject = AdminSetting.find_or_create_by_identifier("#{params[:identifier]}_subject") if params[:identifier] =~ /mail/
+    render :update do |page|
+      page.replace_html 'admin_setting', :partial => 'admin/users/admin_settings'
+    end
+  end
 
-
-	end
 end

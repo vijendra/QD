@@ -1,6 +1,7 @@
 <% form_tag("/admin/qd_profiles/assign_dealer/#{@qd_profile.id}" ,:method =>:get ) do  %>
-<br/>
-<b> <center><label> User Name: <%= @qd_profile.fname %>&nbsp; <%= @qd_profile.mname %> &nbsp;<%= @qd_profile.lname %></label> </center></b><br/><br/>
+
+<h3 class='head'> Assign the data to new Admin </h3>
+<br /> 
 <table class ="form-table" >
    <tr> <th> Select a Dealer : </th><td>
     <%= select :dealer, :id, [['Select a Dealer','']]+ Dealer.dealers_list,:selected => @qd_profile.dealer_id  %> </td></tr>

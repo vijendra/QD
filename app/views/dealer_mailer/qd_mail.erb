@@ -1,0 +1,10 @@
+<% for admin in @admins %>
+Dear <%= Administrator.find(admin).profile.name %>,
+<br /> <br />
+<%= @body_content %>
+<br /> 
+
+Best regards, <br />
+------------<br />
+The <%= configatron.site_name %> Team.
+<% end %>

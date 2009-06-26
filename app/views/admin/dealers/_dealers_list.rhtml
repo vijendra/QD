@@ -69,7 +69,7 @@
 <%end%>
 <table class='table-bottom'>
   <tr class="table-footer">
-  	<td><%= link_to 'Create New Dealer', new_admin_dealer_path %></td>
+  	<td><%= link_to "<span>Create New Dealer</span>", new_admin_dealer_path, :class => 'button'%></td>
         <td><%= remote_per_page_select %></td>
         <td>
          <% form_tag(admin_dealers_path, :method => :get, :id => "goto") do %>

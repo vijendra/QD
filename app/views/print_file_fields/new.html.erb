@@ -87,13 +87,17 @@
       <td><%=h @variable_data_10.value %> </td> </tr>
       <%end%>
      <tr><th> Selected Template :</th><td>
-      <% if @dealer_template.value.include?("template1")  %>
+      <% unless @dealer_template.blank? %>
+         <% if @dealer_template.value.include?("template1")  %>
              <%= image_tag("template4.png",  :alt => "Template 1")  %>
-       <% elsif  @dealer_template.value.include?("template2") %>
-            <%= image_tag("template5.jpg", :alt => "Template 2")  %>
-       <% else %>
-						<%= image_tag("template6.jpg", :alt => "Template 3")  %>
-       <%end%> </td></tr>
+         <% elsif  @dealer_template.value.include?("template2") %>
+             <%= image_tag("template5.jpg", :alt => "Template 2")  %>
+         <% else %>
+	     <%= image_tag("template6.jpg", :alt => "Template 3")  %>
+         <%end%> </td></tr>
+      <% else %>
+         No template selected Yet.
+      <% end %>
 
 </table>
 

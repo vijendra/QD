@@ -25,7 +25,7 @@
 
              <% p.fields_for p.object.dealer do |dealer| %>
                   <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>
-                    <td><%= trigger_detail.text_field :order_number_like, :class => 'textbox' %>
+                    <td><%= trigger_detail.text_field :order_number_like,:class =>"textbox-small" %>
                     <%end%>
                <%end%>
                    <td>  <%= p.select :status_like ,[['Select' , ''],['New' ,'new'], ['Marked', 'marked'], ['printed', 'printed']],:class => 'textbox' %> </td>

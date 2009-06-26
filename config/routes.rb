@@ -43,7 +43,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :trigger_details
     admin.resources :print_file_fields
     #admin.resources :
-    admin.resource :robot, :member => {:run => :get}
+    admin.resource :robot, :member => {:run => :get, :active_dealer_email => :get}
+
     admin.resources :administrators ,:has_one =>[:administrator_profile] ,:member => { :suspend   => :put,
                                          :unsuspend => :put,
                                          :activate  => :put,

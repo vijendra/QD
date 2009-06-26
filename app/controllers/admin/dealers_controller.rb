@@ -92,6 +92,8 @@ class Admin::DealersController < ApplicationController
       if @dealer.save
         @dealer.register!
         @dealer.activate!
+        current_user.dealers << @dealer unless super_admin?
+
         flash[:notice] = 'Dealer was successfully created.'
         format.html { redirect_to(admin_dealers_path)}
         format.xml  { render :xml => @dealer, :status => :created, :location => @dealer }
@@ -240,13 +242,7 @@ class Admin::DealersController < ApplicationController
           end
        end
       end
-      ['135', '136' , '152', '158'	,'220' , '221'].each do |id|
-         dealer = Dealer.find(id)
-         dealer.profile.destroy
-         dealer.address.destroy
-         dealer.destroy
-      end
-
+     
       redirect_to admin_dealers_path
      else
        render :layout => false

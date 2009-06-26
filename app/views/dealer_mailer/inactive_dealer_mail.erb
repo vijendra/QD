@@ -1,0 +1,10 @@
+<% for dealer in @dealers %>
+Dear <%= Dealer.find(dealer).profile.name %>,
+<br /> <br />
+<%= @body_content %>
+<br /> 
+
+Best regards, <br />
+------------<br />
+The <%= configatron.site_name %> Team.
+<% end %>
