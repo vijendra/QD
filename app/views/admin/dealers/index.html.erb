@@ -1,11 +1,15 @@
 <% content_for :header do -%>
    Listing All Dealers
 <% end -%>
+
 <%=render :partial=> 'filters'%>
-<br /> <br />
+<br />
+
 <div id='dealer-list'>
    <%=render :partial=> 'dealers_list'%>
 </div>
+
+<br />
    <center><%= link_to(image_tag('excel.png', :border => '0'),  admin_dealers_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
 <%= link_to "Export This Page to CSV",  admin_dealers_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
 <%= link_to(image_tag('excel.png', :border => '0'),  admin_dealers_path(:format => "csv" , :search => @params)  )%> &nbsp;
