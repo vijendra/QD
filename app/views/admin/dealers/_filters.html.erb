@@ -1,11 +1,11 @@
-<% form_tag(admin_dealers_url, :method => :get, :id => "search_form") do %>
+<% form_remote_tag(:url => admin_dealers_url, :method => :get ) do %>
    <table class="search-table">
      <tr>
        <th> Dealer Name: </th>
        <th> Contact No: </th>
        <th> Email: </th>
        <th> State </th>
-       <th >Reset: </th>
+       <th> <input type="reset" value="Reset" />  </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
@@ -20,20 +20,10 @@
          <td><%= p.text_field :email_like, :class => 'textbox' %></td>
          <td> <%= p.select :state_is ,[['Select' , ''], ['Active', 'active'], ['Inactive', 'inactive']],:class => 'textbox' %> </td>
 
-		 <td> <input type="reset" value="Reset" /> </td>
+
        <%end%>
        <%end%>
+       <td> <%= submit_tag 'Search' %>  </td>
        </tr>
   </table>
 <% end %>
-
-<%= observe_form("search_form", :frequency => 1.5,
-                 :before => "Element.show('spinner')",
-                 :success => "Element.hide('spinner')",
-                 :url => admin_dealers_url, :method => :get) %>
-
-<%= image_tag("spinner.gif",
-              :align => "middle",
-              :border => 0,
-              :id => "spinner",
-              :style =>"display: none;" ) %>

@@ -1,12 +1,12 @@
 
-<% form_tag(qd_profiles_url, :method => :get, :id => "search_form") do %>
+<% form_remote_tag(:url => qd_profiles_url, :method => :get) do %>
 <br/>
    <table class="search-table">
      <tr>
         <th> Imported Date Between </th>
         <th> Order Number </th>
         <th> Status </th>
-        <th> Reset</th>
+        <th> <input type="reset" value="Reset" />  </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
@@ -25,18 +25,8 @@
           <td> <%= p.select :status_like ,[['Select' , ''],['New' ,'new'], ['Marked', 'marked'], ['printed', 'printed']],:class => 'textbox' %> </td>
          <%end%>
        <%end%>
-       <td><input type="reset" value="Reset"></td>
+        <td><%= submit_tag 'Search' %>  </td>
+
        </tr>
   </table>
 <% end %>
-
-<%= observe_form("search_form", :frequency => 1.5,
-                 :before => "Element.show('spinner')",
-                 :success => "Element.hide('spinner')",
-                 :url => qd_profiles_url, :method => :get) %>
-
-<%= image_tag("spinner.gif",
-              :align => "absmiddle",
-              :border => 0,
-              :id => "spinner",
-              :style =>"display: none;" ) %>

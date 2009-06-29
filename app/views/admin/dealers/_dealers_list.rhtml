@@ -72,25 +72,24 @@
   	<td><%= link_to "<span>Create New Dealer</span>", new_admin_dealer_path, :class => 'button'%></td>
         <td><%= remote_per_page_select %></td>
         <td>
-         <% form_tag(admin_dealers_path, :method => :get, :id => "goto") do %>
+          <% form_remote_tag(:url => admin_dealers_url, :method => :get ) do %>
              <% fields_for @search do |f|%>
-                     <%= f.text_field :page, :class => 'textbox-tiny' %>
+                 <%= f.text_field :page, :class => 'textbox-tiny' %>
+                    <%= submit_tag 'Go' %>
              <%end%>
          <%end%>
         </td>
 
 
          <td> <% unless @dealers.blank? %>
-                             <div class="pagination">
-                                <%= remote_page_links %>
-                             </div>
-                           <% end %>
+                   <div class="pagination">
+                        <%= remote_page_links %>
+                     </div>
+                <% end %>
          </td>
   </tr>
 </table>
-<%= observe_form("goto", :frequency => 1,
-                 :before => "Element.show('spinner')",
-                 :success => "Element.hide('spinner')",
-                 :url => admin_dealers_path, :method => :get) %>
+
+
 
 <br />

@@ -1,11 +1,11 @@
-<% form_tag(admin_trigger_details_url, :method => :get, :id => "search_form") do %>
+<% form_remote_tag(:url => admin_trigger_details_url, :method => :get ) do %>
    <table class="search-table">
      <tr>
        <th> Dealer Name: </th>
        <th> Order Number: </th>
        <th> Data Source </th>
        <th> Date : </th>
-       <th >Reset: </th>
+       <th> <input type="reset" value="Reset" />  </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
@@ -18,20 +18,10 @@
          <td><%= p.text_field :order_number_like, :class => 'textbox' %></td>
           <td><%= p.select :data_source_is,[ ['Select',' '] ,['Seekerinc' ,'seekerinc'] ,['Marketernet' ,'marketernet'] ],:class => 'textbox' %></td>
          <td> <%= calendar_date_select_tag "created_at" ,"",:class =>"textbox-small" %> &nbsp;&nbsp; <%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/trigger_details" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/trigger_details" ,:action =>"index" },:method =>:get %> </td>
-		 <td> <input type="reset" value="Reset"> </td>
+
        <%end%>
        <%end%>
+        <td><%= submit_tag 'Search' %>  </td>
        </tr>
   </table>
 <% end %>
-
-<%= observe_form("search_form", :frequency => 1.5,
-                 :before => "Element.show('spinner')",
-                 :success => "Element.hide('spinner')",
-                 :url => admin_trigger_details_url, :method => :get) %>
-
-<%= image_tag("spinner.gif",
-              :align => "absmiddle",
-              :border => 0,
-              :id => "spinner",
-              :style =>"display: none;" ) %>
