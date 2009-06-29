@@ -52,8 +52,9 @@
   </div>
 
   <div id="main">
-     <p class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></p>
+      <p class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></p>
       <div id="screen">
+        
         <%= flash_message %>
         <%= yield %>
       </div>
@@ -66,9 +67,7 @@
   </div>
   <br />
   <br />
-  <script type="text/javascript">
-    jQuery("#header").corner("corner top 10px")
-  </script>
+   
 
 </body>
 </html>
