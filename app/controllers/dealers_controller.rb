@@ -50,7 +50,9 @@ class DealersController < ApplicationController
 private
 
   def check_terms_conditions
-  	if !session[:accept_terms]
+  	if !logged_in?
+  		 redirect_to(:controller => :session ,:action => :new)
+  	elsif !session[:accept_terms]
     	redirect_to(:controller =>"sessions" ,:action =>:terms)
     end
  	end

@@ -3,7 +3,7 @@ class Admin::DealersController < ApplicationController
 
   layout 'admin'
   require 'fastercsv'
-  before_filter :check_role
+#  before_filter :check_role
 
   def index
     @search = Dealer.new_search(params[:search])
@@ -242,7 +242,7 @@ class Admin::DealersController < ApplicationController
           end
        end
       end
-     
+
       redirect_to admin_dealers_path
      else
        render :layout => false
