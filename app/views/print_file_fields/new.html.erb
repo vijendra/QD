@@ -1,20 +1,22 @@
 <% content_for :header do -%>
-   Print file variable value.
-<% end -%>  <br/>
+   Displaying Print file variable value.
+<% end -%> 
 
-
-<table class ="form-table">
- <tr> <th> Text Body 1 </th> <td colspan ='2'> <% unless @text_body_1.nil? %> <%=h @text_body_1.value %> <%end%></td></tr>
-  <tr> <th> Text Body 2 </th> <td colspan ='2'><% unless @text_body_2.nil? %> <%=h @text_body_2.value %> <%end%></td></tr>
-  <tr> <th> Text Body 3 </th> <td colspan ='2'> <% unless @text_body_3.nil? %><%=h @text_body_3.value %><%end%> </td></tr>
-   <tr> <th> Identifier </th> <th>Label </th> <th> value </th> </tr>
-  <tr><th> Variable Data 1</th>
+<div class = 'part1'>
+<h1 class = 'head'>  Variable field values. </h1><br/>
+<div class = 'form-box' >
+<table class ="form-display">
+ <tr> <th> Text Body 1 </th> <td> <% unless @text_body_1.nil? %> <%=h @text_body_1.value %> <%end%></td></tr>
+  <tr> <th> Text Body 2 </th> <td><% unless @text_body_2.nil? %> <%=h @text_body_2.value %> <%end%></td></tr>
+  <tr> <th> Text Body 3 </th> <td> <% unless @text_body_3.nil? %><%=h @text_body_3.value %><%end%> </td></tr>
+   <tr> <th>Label </th> <th> value </th> </tr>
+  <tr>
   <% if @variable_data_1.blank? %>
       <td> </td><td></td>
       <%else%>
       <td><%=h  @variable_data_1.label %> </td><td><%=h @variable_data_1.value %> </td>
       <%end%></tr>
-  <tr><th> Variable Data 2</th>
+  <tr>
   <% if @variable_data_2.blank? %>
       <td> </td>
       <td></td></tr>
@@ -22,7 +24,7 @@
       <td><%=h  @variable_data_2.label %> </td>
       <td><%=h @variable_data_2.value %> </td> </tr>
       <%end%>
-   <tr><th> Variable Data 3</th>
+   <tr>
   <% if @variable_data_3.blank? %>
       <td> </td>
       <td></td></tr>
@@ -31,13 +33,13 @@
       <td><%=h @variable_data_3.value %> </td> </tr>
       <%end%>
 
-  <tr><th> Variable Data 4</th>
+  <tr>
       <% if @variable_data_4.blank? %>
       <td></td><td></td></tr>
       <%else%>
        <td> <%=h  @variable_data_4.label %> </td> <td><%=h @variable_data_4.value %> </td></tr>
       <%end%>
-  <tr> <th>Variable Data 5</th>
+  <tr> 
    <% if @variable_data_5.blank? %>
       <td></td>
       <td></td></tr>
@@ -46,7 +48,7 @@
       <td><%=h  @variable_data_5.value %> </td></tr>
      <%end%>
 
-  <tr> <th>Variable Data 6</th>
+  <tr> 
   <% if @variable_data_6.blank? %>
       <td> </td>
       <td> </td></tr>
@@ -54,7 +56,7 @@
       <td><%=h @variable_data_6.label  %> </td>
       <td><%=h @variable_data_6.value %> </td></tr>
       <%end%>
-  <tr><th> Variable Data 7</th>
+  <tr>
   <% if @variable_data_7.blank? %>
       <td> </td>
       <td>  </td></tr>
@@ -62,7 +64,7 @@
       <td><%=h @variable_data_7.label  %> </td>
       <td><%=h @variable_data_7.value %> </td></tr>
       <%end%>
-  <tr> <th>Variable Data 8</th>
+  <tr> 
   <% if @variable_data_8.blank? %>
       <td> </td>
       <td></td></tr>
@@ -70,7 +72,7 @@
       <td><%=h @variable_data_8.label  %> </td>
       <td><%=h @variable_data_8.value  %> </td></tr>
       <%end%>
-  <tr><th> Variable Data 9</th>
+  <tr>
   <% if @variable_data_9.blank? %>
       <td> </td>
       <td></td></tr>
@@ -78,7 +80,7 @@
       <td><%=h  @variable_data_9.label %> </td>
       <td><%=h @variable_data_9.value %> </td> </tr>
       <%end%>
-  <tr><th> Variable Data 10</th>
+  <tr>
   <% if @variable_data_10.blank? %>
       <td> </td>
       <td></td></tr>
@@ -86,35 +88,32 @@
       <td><%=h  @variable_data_10.label %> </td>
       <td><%=h @variable_data_10.value %> </td> </tr>
       <%end%>
-     <tr><th> Selected Template :</th><td>
+    <tr><th> Selected Template :</th><td>
       <% unless @dealer_template.blank? %>
          <% if @dealer_template.value.include?("template1")  %>
              <%= image_tag("template4.png",  :alt => "Template 1")  %>
-         <% elsif  @dealer_template.value.include?("template2") %>
-             <%= image_tag("template5.jpg", :alt => "Template 2")  %>
-         <% else %>
-	     <%= image_tag("template6.jpg", :alt => "Template 3")  %>
-         <%end%> </td></tr>
+          <% elsif  @dealer_template.value.include?("template2") %>
+            <%= image_tag("template5.jpg", :alt => "Template 2")  %>
+         <% elseif  @dealer_template.value.include?("template3") %>
+	    <%= image_tag("template6.jpg", :alt => "Template 3")  %>
+         <% else  'No template selected Yet.' %>
+         <%end%> 
       <% else %>
          No template selected Yet.
       <% end %>
+    </td></tr>
 
 </table>
 
-<br/>
-<br/>
+</div>
+</div>
 
-<br/>
-<br/>
+<div class = 'part2'>
+<h1 class = 'head'>  Columns to be appended to the CSV Print file. </h1><br/>
+<div class = 'form-box' >
 
-<h1 class = 'head'>  Columns to be appended to the CSV Print file. </h1>
-<br/>
-
-
-
-<br/>
 <% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer.id),:method =>:post ) do |f| %>
- <table class = 'form-table'>
+ <table class = 'form-display'>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'name', true)%> </td><th>Name</th></tr>
    <tr> <td><%= check_box_tag("csv_extra_fields[]", 'first_name', true)%> </td><th>First Name</th></tr>
    <tr> <td> <%= check_box_tag("csv_extra_fields[]", 'mid_name', true)%></td><th> Middle Name</th></tr>
@@ -139,13 +138,11 @@
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_9', true)%> </td><th> Variable Data 9</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'variable_data_10', true)%> </td><th> Variable Data 10</th></tr>
 
-  </table><br/>
-
-
-
-
-
+  </table><br/><br/>
 
    <%=f.submit "Save" %>
 
 <%end%>
+</div>
+</div>
+  <div class = 'clear'> </div>

@@ -72,8 +72,8 @@ input.textbox{
 	background:#ffffff url(/images/field-top.gif) repeat-x top;
 	padding:2px 2px;
 
-	width:200px;
-    height: 15px;
+	width:240px;
+        height: 18px;
 }
 
 input.textbox-small{
@@ -82,7 +82,7 @@ input.textbox-small{
 	padding:2px 2px;
 
 	width:100px;
-        height: 15px;
+        height: 18px;
 }
 
 input.textbox-wide{
@@ -91,7 +91,7 @@ input.textbox-wide{
 	padding:2px 2px;
 
 	width: 200px;
-        height: 15px;
+        height: 18px;
 }
 
 input.textbox-tiny{
@@ -103,8 +103,8 @@ input.textbox-tiny{
 
 
 textarea {
-	width: 400px;
-	height: 70px;
+	width: 450px;
+	height: 80px;
 	border: #7D99B2 1px solid;
 	padding: 5px;
 	background:#ffffff url(/images/field-top.gif) repeat-x top;
@@ -126,22 +126,21 @@ ul {
 	background: url(/images/top_bar.png) repeat-x;
 	margin: 2px 0px 0px 0px;
 	padding: 0.1em 0em 0em;
-        height: 74px;
+        height: 68px;
 }
 
 #header h1 {
 	float: left;
 	font-weight: bold;
-	color: #FFF;
+	color: #fff;
 	padding: .2em  0em  0em  .5em ;
 	margin: 0px;
 	font-size: 21px;
-         
 }
 
 #header h1 span {
 	font-size: 21px;
-	color: #FFF;
+	color: #fff;
 }
 
 /* Menu */
@@ -150,8 +149,8 @@ ul {
 	width: 480px;
 	margin: 0 auto;
         font-weight: bold;
-	margin-top: 3.3em;
-
+	margin-top: 2.8em;
+        
         
 }
 
@@ -159,12 +158,11 @@ ul {
 	margin: 0;
 	padding: 0;
 	list-style: none;
-
+       
 }
 
 #menu li {
 	display: inline;
-
          }
 
 #menu a {
@@ -185,7 +183,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       color: #006BC9;
+       color: #398F00;
 }
 
 #menu .current_page_item a {
@@ -230,7 +228,7 @@ ul {
 	width: 81%;
 }
 .head {
-	color: #004370;
+	color: #002E4F;
 	font-weight: bold;
 	background: #EAEFF3;
 	margin: 0 10px 0 10px;
@@ -248,6 +246,13 @@ ul {
         min-height: 450px; 
 	height: expression( this.scrollHeight < 350 ? "350px" : "auto" ); /* sets min-height for IE */
 	}
+
+.form-box{
+  padding: 25px;
+  background: #F1F3F5;
+  border: #A5BDD5 1px solid;
+
+}
 
 #notice {
 	color: #2B3A16;
@@ -350,14 +355,14 @@ ul {
 /** Footer */
 #footer {clear: both;
         margin: 0 ;
-        padding: 10px 0 10px 0;
+        padding: 8px 0 8px 0;
 	color: #fff;
 	font-size: 0.9em;
         background: #00417A;
         text-align: center;
 }
-#footer a:link {
-	color: #E7D910;
+#footer a  {
+	color: #EBFF00;
 	font-size: 1em;
 }
 #footer a:hover {
@@ -388,7 +393,7 @@ ul {
 	margin: 2px;
 	border: 1px solid #aaa;
 	font-weight: bold;
-	background: #f6f7f8;
+	background: #f6f7f8;<tr class= 'table-top'> <td colspan='2' > Enter Address Details: </td> </tr>
 	color: #434343;
 }
 .pagination span.disabled_page {
@@ -441,15 +446,20 @@ table.listing a {
 
 .table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #5C7F99; }
 
-.table-top td {background-color: #F2F3F7; padding: 0.4em;}
-.table-top {border-collapse: collapse; width: 100%;}
 
 
-.form-table th {background-color: #ffffff; color: #27628A; padding: 0.1em .8em; border:1px solid #e8ebec; text-align: left; width: 170px;}
+.form-table th {background-color: #F8F9FA; color: #004177; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left;}
 
-.form-table td {background-color: #ffffff; padding: 0.2em .8em; border:1px solid #e8ebec;}
+.form-table td {background-color: #f1f3f5; padding: .8em; border:1px solid #A5BDD5;}
 
-.form-table {border-collapse: collapse; width: auto; border: 1px solid #e8ebec; margin-left: 5px;}
+.form-table {border-collapse: collapse; width: auto; border: 1px solid #A5BDD5; margin-left: 5px; width: auto;}
+
+
+table.form-display th {background-color: #ffffff; color: #27628A; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left;}
+
+table.form-display td {background-color: #ffffff; padding: .8em; border:1px solid #A5BDD5;}
+
+table.form-display {border-collapse: collapse; width: auto; border: 1px solid #A5BDD5; margin-left: 5px; width: auto;}
 
 
 table.search-table {border-collapse: collapse; width: 100%; margin: 0; padding 0;}
@@ -465,24 +475,26 @@ table.search-table a {
 		text-decoration: none;
            }
 
+.table-top td {background: #E0E8F0;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #BDCFE1 1px solid;}
+
 
 
 .part1 {
        float: left;
         margin: 0;
-	width: 46%;
+	width: 48%;
 	color: #000;
 	padding: 0px;
 	background-color: #fefefe;
-        border: 1px solid #EAEADE;
+        
        
 	
 }
 
 .part1 .head {
-	color: #003A6C;
+	color: #002E4F;
 	font-weight: normal;
-	background-color: #F3F3E7;
+	background-color: #EAEFF3;
 	padding: 0.1em 1em 0.1em;
 	margin: 0;
 	font-size: 1.1em;
@@ -493,23 +505,25 @@ table.search-table a {
 .part1 .part1-content {
 	background-color: #fff;
         padding: 5px;
+        border-left: 1px solid #C5D4EA;
+        border-right: 1px solid #C5D4EA;
+        border-bottom: 1px solid #C5D4EA;
 
 }
 
 .part2 {
         float: left;
-        margin-left: 10px;
-	width: 46%;
+        margin-left: 15px;
+	width: 48%;
 	color: #000;
 	padding: 0px;
 	background-color: #fefefe;
-        border: 1px solid #EAEADE;
 }
 
 .part2 .head {
-	color: #003A6C;
+	color: #002E4F;
 	font-weight: normal;
-	background-color: #F3F3E7;
+	background-color: #EAEFF3;
 	padding: 0.1em 1em 0.1em;
 	margin: 0;
 	font-size: 1.1em;
@@ -520,6 +534,9 @@ table.search-table a {
 .part2 .part2-content {
 	background-color: #fff;
         padding: 5px;
+        border-left: 1px solid #C5D4EA;
+        border-right: 1px solid #C5D4EA;
+        border-bottom: 1px solid #C5D4EA;
 
 }
 

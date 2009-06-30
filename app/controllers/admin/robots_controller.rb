@@ -6,10 +6,11 @@ class Admin::RobotsController < ApplicationController
   layout 'admin'
   
   def run
+    @@admin = current_user
     @config = YAML.load_file("#{RAILS_ROOT}/config/mail.yml")
     @config = @config[RAILS_ENV].to_options
     @fetcher = Fetcher.create({:receiver => MailProcessor}.merge(@config))
-    @fetcher.fetch
+    @fetcher.fetch(current_user)
     flash[:notice] = 'CSV data is successfully imported.'
 
     redirect_to(admin_trigger_details_url)

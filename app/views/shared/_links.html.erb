@@ -10,7 +10,7 @@
 
    <% if super_admin? -%><%= link_to "Admin List", admin_administrators_url() , :class => ('current' if request.request_uri =~ /administrators/)%> <% end -%>
 
-   <% if super_admin? -%><%= link_to "Triggers", admin_trigger_details_url() , :class => ('current' if request.request_uri =~ /trigger_details/)%> <% end -%>
+   <% if admin? -%><%= link_to "Triggers", admin_trigger_details_url() , :class => ('current' if request.request_uri =~ /trigger_details/)%> <% end -%>
 
    <% if !admin? and !super_admin? -%>
      <%= link_to "Print File Fields" , (current_user.csv_extra_field.nil? ? new_dealer_print_file_field_path(current_user) : edit_dealer_print_file_field_path(current_user)) %>

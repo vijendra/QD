@@ -1,20 +1,21 @@
 <% content_for :header do -%>
    Editing Dealer
 <% end -%>
+<br />
 
 <% form_for([:admin, @dealer]) do |f| %>
   <%= f.error_messages %>
 
       <table class="form-table">
+            <tr class= 'table-top'> <td colspan='2' > Enter Login Deatils: </td> </tr>
             <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
             <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
 
             <tr> <th>Password :</th> <td> <%=  "#{"*"*8} <small>#{link_to "send new password", reset_password_admin_dealer_url(@dealer), :method => :put}</small>" %> </td></tr>
 
-       </table>
+    
        <% f.fields_for :profile do |profile_form| %>
-
-       <table class="form-table">
+           <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
             <tr> <th>Name:</th> <td>
             <%= profile_form.text_field :name ,:class => 'textbox'%> </td></tr>
        <tr> <th>E-mail(s) ( XML, use ";" as delimiter ):</th> <td>
@@ -32,7 +33,7 @@
      <tr> <th>Phone:</th> <td>
        <%= profile_form.text_field :phone_1 ,:class => 'textbox-tiny' %>-<%= profile_form.text_field :phone_2 ,:class => 'textbox-tiny'%>-<%= profile_form.text_field :phone_3 ,:class => 'textbox-tiny'%> </td></tr>
 
-     <tr> <th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th> <td>
+     <tr> <th>Used data sources:</th> <td>
        <%= profile_form.select :data_sources, [['Select' , ''], ['seekerinc', 'seekerinc'], ['marketernet', 'marketernet']] %> </td></tr>
      <tr> <th>MarketerNet PO:</th> <td>
        <%= profile_form.text_field :marketer_net_po ,:class => 'textbox'%> </td></tr>
@@ -40,13 +41,12 @@
        <%= profile_form.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %> </td></tr>
      <tr> <th>Comments:</th> <td>
        <%= profile_form.text_area :comments %> </td></tr>
-     </table>
+    
 
       <% end %>
-    </table>
+        <tr class= 'table-top'> <td colspan='2' > Enter Address Details: </td> </tr>
         <% f.fields_for :address do |address_form| %>
-       <table class="form-table">
-     <tr> <th>Address:</th> <td>
+           <tr> <th>Address:</th> <td>
        <%= address_form.text_field :address ,:class => 'textbox'%> </td></tr>
      <tr> <th>City:</th> <td>
        <%= address_form.text_field :city ,:class => 'textbox'%> </td></tr>
@@ -56,17 +56,11 @@
        <%= address_form.text_field :postal_code ,:class => 'textbox'%> </td></tr>
     </table>
   <% end %>
+<br />
 
-
-
-
-
-<br/>
-    <%= f.submit 'Update' %>
+<p>
+   <table> <tr> <td> <%= f.submit 'Update Dealer Record' %> </td> <td> &nbsp; &nbsp; <%= link_to 'Cancel', admin_dealers_path %> </td> </tr> </table>
+</p>
 
 <% end %>
 
-
-
-<%= link_to 'Show', @dealers %> |
-<%= link_to 'Back', admin_dealers_path %>

@@ -3,13 +3,15 @@ class Admin::DealersController < ApplicationController
 
   layout 'admin'
   require 'fastercsv'
-#  before_filter :check_role
+  #before_filter :check_role
 
   def index
     @search = Dealer.new_search(params[:search])
     @params = params[:search]
     @search.page ||=1
     @search.per_page ||=10
+    @search.order_as ||= "DESC"
+    @search.order_by ||= "id"
 
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
@@ -242,7 +244,7 @@ class Admin::DealersController < ApplicationController
           end
        end
       end
-
+     
       redirect_to admin_dealers_path
      else
        render :layout => false
@@ -262,11 +264,11 @@ class Admin::DealersController < ApplicationController
 
  	private
 
- 	def check_role
- 		if admin? and !session[:accept_terms]
-    	redirect_to(:controller =>"/sessions" ,:action =>:terms)
-    end
-	end
+ 	#def check_role
+ 		#if admin? and !session[:accept_terms]
+    	#redirect_to(:controller =>"/sessions" ,:action =>:terms)
+    #end
+	#end
 
   def admin?
     logged_in? && current_user.has_role?(:admin)

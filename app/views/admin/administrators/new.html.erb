@@ -1,5 +1,5 @@
 <% content_for :header do -%>
-Create a new Administrator
+Creating a new Administrator Record.
 <% end -%>
 
 
@@ -9,6 +9,7 @@ Create a new Administrator
 <% form_for([:admin, @administrator], :html => { :multipart => true } ) do |f| %>
 <%= error_messages_for :administrator %>
   <table class ='form-table'>
+         <tr class= 'table-top'> <td colspan='2' > Enter Login Deatils: </td> </tr>
          <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
          <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
 
@@ -17,11 +18,11 @@ Create a new Administrator
          <tr> <th> Confirm Password : </th> <td> <%= f.password_field :password_confirmation ,:class => 'textbox'%></td></tr>
 
 
-
-
       <% f.fields_for :administrator_profile do |administrator_profile_form| %>
-
+        <tr class= 'table-top'> <td colspan='2' > Upload Administrator Logo: </td> </tr>
         <tr> <th>Administrator Logo : </th> <td> <%= administrator_profile_form.file_field  :administrator_logo   %> </td></tr>
+
+         <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
         <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
         <tr> <th>First name:</th><td>
                                          <%= administrator_profile_form.text_area:first_name ,:class =>'textbox' %></td></tr>
@@ -40,7 +41,7 @@ Create a new Administrator
 
      <%end%>
       <% f.fields_for :address do |address_form| %>
-
+         <tr class= 'table-top'> <td colspan='2' > Enter Address Details: </td> </tr>
          <tr> <th> Address: </th><td> <%= address_form.text_field :address ,:class =>'textbox'%> </td></tr>
          <tr> <th> City:</th><td> <%= address_form.text_field :city ,:class =>'textbox'%> </td></tr>
          <tr> <th>State:</th><td> <%= address_form.text_field :state ,:class =>'textbox'%> </td></tr>

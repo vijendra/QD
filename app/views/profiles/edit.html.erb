@@ -21,15 +21,14 @@
 
 
 <div id="tabs">
-    <ul>
-
+       <ul>
 	   <li><a href="#profile">Profile Details</a></li>
 	   <li><a href="#address">Address Details</a></li>
 	</ul>
    </div>
     <div id="profile">
-
-         <table>
+        <br />
+         <table class = 'form-table'>
             <tr><th>Name: </th><td>
             <%= f.text_field :name ,:class =>'textbox'%></td></tr>
            <tr> <th>Authentication Code :</th> <td>  <%= f.text_field :auth_code ,:disabled => true ,:class =>"textbox" %> </td> </tr>
@@ -48,7 +47,7 @@
        <%= f.text_field :last_name ,:class =>'textbox'%></td></tr>
       <tr><th>Phone:</th><td>
        <%= f.text_field :phone_1 ,:class =>'textbox-tiny'%>-<%= f.text_field :phone_2,:class =>'textbox-tiny' %>-<%= f.text_field :phone_3,:class =>'textbox-tiny' %></td></tr>
-      <tr> <th>Used data sources ( use ";" as delimiter ), available: seekerinc, marketernet:</th> <td>
+      <tr> <th>Used data source:</th> <td>
        <%= f.select :data_sources, [['Select' , ''], ['seekerinc', 'seekerinc'], ['marketernet', 'marketernet']] %> </td></tr>
       <tr><th>MarketerNet PO:</th><td>
        <%= f.text_field :marketer_net_po ,:class =>'textbox' %></td></tr>
@@ -63,8 +62,9 @@
 
 
       <div id="address">
+        <br />
         <%fields_for :address do |p| %>
-      <table>
+       <table class = 'form-table'>
 
       <tr><th>Address:</th><td>
        <%= p.text_field :address ,:class =>'textbox' %></td></tr>

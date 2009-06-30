@@ -2,9 +2,10 @@
 
 <h3 class='head'> Assign the data to new Admin </h3>
 <br /> 
+
 <table class ="form-table" >
    <tr> <th> Select a Dealer : </th><td>
-    <%= select :dealer, :id, [['Select a Dealer','']]+ Dealer.dealers_list,:selected => @qd_profile.dealer_id  %> </td></tr>
+    <%= select :dealer, :id, [['Select a Dealer','']] + dealers_list(current_user), :selected => @qd_profile.dealer_id  %> </td></tr>
 
   <input id="page" name="page" type="hidden" value="<%=h @page %>" />
   <input id="per_page" name="per_page" type="hidden" value="<%=h @per_page %>" />

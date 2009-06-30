@@ -2,7 +2,7 @@
    Listing All Processed Trigger Detail.
 <% end -%>
 
-<% if super_admin? -%><%= link_to("<span> Process Pending Triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end -%> 
+<%= link_to("<span> Process Pending Triggers</span>", run_admin_robot_url() , :class => 'button')%>
 <br /><br /><br />
 
 <%=render :partial=> 'filter'%>

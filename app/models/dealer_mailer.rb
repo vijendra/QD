@@ -25,4 +25,11 @@ class DealerMailer < ActionMailer::Base
     body       :dealers => admins.keys, :body_content => body_content
   end
 
+  def dealer_accounts_notification(dealer, total, balance)
+    subject    "[#{configatron.site_name}] " + 'Accounts information'
+    recipients dealer.email
+    from       "#{configatron.support_name} <#{configatron.support_email}>"
+    sent_on    Time.now
+    body       :dealer => dealer, :total => total, :balance => balance
+  end
 end

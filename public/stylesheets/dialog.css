@@ -8,27 +8,26 @@ body {
 }
 
 /** Header */
-/** Header */
+
 #header {
 	background: url(/images/top_bar.png) repeat-x;
 	margin: 2px 0px 0px 0px;
 	padding: 0.1em 0em 0em;
-    height: 66px;
+        height: 68px;
 }
 
 #header h1 {
 	float: left;
 	font-weight: bold;
-	color: #830D00;
-	padding: .3em  0em  0em  .5em ;
+	color: #FFF;
+	padding: .2em  0em  0em  .5em ;
 	margin: 0px;
-	font-size: 20px;
-         
+	font-size: 21px;
 }
 
 #header h1 span {
-	font-size: 20px;
-	color: #830D00;
+	font-size: 21px;
+	color: #FFF;
 }
 
 
@@ -241,10 +240,12 @@ div.progressBar div.background {
         height: 15px;
         text-align: center;
 }
-#footer a:link {
-	color: #003A66;
-	font-size: 0.8em;
+
+#footer a  {
+	color: #EBFF00;
+	font-size: 1em;
 }
+
 #footer a:hover {
 	color: #fff;
 }

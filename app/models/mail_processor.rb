@@ -1,4 +1,6 @@
 class MailProcessor < ActionMailer::Base
+ #TODO: Clean this code. Make the methods for distinct functions for example csv import, send_mail etc.
+
   require 'hpricot'
   require 'mechanize'
   require 'zip/zipfilesystem'
@@ -16,7 +18,8 @@ class MailProcessor < ActionMailer::Base
       order_number = table_rows[7].search("td")[1].inner_text.strip
       file_id = table_rows[8].search("td")[1].inner_text.strip
       password = table_rows[9].search("td")[1].inner_text.strip
-      file_url = table_rows[10].search("td")[1].inner_text.strip
+      file_url = table_rows[10].search("td")[1].inner_text.strip     
+
       if TriggerDetail.find_by_order_number(order_number).blank?
         #Logging in
         agent = WWW::Mechanize.new
@@ -58,11 +61,14 @@ class MailProcessor < ActionMailer::Base
         end
 
         dealer_profile.update_attribute('current_balance', balance )
-        
+
         #delete the downloded folder
         FileUtils.rm_r zipped_order
         FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer}_#{order_number}")
+        
+        send_mail(dealer_profile.user, no_of_records, balance)
       end
+        
     end
     
     if (mail.from.to_s =~ /@tranzactis.com/ || mail.subject =~ /Order Fulfillment Notification/)  
@@ -104,9 +110,20 @@ class MailProcessor < ActionMailer::Base
         
         #delete the downloded folder
         FileUtils.rm_r orders_csv
+         
+        #sending mail with account information
+        send_mail(dealer_profile.user, no_of_records, balance)
       end  
     end 
     
   end
+  
+  protected
 
+  def send_mail(dealer, total, balance)
+    dealer1 = Dealer.find(dealer)
+    email = DealerMailer.create_dealer_accounts_notification(dealer1, total, balance)
+    email.set_content_type("text/html" )
+    DealerMailer.deliver(email)
+  end
 end

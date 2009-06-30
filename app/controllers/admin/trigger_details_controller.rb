@@ -9,15 +9,19 @@ class Admin::TriggerDetailsController < ApplicationController
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
 
+    @search.conditions.dealer.administrator_id = current_user.id unless (current_user.roles.map{|role| role.name}).include?('super_admin')
+
     unless params[:today].blank?
       @search.conditions.created_at_after = Time.now.beginning_of_day()
        params[:today] = nil
     end
+
     unless params[:created_at].blank?
-    	 date = Time.parse(params[:created_at])
-         @search.conditions.created_at_after = date.beginning_of_day()
-    	 @search.conditions.created_at_before =  date.end_of_day()
-   	end
+      date = Time.parse(params[:created_at])
+      @search.conditions.created_at_after = date.beginning_of_day()
+      @search.conditions.created_at_before =  date.end_of_day()
+    end
+
     @triggers = @search.all
 
     respond_to do |format|

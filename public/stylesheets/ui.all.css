@@ -19,32 +19,32 @@
 	border-right: none;
 }
 .ui-tabs-nav li a {
-	/*resets*/margin: 0; padding: 0; border-top: 1px solid #E2D2A4; border-right: 1px solid #E2D2A4; border-left: 1px solid #E2D2A4; outline: 0; line-height: 1.1; text-decoration: none; font-size: 100%; list-style: none;
+	/*resets*/margin: 0; padding: 0; border-top: 1px solid #C5D4EA; border-right: 1px solid #C5D4EA; border-left: 1px solid #C5D4EA; outline: 0; line-height: 1.1; text-decoration: none; font-size: 100%; list-style: none;
 	float: left;
 	font-size: 1em;
 	font-weight: bold;
 	text-decoration: none;
 	padding: .4em 1.7em;
-	color: #8C3D03;
-	background: #FAF2DC; /* url(/images/tab1.png) 0 50% repeat-x;*/
+	color: #205C8F;
+	background: #F1F3F5; /* url(/images/tab1.png) 0 50% repeat-x;*/
 }
 .ui-tabs-nav li a:hover {
-	color: #7B3300;
-	background: #FEFBE1;
+	color: #205C8F;
+	background: #FeFeFe;
 }
 .ui-tabs-nav li.ui-tabs-selected {
 	border-bottom-color: #fff;
     background: #fff;
 }
 .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs-nav li.ui-tabs-selected a:hover {
-	background: #fff;
-	color: #7B3300;
+	background: #fefefe;
+	color: #000;
 }
 .ui-tabs-panel {
 	/*resets*/margin: 0; padding: 0; border: 0; outline: 0; line-height: 1.3; text-decoration: none; font-size: 100%; list-style: none;
 	clear:left;
-	border: 1px solid #E9E0C6;
-	background: #fff;
+	border: 1px solid #C5D4EA;
+	background: #fefefe;
 	color: #000;
 	padding: .5em 1em;
 }

@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   validates_length_of :name, :maximum => 100
   validates_presence_of :email, :if => :not_using_openid?
   validates_length_of :email, :within => 6..100, :if => :not_using_openid?
-  validates_uniqueness_of :email, :case_sensitive => false, :if => :not_using_openid?
+  #validates_uniqueness_of :email, :case_sensitive => false, :if => :not_using_openid?
   validates_format_of :email, :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD, :if => :not_using_openid?
   validates_uniqueness_of :identity_url, :unless => :not_using_openid?
   validate :normalize_identity_url
