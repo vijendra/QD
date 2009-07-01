@@ -84,6 +84,9 @@ class Admin::UsersController < ApplicationController
   # GET /admin_users/1.xml
   def show
     @user = User.find(params[:id])
+    site_image = @user.build_site_image
+   # site_image.blank? ? @user.site_image.create()   : site_image
+
         respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
