@@ -1,0 +1,17 @@
+<% content_for :header do -%>
+	Super Administrator Contact Details
+<% end -%>
+<% unless @user.blank? %>
+      <table class="form-table">
+
+    <tr> <th> Name :</th> </th> <td> <%=h @user.profile.name %>  </td> </tr>
+    <tr> <th> Email :</th> <td> <%=h @user.email %> </td> </tr>
+    <tr> <th> Address : </th>  <td>  <%=h @user.address.address %> </td> </tr>
+    <tr> <th> City : </th>  <td>  <%=h @user.address.city %> </td> </tr>
+    <tr> <th> State :</th> <td>  <%=h @user.address.state %> </td> </tr>
+    <tr> <th> Zip : </th>  <td>  <%=h @user.address.postal_code %> </td> </tr>
+    <tr> <th> Phone Number : </th> <td>  <%=h "#{@user.profile.phone_1} - #{@user.profile.phone_2} - #{@user.profile.phone_3}" %>  </td> </tr>
+
+    </table>
+
+<%end%>

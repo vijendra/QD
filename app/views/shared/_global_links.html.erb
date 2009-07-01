@@ -1,13 +1,17 @@
 <% if logged_in? %>
       <% if super_admin? %>
+
         <%= link_to "Settings", admin_user_url(current_user) %> &nbsp; | &nbsp;
      <%end%>
      <% unless super_admin? -%>
         <% if admin?  %>
+           <!-- <%= link_to "Admin Contact Details" , "/contact/super_admin_contact"  ,:rel => "facebox" %>  &nbsp; | &nbsp; -->
             <%= link_to "Settings", edit_admin_administrator_url(current_user) %> &nbsp; | &nbsp;
         <%end%>
      <% end -%>
-     <% unless (admin? or super_admin?)%><%= link_to "Edit Details", edit_profile_url(current_user) %> &nbsp; | &nbsp;
+     <% unless (admin? or super_admin?)%>
+       <%= link_to "Admin Contact Details" ,  "/contact/administrator_contact" ,:rel => "facebox"%>  &nbsp; | &nbsp;
+       <%= link_to "Edit Details", edit_profile_url(current_user) %> &nbsp; | &nbsp;
      <% end -%>
      <%= link_to "Log out", logout_url, :method => :delete %>
 <% else %>
