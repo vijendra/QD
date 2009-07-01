@@ -8,6 +8,7 @@ class CreateTriggerDetails < ActiveRecord::Migration
       t.string :file_id
       t.string :file_password
       t.string :file_url
+      t.string :status
       t.integer :balance
 
       t.timestamps

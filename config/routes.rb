@@ -58,7 +58,8 @@ ActionController::Routing::Routes.draw do |map|
                                          :unsuspend => :put,
                                          :activate  => :put,
                                          :purge     => :delete,
-                                         :reset_password => :put
+                                         :reset_password => :put ,
+                                         :user_image => :post
 
                                          },
                             :collection => { :pending   => :get,

@@ -30,6 +30,14 @@
     -->
 </ul>
 <% end -%>
+     <%= image_tag (@user.site_image.site_image.url(:thumb)) %>
+
+    <% form_for(:site_image, :url => user_image_admin_user_path(@user.id), :html => { :multipart => true  } )do |f| %>
+          Change Image : <%= f.file_field  :site_image  %>
+       <%= f.submit  "Change Image"%>
+    <% end %>
+
+<br/>
 
 <table class="overview">
 	<%= cell "Login", "#{in_place_editor_field :user, 'login'}" %>

@@ -84,8 +84,7 @@ class Admin::UsersController < ApplicationController
   # GET /admin_users/1.xml
   def show
     @user = User.find(params[:id])
-
-    respond_to do |format|
+        respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
     end
@@ -142,5 +141,15 @@ class Admin::UsersController < ApplicationController
       page.replace_html 'admin_setting', :partial => 'admin/users/admin_settings'
     end
   end
+
+  def user_image
+  	@user = User.find(params[:id])
+    site_image = SiteImage.find_or_create_by_user_id(@user.id)
+    site_image.update_attributes(:site_image => params[:site_image][:site_image])
+  	redirect_to(admin_user_path(@user))
+ 	end
+
+
+
 
 end

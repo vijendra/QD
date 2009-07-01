@@ -25,9 +25,10 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_one :profile
   has_one :address
+  has_one :site_image
 
 
-  accepts_nested_attributes_for :profile, :address
+  accepts_nested_attributes_for :profile, :address ,:site_image
 
   # Hooks
   #after_create :create_profile
@@ -35,7 +36,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-       attr_accessible :dealer_id, :administrator_id,:login,:email, :name, :password, :password_confirmation, :identity_url, :address_attributes, :profile_attributes, :administrator_profile_attributes
+       attr_accessible :dealer_id, :administrator_id,:login,:email, :name, :password, :password_confirmation, :identity_url, :address_attributes,:site_image_attributes, :profile_attributes, :administrator_profile_attributes
 
   # has_role? simply needs to return true or false whether a user has a role or not.
   # It may be a good idea to have "admin" roles return true always
