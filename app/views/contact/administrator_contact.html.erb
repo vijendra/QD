@@ -1,0 +1,21 @@
+<% content_for :header do -%>
+	 Administrator Contact Details
+<% end -%>
+ <br />
+ <% unless @administrator.blank? %>
+   <table class="form-table">
+
+    <tr> <th> Name :</th> </th> <td> <%=h "#{@administrator.administrator_profile.first_name} #{@administrator.administrator_profile.mid_name} #{@administrator.administrator_profile.last_name}" %> </td> </tr>
+    <tr> <th> Email :</th> <td> <%=h @administrator.email %> </td> </tr>
+    <tr> <th> Address : </th>  <td><%=h @administrator.address.address %></td> </tr>
+    <tr> <th> City : </th>  <td> <%=h @administrator.address.city %></td> </tr>
+    <tr> <th> State :</th> <td> <%=h @administrator.address.state %></td> </tr>
+    <tr> <th> Zip : </th>  <td> <%=h @administrator.address.postal_code %> </td> </tr>
+    <tr> <th> Phone Number : </th>  <td><%=h "#{@administrator.administrator_profile.phone_1} - #{@administrator.administrator_profile.phone_2} - #{@administrator.administrator_profile.phone_3}" %> </td> </tr>
+    <tr> <th> Fax : </th>  <td> <%=h @administrator.administrator_profile.fax %></td> </tr>
+    </table>
+
+ <% else %>
+   No Administrator Assigned Yet .
+ <% end %>
+ <br />
