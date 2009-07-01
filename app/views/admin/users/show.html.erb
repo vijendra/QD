@@ -30,7 +30,7 @@
     -->
 </ul>
 <% end -%>
-     <%= image_tag (@user.site_image.site_image.url(:thumb)) %>
+     <%= image_tag (@site_image.site_image.url(:thumb)) unless  @site_image.blank?  %>
 
     <% form_for(:site_image, :url => user_image_admin_user_path(@user.id), :html => { :multipart => true  } )do |f| %>
           Change Image : <%= f.file_field  :site_image  %>
