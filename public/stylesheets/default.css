@@ -149,7 +149,7 @@ ul {
 	width: 480px;
 	margin: 0 auto;
         font-weight: bold;
-	margin-top: 2.8em;
+	margin-top: 2.7em;
         
         
 }
@@ -230,11 +230,11 @@ ul {
 .head {
 	color: #002E4F;
 	font-weight: bold;
-	background: #EAEFF3;
+	background: #E0ECFF;
 	margin: 0 10px 0 10px;
 	font-size: 1.2em;
         padding: 3px 3px 3px 12px;
-	border: #CBD8E0 1px solid;
+	border: #A5BDD5 1px double;
         
       
 }
@@ -448,9 +448,9 @@ table.listing a {
 
 
 
-.form-table th {background-color: #F8F9FA; color: #004177; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left;}
+.form-table th {background-color: #F1F3F5; color: #004177; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left;}
 
-.form-table td {background-color: #f1f3f5; padding: .8em; border:1px solid #A5BDD5;}
+.form-table td {background-color: #DDE1E5; padding: .8em; border:1px solid #A5BDD5;}
 
 .form-table {border-collapse: collapse; width: auto; border: 1px solid #A5BDD5; margin-left: 5px; width: auto;}
 
@@ -468,14 +468,14 @@ table.search-table th {background: #FAFAFB; color: #005188;
                   padding: 0.3em .5em 0.3em;
                   border: #C5D4EA 1px solid ;
 				  font-weight: bold; }
-table.search-table td {background-color: #DCE5EC; padding: .3em .5em; border:1px solid #C5D4EA; text-align: left; }
+table.search-table td {background-color: #E0ECFF; padding: .3em .5em; border:1px solid #C5D4EA; text-align: left; }
 
 table.search-table a {
 	        color: #003B70;
 		text-decoration: none;
            }
 
-.table-top td {background: #E0E8F0;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #BDCFE1 1px solid;}
+.table-top td {background: #E8EEF7;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #BDCFE1 1px solid;}
 
 
 
