@@ -4,6 +4,7 @@ class Dealer < User
   has_one :csv_extra_field
   has_many :trigger_details
   has_many :print_file_fields
+  has_many :account_resets
   belongs_to :administrator
 
   def self.dealers_list

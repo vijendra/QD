@@ -4,7 +4,7 @@
 
 <%form_tag( new_admin_dealer_dealer_account_path(@dealer), :method=>:get) do %>
 <br />
-
+<div>
 <table class ="form-table">
   <tr><th> Starting Balance :</th>
       <td><%= text_field_tag "start_balance" , '' ,:class => "textbox" %> </td>
@@ -15,7 +15,44 @@
 <br />
 <%end%>
 
+<%form_tag("/admin/dealer_accounts/edit_profile_rate") do %>
+<br />
 
+<table class ="form-table">
+ <input type="hidden" id="dealer_id" name="dealer_id" value="<%= @dealer.id %>" />
+  <tr><th> Rate :</th>
+
+      <td><%= text_field_tag "rate" , @dealer.profile.rate.blank?? ' ' : @dealer.profile.rate,:class => "textbox" %> </td>
+      <td> <%= submit_tag "Change" %> </td>
+  </tr>
+</table>
+
+<br />
+
+<%end%>
+
+   <% unless @account_resets.blank? %>
+      <table class='listing'>
+        <tr> <th> Account Reset done by </th>
+         		 <th> Unit  </th>
+        		 <th> Rate  </th>
+        		 <th> Total </th>
+        		 <th> Created At </th>
+        </tr>
+        <% @account_resets.each do |account_reset| %>
+         <tr> <td> <%=h User.find(account_reset.user_id).profile.name %> </td>
+              <td> <%=h account_reset.unit %> </td>
+              <td>  <%=h account_reset.rate %> </td>
+              <td> <%=h "$ #{account_reset.unit * account_reset.rate }"%> </td>
+              <td> <%=h Time.parse(account_reset.created_at.to_s).strftime('%d-%m-%y %H:%M:%S ') %> </td>
+          </tr>
+        <% end %>
+      </table>
+   <% else %>
+     <br/>
+     <b> No AccountReset Detail for this Dealer</b>
+   <% end %>
+  <br /> <br />
    <% unless @trigger_details.blank? %>
      <table class='listing'>
          <tr> <th> Trigger Detail Imported On </th>

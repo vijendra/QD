@@ -54,7 +54,7 @@ class Baseapp < ActiveRecord::Migration
       t.text :comments
       t.integer :starting_balance, :default => 1000
       t.integer :current_balance, :default => 1000
-      t.string :rate, :default => 1
+      t.column :rate, :decimal, :precision => 8, :scale => 2 ,:default => 0.0
       t.integer :administrator_id
       t.timestamps
     end
