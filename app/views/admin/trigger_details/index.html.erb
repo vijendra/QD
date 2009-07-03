@@ -1,28 +1,28 @@
 <% if @type == "processed" %>
    <% content_for :header do -%>
-     Listing All Processed Trigger Detail.
+     Listing All Processed Trigger Detail. &nbsp;<%= link_to "<b>View Unprocessed Triggers</b>", admin_trigger_details_url()  %>
    <% end -%>
- <% else %>
+<% else %>
    <% content_for :header do -%>
-    Listing All Unprocessed Trigger Detail.
+    Listing All Unprocessed Trigger Detail.&nbsp; <%= link_to "<b> View Processed Triggers </b>", admin_trigger_details_url(:type => "processed")  %>
    <% end -%>
-  <%end%>
-
-
-<table>
+   
+   <table>
      <tr>
          <td>
              <% if super_admin? %> <%= link_to("<span> Fetch Triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end %>
          </td>
 
          <td>
-             <%= link_to("<span> Process Triggers </span>",  process_triggers_admin_trigger_details_url() , :class => 'button')%>
+             <%= link_to("<span> Process Pending Triggers </span>",  process_triggers_admin_trigger_details_url() , :class => 'button')%>
          </td>
-          <td>  <%= link_to "Unprocessed", admin_trigger_details_url()  %> </td>
-         <td> <%= link_to "Processed", admin_trigger_details_url(:type => "processed")  %></td>
-
+        
      </tr>
 </table>
+<%end%>
+
+
+
 <br />
 
 <%=render :partial=> 'filter'%>

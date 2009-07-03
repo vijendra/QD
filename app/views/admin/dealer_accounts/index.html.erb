@@ -1,59 +1,55 @@
 <% content_for :header do -%>
-  Account Detail For <%= ":#{@dealer.profile.name} [Orders Starting balance: #{@dealer.profile.starting_balance} , Current balance: #{@dealer.profile.current_balance} ]" %>
+  <span> Account Detail For </span> <%= ":#{@dealer.profile.name} [Orders Starting balance: #{@dealer.profile.starting_balance} , Current balance: #{@dealer.profile.current_balance} ]" %>
 <% end -%>
-
-<%form_tag( new_admin_dealer_dealer_account_path(@dealer), :method=>:get) do %>
 <br />
-<div>
+
 <table class ="form-table">
-  <tr><th> Starting Balance :</th>
-      <td><%= text_field_tag "start_balance" , '' ,:class => "textbox" %> </td>
+  <tr>
+  <%form_tag( new_admin_dealer_dealer_account_path(@dealer), :method=>:get) do %>
+    <th> Starting Balance :</th>
+      <td><%= text_field_tag "start_balance" , '' ,:class => "textbox-small" %> </td>
       <td> <%= submit_tag "Reset" %> </td>
-  </tr>
-</table>
-
-<br />
-<%end%>
-
-<%form_tag("/admin/dealer_accounts/edit_profile_rate") do %>
-<br />
-
-<table class ="form-table">
- <input type="hidden" id="dealer_id" name="dealer_id" value="<%= @dealer.id %>" />
-  <tr><th> Rate :</th>
-
-      <td><%= text_field_tag "rate" , @dealer.profile.rate.blank?? ' ' : @dealer.profile.rate,:class => "textbox" %> </td>
+  <%end%>
+  <th> &nbsp; </th>
+  <%form_tag("/admin/dealer_accounts/edit_profile_rate") do %>
+  
+   <input type="hidden" id="dealer_id" name="dealer_id" value="<%= @dealer.id %>" />
+      <th> Rate Per Unit:</th>
+      <td><%= text_field_tag "rate" , @dealer.profile.rate.blank?? ' ' : @dealer.profile.rate,:class => "textbox-tiny" %> $</td>
       <td> <%= submit_tag "Change" %> </td>
+  <%end%>
   </tr>
 </table>
-
 <br />
-
-<%end%>
-
+<hr />
    <% unless @account_resets.blank? %>
+      <b> Data Order Detail for Last 60 Days </b><br /><br />
       <table class='listing'>
-        <tr> <th> Account Reset done by </th>
-         		 <th> Unit  </th>
-        		 <th> Rate  </th>
-        		 <th> Total </th>
-        		 <th> Created At </th>
+        <tr>             <th> Date </th>
+         		 <th> Units  </th>
+        		 <th> Rate/Unit  </th>
+        		 <th> Total Amount </th>
+        		 
         </tr>
         <% @account_resets.each do |account_reset| %>
-         <tr> <td> <%=h User.find(account_reset.user_id).profile.name %> </td>
+         <tr> <td> <%=h Time.parse(account_reset.created_at.to_s).strftime('%d-%m-%y') %> </td>
               <td> <%=h account_reset.unit %> </td>
-              <td>  <%=h account_reset.rate %> </td>
+              <td>  <%=h "$ #{account_reset.rate}" %> </td>
               <td> <%=h "$ #{account_reset.unit * account_reset.rate }"%> </td>
-              <td> <%=h Time.parse(account_reset.created_at.to_s).strftime('%d-%m-%y %H:%M:%S ') %> </td>
+              
           </tr>
         <% end %>
       </table>
    <% else %>
-     <br/>
-     <b> No AccountReset Detail for this Dealer</b>
+     <br/> <br />
+     <b> No Data Order Detail of Last 60 Days</b>
    <% end %>
-  <br /> <br />
+  <br /><br />
+
+  <hr />
+
    <% unless @trigger_details.blank? %>
+     <b> Listing Trigger Details </b><br /><br />
      <table class='listing'>
          <tr> <th> Trigger Detail Imported On </th>
        <th> Previous Balance </th>

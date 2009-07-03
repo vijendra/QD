@@ -1,10 +1,12 @@
-<% for dealer in @dealers %>
-Dear <%= Dealer.find(dealer).profile.name %>,
-<br /> <br />
+<p> Dear <%= @dealer.profile.name %>,</p>
+<br />
 <%= @body_content %>
 <br /> 
 
 Best regards, <br />
-------------<br />
-The <%= configatron.site_name %> Team.
-<% end %>
+---------------------<br />
+<p> The <%= configatron.site_name %> Team.</p>
+<img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' /> 
+
+<p> Powered by <%= configatron.site_name %> </p>
+

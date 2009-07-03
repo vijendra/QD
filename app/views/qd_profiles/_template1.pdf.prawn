@@ -14,7 +14,7 @@ for data in @profiles
   doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#E5DED4"})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
   
-  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
+  #p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
 
  p_pdf.bounding_box([box.right - 225, box.top - 110], :width => 200) do
     p_pdf.text "&nbsp; &nbsp; &nbsp;  <b>Call with Confidence!</b>", :size => 16
@@ -85,9 +85,13 @@ for data in @profiles
   p_pdf.tags[:small] = { :font_size => "1em", :font_family => "Times-Roman" }
   text = "<small>*You can choose to stop receiving &quot;prescreened&quot; offers of credit from this and other companies by calling Toll Free 1-888-567-8688. See PRESCREEN &amp; OPT-OUT NOTICE on enclosed insert for more information about prescreened offers.</small>"
   
+  #Mark the data record as printed.
+  data.print!
+
   p_pdf.text_box text,
     :width    => box.width - 40, :height => 50,
     :at       => [box.left + 29, box.bottom + 275]  
- 
+  
   p_pdf.start_new_page if counter < @profiles.size
+  
 end

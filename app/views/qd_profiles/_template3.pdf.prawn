@@ -72,5 +72,8 @@ for data in @profiles
 
   p_pdf.text Time.now.strftime("%m-%d-%y"), :at => [box.right - 150, box.top - 840]
   p_pdf.text @dealer_profile.name, :at => [box.left + 135, box.top - 872]
+
+  #Mark the data record as printed.
+  data.print!
   p_pdf.start_new_page if counter < @profiles.size
 end

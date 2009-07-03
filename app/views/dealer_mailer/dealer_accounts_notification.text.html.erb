@@ -1,0 +1,27 @@
+Dear <%= @dealer.profile.name %>,
+<br /> <br />
+<p> There is a fresh set of data ready for download. </p>
+<br />
+
+<p> No of record: <%= @total %> </p>
+<br />
+
+<%if @balance.to_i < 200 %>
+  <p> Your current balance is below 200. Please re-order. </p>
+<% end %>
+<br />
+
+<p> Login to QD Robot to view data: <%= "http://#{configatron.site_url}/login" %> </p>
+<br />
+
+Best regards, <br />
+------------<br />
+
+<p> The <%= configatron.site_name %> Team. </p>
+
+<% unless @dealer.administrator.blank?%> <img src= '<%= "http://#{configatron.site_url}#{@dealer.administrator.administrator_profile.administrator_logo.url(:thumb)}" %>' />  
+<% else %>
+<img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' /> 
+<% end %>
+
+<p> Powered by <%= configatron.site_name %> </p>

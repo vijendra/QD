@@ -1,45 +1,25 @@
 <% content_for :header do -%>
- 	<%= configatron.site_name %> Account for <em><%=h @user.login %></em>
+ 	<%= configatron.site_name %> Account for <em><%=h @user.login %></em> & application specific settings.
 <% end -%>
 
-<% content_for :sidebar do -%>
+<table class="form-display">
+    
+    <tr> 
+    <td> <b> Site Image </td>
 
-<h2>Account status: <%= @user.state.to_s.humanize %></h2>
+    <td >
+       <%= image_tag (@site_image.site_image.url(:thumb)) unless  @site_image.blank?  %>
+    </td>
+    </tr>
 
-<ul>
-	<% if @user.pending? -%>
-		<li><%= link_to "Activate", activate_admin_user_url(@user), :method => :put %></li>
-		<li><%= link_to "Suspend", suspend_admin_user_url(@user), :method => :put %></li>
-		<li><%= link_to "Delete", admin_user_url(@user), :method => :delete %></li>
-	<% end -%>
+    <tr>
+    <td colspan=2>
+       <% form_for(:site_image, :url => user_image_admin_user_path(@user.id), :html => { :multipart => true  } )do |f| %>
+          <%= f.file_field  :site_image  %>
+         <%= f.submit  "Change Image"%>
+       <% end %>
+    </td>
 
-	<% if @user.suspended? -%>
-		<li><%= link_to "Unsuspend", unsuspend_admin_user_url(@user), :method => :put %></li>
-	<% end -%>
-
-	<% if @user.active? -%>
-		<li><%= link_to "Suspend", suspend_admin_user_url(@user), :method => :put %></li>
-		<li><%= link_to "Delete", admin_user_url(@user), :method => :delete, :confirm => "Are you sure you want to delete this account?" %></li>
-	<% end -%>
-
-	<% # TODO: Uncomment to enable user purging by the administrator %>
-	<!--
-	<% if @user.deleted? -%>
-		<li><%= link_to "Purge", purge_admin_user_url(@user), :method => :delete, :confirm => "Are you sure you want to remove this account, and all data associated with it from base_app?" %></li>
-	<% end -%>
-    -->
-</ul>
-<% end -%>
-     <%= image_tag (@site_image.site_image.url(:thumb)) unless  @site_image.blank?  %>
-
-    <% form_for(:site_image, :url => user_image_admin_user_path(@user.id), :html => { :multipart => true  } )do |f| %>
-          Change Image : <%= f.file_field  :site_image  %>
-       <%= f.submit  "Change Image"%>
-    <% end %>
-
-<br/>
-
-<table class="overview">
 	<%= cell "Login", "#{in_place_editor_field :user, 'login'}" %>
 	<%= cell "User ID", h(@user.id) %>
 
@@ -53,6 +33,7 @@
 	<%= cell "Account created", @user.created_at.to_s(:long) %>
 	<%= cell "Last updated", @user.updated_at.to_s(:long) %>
 </table>
+<br />
 <hr />
 <%= link_to_remote "Home Page Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_admin_setting ,:identifier =>"home_page_content" ,:id =>@user.id} %> <b>| </b>
 
@@ -72,6 +53,6 @@
 
 </div>
 
-
+<br />
 <br />
 <br />

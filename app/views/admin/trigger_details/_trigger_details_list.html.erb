@@ -25,7 +25,7 @@
 
   </tr>
 <% @triggers.each do |trigger| %>
-       <tr>
+       <tr  class= '<%= trigger.status %>'>
          <td> <%= Time.parse(trigger.created_at.to_s).strftime('%m-%d-%y') %> </td>
          <td> <%= trigger.id %> </td>
          <td> <%= trigger.dealer.profile.name %> </td>
