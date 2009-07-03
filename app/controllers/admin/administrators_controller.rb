@@ -23,14 +23,7 @@ class Admin::AdministratorsController < ApplicationController
 
   def edit
     @administrator = Administrator.find(params[:id])
-   # if @administrator.disclaimer_content.blank?
-    #	 disclaimer_content = ApplicationSetting.find_by_identifier("disclaimer_content")
-    #	 @admin_disclaimer_content = AdministratorSetting.new( :administrator_id => @administrator.id ,
-    	           #                                         :value => disclaimer_content.value )
-   # 	 @admin_disclaimer_content.save
-  #  else
-   #    @admin_disclaimer_content = @administrator.disclaimer_content
-  # 	end
+
   end
 
   def create
