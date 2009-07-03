@@ -38,8 +38,8 @@ class SessionsController < ApplicationController
 
   def terms
     unless (super_admin? or admin? )
-      @disclaimer_content = DisclaimerContent.find_by_administrator_id(current_user.administrator_id).value rescue ''
-      @disclaimer_content = @disclaimer_content.blank?? (AdminSetting.find_by_identifier("disclaimer_content").value rescue '') : @disclaimer_content
+      @disclaimer_content = AdministratorSetting.find_by_administrator_id(current_user.administrator_id).value rescue ''
+      @disclaimer_content = @disclaimer_content.blank?? (ApplicationSetting.find_by_identifier("disclaimer_content").value rescue '') : @disclaimer_content
     end
   end
 
@@ -50,7 +50,7 @@ class SessionsController < ApplicationController
       session[:accept_terms] = true
     else
     	flash[:error] = "Please accept the terms and conditions."
-    	@disclaimer_content = AdminSetting.find_by_identifier('disclaimer_content').values rescue ' '
+    	@disclaimer_content = ApplicationSetting.find_by_identifier('disclaimer_content').values rescue ' '
     	redirect_to(:controller =>:sessions ,:action =>:terms)
     end
  	end
@@ -88,7 +88,7 @@ class SessionsController < ApplicationController
     new_cookie_flag = (params[:remember_me] == "1")
     handle_remember_cookie! new_cookie_flag
     unless (super_admin? || admin?)
-    	redirect_to(:controller =>:sessions ,:action =>:terms)
+    	redirect_to(login_url)
     else
     	session[:accept_terms] = true
        redirect_back_or_default(root_path)

@@ -15,7 +15,7 @@ class ContactController < ApplicationController
 
    def check_logged_in
    	  unless logged_in?
-   	 	  redirect_to (:controller => :session ,:action => :new )
+   	 	  redirect_to (login_url )
   	  end
    end
 

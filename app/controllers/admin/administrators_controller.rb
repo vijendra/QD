@@ -2,7 +2,7 @@ class Admin::AdministratorsController < ApplicationController
 
    require_role "super_admin"
    before_filter :check_role
-  layout 'admin'
+   layout 'admin'
 
   def index
     @administrators = Administrator.all
@@ -23,14 +23,14 @@ class Admin::AdministratorsController < ApplicationController
 
   def edit
     @administrator = Administrator.find(params[:id])
-    if @administrator.disclaimer_content.blank?
-    	 disclaimer_content = AdminSetting.find_by_identifier("disclaimer_content")
-    	 @admin_disclaimer_content = DisclaimerContent.new( :administrator_id => @administrator.id ,
-    	                                                    :value => disclaimer_content.value )
-    	 @admin_disclaimer_content.save
-    else
-       @admin_disclaimer_content = @administrator.disclaimer_content
-   	end
+   # if @administrator.disclaimer_content.blank?
+    #	 disclaimer_content = ApplicationSetting.find_by_identifier("disclaimer_content")
+    #	 @admin_disclaimer_content = AdministratorSetting.new( :administrator_id => @administrator.id ,
+    	           #                                         :value => disclaimer_content.value )
+   # 	 @admin_disclaimer_content.save
+  #  else
+   #    @admin_disclaimer_content = @administrator.disclaimer_content
+  # 	end
   end
 
   def create
@@ -64,6 +64,44 @@ class Admin::AdministratorsController < ApplicationController
     redirect_to(admin_administrators_url)
   end
 
+
+   def dispaly_administrator_setting
+
+    @administrator  =  Administrator.find(params[:id])
+
+    @administrator_setting = AdministratorSetting.by_administrator_and_identifier(@administrator.id,params[:identifier]).first
+
+    if @administrator_setting.blank?
+    	application_setting = ApplicationSetting.find_by_identifier(params[:identifier])
+    	@administrator_setting = AdministratorSetting.create(:administrator_id => @administrator.id , :identifier => params[:identifier] ,:value => application_setting.value )
+    end
+    if params[:identifier] =~ /mail/
+    	 @subject = AdministratorSetting.by_administrator_and_identifier(@administrator.id,"#{params[:identifier]}_subject").first
+       if @subject.blank?
+       	 app_setting = ApplicationSetting.find_by_identifier("#{params[:identifier]}_subject")
+       	 @subject = AdministratorSetting.create(:administrator_id => @administrator.id , :identifier => "#{params[:identifier]}_subject" ,:value => app_setting.value )
+       end
+    end
+    render :update do |page|
+      page.replace_html 'administrator_settings', :partial => 'admin/administrators/administrator_settings'
+    end
+  end
+
+
+   def update_administrator_setting
+     @administrator_setting  = AdministratorSetting.find(params[:administrator_setting][:id])
+     administrator = Administrator.find(params[:administrator][:id])
+     @administrator_setting.update_attributes(params[:administrator_setting])
+     unless params[:subject].blank?
+       @subject = AdministratorSetting.find(params[:subject][:id])
+       @subject.update_attributes(:administrator_id =>administrator.id ,:value => params[:subject][:value])
+     end
+     flash[:notice] = "#{@administrator_setting.identifier.humanize} succeefully updated"
+     redirect_to(edit_admin_administrator_url(administrator))
+  end
+
+
+
   def activate
     @administrator = Administrator.find(params[:id])
     @administrator.activate!
@@ -95,12 +133,7 @@ class Admin::AdministratorsController < ApplicationController
     redirect_to admin_administrator_path(@administrator)
   end
 
-  def disclaimer_content_save
 
-    disclaimer_content = DisclaimerContent.find(params[:admin_disclaimer_content][:id])
-    disclaimer_content.update_attributes(:value => params[:admin_disclaimer_content][:value])
-     redirect_to(edit_admin_administrator_url(:id => params[:administrator][:id]))
- 	end
  	private
 
  	def check_role

@@ -1,12 +1,14 @@
 <p> Dear <%= @dealer.profile.name %>,</p>
 <br />
 <%= @body_content %>
-<br /> 
+<br />
 
 Best regards, <br />
 ---------------------<br />
 <p> The <%= configatron.site_name %> Team.</p>
-<img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' /> 
+<% unless @dealer.administrator.blank?%> <img src= '<%= "http://#{configatron.site_url}#{@dealer.administrator.administrator_profile.administrator_logo.url(:thumb)}" %>' />
+<% else %>
+<img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' />
+<% end %>
 
 <p> Powered by <%= configatron.site_name %> </p>
-

@@ -39,11 +39,12 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
     admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:reset_password => :put ,:csv => :get,:assign_administrator =>:get, :authentication_code => :get },:collection => {:import_dealer_csv => :get } ,:has_many =>[:dealer_accounts,:print_data]
+
     admin.resources :qd_profiles, :member => { :assign_dealer => :get }
     admin.resources :trigger_details, :collection => { :process_triggers => :get }
     admin.resources :print_file_fields
     #admin.resources :
-    admin.resource :robot, :member => {:run => :get, :active_dealer_email => :get}
+    admin.resource :robot, :member => {:run => :get, :active_dealer_email => :get,  :inactive_dealer_email => :get}
 
     admin.resources :administrators ,:has_one =>[:administrator_profile] ,:member => { :suspend   => :put,
                                          :unsuspend => :put,

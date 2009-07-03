@@ -1,0 +1,28 @@
+
+<% form_tag('/admin/users/update_application_setting') do -%>
+ <br />
+  <table class = 'form-table-full'>
+    <tr> <th colspan='2'> <%=h @application_setting.identifier.humanize %> </th> </tr>
+
+   <%if @application_setting.identifier =~ /mail/%>
+      <tr><th colspan='2'> <label> <b> Mail Subject </b> </label> </th></tr>
+
+      <tr><td colspan='2'> <%= text_field_tag("subject[value]", @subject.blank? ? '' : @subject.value, :class => 'textbox-wide') %> </td></tr>
+
+      <input id="subject_id" name="subject[id]" type="hidden" value="<%= @subject.id %>" />
+      <tr><th colspan='2'> Mail Body </th></tr>
+   <% end %>
+   <tr><td colspan='2'> <%= fckeditor_textarea("application_setting", "value" , :toolbarSet => "Simple", :width => '100%', :height => '200px' ) %> </td></tr>
+
+   <tr> <td> <%= submit_tag "Save Content"%></td>
+               <td ><%if @application_setting.identifier =~ /mail/%>
+                 <%= link_to "<span> Send Mail </span>", "/admin/robot/#{@application_setting.identifier}?id=#{@user.id}", :class => 'button' %> </td>
+               <% end %>
+          </tr>
+   </table>
+
+   <input id="user_id" name="user[id]" type="hidden" value="<%= @user.id %>" />
+   <input id="application_setting_id" name="application_setting[id]" type="hidden" value="<%= @application_setting.id %>" /><br />
+<%end-%>
+<br />
+<br />

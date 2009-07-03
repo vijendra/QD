@@ -143,7 +143,7 @@ class QdProfilesController < ApplicationController
 
   def check_terms_conditions
      if !logged_in?
-  		 redirect_to(:controller => :session ,:action => :new)
+  		 redirect_to(login_url)
   	elsif !session[:accept_terms]
     	redirect_to(:controller =>"sessions" ,:action =>:terms)
     end

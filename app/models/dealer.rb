@@ -25,6 +25,6 @@ class Dealer < User
     transitions :to => :active, :from => [:pending, :inactive, :passive]
   end
 
-  named_scope :active_dealers, {:conditions => ["state like ?",  'active'] }
-  named_scope :inactive_dealers, {:conditions => ["state like ?",  'inactive'] }
+  named_scope :active_dealers, {:conditions => ["state = ?",  'active'] }
+  named_scope :inactive_dealers, {:conditions => ["state = ?",  'inactive'] }
 end

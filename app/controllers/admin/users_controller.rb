@@ -120,15 +120,15 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def update_admin_setting
-     @admin_setting  = AdminSetting.find(params[:adminsetting][:id])
+  def update_application_setting
+     @application_setting  = ApplicationSetting.find(params[:application_setting][:id])
      @user = User.find(params[:user][:id])
-     @admin_setting.update_attributes(params[:admin_setting])
+     @application_setting.update_attributes(params[:application_setting])
      unless params[:subject].blank?
-       @subject = AdminSetting.find(params[:subject][:id])
+       @subject = ApplicationSetting.find(params[:subject][:id])
        @subject.update_attributes(:value => params[:subject][:value])
      end
-     flash[:notice] = "#{@admin_setting.identifier.humanize} succeefully updated"
+     flash[:notice] = "#{@application_setting.identifier.humanize} succeefully updated"
      redirect_to(admin_user_path(@user))
   end
 
@@ -136,12 +136,12 @@ class Admin::UsersController < ApplicationController
      @user =  User.find(params[:id])
   end
 
-  def dispaly_admin_setting
+  def dispaly_application_setting
     @user =  User.find(params[:id])
-    @admin_setting = AdminSetting.find_or_create_by_identifier(params[:identifier])
-    @subject = AdminSetting.find_or_create_by_identifier("#{params[:identifier]}_subject") if params[:identifier] =~ /mail/
+    @application_setting = ApplicationSetting.find_or_create_by_identifier(params[:identifier])
+    @subject = ApplicationSetting.find_or_create_by_identifier("#{params[:identifier]}_subject") if params[:identifier] =~ /mail/
     render :update do |page|
-      page.replace_html 'admin_setting', :partial => 'admin/users/admin_settings'
+      page.replace_html 'application_settings', :partial => 'admin/users/application_settings'
     end
   end
 
