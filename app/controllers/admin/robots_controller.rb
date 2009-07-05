@@ -10,7 +10,7 @@ class Admin::RobotsController < ApplicationController
     @config = @config[RAILS_ENV].to_options
     @fetcher = Fetcher.create({:receiver => MailProcessor}.merge(@config))
     @fetcher.fetch
-    flash[:notice] = 'CSV data is successfully imported.'
+    flash[:notice] = 'Triggers are successfully imported to the application.'
 
     redirect_to(admin_trigger_details_url)
   end
