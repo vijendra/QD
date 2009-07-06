@@ -91,6 +91,11 @@ class QdProfilesController < ApplicationController
 =end
  def index
    @search = TriggerDetail.new_search(params[:search])
+   unless params[:created_at].blank?
+    	 date = params[:created_at].to_date
+    	 @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
    @search.conditions.dealer_id = current_user.id
    @search.per_page ||= 15
    @search.order_as ||= "DESC"
@@ -99,12 +104,20 @@ class QdProfilesController < ApplicationController
    @triggers = @search.all
    respond_to do |format|
                   format.html {}
-                  format.js {   @trigger = TriggerDetail.find(params[:tid])
-                                @qd_profiles = @trigger.qd_profiles
-                                render :update do |page|
-      	                           page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
-                                   page.visual_effect(:highlight, "qd_profile-list", :duration => 0.5)
-     	                         end }
+                  format.js {
+                               unless params[:tid].blank?
+                                  @trigger = TriggerDetail.find(params[:tid])
+                                  @qd_profiles = @trigger.qd_profiles
+                                  render :update do |page|
+      	                            page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
+                                    page.visual_effect(:highlight, "qd_profile-list", :duration => 0.5)
+     	                            end
+    	                         else
+    	                         	  render :update do |page|
+      	                            page.replace_html 'qd_profile-list', :partial => 'qd_profiles/trigger_list'
+     	                            end
+   	                           end
+  	                         }
    end
  end
 

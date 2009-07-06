@@ -1,31 +1,16 @@
 
-<% form_remote_tag(:url => qd_profiles_url, :method => :get) do %>
+<% form_tag(qd_profiles_url, :method => :get) do %>
 <br/>
    <table class="search-table">
      <tr>
-        <th> Imported Date Between </th>
-        <th> Order Number </th>
-        <th> Status </th>
-        <th> <input type="reset" value="Reset" />  </th>
-     </tr>
-     <tr>
+        <th> Date </th>
+
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
-           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
-           <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
-           <%= link_to_remote "Yesterday's" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" ,:today =>2 },:method =>:get %> | <%= link_to_remote "Today's" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "qd_profiles" ,:action =>"index" },:method =>:get %>
-
-           </td>
-
-          <% p.fields_for p.object.dealer do |dealer| %>
-                  <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>
-                    <td><%= trigger_detail.text_field :order_number_like, :class => 'textbox' %>
-                    <%end%>
-                <%end%>
-          <td> <%= p.select :status_like ,[['Select' , ''],['New' ,'new'], ['Marked', 'marked'], ['printed', 'printed']],:class => 'textbox' %> </td>
+           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          <%end%>
        <%end%>
-        <td><%= submit_tag 'Search' %>  </td>
+         <%= submit_tag 'Search' %>  </td>
 
        </tr>
   </table>

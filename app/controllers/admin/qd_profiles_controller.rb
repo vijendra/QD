@@ -3,7 +3,7 @@ class Admin::QdProfilesController < ApplicationController
   layout 'admin'
   require 'fastercsv'
   before_filter :check_role
-
+=begin
   def index
     @search = QdProfile.new_search(params[:search])
     @params = params[:search]
@@ -88,6 +88,60 @@ class Admin::QdProfilesController < ApplicationController
                 }
     end
   end
+=end
+  def index
+   @search = TriggerDetail.new_search(params[:search])
+   unless params[:today].blank?
+       if params[:today] == "1"
+       	 @search.conditions.created_at_like = Date.today
+      else
+         @search.conditions.created_at_like = Date.yesterday
+      end
+      params[:today] = nil
+    end
+
+    unless params[:created_at].blank?
+    	 date = params[:created_at].to_date
+    	 @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+   	unless params[:created_at_end].blank?
+    	 date = params[:created_at_end].to_date
+         @search.conditions.created_at_after = date.beginning_of_day()
+    	 @search.conditions.created_at_before =  date.end_of_day()
+   	end
+
+    unless (params[:created_at_end].blank? ||  params[:created_at].blank?)
+    	 start_date = "#{params[:created_at].to_date} "
+    	 time = "00:00:00"
+   	   end_date   =  Time.parse("#{params[:created_at_end].to_date} #{time}").advance(:days => 1)
+    	 @search.conditions.created_at_after   = "#{start_date}#{time}"
+    	 @search.conditions.and_created_at_before = "#{end_date}"
+   	end
+   @search.per_page ||= 15
+   @search.order_as ||= "DESC"
+   @search.order_by ||= "created_at"
+
+   @triggers = @search.all
+   respond_to do |format|
+                  format.html {}
+                  format.js {
+                               unless params[:tid].blank?
+                                  @trigger = TriggerDetail.find(params[:tid])
+                                  @qd_profiles = @trigger.qd_profiles
+                                  render :update do |page|
+      	                            page.replace_html 'qd_profile-list', :partial => '/admin/qd_profiles/qd_profiles_list'
+                                    page.visual_effect(:highlight, "qd_profile-list", :duration => 0.5)
+     	                            end
+    	                         else
+    	                         	  render :update do |page|
+      	                            page.replace_html 'qd_profile-list', :partial => '/admin/qd_profiles/trigger_list'
+     	                            end
+   	                           end
+  	                         }
+   end
+ end
 
   def assign_dealer
      @qd_profile = QdProfile.find(params[:id])

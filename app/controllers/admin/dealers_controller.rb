@@ -172,7 +172,7 @@ class Admin::DealersController < ApplicationController
       trigger.update_attribute('total_records', no_of_records)
       trigger.update_attribute('balance', @balance)
     end
-     dealer.profile.update_attribute('current_balance', @balance)
+     @dealer.profile.update_attribute('current_balance', @balance)
      flash[:notice] = 'CSV data is successfully imported.'
      redirect_to(admin_dealers_url)
    else
@@ -244,7 +244,7 @@ class Admin::DealersController < ApplicationController
           end
        end
       end
-     
+
       redirect_to admin_dealers_path
      else
        render :layout => false
@@ -260,6 +260,28 @@ class Admin::DealersController < ApplicationController
  		render :layout => false
 		end
 	end
+
+  def test_print
+   @dealer = Dealer.find(params[:id])
+   @dealer_profile =  @dealer.profile
+   @dealer_address =  @dealer.address
+   @profiles = [@dealer.qd_profiles.first]
+   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+   @auth_code = @dealer_profile.auth_code
+   @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
+   @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
+   @print_template = "qd_profiles/#{params[:t]}"
+   case @print_template
+                   when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
+                   when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
+                   when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
+                   else (file_name, size = 'print_file.pdf', [610, 1009])
+                   end
+   options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+   prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+   render :layout => false
+
+  end
 
 
  	private

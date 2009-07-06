@@ -33,9 +33,10 @@
 
    <%= image_tag (@administrator.administrator_profile.administrator_logo.url(:thumb)) %>
    <br/>
-   <br/>
-   <label> Login Information </label>
+
+
 <table class="form-table">
+  <tr class= 'table-top'> <td colspan='2' > Login Details: </td> </tr>
  	<tr> <th>Login : </th> <td><%= "#{in_place_editor_field :administrator, 'login'}" %></td></tr>
 	<tr> <th> User ID : </th><td> <%=  h(@administrator.id) %></td></tr>
 
@@ -44,9 +45,7 @@
 
 	<tr><th>Account created :</th> <td> <%=  @administrator.created_at.to_s(:long) %> </td></tr>
 	<tr><th> Last updated :</th> <td> <%=  @administrator.updated_at.to_s(:long) %></td></tr>
-	</table>
-	<label>Profile Information </label>
-	<table class="form-table">
+	<tr class= 'table-top'> <td colspan='2' > Personal Details: </td> </tr>
     <tr><th> Profile Name : </th><td><%= @administrator.administrator_profile.name %> </td></tr>
     <tr><th> First Name :</th><td> <%=  @administrator.administrator_profile.first_name%> </td></tr>
     <tr><th> Mid Name :</th><td><%=  @administrator.administrator_profile.mid_name%> </td></tr>
@@ -56,9 +55,7 @@
     <tr><th>Fax :</th><td><%=  @administrator.administrator_profile.fax%> </td></tr>
     <tr><th>Phone :</th><td><%=  @administrator.administrator_profile.phone_1%>-<%=  @administrator.administrator_profile.phone_2%>-<%=  @administrator.administrator_profile.phone_3%> </td></tr>
     <tr><th>Comments:</th><td><%=  @administrator.administrator_profile.comments %> </td></tr>
-    </table>
-   <label> Address Information</label>
-    <table class="form-table">
+    <tr class= 'table-top'> <td colspan='2' > Address Details: </td> </tr>
     <tr> <th> Address: </th><td><%= @administrator.address.address %> </td></tr>
     <tr> <th> City:</th><td> <%= @administrator.address.city%> </td></tr>
     <tr> <th>State:</th><td><%= @administrator.address.state %> </td></tr>

@@ -139,14 +139,14 @@
 <%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
 
 </td> </tr>
-<!--
+
   <tr> <th> Click to see Sample Print </th> <td colspan=2>
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png", :size => "75x100", :alt => "Template 1"), '#' %> &nbsp;&nbsp;
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg", :size => "75x100", :alt => "Template 2"), '#' %> &nbsp;&nbsp;
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg", :size => "75x100", :alt => "Template 3"), '#' %> &nbsp;&nbsp;
-       </td> 
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png", :size => "75x100", :alt => "Template 1"), test_print_admin_dealer_path(:id => @dealer.id , :t  =>  'template1', :format => 'pdf' )%> &nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg", :size => "75x100", :alt => "Template 2"),  test_print_admin_dealer_path(:id => @dealer.id , :t  =>  'template2', :format => 'pdf') %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg", :size => "75x100", :alt => "Template 3"),test_print_admin_dealer_path(:id => @dealer.id , :t  =>  'template3', :format => 'pdf')%> &nbsp;&nbsp;
+       </td>
   </tr>
--->
+
 </table>
 
  <br/>

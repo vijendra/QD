@@ -20,15 +20,8 @@
   <%= f.error_messages %>
 
 
-<div id="tabs">
-       <ul>
-	   <li><a href="#profile">Profile Details</a></li>
-	   <li><a href="#address">Address Details</a></li>
-	</ul>
-   </div>
-    <div id="profile">
-        <br />
-         <table class = 'form-table'>
+    <table class ='form-table'>
+        <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
             <tr><th>Name: </th><td>
             <%= f.text_field :name ,:class =>'textbox'%></td></tr>
            <tr> <th>Authentication Code :</th> <td>  <%= f.text_field :auth_code ,:disabled => true ,:class =>"textbox" %> </td> </tr>
@@ -55,16 +48,9 @@
        <%= f.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %></td></tr>
       <tr><th>Comments:</th><td>
        <%= f.text_area :comments ,:class =>"textarea" %></td></tr>
-     </table>
 
-
- </div>
-
-
-      <div id="address">
-        <br />
         <%fields_for :address do |p| %>
-       <table class = 'form-table'>
+        <tr class= 'table-top'> <td colspan='2' > Enter Address Details: </td> </tr>
 
       <tr><th>Address:</th><td>
        <%= p.text_field :address ,:class =>'textbox' %></td></tr>
@@ -77,12 +63,12 @@
      </table>
   <% end %>
 
-    </div>
+
  <br/>
 
 
 
 	<%= submit_tag "Save changes" %>
-
+<br />
 	<% end %>
 <% end -%>
