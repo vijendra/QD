@@ -11,7 +11,7 @@ for data in @profiles
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
 
-  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template3.jpg", :at => [0, box.top]
+  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template3.jpg", :at => [0, box.top] unless @image
 
   p_pdf.text_options.update(:size => 12, :spacing => 1)
 

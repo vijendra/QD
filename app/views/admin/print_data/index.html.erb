@@ -3,20 +3,21 @@
 <% end -%>
 
 <div class="js_option">
-			<%= link_to_function "Show Print File Fields",
+			<%= link_to_function "<b>Show Print File Variable Data</b>",
 			"Element.hide('hidden1');
 			 Element.show('expand');"
-			%> |
-				<%= link_to_function "Hide",
+			%> &nbsp;&nbsp; |&nbsp;&nbsp;
+				<%= link_to_function "<b>Hide</b>",
 			"Element.hide('expand');
 			 Element.show('hide');"
 			%>
 		</div> <br/>
+
 <div id="expand" style="display: none" >
 <%form_tag admin_print_file_fields_path, :method=>:post do %>
 <table class ="form-table">
 <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
-  <tr> <th> Identifier </th> <th>Label </th> <th> value </th> </tr>
+  <tr> <th> <b> Identifier </b> </th> <th> <b> Label </b></th> <th><b> value </b></th> </tr>
   <tr><th> Variable Data 1</th>
       <% if @variable_data_1.blank? %>
       <td> <%= text_field_tag "variable_data_1[label]" ,"",:class => "textbox" %> </td>
@@ -100,7 +101,7 @@
        <td> <%= text_field_tag "variable_data_10[label]" ,@variable_data_10.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_10[value]" ,@variable_data_10.value,:class => "textbox" %> </td></tr>
       <%end%>
-
+         <tr> <td colspan='3'> </td> </tr>
          <tr> <th> Identifier </th><td colspan=2> Text Body 1</td></tr>
          <% if @text_body_1.blank? %>
            <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,"",:class => "textbox" %> </td></tr>
@@ -129,24 +130,32 @@
          <%end%>
 
       <tr> <th> Select Template </th> <td colspan=2>
-<%= radio_button_tag ('template', 'template1' , @dealer_template.value.include?('template1') ) %>
+<%= radio_button_tag('template', 'template1' , @dealer_template.value.include?('template1') ) %>
 <%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
 
-<%= radio_button_tag ('template', 'template2' , @dealer_template.value.include?('template2') ) %>
+<%= radio_button_tag('template', 'template2' , @dealer_template.value.include?('template2') ) %>
 <%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
-<%= radio_button_tag ('template', 'template3', @dealer_template.value.include?('template3') )%>
+<%= radio_button_tag('template', 'template3', @dealer_template.value.include?('template3') )%>
 <%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
 
 </td> </tr>
-
+<!--
+  <tr> <th> Click to see Sample Print </th> <td colspan=2>
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png", :size => "75x100", :alt => "Template 1"), '#' %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg", :size => "75x100", :alt => "Template 2"), '#' %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg", :size => "75x100", :alt => "Template 3"), '#' %> &nbsp;&nbsp;
+       </td> 
+  </tr>
+-->
 </table>
 
  <br/>
 
-      <%= submit_tag "save" %>
+ <%= submit_tag "Save Contents" %>
 
 <%end%>
 </div>
+
 <div id="hidden1">
 </div>
 

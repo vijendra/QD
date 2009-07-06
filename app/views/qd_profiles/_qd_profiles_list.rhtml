@@ -1,3 +1,11 @@
+<table class='table-top'><tr>
+       <td class='hide-for-print'> <%= link_to("<span>Print Marked Data Without Shell </span>", print_file_qd_profiles_url(:format => "pdf", :t => 1), :action => :get, :class=> "button")%> </td>
+       <td class='hide-for-print'> <%= link_to("<span>Print Marked Data With Shell</span>", print_file_qd_profiles_url(:format => "pdf"), :action => :get, :class=> "button")%> </td>
+
+       </tr>
+</table>
+<br/>
+
 
 <% if @qd_profiles.blank?%>
    No Record Found.
@@ -62,33 +70,13 @@
                  </tr>
              <% end %>
          <% end %>
-
-  </table>
-
-   <table class='table-bottom'>
-        <tr class="table-footer">
-            <td> <%=  submit_tag "Mark Data For Print"%>
+      </table>
+       
+            <%=  submit_tag "Mark Data For Print"%>
 
   <%end%><!-- end of form tag-->
-            </td>
-  	    <td><%= remote_per_page_select %></td>
-            <td>
-                <% form_remote_tag(:url => qd_profiles_path, :method => :get, :id => "goto") do %>
-                    <% fields_for @search do |f|%>
-                       <%= f.text_field :page, :class => 'textbox-tiny' %>
-                        <%= submit_tag 'Go' %>
-                    <%end%>
-                <%end%>
-            </td>
-            <td> <% unless @qd_profiles.blank? %>
-                             <div class="pagination">
-                                <%= remote_page_links %>
-                             </div>
-                           <% end %>
-            </td>
-         </tr>
-     </table>
-
+            
+  
 
      <br />
-   <%end%>
+<%end%>

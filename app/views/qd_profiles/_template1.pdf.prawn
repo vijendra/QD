@@ -14,7 +14,7 @@ for data in @profiles
   doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#E5DED4"})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
   
-  #p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
+  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72 unless @image
 
  p_pdf.bounding_box([box.right - 225, box.top - 110], :width => 200) do
     p_pdf.text "&nbsp; &nbsp; &nbsp;  <b>Call with Confidence!</b>", :size => 16

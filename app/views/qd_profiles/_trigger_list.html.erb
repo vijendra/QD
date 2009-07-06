@@ -1,0 +1,40 @@
+<% if @triggers.blank?%>
+   No Record Found.
+<% else %>
+  <table class='listing'>
+   <tr>
+       <th> Click date desired to view record details </th> <th> No of records </th>
+   </tr>
+   <% @triggers.each do |trigger| %>
+       <tr>
+         <td> <b> <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%m/%d/%Y')}-#{trigger.dealer.profile.name}-#{trigger.order_number}", :url => qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}" %> </td> </b>
+         <td> <%= trigger.qd_profiles.size %> </td>
+      </tr>
+   <% end %>
+ 
+  </table>
+<% end %>
+
+  <table class='table-bottom'>
+        <tr class="table-footer">
+             
+  	    <td><%= remote_per_page_select %></td>
+
+            <td>
+                <% form_remote_tag(:url => qd_profiles_path, :method => :get, :id => "goto") do %>
+                    <% fields_for @search do |f|%>
+                       <%= f.text_field :page, :class => 'textbox-tiny' %>
+                        <%= submit_tag 'Go' %>
+                    <%end%>
+                <%end%>
+            </td>
+
+            <td> <% unless  @triggers.blank? %>
+                    <div class="pagination">
+                       <%= remote_page_links %>
+                    </div>
+                 <% end %>
+            </td>
+
+         </tr>
+  </table>

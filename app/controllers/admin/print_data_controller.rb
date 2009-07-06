@@ -74,13 +74,33 @@ class Admin::PrintDataController < ApplicationController
 	end
 
   def admin_setting
-  	print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
-  	print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:value =>params[:print_file_field][:value] )
-    redirect_to( admin_dealer_print_data_path(:dealer_id => @dealer.id) )
+     print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
+     print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:value =>params[:print_file_field][:value] )
+     redirect_to( admin_dealer_print_data_path(:dealer_id => @dealer.id) )
   end
 
+  def test_print
+   @dealer_profile =  @dealer.profile
+   @dealer_address =  @dealer.address
+   @profiles = [@dealer.qd_profiles.first]
+   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+   @auth_code = @dealer_profile.auth_code
+   @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
+   @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
+   @print_template = params[:t]
+   case @print_template
+                   when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
+                   when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
+                   when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
+                   else (file_name, size = 'print_file.pdf', [610, 1009])
+                   end
+   options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+   prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+   render :layout => false
 
-	private
+  end
+
+  private
 
     def find_dealer
     	@dealer = Dealer.find(params[:dealer_id])

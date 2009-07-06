@@ -1,7 +1,7 @@
 class QdProfilesController < ApplicationController
-	before_filter :check_terms_conditions
+  before_filter :check_terms_conditions
   require 'fastercsv'
-
+=begin
   def index
     #@qd_profiles = current_user.qd_profiles
 
@@ -88,7 +88,25 @@ class QdProfilesController < ApplicationController
         end
     end
 
+=end
+ def index
+   @search = TriggerDetail.new_search(params[:search])
+   @search.conditions.dealer_id = current_user.id
+   @search.per_page ||= 15
+   @search.order_as ||= "DESC"
+   @search.order_by ||= "created_at"
 
+   @triggers = @search.all
+   respond_to do |format|
+                  format.html {}
+                  format.js {   @trigger = TriggerDetail.find(params[:tid])
+                                @qd_profiles = @trigger.qd_profiles
+                                render :update do |page|
+      	                           page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
+                                   page.visual_effect(:highlight, "qd_profile-list", :duration => 0.5)
+     	                         end }
+   end
+ end
 
  def mark_data
    unless params[:profiles].blank?
@@ -106,11 +124,12 @@ class QdProfilesController < ApplicationController
  end
 
  def print_file
+   @image = params[:t]
    @dealer_profile =  current_user.profile
    @dealer_address =  current_user.address
    @profiles = current_user.qd_profiles.to_be_printed
    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
-   @auth_code = "123456789"
+   @auth_code =  @dealer_profile.auth_code rescue ' '
    @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
    @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
    @print_template = current_user.print_file_fields.find_by_identifier('template').value

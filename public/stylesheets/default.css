@@ -176,8 +176,8 @@ ul {
 }
 
 #menu a:hover {
-	background: #E3EBF6;
 	color: #3C7BC8;
+        background: url(/images/menu-sep.jpg) no-repeat right;
 }
 
 #menu .current {
@@ -420,10 +420,10 @@ table.listing    { border-collapse: collapse;
             border:1px solid #82A0C0;
 }
 
-table.listing th {background: #01528A url(/images/menu-sep.jpg) repeat-x top;
-             color: #fff;
+table.listing th {background: #DCDFE6 url(/images/table-header.jpg) repeat-x top;
+             color: #001F3E;
              text-align: left;
-             padding: 0.4em .5em 0.4em;
+             padding: 0.3em .5em 0.3em;
              border: #82A0C0 1px solid ;
 	     font-weight: bold;
 			  
@@ -444,13 +444,13 @@ table.listing tr.unprocessed td {
 
 
 table.listing tr th a { 
-             color: #fff;
+             color: #004182;
              text-decoration: none; 
 			  
 }
 
 table.listing a {
-	        color: #003B70;
+	        color: #004182;
 		text-decoration: none;
            }
 
@@ -462,18 +462,18 @@ table.listing a {
 .table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #A5BDD5; }
 
 
-.form-table th {background-color: #FBFCFD; color: #004177; padding: 0.1em .8em; border:1px solid #ccc; text-align: left;}
+.form-table th {background-color: #FBFCFD; color: #004177; padding: 0.1em .8em; border:1px solid #ddd; text-align: left;}
 
-.form-table td {background-color: #F3F4F5; padding: .8em; border:1px solid #ccc;}
+.form-table td {background-color: #F3F4F5; padding: .8em; border:1px solid #ddd;}
 
-.form-table {border-collapse: collapse; width: auto; border: 1px solid #ccc; margin-left: 5px; width: auto;}
+.form-table {border-collapse: collapse; width: auto; border: 1px solid #ddd; margin-left: 5px; width: auto;}
 
 
-table.form-display th {background-color: #ffffff; color: #27628A; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left;}
+table.form-display th {background-color: #ffffff; color: #27628A; padding: 0.1em .8em; border:1px solid #ccc; text-align: left;}
 
-table.form-display td {background-color: #fcfdfe; padding: .8em; border:1px solid #A5BDD5;}
+table.form-display td {background-color: #fcfdfe; padding: .8em; border:1px solid #ccc;}
 
-table.form-display {border-collapse: collapse; width: auto; border: 1px solid #A5BDD5; margin-left: 5px; width: auto;}
+table.form-display {border-collapse: collapse; width: auto; border: 1px solid #ccc; margin-left: 5px; width: auto;}
 
 
 table.search-table {border-collapse: collapse; width: 100%; margin: 0; padding 0;}
@@ -482,7 +482,7 @@ table.search-table th {background: #FAFAFB; color: #005188;
                   padding: 0.1em .5em 0.1em;
                   border: #A5BDD5 1px solid ;
 				  font-weight: bold; }
-table.search-table td {background-color: #b6c5da; padding: .3em .5em; border:1px solid #A5BDD5; text-align: left; }
+table.search-table td {background-color: #ECEFF4; padding: .3em .5em; border:1px solid #A5BDD5; text-align: left; }
 
 table.search-table a {
 	        color: #003B70;
@@ -490,7 +490,7 @@ table.search-table a {
                 padding: 2px 4px 2px 4px;
            }
 
-.table-top td {background: #ECEFF1;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #BDCFE1 1px solid;}
+.table-top td {background: #f2f3f4;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #A5BDD5 1px solid;}
 
 
 
@@ -515,19 +515,19 @@ table.search-table a {
 
 .part1 .header {
 	color: #002E4F;
-	padding: 0.1em 1em 0.1em;
+	padding: 5px;
 	margin: 0;
 	font-size: 1.1em;
-	text-align: center;
-	border: 1px solid #C5D4EA;
+	border: 1px solid #ddd;
+        background: #f6f7f8;
 }
 
 .part1 .part1-content {
 	background-color: #fff;
         padding: 5px;
-        border-left: 1px solid #C5D4EA;
-        border-right: 1px solid #C5D4EA;
-        border-bottom: 1px solid #C5D4EA;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
 
 }
 
@@ -542,19 +542,19 @@ table.search-table a {
 
 .part2 .header {
 	color: #002E4F;
-	padding: 0.1em 1em 0.1em;
+	padding: 5px;
 	margin: 0;
 	font-size: 1.1em;
-	text-align: center;
-	border: 1px solid #C5D4EA;
+	border: 1px solid #ddd;
+        background: #f6f7f8;
 }
 
 .part2 .part2-content {
 	background-color: #fff;
         padding: 5px;
-        border-left: 1px solid #C5D4EA;
-        border-right: 1px solid #C5D4EA;
-        border-bottom: 1px solid #C5D4EA;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
 
 }
 
