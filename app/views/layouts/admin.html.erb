@@ -7,10 +7,8 @@
 
 	<title><%= configatron.site_name %></title>
     <%= javascript_include_merged :base  %>
+  	<%= stylesheet_link_merged :base, 'facebox'%>
 
-    <%= javascript_include_tag :fckeditor %>
-    <%= calendar_date_select_includes  %>
-  	<%= stylesheet_link_merged :base, 'calendar/option2- blue/style' ,'facebox' %>
 	<!--[if lte IE 6]>
 	  <%= stylesheet_link_tag 'ie6.css', media="screen" %>
     <![endif]-->

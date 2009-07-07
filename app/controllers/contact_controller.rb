@@ -3,12 +3,12 @@ class ContactController < ApplicationController
 
   def super_admin_contact
   	@user = User.find(126)
-  	#render :lauout =>"false"
+  	render :lauout =>"false"
   end
 
   def administrator_contact
   	@administrator = Administrator.find(current_user.administrator_id) unless current_user.administrator_id.blank?
-  	#render :lauout =>"false"
+  	render :lauout =>"false"
   end
 
   private
