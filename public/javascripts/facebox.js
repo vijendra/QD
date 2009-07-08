@@ -1,5 +1,5 @@
-/*  Facebox for Prototype, version 1
- *  By Scott Davis, htp://blog.smartlogicsolutions.com
+/*  Facebox for Prototype, version 2.0
+ *  By Robert Gaal - http://wakoopa.com
  *
  *  Heavily based on Facebox by Chris Wanstrath - http://famspam.com/facebox
  *  First ported to Prototype by Phil Burrows - http://blog.philburrows.com
@@ -7,6 +7,8 @@
  *  Licensed under the MIT:
  *  http://www.opensource.org/licenses/mit-license.php
  *
+ *  Need help?  Join the Google Groups mailing list:
+ *  http://groups.google.com/group/facebox/
  *
  *  Dependencies:   prototype & script.aculo.us + images & CSS files from original facebox
  *  Usage:          Append 'rel="facebox"' to an element to call it inside a so-called facebox
@@ -20,11 +22,11 @@ var Facebox = Class.create({
 			loading_image	: '/images/loading.gif',
 			close_image		: '/images/closelabel.gif',
 			image_types		: new RegExp('\.' + ['png', 'jpg', 'jpeg', 'gif'].join('|') + '$', 'i'),
-			inited				: true,	
+			inited				: true,
 			facebox_html	: '\
 	  <div id="facebox" style="display:none;"> \
 	    <div class="popup"> \
-	      <table> \
+	      <table id="facebox_table"> \
 	        <tbody> \
 	          <tr> \
 	            <td class="tl"/><td class="b"/><td class="tr"/> \
@@ -32,7 +34,7 @@ var Facebox = Class.create({
 	          <tr> \
 	            <td class="b"/> \
 	            <td class="body"> \
-	              <div class="content" id="facebox_content"> \
+	              <div class="content"> \
 	              </div> \
 	              <div class="footer"> \
 	                <a href="#" class="close"> \
@@ -51,20 +53,21 @@ var Facebox = Class.create({
 	  </div>'
 		};
 		if (extra_set) Object.extend(this.settings, extra_set);
-		$$('body').first().insert({bottom: this.settings.facebox_html});
-		
+		$(document.body).insert({bottom: this.settings.facebox_html});
+
 		this.preload = [ new Image(), new Image() ];
 		this.preload[0].src = this.settings.close_image;
 		this.preload[1].src = this.settings.loading_image;
-		
+
 		f = this;
 		$$('#facebox .b:first, #facebox .bl, #facebox .br, #facebox .tl, #facebox .tr').each(function(elem){
 			f.preload.push(new Image());
 			f.preload.slice(-1).src = elem.getStyle('background-image').replace(/url\((.+)\)/, '$1');
 		});
-		
-		// this.keyPressListener = this.watchKeyPress().bindAsEventListener(this);
-		
+
+		this.facebox = $('facebox');
+    this.keyPressListener = this.watchKeyPress.bindAsEventListener(this);
+
 		this.watchClickEvents();
 		fb = this;
 		Event.observe($$('#facebox .close').first(), 'click', function(e){
@@ -75,112 +78,83 @@ var Facebox = Class.create({
 			Event.stop(e);
 			fb.close()
 		});
-		Event.observe(window, 'resize', function(e){
-			fb.setLocation();
-		});
 	},
-	
-	// watchKeyPress	: function(e){
-	// 	// not sure if the call to this will work here
-	// 	if (e.keyCode == 27) this.close();
-	// },
-	
+
+  watchKeyPress : function(e){
+    // Close if espace is pressed or if there's a click outside of the facebox
+    if (e.keyCode == 27 || !Event.element(e).descendantOf(this.facebox)) this.close();
+  },
+
 	watchClickEvents	: function(e){
 		var f = this;
 		$$('a[rel=facebox]').each(function(elem,i){
 			Event.observe(elem, 'click', function(e){
-				// console.log("here's what f is :: "+ f);
 				Event.stop(e);
 				f.click_handler(elem, e);
 			});
 		});
-		
 	},
-	
+
 	loading	: function() {
 		if ($$('#facebox .loading').length == 1) return true;
-		
+
 		contentWrapper = $$('#facebox .content').first();
 		contentWrapper.childElements().each(function(elem, i){
 			elem.remove();
 		});
 		contentWrapper.insert({bottom: '<div class="loading"><img src="'+this.settings.loading_image+'"/></div>'});
-		this.setLocation();
-		
-		Event.observe(document, 'keypress', this.keyPressListener);
+
+		var pageScroll = document.viewport.getScrollOffsets();
+		this.facebox.setStyle({
+			'top': pageScroll.top + (document.viewport.getHeight() / 10) + 'px',
+			'left': document.viewport.getWidth() / 2 - (this.facebox.getWidth() / 2) + 'px'
+		});
+
+    Event.observe(document, 'keypress', this.keyPressListener);
+    Event.observe(document, 'click', this.keyPressListener);
 	},
-	
+
 	reveal	: function(data, klass){
 		this.loading();
-		box = $('facebox');
-		if(!box.visible()) fb.open();
-		
-		contentWrapper = $$('#facebox .content').first();
-		if (klass) contentWrapper.addClassName(klass);
-		contentWrapper.innerHTML = '';
-		contentWrapper.insert({bottom: data});
 		load = $$('#facebox .loading').first();
 		if(load) load.remove();
-		$$('#facebox .body').first().childElements().each(function(elem,i){
-			elem.show();
-		});
-		this.setLocation();
-		Event.observe(document, 'keypress', this.keyPressListener);
-	},
-	
-	open    : function(){
-		new Effect.Appear('facebox');
-	},
-	
-	close		: function(){
-		new Effect.Fade('facebox');
-	},
-	
-	setLocation: function(){
-		var pageScroll = document.viewport.getScrollOffsets();
-			$('facebox').setStyle({
-				'top': pageScroll.top + (document.viewport.getHeight()/ 10) + 'px',
-				'left': String((document.viewport.getWidth()/2) - ($('facebox').getWidth()) + ($('facebox').getWidth()/2)) + 'px'
-			});
-	},
-	
-	new_box_for_url: function(url) {
-		var fb = this;
-		fb.open();
-		var klass = '';
-		fb.ajax(url, klass);
 
+		contentWrapper = $$('#facebox .content').first();
+		if (klass) contentWrapper.addClassName(klass);
+		contentWrapper.insert({bottom: data});
+
+    $$('#facebox .body').first().childElements().each(function(elem,i){
+     elem.show();
+    });
+
+		if(!this.facebox.visible()) new Effect.Appear(this.facebox, {duration: .3});
+		this.facebox.setStyle({
+			'left': document.viewport.getWidth() / 2 - (this.facebox.getWidth() / 2) + 'px'
+		});
+
+    Event.observe(document, 'keypress', this.keyPressListener);
+    Event.observe(document, 'click', this.keyPressListener);
 	},
-	
-	ajax: function(url, klass){
-		var fb = this;
-			new Ajax.Request(url, {
-				method		: 'get',
-				onFailure	: function(transport){
-					fb.reveal(transport.responseText, klass);
-				},
-				onSuccess	: function(transport){
-					fb.reveal(transport.responseText, klass);
-				}
-			});
+
+	close		: function(){
+		 new Effect.Fade('facebox', {duration: .3});
 	},
-	
+
 	click_handler	: function(elem, e){
-		this.loading();
+	  this.loading();
 		Event.stop(e);
-		
+
 		// support for rel="facebox[.inline_popup]" syntax, to add a class
 		var klass = elem.rel.match(/facebox\[\.(\w+)\]/);
 		if (klass) klass = klass[1];
-		
-		// div
-		this.open();
-		
+
+		new Effect.Appear(this.facebox, {duration: .3});
+
 		if (elem.href.match(/#/)){
-			var url				= window.location.href.split('#')[0];
-			var target		= elem.href.replace(url+'#','');
+			var url			= window.location.href.split('#')[0];
+			var target	= elem.href.replace(url+'#','');
 			// var data			= $$(target).first();
-			var d			= $(target);
+			var d			  = $(target);
 			// create a new element so as to not delete the original on close()
 			var data = new Element(d.tagName);
 			data.innerHTML = d.innerHTML;
@@ -193,15 +167,23 @@ var Facebox = Class.create({
 			}
 			image.src = elem.href;
 		} else {
-			// Ajax
-			fb = this;
-			url = elem.href;
-			fb.ajax(url, klass);
+			var fb  = this;
+			var url = elem.href;
+			new Ajax.Request(url, {
+				method		: 'get',
+				onFailure	: function(transport){
+					fb.reveal(transport.responseText, klass);
+				},
+				onSuccess	: function(transport){
+					fb.reveal(transport.responseText, klass);
+				}
+			});
+
 		}
 	}
 });
 
 var facebox;
-Event.observe(window, 'load', function(e){
+document.observe('dom:loaded', function(){
 	facebox = new Facebox();
 });
