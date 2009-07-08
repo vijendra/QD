@@ -22,7 +22,7 @@ module Fetcher
     end
     
     # Retrieve messages from server
-    def get_messages
+    def get_messages(current_user)
       unless @connection.mails.empty?
         @connection.each_mail do |msg|
           begin

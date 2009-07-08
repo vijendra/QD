@@ -132,7 +132,7 @@ ul {
 #header h1 {
 	float: left;
 	font-weight: bold;
-	color: #fff;
+	color: #FFF;
 	padding: .2em  0em  0em  .5em ;
 	margin: 0px;
 	font-size: 21px;
@@ -140,7 +140,7 @@ ul {
 
 #header h1 span {
 	font-size: 21px;
-	color: #fff;
+	color: #FFF;
 }
 
 /* Menu */
@@ -183,7 +183,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       color: #398F00;
+       color: #B6B000;
 }
 
 #menu .current_page_item a {
