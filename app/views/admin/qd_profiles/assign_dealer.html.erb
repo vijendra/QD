@@ -1,16 +1,18 @@
-<% form_tag("/admin/qd_profiles/assign_dealer/#{@qd_profile.id}" ,:method =>:get ) do  %>
+<% form_tag("/admin/qd_profiles/assign_dealer/#{@qd_profile.id}", :method =>:get ) do  %>
 
-<h3 class='head'> Assign the data to new Admin </h3>
-<br /> 
+
+<% content_for :header do -%>
+ 	Assign the data to new Admin
+<% end -%>
+<br />
 
 <table class ="form-table" >
    <tr> <th> Select a Dealer : </th><td>
     <%= select :dealer, :id, [['Select a Dealer','']] + dealers_list(current_user), :selected => @qd_profile.dealer_id  %> </td></tr>
 
-  <input id="page" name="page" type="hidden" value="<%=h @page %>" />
-  <input id="per_page" name="per_page" type="hidden" value="<%=h @per_page %>" />
+
 </table>
 <br/><br/>
-<%= submit_tag "Assign" %>
+<table> <tr><td><%= submit_tag "Assign" %></td> <td> &nbsp; &nbsp;<%= link_to 'Cancel', "#" %> </td> </tr></table>
 
 <%end%>

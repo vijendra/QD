@@ -1,4 +1,8 @@
+
 <% if @triggers.blank?%>
+ <%= link_to("<b> Back to Date List </b>",  admin_qd_profiles_url( ) )%>
+ <br />
+ <br />
    No Record Found.
 <% else %>
   <table class='listing'>
@@ -15,7 +19,7 @@
    <% end %>
 
   </table>
-<% end %>
+
 
   <table class='table-bottom'>
         <tr class="table-footer">
@@ -40,3 +44,4 @@
 
          </tr>
   </table>
+  <% end %>

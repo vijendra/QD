@@ -1,11 +1,11 @@
 <table class='table-top'><tr>
        <td class='hide-for-print'> <%= link_to("<span>Print Marked Data Without Shell </span>", print_file_qd_profiles_url(:format => "pdf", :t => 1), :action => :get, :class=> "button")%> </td>
        <td class='hide-for-print'> <%= link_to("<span>Print Marked Data With Shell</span>", print_file_qd_profiles_url(:format => "pdf"), :action => :get, :class=> "button")%> </td>
-       <td class='hide-for-print'>  <%= link_to("<span>Back to Date List</span>",  qd_profiles_url( ) , :class=> "button")%> </td>
+       <td class='hide-for-print'> <%= link_to("<b> Back to Date List </b>",   qd_profiles_url( ) )%> </td>
 
-       </tr>
+        </tr>
 </table>
-<br/>
+<br />
 
 
 <% if @qd_profiles.blank?%>

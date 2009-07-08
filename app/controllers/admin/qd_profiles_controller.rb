@@ -122,6 +122,7 @@ class Admin::QdProfilesController < ApplicationController
    @search.per_page ||= 15
    @search.order_as ||= "DESC"
    @search.order_by ||= "created_at"
+   @search.conditions.dealer.administrator_id = current_user.id unless super_admin?
 
    @triggers = @search.all
    respond_to do |format|
@@ -144,16 +145,16 @@ class Admin::QdProfilesController < ApplicationController
  end
 
   def assign_dealer
-     @qd_profile = QdProfile.find(params[:id])
+
      if (!params[:dealer].blank? and !params[:dealer][:id].blank?)
+     	@qd_profile = QdProfile.find(params[:id])
     	@qd_profile.dealer_id = params[:dealer][:id]
-        @qd_profile.save
-        redirect_to admin_qd_profiles_url(:search => {:page =>params[:page],:per_page => params[:per_page]})
+      @qd_profile.save
+      redirect_to admin_qd_profiles_url()
      else
-  	@page = params[:page]
-        @per_page = params[:per_page]
-  	render :layout => false
+     	 @qd_profile = QdProfile.find(params[:id])
      end
+
   end
 
 
