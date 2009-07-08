@@ -35,20 +35,20 @@
 </table>
 <br />
 <hr />
-<%= link_to_remote "Home Page Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"home_page_content" ,:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Home Page Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"home_page_content" ,:id =>@user.id} , :indicator => 'default'%> <b>| </b>
 
-<%= link_to_remote "Administrator Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"admin_email",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Administrator Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"admin_email",:id =>@user.id}, :indicator => 'default' %> <b>| </b>
 
-<%= link_to_remote "Active Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"active_dealer_email",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Active Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"active_dealer_email",:id =>@user.id} , :indicator => 'default'%> <b>| </b>
 
-<%= link_to_remote "Inactive Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"inactive_dealer_email",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Inactive Dealer Email" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"inactive_dealer_email",:id =>@user.id} , :indicator => 'default'%> <b>| </b>
 
-<%= link_to_remote "Disclaimer Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"disclaimer_content",:id =>@user.id} %> <b>| </b>
+<%= link_to_remote "Disclaimer Content" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"disclaimer_content",:id =>@user.id}, :indicator => 'default' %> <b>| </b>
 
-<%= link_to_remote "Seekerinc Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"seekerinc_process_instructions",:id =>@user.id} %><b>| </b>
+<%= link_to_remote "Seekerinc Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"seekerinc_process_instructions",:id =>@user.id} , :indicator => 'default'%><b>| </b>
 
-<%= link_to_remote "Tranzact Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"tranzact_process_instructions",:id =>@user.id} %>
-
+<%= link_to_remote "Tranzact Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"tranzact_process_instructions",:id =>@user.id}, :indicator => 'default' %>
+<%= indicator :id => 'default' %>
 <div id="application_settings">
 
 </div>

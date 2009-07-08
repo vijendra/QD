@@ -10,7 +10,7 @@
         <%end%>
      <% end -%>
      <% unless (admin? or super_admin?)%>
-       <%= link_to "Admin Contact Details" ,  "/contact/administrator_contact" ,:rel => "facebox"%>  &nbsp; | &nbsp;
+       <%= link_to "Admin Contact Details" , "/contact/administrator_contact" ,:rel => "facebox"%>  &nbsp; | &nbsp;
        <%= link_to "Edit Details", edit_profile_url(current_user) %> &nbsp; | &nbsp;
      <% end -%>
      <%= link_to "Log out", logout_url, :method => :delete %>

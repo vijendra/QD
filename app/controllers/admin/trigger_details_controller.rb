@@ -7,11 +7,14 @@ class Admin::TriggerDetailsController < ApplicationController
 
   def index
     @search = TriggerDetail.new_search(params[:search])
-    @search.conditions.status = "unprocessed"
+
 
     if params[:type] == "processed"
       @search.conditions.status = "processed"
       @type = "processed"
+     else
+     	@type = "unprocessed"
+     	@search.conditions.status = "unprocessed"
     end
 
     @search.per_page ||= 15
@@ -68,7 +71,7 @@ def process_triggers
 
         #creating folders required extract file
         Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}")) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}"))
-    
+
         #Downloading ZIP File
         confirm_form = page.forms[0]
         confirm_form.checkbox_with(:name => 'order_cbk').check
@@ -89,8 +92,8 @@ def process_triggers
 
         #import to the corresponding dealer
         balance = trigger.balance - trigger.total_records.to_i
-        
-        
+
+
         data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
         FasterCSV.foreach(orders_csv, :headers => :false) do |row|
           data_set = {:dealer_id => dealer_profile.user_id, :trigger_detail_id => trigger.id}
@@ -101,13 +104,13 @@ def process_triggers
         dealer_profile.update_attribute('current_balance', balance )
         trigger.update_attribute('balance', balance )
         trigger.process!
-        
+
         send_mail(dealer_profile.user, trigger.total_records, balance, orders_csv, trigger.order_number)
 
         #delete the downloded folder
         FileUtils.rm_r zipped_order
         FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}")
-        
+
       elsif trigger.data_source == 'marketernet'
         agent = WWW::Mechanize.new
         page = agent.get(trigger.file_url)
@@ -116,45 +119,45 @@ def process_triggers
         login_form.password = 'a5$DOWNLOAD'
         login_form.checkbox_with(:name => 'saveagreement').check
         page = agent.submit(login_form)
-         
+
         #extract order_id from link like 228_Courtesy Dodge_942310_322548.CSV
         csv_file_name = page.links[4].to_s
         object_id = (((csv_file_name.split('_'))[3]).split('.'))[0].strip
-        
+
         #Now we will directly construct link, instead of mimicng csv link click, as its quite difficult
-        csv_link_string = "https://intelidataexpress.marketernet.com/file/download.aspx?objectid=#{object_id}"   
+        csv_link_string = "https://intelidataexpress.marketernet.com/file/download.aspx?objectid=#{object_id}"
         agent.get(csv_link_string).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
-     
+
         orders_csv = File.join(ORDERS_DOWNLOAD_PATH, csv_file_name)
-      
-      
+
+
         dealer_profile = Profile.find_by_user_id(trigger.dealer_id)
         balance =  trigger.balance - trigger.total_records.to_i
-     
+
         field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
         FasterCSV.foreach(orders_csv, :headers => :false) do |row|
           data_set = {:dealer_id => trigger.dealer_id, :trigger_detail_id => trigger.id, :listid => "#{trigger.order_number}_#{row[10]}" }
           field_list.map {|f| data_set[f] = row[field_list.index(f)] unless f.blank?}
           QdProfile.create(data_set)
         end
-        
-        dealer_profile.update_attribute('current_balance', balance) 
+
+        dealer_profile.update_attribute('current_balance', balance)
         trigger.update_attribute('balance', balance )
         trigger.process!
-        
+
         #sending mail with account information
         send_mail(dealer_profile.user, trigger.total_records, balance, orders_csv, trigger.order_number)
 
         #delete the downloded folder
         FileUtils.rm_r orders_csv
-         
+
       end
 
     end
   end
    redirect_to(admin_trigger_details_url)
 end
-  
+
   protected
 
   def send_mail(dealer, total, balance, csv_path, order)

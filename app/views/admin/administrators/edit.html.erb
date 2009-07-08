@@ -53,12 +53,12 @@
 
 <br /> <br />
 
-<%= link_to_remote "Active Dealer Email" ,:url => { :controller => "admin/administrators" ,:action => :dispaly_administrator_setting ,:identifier =>"active_dealer_email",:id =>@administrator.id} %> <b>| </b>
+<%= link_to_remote "Active Dealer Email" ,:url => { :controller => "admin/administrators" ,:action => :dispaly_administrator_setting ,:identifier =>"active_dealer_email",:id =>@administrator.id} , :indicator => 'default'%> <b>| </b>
 
-<%= link_to_remote "Inactive Dealer Email" ,:url => { :controller => "admin/administrators" ,:action => :dispaly_administrator_setting ,:identifier =>"inactive_dealer_email",:id =>@administrator.id} %> <b>| </b>
+<%= link_to_remote "Inactive Dealer Email" ,:url => { :controller => "admin/administrators" ,:action => :dispaly_administrator_setting ,:identifier =>"inactive_dealer_email",:id =>@administrator.id} , :indicator => 'default' %> <b>| </b>
 
-<%= link_to_remote "Disclaimer Content" ,:url => { :controller => "admin/administrators" ,:action => :dispaly_administrator_setting ,:identifier =>"disclaimer_content",:id =>@administrator.id} %> <b>| </b>
-
+<%= link_to_remote "Disclaimer Content" ,:url => { :controller => "admin/administrators" ,:action => :dispaly_administrator_setting ,:identifier =>"disclaimer_content",:id =>@administrator.id}, :indicator => 'default' %> <b>| </b>
+<%= indicator :id => 'default' %>
 <div id="administrator_settings">
 
 </div>

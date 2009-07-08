@@ -3,7 +3,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :dealers ,:has_one =>[:print_file_field ,:csv_extra_field]
 
-
   # RESTful rewrites
 
   map.signup   '/signup',   :controller => 'users',    :action => 'new'

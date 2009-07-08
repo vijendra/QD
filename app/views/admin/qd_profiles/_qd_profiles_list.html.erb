@@ -53,26 +53,6 @@
     <% end %>
 </table>
 
- <table class='table-bottom'>
-  <tr class="table-footer">
-  	    <td><%= remote_per_page_select %></td>
-        <td>
-         <% form_remote_tag(:url => admin_qd_profiles_path, :method => :get ) do %>
-             <% fields_for @search do |f|%>
-                <%= f.text_field :page, :class => 'textbox-tiny' %>
-                <%= submit_tag 'Go' %>
-             <%end%>
-         <%end%>
 
-
-        </td>
-         <td> <% unless @qd_profiles.blank? %>
-                             <div class="pagination">
-                                <%= remote_page_links %>
-                             </div>
-                           <% end %>
-         </td>
-  </tr>
-</table>
 
 <%end%>
