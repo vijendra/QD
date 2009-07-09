@@ -42,7 +42,9 @@
 #facebox .body {
   padding: 10px;
   background: #fff;
-  width: 370px;
+  min-width: 430px;
+  width: auto;
+  width: expression( this.scrollWidth < 430 ? "430px" : "auto" ); /* sets min-width for IE */
 }
 
 #facebox .loading {

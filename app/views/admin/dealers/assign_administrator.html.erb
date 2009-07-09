@@ -1,16 +1,19 @@
 <% form_tag("/admin/dealers/assign_administrator/#{@dealer.id}" ,:method =>:get ) do  %>
 <br/>
-   <b> <center><label> User : <%= @dealer.profile.name %> </label> </center></b><br/><br/>
+   <b> <center><label> Dealer : <%= @dealer.profile.name %> </label> </center></b><br/><br/>
+
 <table class ="form-table" >
+  <tr> <th> Select an Administrator : </th>
+   <td>
+      <%= select :administrator, :id, [['Select a Administrator','']]+ Administrator.administrators_list,:selected => @dealer.administrator_id %> 
+   </td>
+  </tr>
+</table>
 
-
-   <tr> <th> Select a Administrator : </th><td>
-<%= select :administrator, :id, [['Select a Administrator','']]+ Administrator.administrators_list,:selected => @dealer.administrator_id %> </td></tr>
 <input id="page" name="page" type="hidden" value="<%=h@page%>" />
 <input id="per_page" name="per_page" type="hidden" value="<%=h @per_page%>" />
 <br/>
-</table>
-<br/><br/>
+<br/>
 <%= submit_tag "Assign" %>
 
 <%end%>

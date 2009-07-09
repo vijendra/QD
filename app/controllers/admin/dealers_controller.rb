@@ -16,7 +16,7 @@ class Admin::DealersController < ApplicationController
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
 
-   respond_to do |format|
+    respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @dealer }
       format.js {  render :update do |page|
@@ -272,9 +272,9 @@ class Admin::DealersController < ApplicationController
    @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
    @print_template = "qd_profiles/#{params[:t]}"
    case @print_template
-                   when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
-                   when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
-                   when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
+                   when 'qd_profiles/template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
+                   when 'qd_profiles/template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
+                   when 'qd_profiles/template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
                    else (file_name, size = 'print_file.pdf', [610, 1009])
                    end
    options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }

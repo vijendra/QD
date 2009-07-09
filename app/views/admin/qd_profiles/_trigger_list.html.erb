@@ -7,14 +7,26 @@
 <% else %>
   <table class='listing'>
    <tr>
-       <th> Click date desired to view record details </th> <th>Dealer Name </th><th> Order Number</th> <th> No of records </th>
+       <th> Click date to view record details </th> 
+       <th>Dealer Name </th>
+       <th> Order Number</th>
+       <th> No of records </th>
+       <th> Marked for Print? </th>
+       <th> CSV Print File </th>
    </tr>
    <% @triggers.each do |trigger| %>
        <tr>
          <td> <b> <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%m/%d/%Y')}", :url => admin_qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}" , :indicator => 'default' %><%= indicator :id => 'default' %> </td> </b>
-         <td> <%= trigger.dealer.profile.name  %></td>
+         <td > <%= trigger.dealer.profile.name  %></td>
          <td> <%= trigger.order_number  %></td>
          <td> <%= trigger.qd_profiles.size %> </td>
+         <td> <%= trigger.marked == 'yes' ? 'Yes' : 'No'%> </td>
+         <td> <% if trigger.marked == 'yes' %> 
+                 <%= link_to 'CSV Print File', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %> 
+              <% else %>
+                 Not Marked Yet
+              <% end %>
+         </td>
       </tr>
    <% end %>
 

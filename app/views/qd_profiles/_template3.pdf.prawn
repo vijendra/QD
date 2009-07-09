@@ -74,6 +74,6 @@ for data in @profiles
   p_pdf.text @dealer_profile.name, :at => [box.left + 135, box.top - 872]
 
   #Mark the data record as printed.
-  data.print!
+  data.print! unless request.request_uri =~ /test_print.pdf/
   p_pdf.start_new_page if counter < @profiles.size
 end

@@ -45,7 +45,7 @@
       <tr><th>MarketerNet PO:</th><td>
        <%= f.text_field :marketer_net_po ,:class =>'textbox' %></td></tr>
       <tr><th>Wants data printed:</th><td>
-       <%= f.select :marketer_net_po, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']] %></td></tr>
+       <%= f.select :wants_data_printed, [['Select' , ''], ['Yes', 1], ['No', 0]] %></td></tr>
       <tr><th>Comments:</th><td>
        <%= f.text_area :comments ,:class =>"textarea" %></td></tr>
 

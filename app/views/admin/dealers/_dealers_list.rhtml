@@ -5,17 +5,15 @@
   <th> </th>
  	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
-
-  <th> Phone Number </th>	<th> Auth Code</th>
- 	<!--<th> CSV UPLOAD </th>-->
-  <% if super_admin? -%>
-    <th> Admin </th>
-  <%end%>
+        <th> Phone </th>	
+        <th> Auth Code</th>
 	<th> Accounts </th>
- 	<!--<th> QD Fields </th>-->
- 	 <th> Data </th>
- 	<th> Status </th>
+ 	<th> CSV Data </th>
+        <th> QD Fields </th>
  	<th> Flag </th>
+        <% if super_admin? -%>
+          <th> Admin </th>
+        <%end%>
         <th> Print file</th>
  	<th> Delete </th>
 
@@ -31,17 +29,26 @@
        <tr class="<%= cycle('odd', 'even')%>">
          <td> </td>
          <td> <%= dealer.id %> </td>
-         <td> <%unless dealer.profile.blank? %> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> <%end%> </td>
+         <td style='width:200px;'> <%unless dealer.profile.blank? %> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> <%end%> </td>
           <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
-         <td> <% if dealer.profile.auth_code.blank?  %>
-                <%= link_to "Enter" ,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
+          <td> <% if dealer.profile.auth_code.blank?  %>
+                <%= link_to "Enter",  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
               <%else%>
-             <%= link_to dealer.profile.auth_code ,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
+             <%= link_to dealer.profile.auth_code,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
               <%end%>
-             </td>
+          </td>
 
+          <td> <%= link_to  dealer.profile.current_balance, admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
+  
+          <td> <%= link_to "Upload" , csv_admin_dealer_path(:id =>dealer.id), :rel=>"facebox" %> </td>
+          
+          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "QD Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>  
+          </td>
 
-         <% if super_admin? -%>
+           <td><%=  dealer.state =="inactive"?  (link_to "Active",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id ,:page =>@search.page ,:per_page => @search.per_page ) : (link_to "Inactive",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id,:page =>@search.page,:per_page => @search.per_page) %>
+          </td>
+
+          <% if super_admin? -%>
             <td>
                 <% if dealer.administrator_id.blank? %>
                    <%= link_to "Assign", assign_administrator_admin_dealer_path(dealer.id,:page =>@search.page,:per_page => @search.per_page) ,:rel => "facebox" %>
@@ -50,15 +57,7 @@
                 <%end%>
 	    </td>
 
-         <%end%>
-
-         <td> <%= link_to  dealer.profile.current_balance , admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
-         <!-- <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields" ,  new_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") : (link_to "QD Fields" ,edit_admin_dealer_dealer_field_path(dealer.id) , :rel=> "facebox") %>  </td>-->
-          <td> <%= link_to "Upload" , csv_admin_dealer_path(:id =>dealer.id) ,:rel=>"facebox" %> </td>
-
-
-         <td> <%=h  dealer.state  %> </td>
-           <td><%=  dealer.state =="inactive"?  (link_to "Active",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id ,:page =>@search.page ,:per_page => @search.per_page ) : (link_to "Inactive",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id,:page =>@search.page,:per_page => @search.per_page) %></td>
+          <%end%>
 
          <td> <%= link_to "print file",  admin_dealer_print_data_path(:dealer_id => dealer.id) %></td>
          <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>

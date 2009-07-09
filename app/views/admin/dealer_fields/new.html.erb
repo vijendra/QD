@@ -1,25 +1,13 @@
 
 <% form_for(:dealer_field,:url=> admin_dealer_dealer_field_path(@dealer.id),:method =>:post ) do |f| %>
-<h3> QD Fields which can be shown to dealer when he logged in to the system.</h3><br/>
+<h3> Select the QD fields which can be shown to the dealer. </h3><br/>
 <table class = 'form-table'>
-
-   <tr><td> <%= check_box_tag("dealer_fields[]", 'listid', true)%></td><th>List ID</th></tr>
-   <tr> <td><%= check_box_tag("dealer_fields[]", 'fname', true)%> </td><th>First Name</th></tr>
-   <tr> <td> <%= check_box_tag("dealer_fields[]", 'mname', true)%></td><th> Middle Name</th></tr>
-   <tr> <td><%= check_box_tag("dealer_fields[]", 'lname', true)%> </td><th> Last Name </th></tr>
-   <tr> <td><%= check_box_tag("dealer_fields[]", 'suffix', true)%> </td><th> Suffix</th></tr>
-   <tr> <td> <%= check_box_tag("dealer_fields[]", 'address', true)%></td><th> Address</th></tr>
-   <tr> <td><%= check_box_tag("dealer_fields[]", 'city', true)%> </td><th> City</th></tr>
-   <tr> <td> <%= check_box_tag("dealer_fields[]", 'state', true)%></td><th> State</th></tr>
-   <tr> <td> <%= check_box_tag("dealer_fields[]", 'zip', true)%></td><th> Zip</th></tr>
-   <tr> <td><%= check_box_tag("dealer_fields[]", 'zip4', true)%> </td><th> Zip4</th></tr>
-   <tr> <td> <%= check_box_tag("dealer_fields[]", 'crrt', true)%></td><th> Crrt</th></tr>
-   <tr> <td><%= check_box_tag("dealer_fields[]", 'dpc', true)%> </td><th> Dpc</th></tr>
-   <tr> <td> <%= check_box_tag("dealer_fields[]", 'phone_num', true)%> </td><th> Phone Number </th></tr>
-
+   <% for field in QdProfile.public_attributes %>
+     <tr><td> <%= check_box_tag("dealer_fields[]", field, true)%></td><th><%= field.humanize %></th></tr>
+   <% end %>
 </table><br/>
-   <%=f.submit "Save" %>
+   <%=f.submit "Save Fields List" %>
 
 <br/>
- <%= link_to "Back" , admin_dealers_url %>
+ <%= link_to "Cancel" , admin_dealers_url %>
 <%end%>

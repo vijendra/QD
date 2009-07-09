@@ -92,16 +92,24 @@ class QdProfilesController < ApplicationController
  def index
    @search = TriggerDetail.new_search(params[:search])
    unless params[:created_at].blank?
-    	 date = params[:created_at].to_date
-    	 @search.conditions.created_at_after = date.beginning_of_day()
-    	 @search.conditions.created_at_before =  date.end_of_day()
-   	end
+     date = params[:created_at].to_date
+     @search.conditions.created_at_after = date.beginning_of_day()
+     @search.conditions.created_at_before =  date.end_of_day()
+   end
    @search.conditions.dealer_id = current_user.id
    @search.per_page ||= 15
    @search.order_as ||= "DESC"
    @search.order_by ||= "created_at"
 
    @triggers = @search.all
+  
+   @fields_to_be_shown = current_user.dealer_field.fields rescue []
+
+   dealer = current_user.profile
+   unless dealer.blank?
+     @header_text = "Starting balance: #{dealer.starting_balance}, Current balance: #{dealer.current_balance} "
+   end
+
    respond_to do |format|
                   format.html {}
                   format.js {
@@ -123,38 +131,50 @@ class QdProfilesController < ApplicationController
 
  def mark_data
    unless params[:profiles].blank?
-   	  params[:profiles].each do |id|
-   	     qd_profile = QdProfile.find(id)
-   	     qd_profile.update_attributes(:marked_date => Date.today)
-   	     if qd_profile.new?
-   	       qd_profile.mark_visited!
-  	     end
-  	  end
-  	  redirect_to(qd_profiles_path)
-  else
-   redirect_to(qd_profiles_path)
-  end
+      params[:profiles].each do |id|
+       qd_profile = QdProfile.find(id)
+       qd_profile.update_attributes(:marked_date => Date.today)
+       qd_profile.mark_visited! if qd_profile.new?
+     end
+       qd_profile.trigger_detail.update_attribute('marked', 'yes')
+   end
+ 
+   unless params[:tid].blank?
+     trigger = TriggerDetail.find(params[:tid])
+     trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', Date.today)
+                           qp.mark_visited! if qp.new? }
+     
+     trigger.update_attribute('marked', 'yes')
+   end
+  flash[:notice] = "Data is successfully marked for printing."
+  redirect_to(qd_profiles_path)
  end
 
  def print_file
-   @image = params[:t]
-   @dealer_profile =  current_user.profile
-   @dealer_address =  current_user.address
    @profiles = current_user.qd_profiles.to_be_printed
-   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
-   @auth_code =  @dealer_profile.auth_code rescue ' '
-   @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
-   @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
-   @print_template = current_user.print_file_fields.find_by_identifier('template').value
-    case @print_template
+   unless @profiles.blank?
+     @image = params[:t]
+     @dealer_profile =  current_user.profile
+     @dealer_address =  current_user.address
+ 
+    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+     @auth_code =  @dealer_profile.auth_code rescue ' '
+     @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
+     @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
+     @print_template = current_user.print_file_fields.find_by_identifier('template').value
+     case @print_template
                    when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
                    when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
                    when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
                    else (file_name, size = 'print_file.pdf', [610, 1009])
                    end
-   options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
-   prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
-   render :layout => false
+     options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+     prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+     render :layout => false
+   else
+     flash[:notice] = 'No Data Marked for printing'
+     redirect_to(qd_profiles_path)
+   end
  end
 
  private

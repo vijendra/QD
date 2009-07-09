@@ -1,24 +1,24 @@
-<table class='table-top'><tr>
+<table>
+    <tr>
        <td class='hide-for-print'> <%= link_to("<span>Print Marked Data Without Shell </span>", print_file_qd_profiles_url(:format => "pdf", :t => 1), :action => :get, :class=> "button")%> </td>
        <td class='hide-for-print'> <%= link_to("<span>Print Marked Data With Shell</span>", print_file_qd_profiles_url(:format => "pdf"), :action => :get, :class=> "button")%> </td>
-       <td class='hide-for-print'> <%= link_to("<b> Back to Date List </b>",   qd_profiles_url( ) )%> </td>
-
-        </tr>
+    </tr>
 </table>
 <br />
 
+<%= link_to("<b> Back to Date List </b>",   qd_profiles_url( ) )%>
 
 <% if @qd_profiles.blank?%>
    No Record Found.
 <% else %>
 <br />
-<%form_tag mark_data_qd_profiles_path,:id => 'myform' , :method=>:post do %>
+<%form_tag mark_data_qd_profiles_path, :id => 'myform' , :method=>:post do %>
    <table class='listing'>
 
          <% if @fields_to_be_shown.blank? %>
-            <tr><th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
-                <th><%= remote_order_by_link (:created_at ,:text =>"Imported on") %> </th>
-                <th> Order No </th>
+             <tr>
+                <th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
+                <th> Imported on </th>
                 <th> List Id </th>
                 <th> Name </th>
                 <th> Address </th>
@@ -30,10 +30,8 @@
              </tr>
 
              <% @qd_profiles.each do |profile| %>
-
                  <tr> <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
-                 <td><%= Time.parse(profile.created_at.to_s).to_date %>  </td>
-                      <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %></td>
+                      <td><%= Time.parse(profile.created_at.to_s).to_date %> </td>
                       <td> <%=h profile.listid %> </td>
                       <td> <%=h "#{profile.fname} #{profile.lname}" %> </td>
                       <td> <%=h profile.address %> </td>
@@ -45,30 +43,24 @@
                  </tr>
              <% end %>
          <% else %>
-
-             <tr> <th /> <th> <%= remote_order_by_link (:created_at ,:text =>"Imported on") %></th>
-                         <th> Order No </th>
-                   <% @fields_to_be_shown.each do |qd_field| %>
-                      <% unless qd_field == "listid" %>
-                         <%= table_header(qd_field) %>
-                      <%end%>
-                 <% end %>
+             <tr> 
+                 <th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
+                 <th> Imported on </th>
+                  <% @fields_to_be_shown.each do |qd_field| %>
+                      <th> <%= qd_field.humanize %> </th>
+                  <% end %>
                  <th> Status </th>
-
              </tr>
 
              <% @qd_profiles.each do |profile| %>
                <tr>
                  <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
-                 <td> <%= Time.parse(profile.created_at.to_s).to_date %> </td>
-                 <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>
+                 <td> <%= Time.parse(profile.created_at.to_s).strftime('%m-%d-%Y') %> </td>
                  <% @fields_to_be_shown.each do |qd_field| %>
-                         <% unless qd_field == "listid" %>
-                           <td> <%= eval("profile.#{qd_field}") %> </td>
-                         <%end%>
-                      <% end %>
-									 <td> <%= profile.status %></td>
-                 </tr>
+                    <td> <%= eval("profile.#{qd_field}") %> </td>
+                 <% end %>
+		 <td> <%= profile.status %></td>
+              </tr>
              <% end %>
          <% end %>
       </table>

@@ -86,7 +86,7 @@ for data in @profiles
   text = "<small>*You can choose to stop receiving &quot;prescreened&quot; offers of credit from this and other companies by calling Toll Free 1-888-567-8688. See PRESCREEN &amp; OPT-OUT NOTICE on enclosed insert for more information about prescreened offers.</small>"
   
   #Mark the data record as printed.
-  data.print!
+  data.print! unless request.request_uri =~ /test_print.pdf/
 
   p_pdf.text_box text,
     :width    => box.width - 40, :height => 50,

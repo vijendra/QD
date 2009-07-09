@@ -4,12 +4,10 @@
 
 <div class="js_option">
 			<%= link_to_function "<b>Show Print File Variable Data</b>",
-			"Element.hide('hidden1');
-			 Element.show('expand');"
+			" Element.show('expand'); return false;"
 			%> &nbsp;&nbsp; |&nbsp;&nbsp;
 				<%= link_to_function "<b>Hide</b>",
-			"Element.hide('expand');
-			 Element.show('hide');"
+			"Element.hide('expand'); return false;"
 			%>
 		</div> <br/>
 
@@ -140,7 +138,7 @@
 
 </td> </tr>
 
-  <tr> <th> Click to see Sample Print </th> <td colspan=2>
+  <tr> <th style = "width: 250px;"> Click to see Sample Print (Make sure that at least one data record available for this dealer.)</th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png", :size => "75x100", :alt => "Template 1"), test_print_admin_dealer_path(:id => @dealer.id , :t  =>  'template1', :format => 'pdf' )%> &nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg", :size => "75x100", :alt => "Template 2"),  test_print_admin_dealer_path(:id => @dealer.id , :t  =>  'template2', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg", :size => "75x100", :alt => "Template 3"),test_print_admin_dealer_path(:id => @dealer.id , :t  =>  'template3', :format => 'pdf')%> &nbsp;&nbsp;
@@ -162,7 +160,7 @@
 <br/>
 <% unless @marked_dates.blank? %>
 
- <%form_tag ("/admin/print_data/mark_data_for_printed", :id => 'myform' ,:method=>:post) do %>
+ <%form_tag ("/admin/print_data/csv_print_file", :id => 'myform' ,:method=>:post) do %>
       <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
       <% @marked_dates.each do |date| %>
         <b><%=h date %> </b>
