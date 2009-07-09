@@ -215,7 +215,7 @@ ul {
 #main {
         height: 100%;
         margin: 0 auto;
-        background: #F3F3ED;
+        background: #F1F1E7;
         width: 100%;
         
         padding-top: 15px;
@@ -248,7 +248,7 @@ ul {
 #screen {
  	margin 0;
 	padding: 15px;
-        background: #F3F3ED;
+        background: #F1F1E7;
         min-height: 400px; 
 	height: expression( this.scrollHeight < 400 ? "400px" : "auto" ); /* sets min-height for IE */
 	}
@@ -418,19 +418,19 @@ ul {
 table.listing    { border-collapse: collapse;
             width: 100%;
             color: #000;
-            border:1px solid #A5BDD5;
+            border:1px solid #95A5B5;
 }
 
 table.listing th {background: #DCDFE6 url(/images/table-header.jpg) repeat-x top;
              color: #003971;
              text-align: left;
              padding: 0.3em .5em 0.3em;
-             border: #A5BDD5 1px solid ;
+             border: #95A5B5 1px solid ;
 	     font-weight: bold;
 			  
 }
 
-table.listing td { padding: 1.1em .5em .5em .5em; color: #000000; border-bottom:1px solid #A5BDD5; background: #FFF;}
+table.listing td { padding: 1.1em .5em .5em .5em; color: #000000; border-bottom:1px solid #95A5B5; background: #FFF;}
 
 
 table.listing tr.processed td { 
@@ -438,8 +438,7 @@ table.listing tr.processed td {
 			  
 }
 table.listing tr.unprocessed td { 
-             background: #FFFFF1;
-             
+             background: #FFFFF1;       
 			  
 }
 
@@ -477,19 +476,20 @@ table.form-display td {background-color: #fcfdfe; padding: .8em; border:1px soli
 table.form-display {border-collapse: collapse; width: auto; border: 1px solid #ccc; margin-left: 5px; width: auto;}
 
 
-table.search-table {border-collapse: collapse; width: 100%; margin-top: 1em; padding 0;}
+
 table.search-table th {background: #FAFAFB; color: #005188; 
                   text-align: left;
                   padding: 0.1em .5em 0.1em;
-                  border: #D1D8E3 1px solid ;
+                  border-bottom: #D1D8E3 1px solid ;
 				  font-weight: bold; }
-table.search-table td {background-color: #ECEFF4; padding: .3em .5em; border:1px solid #D1D8E3; text-align: left; }
+table.search-table td {background-color: #ECEFF4; padding: .3em .5em;  text-align: left; }
 
 table.search-table a {
 	        color: #003B70;
                 background: #f2f4f6;
                 padding: 2px 4px 2px 4px;
            }
+table.search-table {border-collapse: collapse; width: 100%; margin-top: 1em; padding 0; border: #95A5B5 1px solid ;}
 
 .table-top td {background: #E0E9F2;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #A5BDD5 1px solid;}
 
