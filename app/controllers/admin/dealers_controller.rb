@@ -266,6 +266,7 @@ class Admin::DealersController < ApplicationController
    @dealer_profile =  @dealer.profile
    @dealer_address =  @dealer.address
    @profiles = [@dealer.qd_profiles.first]
+
    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
    @auth_code = @dealer_profile.auth_code
    @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
