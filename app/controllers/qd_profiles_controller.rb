@@ -134,20 +134,36 @@ class QdProfilesController < ApplicationController
       params[:profiles].each do |id|
        qd_profile = QdProfile.find(id)
        qd_profile.update_attributes(:marked_date => Date.today)
-       qd_profile.mark_visited! if qd_profile.new?
+       qd_profile.mark!
      end
-       qd_profile.trigger_detail.update_attribute('marked', 'yes')
+     QdProfile.find(params[:profiles].first).trigger_detail.update_attribute('marked', 'yes')
    end
  
    unless params[:tid].blank?
      trigger = TriggerDetail.find(params[:tid])
      trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', Date.today)
-                           qp.mark_visited! if qp.new? }
+                              qp.mark! 
+                            }
      
      trigger.update_attribute('marked', 'yes')
    end
-  flash[:notice] = "Data is successfully marked for printing."
-  redirect_to(qd_profiles_path)
+
+   flash[:notice] = "Data is successfully marked for printing."
+   redirect_to(qd_profiles_path)
+ end
+ 
+ def unmark_data
+   unless params[:tid].blank?
+     trigger = TriggerDetail.find(params[:tid])
+     trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', '')
+                              qp.un_mark! if qp.marked?
+                            }
+     
+     trigger.update_attribute('marked', 'no')
+   end
+
+   flash[:notice] = "Data is successfully un-marked for printing."
+   redirect_to(qd_profiles_path)
  end
 
  def print_file
@@ -156,42 +172,111 @@ class QdProfilesController < ApplicationController
      @image = params[:t]
      @dealer_profile =  current_user.profile
      @dealer_address =  current_user.address
- 
-    @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+     @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
      @auth_code =  @dealer_profile.auth_code rescue ' '
-     @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue ' '
-     @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue ' '
-     @print_template = current_user.print_file_fields.find_by_identifier('template').value
-     case @print_template
+     @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
+     @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
+     template = current_user.print_file_fields.find_by_identifier('template')
+     @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
+
+     unless template.blank?
+       @print_template = template.value
+       case @print_template
                    when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
                    when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
                    when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
                    else (file_name, size = 'print_file.pdf', [610, 1009])
                    end
-     options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
-     prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
-     render :layout => false
+       options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+       prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+       render :layout => false
+     else
+       flash[:notice] = 'Print Shell is not yet selected. Please contact your administrator.'
+       redirect_to(qd_profiles_path)
+     end
    else
-     flash[:notice] = 'No Data Marked for printing'
+     flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
      redirect_to(qd_profiles_path)
    end
  end
 
+  def print_labels
+    @profiles = current_user.qd_profiles.to_be_printed
+    unless @profiles.blank?
+      options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [595, 770] }
+      prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => 'labels.pdf'
+      render :layout => false  
+    else
+      flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
+      redirect_to(qd_profiles_path)
+    end
+ end
+
+ def csv_print_file
+   qd_profiles = current_user.qd_profiles.to_be_printed
+   fields_to_be_shown = current_user.dealer_field.fields.sort rescue QdProfile.public_attributes
+
+   csv_file = FasterCSV.generate do |csv|
+      print_file_headers = {}
+    
+      #Construct CSV headers for variable fields
+      Profile::PRINT_FILE_VARIABELS.each do |identifier|
+        ob = PrintFileField.by_dealer(current_user.id).by_identifier(identifier).first
+	if ob.blank?
+	  print_file_headers[identifier] = identifier
+	else
+	  print_file_headers[identifier] = ob.label.blank? ? identifier: ob.label 
+        end
+      end
+     
+      #Construct CSV headers for other normal fields. Make merge with above list
+      csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
+
+      #Selected fields to be appended from dealers profile. if not found use general list.
+      fields_for_csv = current_user.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
+
+      profile_values = profile_field_values(fields_for_csv)
+      variable_values = variable_field_values(fields_for_csv)
+      
+      #Exporting to CSV starts here.. Exporting headers
+      csv <<  fields_to_be_shown.map{|field| field.humanize} + profile_values.keys.map{|field| csv_headers[field] } + variable_values.keys.map{|field| csv_headers[field] }
+
+      #Exporting data rows
+      qd_profiles.each do |prof|
+         csv << (fields_to_be_shown.map{|qd_field| eval("prof.#{qd_field}")} + profile_values.values + variable_values.values)
+      end
+    end #End CSV Export
+
+    #sending the file to the browser
+    send_data(csv_file, :filename => "#{Time.now.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')
+ end
+
  private
 
-  def field_values(field_list,dealer)
-  	 print_file_field_idetifiers = ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1','variable_data_2','variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10']
-  	 profile = dealer.profile
-     field_list.map{|qd_field| if qd_field == "phone_num"
-                                 "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
-                              elsif print_file_field_idetifiers.include?(qd_field)
-                                eval("PrintFileField.find_by_dealer_id_and_identifier(dealer.id,qd_field).value") rescue ' '
-                              else
-                                eval("profile.#{qd_field}") rescue eval("dealer.address.#{qd_field}")
-                              end
-                 }
-   end
+ def profile_field_values(fields)
+   profile = current_user.profile
+   values = {}
 
+   fields.map{|field| unless Profile::PRINT_FILE_VARIABELS.include?(field)
+                        if field == "phone_num"
+                          values[field] = "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}" rescue ''
+                        else
+                          #if not found in profile check in adrs.
+                          values[field] = eval("profile.#{field}") rescue eval("current_user.address.#{field}")
+                        end
+                      end
+                 }
+   return values
+ end
+   
+ def variable_field_values(field_list)
+   values = {}
+   field_list.map{|field| if Profile::PRINT_FILE_VARIABELS.include?(field)
+                            values[field] = eval("PrintFileField.find_by_dealer_id_and_identifier(current_user.id, field).value") rescue ' '
+                          end
+                  }
+   return values
+ end
 
   def check_terms_conditions
      if !logged_in?

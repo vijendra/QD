@@ -17,11 +17,11 @@ class Dealer < User
 
   aasm_state :inactive
 
-
   aasm_event :deactivate do
     transitions :to => :inactive, :from => [:pending, :active, :passive]
   end
-   aasm_event :active do
+
+  aasm_event :active do
     transitions :to => :active, :from => [:pending, :inactive, :passive]
   end
 

@@ -122,6 +122,7 @@
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'city', @fields.include?("city"))%> </td><th> City</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'state', @fields.include?("state"))%></td><th> State</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'postal_code', @fields.include?("postal_code"))%></td><th> Zip</th></tr>
+   <tr><td><%= check_box_tag("csv_extra_fields[]", 'auth_code', @fields.include?("auth_code"))%></td><th> Authentication Code</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_1', @fields.include?("text_body_1"))%></td><th> Text Body 1</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_2', @fields.include?("text_body_2"))%> </td><th>Text Body 2</th></tr>
    <tr><td><%= check_box_tag("csv_extra_fields[]", 'text_body_3', @fields.include?("text_body_3"))%></td><th>Text Body 3</th></tr>

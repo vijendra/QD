@@ -1,22 +1,64 @@
 class Admin::PrintDataController < ApplicationController
-	layout 'admin'
+  layout 'admin'
   before_filter :find_dealer ,:except =>[:csv_print_file]
   require 'fastercsv'
 
-	def index
-		  ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1','variable_data_2','variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10'].map{
-     |identifier|  instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, identifier)) }
+  def index
+    Profile::PRINT_FILE_VARIABELS.map{|identifier| instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, identifier)) }
+    @marked_dates = @dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"]).map { |prof| prof.marked_date }
+    @marked_dates.uniq!
 
-	  @marked_dates = @dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"]).map { |prof| prof.marked_date }
-  	@marked_dates.uniq!
-
-  	@dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,"template")
+    @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
     if @dealer_template.nil?
-    	@dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:value =>"template1")
-    	@dealer_template.save
+      @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:value =>"template1")
+      @dealer_template.save
     end
+    respond_to do |format|
+                   format.html {}
+                   format.csv {
+                     search = QdProfile.new_search()
+                     search.conditions.dealer.administrator_id = current_user.id unless super_admin?
+                     search.conditions.status = 'marked'
+                     search.group = 'trigger_detail_id'
+                     search.select = 'trigger_detail_id'          
+                     qd_profiles = search.all
+                     
+                     csv_file = FasterCSV.generate do |csv|
+                     print_file_headers = {}
+    
+                     #Construct CSV headers for variable fields
+    		     Profile::PRINT_FILE_VARIABELS.each do |identifier|
+        	     ob = PrintFileField.by_dealer(dealer.id).by_identifier(identifier).first
+	               if ob.blank?
+	                 print_file_headers[identifier] = identifier
+	               else
+	                 print_file_headers[identifier] = ob.label.blank? ? identifier: ob.label 
+                       end
+                     end
+     
+       #Construct CSV headers for other normal fields. Make merge with above list
+       csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
 
-	end
+       #Selected fields to be appended from dealers profile. if not found use general list.
+       fields_for_csv = dealer.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
+
+       profile_values = profile_field_values(fields_for_csv, dealer)
+       variable_values = variable_field_values(fields_for_csv, dealer)
+
+       #Exporting to CSV starts here.. Exporting headers
+       csv << QdProfile.public_attributes.map{|field| field.humanize} + profile_values.keys.map{|field| csv_headers[field] } + variable_values.keys.map{|field| csv_headers[field] }
+
+        #Exporting data rows
+        qd_profiles.each do |prof|
+          csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + profile_values.values + variable_values.values
+          prof.print!
+        end
+    end #End CSV Export
+
+                                                 
+                   }
+    end
+  end
 
   def csv_print_file
     unless params[:tid].blank?
@@ -33,51 +75,43 @@ class Admin::PrintDataController < ApplicationController
       print_file_headers = {}
     
       #Construct CSV headers for variable fields
-      ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2',
-        'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6',
-        'variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10'].each do |identifier|
-           ob = PrintFileField.by_dealer(dealer.id).by_identifier(identifier).first
-	   if ob.blank?
-	     print_file_headers[identifier] = identifier
-	   else
-	     print_file_headers[ob.identifier] = ob.label
-           end
-       end
+      Profile::PRINT_FILE_VARIABELS.each do |identifier|
+        ob = PrintFileField.by_dealer(dealer.id).by_identifier(identifier).first
+	if ob.blank?
+	  print_file_headers[identifier] = identifier
+	else
+	  print_file_headers[identifier] = ob.label.blank? ? identifier: ob.label 
+        end
+      end
      
        #Construct CSV headers for other normal fields. Make merge with above list
-       csv_headers = {'name' => 'Dealer Name', 'first_name' => 'Dealer F Name', 'mid_name' => 'Dealer M Name','last_name' => 'Dealer L Name', 'phone_num' => 'Dealer Phone num', 'address' => 'Dealer Address', 'city' => 'Dealer City', 'state' => 'Dealer State', 'postal_code' => 'Dealer Postal Code'}.merge(print_file_headers)
+       csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
 
        #Selected fields to be appended from dealers profile. if not found use general list.
-       fields_for_csv = dealer.csv_extra_field.fields rescue ['name', 'first_name', 'last_name', 'phone_num', 'address', 'city', 'state','postal_code']
+       fields_for_csv = dealer.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
 
-       profile_array = field_values(fields_for_csv, dealer)
+       profile_values = profile_field_values(fields_for_csv, dealer)
+       variable_values = variable_field_values(fields_for_csv, dealer)
 
-       if dealer.profile.data_sources == "seekerinc"
-         #Exporting to CSV starts here.. Exporting headers
-         csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
+       #Exporting to CSV starts here.. Exporting headers
+       csv << QdProfile.public_attributes.map{|field| field.humanize} + profile_values.keys.map{|field| csv_headers[field] } + variable_values.keys.map{|field| csv_headers[field] }
 
-          #Exporting data rows
-          qd_profiles.each do |prof|
-            csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ] + profile_array
-            prof.print!
-          end
-        else
-          csv << ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM', 'ADDRESS 2', ' LEVEL', 'AUTO17', 'PR01' ] + fields_for_csv.map{|qd_field| csv_headers[qd_field.to_s] }
-          qd_profiles.each do |prof|
-            csv << [prof.listid, prof.fname, prof.mname, prof.lname, prof.suffix, prof.address, prof.city, prof.state, prof.zip, prof.zip4, prof.crrt, prof.dpc, prof.phone_num ,prof.address2,prof.level, prof.auto17, prof.pr01] + profile_array
-            prof.print!
-         end
-       end #End data source check
-     end #End CSV Export
+        #Exporting data rows
+        qd_profiles.each do |prof|
+          csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + profile_values.values + variable_values.values
+          prof.print!
+        end
+    end #End CSV Export
 
-     #sending the file to the browser
-     send_data(csv_file, :filename => "#{trigger.created_at.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')
-   end
+
+    #sending the file to the browser
+    send_data(csv_file, :filename => "#{trigger.created_at.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')
+  end
 
    def dispaly_admin_setting
      @print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
      if @print_file_field.nil?
-       @print_file_field = PrintFileField.new(:dealer_id => @dealer.id,:identifier => params[:identifier])
+       @print_file_field = PrintFileField.new(:dealer_id => @dealer.id, :identifier => params[:identifier])
        @print_file_field.save
      end
      render :update do |page|
@@ -93,26 +127,37 @@ class Admin::PrintDataController < ApplicationController
 
 
 
-  private
+private
 
-    def find_dealer
-    	@dealer = Dealer.find(params[:dealer_id])
-    end
+ def find_dealer
+   @dealer = Dealer.find(params[:dealer_id])
+ end
+ 
+ 
+ def profile_field_values(fields, dealer)
+   profile = dealer.profile
+   values = {}
 
-    def field_values(field_list, dealer)
-      print_file_field_idetifiers = ['text_body_1', 'text_body_2', 'text_body_3','variable_data_1', 'variable_data_2', 'variable_data_3','variable_data_4', 'variable_data_5', 'variable_data_6','variable_data_7', 'variable_data_8', 'variable_data_9','variable_data_10']
-
-      profile = dealer.profile
-
-      field_list.map{|qd_field| if qd_field == "phone_num"
-                                 "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}"
-                              elsif print_file_field_idetifiers.include?(qd_field)
-                                eval("PrintFileField.find_by_dealer_id_and_identifier(dealer.id,qd_field).value") rescue ' '
-                              else
-                                eval("profile.#{qd_field}") rescue eval("dealer.address.#{qd_field}") #if not found in profile check in adrs.
-                              end
+   fields.map{|field| unless Profile::PRINT_FILE_VARIABELS.include?(field)
+                        if field == "phone_num"
+                          values[field] = "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}" rescue ''
+                        else
+                          #if not found in profile check in adrs.
+                          values[field] = eval("profile.#{field}") rescue eval("dealer.address.#{field}")
+                        end
+                      end
                  }
-   end
+   return values
+ end
+   
+ def variable_field_values(field_list, dealer)
+   values = {}
+   field_list.map{|field| if Profile::PRINT_FILE_VARIABELS.include?(field)
+                            values[field] = eval("PrintFileField.find_by_dealer_id_and_identifier(dealer.id, field).value") rescue ' '
+                          end
+                 }
+   return values
+ end
 
 
 end

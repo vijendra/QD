@@ -8,8 +8,7 @@
 
    <%=render :partial=> 'trigger_list'%>
 <!--
-
-    <center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
+<center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
 <%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
 <%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" , :search => @params)  )%> &nbsp;
 <%= link_to "Export Selected Dealers to CSV",  admin_qd_profiles_path(:format => "csv", :search => @params) %>

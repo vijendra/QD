@@ -24,7 +24,7 @@ for data in @profiles
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  <b>#{@phone} </b>", :size => 14
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  <b>Authorization #:</b>", :size => 13
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; <b>#{@auth_code} </b>", :size => 14
-    p_pdf.text "<b>or log on www.autoappnow.org</b>", :size => 13
+    p_pdf.text "<b>or log on #{@w_site}</b>", :size => 13
   end
 
 
@@ -33,8 +33,10 @@ for data in @profiles
     p_pdf.text @address, :size => 14
     p_pdf.text @place, :size => 14
     p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left + 1, -1]
+    #remove the image created for bar code
+    FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
   end
-
+ 
   p_pdf.text_options.update(:size => 12, :spacing => 1)
 
   p_pdf.text "Dear #{@name}", :at => [box.left + 70, box.top - 275]
@@ -76,7 +78,7 @@ for data in @profiles
     :width    => 170, :height => 70,
     :at       => [box.right - 180, box.top - 295]
 
-  p_pdf.text_box "<b><i>Call</i> #{@phone} <br /> or log on to <br /> www.autoappnow.com </b>",
+  p_pdf.text_box "<b><i>Call</i> #{@phone} <br /> or log on to <br /> #{@w_site} </b>",
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 365]
 
@@ -96,6 +98,10 @@ for data in @profiles
   p_pdf.text @dealer_profile.name, :at => [box.left + 135, box.top - 872]
 
   #Mark the data record as printed.
-  data.print! unless request.request_uri =~ /test_print.pdf/
+  unless request.request_uri =~ /test_print.pdf/
+    data.dealer_print! 
+    data.trigger_detail.update_attribute('marked', 'printed')
+  end
+
   p_pdf.start_new_page if counter < @profiles.size
 end

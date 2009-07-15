@@ -10,7 +10,7 @@
 	<th> Accounts </th>
  	<th> CSV Data </th>
         <th> QD Fields </th>
- 	<th> Flag </th>
+ 	<th> Status </th>
         <% if super_admin? -%>
           <th> Admin </th>
         <%end%>
@@ -45,7 +45,7 @@
           <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "QD Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>  
           </td>
 
-           <td><%=  dealer.state =="inactive"?  (link_to "Active",:controller =>"/admin/dealers" ,:action =>"active" ,:id =>dealer.id ,:page =>@search.page ,:per_page => @search.per_page ) : (link_to "Inactive",:controller =>"/admin/dealers" ,:action =>"inactive" ,:id =>dealer.id,:page =>@search.page,:per_page => @search.per_page) %>
+           <td><%=  dealer.active? ? (link_to "Active", inactive_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :confirm => 'This action will mark this dealer as INACTIVE. Are you sure?') : (link_to "Inactive", activate_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :confirm => 'This action will mark this dealer as ACTIVE. Are you sure?') %>
           </td>
 
           <% if super_admin? -%>

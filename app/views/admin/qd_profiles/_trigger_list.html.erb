@@ -7,10 +7,10 @@
 <% else %>
   <table class='listing'>
    <tr>
-       <th> <%= remote_order_by_link(:created_at,:text => "Click date to view record details"    ) %></th>
+       <th> <%= remote_order_by_link(:created_at,:text => "Click On date to view record"    ) %></th>
        <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer Name"    )%></th>
-       <th><%= remote_order_by_link(:order_number ,:text => "Order Number"   ) %></th>
-       <th><%= remote_order_by_link(:total_records ,:text => "No of records"    )%></th>
+       <th><%= remote_order_by_link(:order_number ,:text => "Order N0"   ) %></th>
+       <th><%= remote_order_by_link(:total_records ,:text => "Total records"    )%></th>
        <th><%= remote_order_by_link(:marked ,:text => "Marked for Print?"      ) %> </th>
        <th> CSV Print File </th>
 
@@ -21,7 +21,7 @@
          <td > <%= trigger.dealer.profile.name  %></td>
          <td> <%= trigger.order_number  %></td>
          <td> <%= trigger.total_records %> </td>
-         <td> <%= trigger.marked == 'yes' ? 'Yes' : 'No'%> </td>
+         <td> <%= (trigger.marked == 'yes' ||  trigger.marked == 'printed') ? (trigger.marked == 'printed'? 'Printed': 'Yes') : 'No' -%> </td>
          <td> <% if trigger.marked == 'yes' %>
                  <%= link_to 'CSV Print File', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %>
               <% else %>

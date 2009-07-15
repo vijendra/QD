@@ -31,13 +31,13 @@ ActionController::Routing::Routes.draw do |map|
 
   # Profiles
   map.resources :profiles
-  map.resources :qd_profiles, :collection =>{:mark_data => :post, :print_file => :get}
+  map.resources :qd_profiles, :collection =>{:mark_data => :post, :unmark_data => :post, :print_file => :get, :print_labels => :get, :csv_print_file => :get}
 
   # Administration
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:test_print => :get ,:reset_password => :put ,:csv => :get,:assign_administrator =>:get, :authentication_code => :get },:collection => {:import_dealer_csv => :get } ,:has_many => [:dealer_accounts, :print_data]
+    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get }, :collection => {:import_dealer_csv => :get } ,:has_many => [:dealer_accounts, :print_data]
 
     admin.resources :qd_profiles, :member => {
     :assign_dealer => :get }

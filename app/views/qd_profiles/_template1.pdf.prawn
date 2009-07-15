@@ -9,6 +9,7 @@ for data in @profiles
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
+
   #generating postnet barcode
   doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
   doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#E5DED4"})
@@ -23,7 +24,7 @@ for data in @profiles
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  <b>#{@phone} </b>", :size => 15
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  <b>Authorization #:</b>", :size => 13
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; <b>#{@auth_code} </b>", :size => 15
-    p_pdf.text "<b>or log on www.autoappnow.org</b>", :size => 13
+    p_pdf.text "<b>or log on #{@w_site}</b>", :size => 13
   end
 
 
@@ -32,8 +33,10 @@ for data in @profiles
     p_pdf.text @address, :size => 14
     p_pdf.text @place, :size => 14
     p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left, 0]
+    #remove the image created for bar code
+    FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
   end
-
+  
   p_pdf.text_options.update(:size => 13, :spacing => 5)
 
   p_pdf.text "Dear #{@name}", :at => [box.left + 50, box.top - 265]
@@ -49,7 +52,7 @@ for data in @profiles
   p_pdf.bounding_box([box.left + 50, box.top - 445], :width => box.right - 60) do
     p_pdf.text 'All you need to do is:'
     p_pdf.tags[:indent] = { :width => "2.1em", :font_size => "1.1em", :font_family => "Times-Roman"}
-    p_pdf.text "<indent> 1. Call <b>#{@phone}</b> or log on to www.autoappnow.org.</indent>"
+    p_pdf.text "<indent> 1. Call <b>#{@phone}</b> or log on to #{@w_site}.</indent>"
     p_pdf.text "<indent> 2. Confirm your identity by providing your <b>Authorization #</b> #{@auth_code}</indent>"
     p_pdf.text "<indent> 3. Get your pre-approved amount and write it in the space below.</indent>"
     p_pdf.text "<indent> 4. Go to the approved dealership to choose your vehicle.</indent>"
@@ -86,7 +89,10 @@ for data in @profiles
   text = "<small>*You can choose to stop receiving &quot;prescreened&quot; offers of credit from this and other companies by calling Toll Free 1-888-567-8688. See PRESCREEN &amp; OPT-OUT NOTICE on enclosed insert for more information about prescreened offers.</small>"
   
   #Mark the data record as printed.
-  data.print! unless request.request_uri =~ /test_print.pdf/
+  unless request.request_uri =~ /test_print.pdf/
+    data.dealer_print! 
+    data.trigger_detail.update_attribute('marked', 'printed')
+  end
 
   p_pdf.text_box text,
     :width    => box.width - 40, :height => 50,

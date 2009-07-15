@@ -14,7 +14,10 @@
          </td>
 
          <td>
-             <%= link_to("<span> Process Pending Triggers </span>",  process_triggers_admin_trigger_details_url() , :class => 'button')%>
+            <%form_tag process_triggers_admin_trigger_details_url, :method=>:post do %>
+              <a class="button" onclick="$(this).up('form').submit(); return false;"><span>Process Pending Triggers</span></a>
+              <b> Wants CSV file to be attached to dealer emails? </b> Yes<%= check_box_tag("attachment", 1, true)%>
+            <%end%>
          </td>
         
      </tr>

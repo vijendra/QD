@@ -1,4 +1,6 @@
-Dear <%= @dealer.profile.name %>,
+<% unless @dealer_profile.blank? %>
+
+Dear <%= @dealer_profile.name %>,
 <br /> <br />
 <p> There is a fresh set of data ready for download. </p>
 <br />
@@ -19,9 +21,11 @@ Best regards, <br />
 
 <p> The <%= configatron.site_name %> Team. </p>
 
-<% unless @dealer.administrator.blank?%> <img src= '<%= "http://#{configatron.site_url}#{@dealer.administrator.administrator_profile.administrator_logo.url(:thumb)}" %>' />  
+<% unless @dealer_profile.user.administrator.blank?%> <img src= '<%= "http://#{configatron.site_url}#{@dealer_profile.user.administrator.administrator_profile.administrator_logo.url(:thumb)}" %>' />  
 <% else %>
 <img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' /> 
 <% end %>
 
 <p> Powered by <%= configatron.site_name %> </p>
+
+<% end %>

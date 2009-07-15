@@ -48,6 +48,7 @@ class Admin::TriggerDetailsController < ApplicationController
   end
 
 def process_triggers
+  attachment = !params[:attachment].blank?
   #TODO: Clean this code. Make the methods for distinct functions for example csv import, send_mail etc.
   search = TriggerDetail.new_search()
   search.conditions.dealer.administrator_id = current_user.id unless (current_user.roles.map{|role| role.name}).include?('super_admin')
@@ -105,7 +106,7 @@ def process_triggers
         trigger.update_attribute('balance', balance )
         trigger.process!
 
-        send_mail(dealer_profile.user, trigger.total_records, balance, orders_csv, trigger.order_number)
+        send_mail(dealer_profile, trigger.total_records, balance, orders_csv, trigger.order_number, attachment)
 
         #delete the downloded folder
         FileUtils.rm_r zipped_order
@@ -146,7 +147,7 @@ def process_triggers
         trigger.process!
 
         #sending mail with account information
-        send_mail(dealer_profile.user, trigger.total_records, balance, orders_csv, trigger.order_number)
+        send_mail(dealer_profile, trigger.total_records, balance, orders_csv, trigger.order_number, attachment)
 
         #delete the downloded folder
         FileUtils.rm_r orders_csv
@@ -160,8 +161,7 @@ end
 
   protected
 
-  def send_mail(dealer, total, balance, csv_path, order)
-    dealer1 = Dealer.find(dealer)
-    email = DealerMailer.deliver_dealer_accounts_notification(dealer1, total, balance, csv_path, order)
+  def send_mail(dealer_profile, total, balance, csv_path, order, attachment)
+    email = DealerMailer.deliver_dealer_accounts_notification(dealer_profile, total, balance, csv_path, order, attachment)
   end
 end

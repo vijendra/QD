@@ -49,7 +49,7 @@ body {
 	font-size: 12px;  
 	font-family: Verdana, Arial, "Helvetica Neue", Geneva, sans-serif;
 	color: #000;
-	background-color: #F8F8F3; /* #FCF3DF; #FFF9E5;*/
+	background-color: #F1F1E7; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	height:100%;
@@ -215,7 +215,7 @@ ul {
 #main {
         height: 100%;
         margin: 0 auto;
-        background: #F1F1E7;
+        background: #F8F8F3;
         width: 100%;
         
         padding-top: 15px;
@@ -229,13 +229,12 @@ ul {
 	width: 81%;
 }
 .head {
-	color: #003A6C;
+	color: #000;
 	font-weight: bold;
-	background: #F6F7F9 url(/images/head.jpg) repeat-x top;
+	background: #fff url(/images/head.jpg) repeat-x top;
 	margin: 0 10px 0 10px;
-	font-size: 1.2em;
-        padding: 8px 3px 4px 10px;
-	
+	font-size: 13px;
+        padding: 6px 3px 4px 10px;
         border: #D1D8E3 1px solid;
       
 }
@@ -248,7 +247,7 @@ ul {
 #screen {
  	margin 0;
 	padding: 15px;
-        background: #F1F1E7;
+        background: #F8F8F3;
         min-height: 400px; 
 	height: expression( this.scrollHeight < 400 ? "400px" : "auto" ); /* sets min-height for IE */
 	}
@@ -438,13 +437,13 @@ table.listing tr.processed td {
 			  
 }
 table.listing tr.unprocessed td { 
-             background: #FFFFF1;       
+             background: #FFFFFf;       
 			  
 }
 
 
 table.listing tr th a { 
-             color: #005FB2;
+             color: #0051A1;
              text-decoration: none; 
 			  
 }
@@ -457,14 +456,14 @@ table.listing a {
 
 
 
-.table-footer td {background: #F1F1F1; padding: 4px; }
+.table-footer td {background: #F1F1F1; padding: 4px; vertical-align: middle;}
 
 .table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #A5BDD5; }
 
 
 .form-table th {background-color: #F3F4F5; color: #004177; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left; font-weight: bold; text-align: right;}
 
-.form-table td {background-color: #F3F4F5; padding: .8em; border:1px solid #A5BDD5;}
+.form-table td {background-color: #F3F4F5; padding: .8em; border:1px solid #A5BDD5; vertical-align: middle;}
 
 .form-table {border-collapse: collapse; width: auto; border: 1px solid #A5BDD5; margin-left: 5px; width: auto;}
 
@@ -482,7 +481,7 @@ table.search-table th {background: #FAFAFB; color: #005188;
                   padding: 0.1em .5em 0.1em;
                   border-bottom: #D1D8E3 1px solid ;
 				  font-weight: bold; }
-table.search-table td {background-color: #ECEFF4; padding: .3em .5em;  text-align: left; }
+table.search-table td {background-color: #ECEFF4; padding: .2em .5em 0.2em;  text-align: left; }
 
 table.search-table a {
 	        color: #003B70;
@@ -572,7 +571,7 @@ fieldset {
 
 a.button {
     background: transparent url('/images/bg_button_a.gif') no-repeat scroll top right;
-    color: #004A8A;
+    color: #00549B;
         font-weight: bold;
     display: block;
     float: left;
