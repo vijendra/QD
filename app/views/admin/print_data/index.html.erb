@@ -26,8 +26,8 @@
       <%end%>
     <tr><th> Variable Data 2</th>
       <% if @variable_data_2.blank? %>
-      <td> <%= text_field_tag "variable_data_2[label]" ,"website",:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_2[value]" ,'www.autoappnow.com',:class => "textbox" %> </td></tr>
+      <td> <%= text_field_tag "variable_data_2[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_2[value]" ,'',:class => "textbox" %> </td></tr>
       <%else%>
        <td> <%= text_field_tag "variable_data_2[label]" ,@variable_data_2.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_2[value]" ,@variable_data_2.value,:class => "textbox" %> </td></tr>
@@ -35,8 +35,8 @@
 
       <tr><th> Variable Data 3</th>
       <% if @variable_data_3.blank? %>
-      <td> <%= text_field_tag "variable_data_3[label]" ,"website",:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_3[value]" ,'www.autoappnow.com',:class => "textbox" %> </td></tr>
+      <td> <%= text_field_tag "variable_data_3[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_3[value]" ,'',:class => "textbox" %> </td></tr>
       <%else%>
        <td> <%= text_field_tag "variable_data_3[label]" ,@variable_data_3.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_3[value]" ,@variable_data_3.value,:class => "textbox" %> </td></tr>
@@ -44,16 +44,16 @@
 
   <tr><th> Variable Data 4</th>
       <% if @variable_data_4.blank? %>
-      <td> <%= text_field_tag "variable_data_4[label]" ,"website",:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_4[value]" ,'www.autoappnow.com',:class => "textbox" %> </td></tr>
+      <td> <%= text_field_tag "variable_data_4[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_4[value]" ,'',:class => "textbox" %> </td></tr>
       <%else%>
        <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_4[value]" ,@variable_data_4.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr> <th>Variable Data 5</th>
    <% if @variable_data_5.blank? %>
-      <td><%= text_field_tag "variable_data_5[label]",'website',:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_5[value]" ,'www.autoappnow.com',:class => "textbox" %> </td></tr>
+      <td><%= text_field_tag "variable_data_5[label]",'',:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_5[value]" ,'',:class => "textbox" %> </td></tr>
      <%else%>
      <td><%= text_field_tag "variable_data_5[label]",@variable_data_5.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_5[value]" ,@variable_data_5.value,:class => "textbox" %> </td></tr>
@@ -61,40 +61,40 @@
 
   <tr> <th>Variable Data 6</th>
   <% if @variable_data_6.blank? %>
-      <td><%= text_field_tag "variable_data_6[label]" ,'website',:class => "textbox"%> </td>
-      <td> <%= text_field_tag "variable_data_6[value]" ,'www.autoappnow.com',:class => "textbox" %></td></tr>
+      <td><%= text_field_tag "variable_data_6[label]" ,'',:class => "textbox"%> </td>
+      <td> <%= text_field_tag "variable_data_6[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_6[value]" ,@variable_data_6.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr><th> Variable Data 7</th>
   <% if @variable_data_7.blank? %>
-      <td> <%= text_field_tag "variable_data_7[label]" ,'website',:class => "textbox"%></td>
-      <td> <%= text_field_tag "variable_data_7[value]" ,'www.autoappnow.com',:class => "textbox" %></td></tr>
+      <td> <%= text_field_tag "variable_data_7[label]" ,'',:class => "textbox"%></td>
+      <td> <%= text_field_tag "variable_data_7[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_7[label]",@variable_data_7.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_7[value]" ,@variable_data_7.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr> <th>Variable Data 8</th>
   <% if @variable_data_8.blank? %>
-      <td> <%= text_field_tag "variable_data_8[label]",'website',:class => "textbox" %></td>
-      <td> <%= text_field_tag "variable_data_8[value]" ,'www.autoappnow.com',:class => "textbox" %></td></tr>
+      <td> <%= text_field_tag "variable_data_8[label]",'',:class => "textbox" %></td>
+      <td> <%= text_field_tag "variable_data_8[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_8[label]",@variable_data_8.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_8[value]" ,@variable_data_8.value,:class => "textbox" %> </td></tr>
       <%end%>
   <tr><th> Variable Data 9</th>
   <% if @variable_data_9.blank? %>
-      <td><%= text_field_tag "variable_data_9[label]" ,'website',:class => "textbox"%> </td>
-      <td> <%= text_field_tag "variable_data_9[value]" ,'www.autoappnow.com',:class => "textbox" %></td></tr>
+      <td><%= text_field_tag "variable_data_9[label]" ,'',:class => "textbox"%> </td>
+      <td> <%= text_field_tag "variable_data_9[value]" ,'',:class => "textbox" %></td></tr>
       <%else%>
       <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_9[value]" ,@variable_data_9.value,:class => "textbox" %> </td> </tr>
       <%end%>
       <tr><th> Variable Data 10</th>
       <% if @variable_data_10.blank? %>
-      <td> <%= text_field_tag "variable_data_10[label]" ,"website",:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_10[value]" ,'www.autoappnow.com',:class => "textbox" %> </td></tr>
+      <td> <%= text_field_tag "variable_data_10[label]" ,"",:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_10[value]" ,'',:class => "textbox" %> </td></tr>
       <%else%>
        <td> <%= text_field_tag "variable_data_10[label]" ,@variable_data_10.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_10[value]" ,@variable_data_10.value,:class => "textbox" %> </td></tr>
