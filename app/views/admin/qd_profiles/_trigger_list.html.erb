@@ -1,4 +1,10 @@
- <br /> <br />
+<br /> 
+<table>
+    <tr>
+       <td class='hide-for-print'> <%= link_to("<span>Generate Combined CSV Print File</span>", print_file_url, :action => :get, :class=> "button")%> </td> 
+    </tr>
+</table>
+<br />
  
 <% if @triggers.blank?%>
   
@@ -8,11 +14,11 @@
 <% else %>
   <table class='listing'>
    <tr>
-       <th> <%= remote_order_by_link(:created_at,:text => "Click On date to view record"    ) %></th>
-       <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer Name"    )%></th>
-       <th><%= remote_order_by_link(:order_number ,:text => "Order No"   ) %></th>
-       <th><%= remote_order_by_link(:total_records ,:text => "Total records"    )%></th>
-       <th><%= remote_order_by_link(:marked ,:text => "Marked for Print?"      ) %> </th>
+       <th> <%= remote_order_by_link(:created_at,:text => "Click On date to view record") %></th>
+       <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer Name")%></th>
+       <th><%= remote_order_by_link(:order_number ,:text => "Order No") %></th>
+       <th><%= remote_order_by_link(:total_records ,:text => "Total records")%></th>
+       <th><%= remote_order_by_link(:marked ,:text => "Marked for Print?") %> </th>
        <th> CSV Print File </th>
 
    </tr>

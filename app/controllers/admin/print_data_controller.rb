@@ -27,34 +27,32 @@ class Admin::PrintDataController < ApplicationController
                      
                      csv_file = FasterCSV.generate do |csv|
                        #Construct CSV headers for variable fields
-                       print_file_headers = {}
-                       Profile::PRINT_FILE_VARIABELS.map{|f| print_file_headers[f] = f.humanize}
-
-                       #Construct CSV headers for other normal fields. Make merge with above list
-                       csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
+                       variable_field_headers = {}
+                       Profile::PRINT_FILE_VARIABELS.map{|f| variable_field_headers[f] = f.humanize}
 
                        #Selected fields to be appended from dealers profile. if not found use general list.
                        fields_for_csv = Profile::CSV_GENERAL_FIELDS
                        
                        #Exporting to CSV starts here.. Exporting headers
-                       csv << QdProfile.public_attributes.map{|field| field.humanize} + csv_headers.values
+                       csv << QdProfile.public_attributes.map{|field| field.humanize} + Profile::CSV_HEADERS.values + variable_field_headers.values
 
                        triggers.each do |tri|
                          trigger = tri.trigger_detail
                          dealer =  trigger.dealer
                          qd_profiles = trigger.qd_profiles.to_be_printed
-                         profile_values = profile_field_values(fields_for_csv, dealer)
-                         variable_values = variable_field_values(fields_for_csv, dealer)
-
-                         
+                         profile_values = profile_field_values(Profile::CSV_HEADERS.keys, dealer)
+                         variable_values = variable_field_values(variable_field_headers.keys, dealer)
 
                          #Exporting data rows
                          qd_profiles.each do |prof|
-                           csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + profile_values.values + variable_values.values
-                           prof.print!
+
+                           #To maintain orders as per the header we need to map again. Array is unorderd
+                           csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + Profile::CSV_HEADERS.keys.map{|field| profile_values[field] } + variable_field_headers.keys.map{|field| variable_values[field] }
+                   
+                           #prof.print!
                          end
                                          
-                         trigger.update_attribute('marked', 'printed')
+                         #trigger.update_attribute('marked', 'printed')
                       end
                    end #End CSV Export  
                    #sending the file to the browser
@@ -136,8 +134,7 @@ private
  def find_dealer
    @dealer = Dealer.find(params[:dealer_id]) unless params[:dealer_id].blank?
  end
- 
- 
+  
  def profile_field_values(fields, dealer)
    profile = dealer.profile
    values = {}
