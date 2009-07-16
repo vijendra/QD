@@ -13,8 +13,8 @@ class Admin::TriggerDetailsController < ApplicationController
       @search.conditions.status = "processed"
       @type = "processed"
      else
-     	@type = "unprocessed"
-     	@search.conditions.status = "unprocessed"
+       @type = "unprocessed"
+       @search.conditions.status = "unprocessed"
     end
 
     @search.per_page ||= 15
@@ -105,8 +105,12 @@ def process_triggers
         dealer_profile.update_attribute('current_balance', balance )
         trigger.update_attribute('balance', balance )
         trigger.process!
+        
+        #generate masked csv to be attached to the dealer's mail
+        generate_csv_file(trigger, dealer_profile)
 
-        send_mail(dealer_profile, trigger.total_records, balance, orders_csv, trigger.order_number, attachment)
+        #sending mail with account information
+        send_mail(dealer_profile, trigger.total_records, balance, trigger.order_number, attachment)
 
         #delete the downloded folder
         FileUtils.rm_r zipped_order
@@ -146,8 +150,11 @@ def process_triggers
         trigger.update_attribute('balance', balance )
         trigger.process!
 
+        #generate masked csv to be attached to the dealer's mail
+        generate_csv_file(trigger, dealer_profile)
+
         #sending mail with account information
-        send_mail(dealer_profile, trigger.total_records, balance, orders_csv, trigger.order_number, attachment)
+        send_mail(dealer_profile, trigger.total_records, balance, trigger.order_number, attachment)
 
         #delete the downloded folder
         FileUtils.rm_r orders_csv
@@ -156,12 +163,35 @@ def process_triggers
 
     end
   end
+
+   #Now all the export is over. Just remove the content from temp csv we used
+   FasterCSV.open("#{RAILS_ROOT}/public/file.csv", "w") do |csv|
+     csv << []
+   end
+   flash[:notice] = "All pending triggers are successfully processed."
    redirect_to(admin_trigger_details_url)
-end
+ end
 
   protected
 
-  def send_mail(dealer_profile, total, balance, csv_path, order, attachment)
-    email = DealerMailer.deliver_dealer_accounts_notification(dealer_profile, total, balance, csv_path, order, attachment)
+  def send_mail(dealer_profile, total, balance, order, attachment)
+    email = DealerMailer.deliver_dealer_accounts_notification(dealer_profile, total, balance, order, attachment)
   end
+  
+  def generate_csv_file(trigger, dealer_profile)
+    dealer = dealer_profile.user
+    qd_profiles = trigger.qd_profiles
+    fields_to_be_shown = dealer.dealer_field.fields.sort rescue QdProfile.public_attributes
+
+    FasterCSV.open("#{RAILS_ROOT}/public/file.csv", "w") do |csv|      
+      #Exporting to CSV starts here.. Exporting headers
+      csv <<  fields_to_be_shown.map{|field| field.humanize} 
+
+      #Exporting data rows
+      qd_profiles.each do |prof|
+         csv << fields_to_be_shown.map{|qd_field| eval("prof.#{qd_field}")}
+      end
+    end 
+  end
+
 end

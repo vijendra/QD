@@ -1,4 +1,11 @@
 development:
+  type: imap
+  server: mail.isiritech.net
+  username: qdrobot@isiritech.net
+  password: qdrobot
+  processed_folder: INBOX.Processed
+
+development-pop:
   type: pop
   server: mail.isiritech.net
   username: qdrobot@isiritech.net
@@ -17,7 +24,8 @@ test:
   password: password
   
 production:
-  type: pop
+  type: imap
   server: mail.isiritech.net
   username: qdrobot@isiritech.net
   password: qdrobot
+  processed_folder: INBOX.Processed

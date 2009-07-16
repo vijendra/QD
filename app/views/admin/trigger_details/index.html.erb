@@ -6,8 +6,10 @@
    <% content_for :header do -%>
     Listing All Unprocessed Trigger Detail.&nbsp; <%= link_to "<b> View Processed Triggers </b>", admin_trigger_details_url(:type => "processed")  %>
    <% end -%>
-   
-   <table>
+<%end%>
+<%=render :partial=> 'filter'%>'
+<br />  <br /> 
+<table>
      <tr>
          <td>
              <% if super_admin? %> <%= link_to("<span> Fetch Triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end %>
@@ -16,19 +18,13 @@
          <td>
             <%form_tag process_triggers_admin_trigger_details_url, :method=>:post do %>
               <a class="button" onclick="$(this).up('form').submit(); return false;"><span>Process Pending Triggers</span></a>
-              <b> Wants CSV file to be attached to dealer emails? </b> Yes<%= check_box_tag("attachment", 1, true)%>
+              <span style ="color: #04376E;"> <b> Wants CSV file to be attached to dealer emails? </b></span>  Yes<%= check_box_tag("attachment", 1, true)%>
             <%end%>
          </td>
         
      </tr>
 </table>
-<%end%>
 
-
-
-<br />
-
-<%=render :partial=> 'filter'%>
 <br /> <br />
 <div id='trigger-list'>
    <%=render :partial=> 'trigger_details_list'%>

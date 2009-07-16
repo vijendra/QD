@@ -1,9 +1,9 @@
 <% content_for :header do -%>
   Listing All Administrators
 <% end -%>
-<p> <b> Total No Of Administrators: <%= Administrator.all(:select => "count(id) as cnt").first.cnt %> </b> </p> <br />
-<p> <b> Total No Of Active Dealers: <%= Dealer.active_dealers.all(:select => "count(id) as cnt").first.cnt %> </b> </p><br />
-<p> <b> Total No Of Inactive Dealers: <%= Dealer.inactive_dealers.all(:select => "count(id) as cnt").first.cnt %> </b> </p><br /><br />
+<p> <span style ="color: #04376E;"><b> Total No Of Administrators: <%= Administrator.all(:select => "count(id) as cnt").first.cnt %> </b></span> </p> <br />
+<p> <span style ="color: #04376E;"><b> Total No Of Active Dealers: <%= Dealer.active_dealers.all(:select => "count(id) as cnt").first.cnt %> </b> </span></p><br />
+<p> <span style ="color: #04376E;"><b> Total No Of Inactive Dealers: <%= Dealer.inactive_dealers.all(:select => "count(id) as cnt").first.cnt %> </b> </span></p><br />
 
 <% if @administrators.blank?%>
 <table class='listing'>
