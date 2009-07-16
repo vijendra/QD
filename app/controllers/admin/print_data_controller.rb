@@ -103,6 +103,7 @@ class Admin::PrintDataController < ApplicationController
         end
     end #End CSV Export
 
+    trigger.update_attribute('marked', 'printed')
 
     #sending the file to the browser
     send_data(csv_file, :filename => "#{trigger.created_at.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')
