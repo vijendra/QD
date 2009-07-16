@@ -49,10 +49,10 @@ class Admin::PrintDataController < ApplicationController
                            #To maintain orders as per the header we need to map again. Array is unorderd
                            csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + Profile::CSV_HEADERS.keys.map{|field| profile_values[field] } + variable_field_headers.keys.map{|field| variable_values[field] }
                    
-                           #prof.print!
+                           prof.print!
                          end
                                          
-                         #trigger.update_attribute('marked', 'printed')
+                         trigger.update_attribute('marked', 'printed')
                       end
                    end #End CSV Export  
                    #sending the file to the browser
