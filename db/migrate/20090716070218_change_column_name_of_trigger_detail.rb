@@ -13,3 +13,5 @@ class ChangeColumnNameOfTriggerDetail < ActiveRecord::Migration
   def self.down
   end
 end
+
+ 
