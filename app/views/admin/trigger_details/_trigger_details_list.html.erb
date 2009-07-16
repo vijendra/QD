@@ -22,16 +22,17 @@
     <th>Data Source</th>
     <th><%= remote_order_by_link(:order_number,:text =>"Order Number") %></th>
     <th>Total Records </th>
-
+    <th>Balance </th>
   </tr>
 <% @triggers.each do |trigger| %>
-       <tr  class= '<%= trigger.status %>'>
+       <tr class= '<%= trigger.status %>'>
          <td> <%= Time.parse(trigger.created_at.to_s).strftime('%m-%d-%y') %> </td>
          <td> <%= trigger.id %> </td>
          <td> <%= trigger.dealer.profile.name %> </td>
          <td> <%= trigger.data_source %> </td>
          <td> <%= trigger.order_number %> </td>
 	 <td> <%= trigger.total_records %> </td>
+         <td <%= 'style = "background: #FFD1C2"' if trigger.balance < trigger.total_records %> > <%= trigger.balance %> </td>
        </tr>
 <% end %>
 </table>

@@ -1,14 +1,18 @@
+
 <% content_for :header do -%>
    Listing Data Set for, <%= "#{current_user.profile.name} [Orders #{@header_text}]" %>
 <% end -%>
+<%= link_to_function "<b> Show Search Bar </b>",
+			" Element.show('search-bar'); return false;"
+			%> &nbsp;&nbsp; |&nbsp;&nbsp;
+			<%= link_to_function "<b>Hide Search Bar</b>",
+			"Element.hide('search-bar'); return false;"
+			%>
+
 <div id='trigger_qd_profile-list' >
+  <div id = 'search-bar' style ="display:none"> <%= render :partial => 'filters' %> </div>
 
-<%= render :partial => 'filters' %>
-
-
-
-
-<div id='qd_profile-list'>
-   <%=render :partial=> 'trigger_list'%>
-</div>
+  <div id='qd_profile-list'>
+     <%=render :partial=> 'trigger_list'%>
+  </div>
 </div>

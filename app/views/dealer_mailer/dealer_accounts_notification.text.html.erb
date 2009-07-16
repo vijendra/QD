@@ -6,13 +6,13 @@
      <BODY> 
        <br /> <br />
        <center> 
-       <table width=100% style="font-family:Tahoma;font-size:13px; border:3px solid #1083C5;" cellpadding="0" cellspacing="0"> 
+       <table width=100% style="font-family:Tahoma;font-size:13px; border:3px solid #1C8CCC;" cellpadding="0" cellspacing="0"> 
        <tr bgcolor="#2594D3"> 
            <td style="padding:10px; color:#fff; text-transform:uppercase;font-size:14px" align=center><b> Qucik Data Robot Account Information</b>
            </td> 
        </tr> 
 
-       <tr> <td style="border:3px solid #93C7E4; font-size:12px; background-color:#F2F8FF; color:#500050; padding:25px 30px 25px 30px"> 
+       <tr> <td style="border:3px solid #93C7E4; font-size:12px; background-color:#F9FCFF; color:#500050; padding:25px 30px 25px 30px"> 
          <p> Dear <span style = "color:= #00417A; font-weight: bold"> <%= @dealer_profile.name %>,</span></p> <br/> 
          <p> There is a fresh set of data available on QD Robot. Here is the details.</p><br/> <br/>
          <p> Order number: <b> <%= @order %> </b> </p><br/>  
@@ -20,7 +20,7 @@
          <p> Remaining balance: <b> <%= @balance %> </b> </p><br/>
 
          <%if @balance.to_i < 200 %>
-            <p> Your remaining balance is below 200. Please Re-order. </p>
+            <p><span style = "color: #C33F13; font-weight: bold">Your remaining balance is below 200. Please Re-order.</span> </p> <br/>
          <% end %>
         
          <p> Data is available with this mail as attachment, for your ready reference. However you can login to QD Robot to view and manipulate data: <br /> <strong><%= "http://#{configatron.site_url}/login" %> </strong></p>

@@ -1,14 +1,7 @@
 <br /> 
-<table>
-    <tr>
-       <td class='hide-for-print'> <%= link_to("<span>Generate Combined CSV Print File</span>", print_file_url, :action => :get, :class=> "button")%> </td> 
-    </tr>
-</table>
-<br />
+
  
 <% if @triggers.blank?%>
-  
- 
  <br />
    No Trigger Detail Record Found.
 <% else %>
@@ -32,7 +25,7 @@
          <td> <% if trigger.marked == 'yes' %>
                  <%= link_to 'CSV Print File', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %>
               <% else %>
-                 Not Marked Yet
+                 <%= trigger.marked == 'printed'? 'Already Printed' : 'Not Marked Yet' %>
               <% end %>
          </td>
       </tr>

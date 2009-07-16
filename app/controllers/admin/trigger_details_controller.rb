@@ -55,11 +55,11 @@ def process_triggers
   search.conditions.status = 'unprocessed'
   triggers = search.all
 
+  Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
   for trigger in triggers
-    Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
-    dealer = Dealer.find(trigger.dealer_id)
-
-    unless dealer.blank?
+    dealer = trigger.dealer
+    if trigger.total_records < trigger.balance
+     unless dealer.blank?
       dealer_profile = dealer.profile
       if trigger.data_source == 'seekerinc'
         #Logging in
@@ -159,9 +159,10 @@ def process_triggers
         #delete the downloded folder
         FileUtils.rm_r orders_csv
 
-      end
+       end
 
-    end
+      end # if condition
+    end # for loop
   end
 
    #Now all the export is over. Just remove the content from temp csv we used
