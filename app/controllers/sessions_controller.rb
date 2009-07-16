@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
   def accept_terms
   	if params[:commit] == 'Agree'
       flash[:notice] = "Logged in successfully"
-      redirect_back_or_default(root_path)
+      redirect_to(qd_profiles_url)
       session[:accept_terms] = true
     else
     	flash[:error] = "Please accept the terms and conditions."
@@ -91,8 +91,13 @@ class SessionsController < ApplicationController
     	redirect_to(:controller => :sessions ,:action =>:terms)
     else
      	session[:accept_terms] = true
-       redirect_back_or_default(root_path)
-       flash[:notice] = "Logged in successfully"
+     	flash[:notice] = "Logged in successfully"
+     	if super_admin?
+     	   redirect_back_or_default(root_path) 
+   	  else
+        redirect_to(admin_qd_profiles_url)
+      end 
+      
    end
   end
 
