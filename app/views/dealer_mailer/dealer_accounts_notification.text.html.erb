@@ -1,10 +1,9 @@
 <% unless @dealer_profile.blank? %>
   <HTML> 
      <style type="text/css"> 
-         <!-- a {color: #3B768C} --> 
      </style> 
      <BODY> 
-       <br /> <br />
+       <br />
        <center> 
        <table width=100% style="font-family:Tahoma;font-size:13px; border:3px solid #1C8CCC;" cellpadding="0" cellspacing="0"> 
        <tr bgcolor="#2594D3"> 
@@ -17,10 +16,10 @@
          <p> There is a fresh set of data available on QD Robot. Here is the details.</p><br/> <br/>
          <p> Order number: <b> <%= @order %> </b> </p><br/>  
          <p> Total no of latest records available: <b> <%= @total %> </b> </p><br/>
-         <p> Remaining balance: <b> <%= @balance %> </b> </p><br/>
+         <p> Remaining balance: <b> <%= @balance %> </b> </p><br/><br />
 
          <%if @balance.to_i < 200 %>
-            <p><span style = "color: #C33F13; font-weight: bold">Your remaining balance is below 200. Please Re-order.</span> </p> <br/>
+            <p><span style = "color: #C33F13; font-weight: bold">Your remaining balance is below 200. Please Re-order.</span> </p> <br/><br />
          <% end %>
         
          <p> Data is available with this mail as attachment, for your ready reference. However you can login to QD Robot to view and manipulate data: <br /> <strong><%= "http://#{configatron.site_url}/login" %> </strong></p>
@@ -30,8 +29,9 @@
 </center> 
     <br /><br />
     Best regards, <br />
-    --------------------------<br />
-    <p> The <%= configatron.site_name %> Team. </p>
+    ----------------------------------<br />
+    <p> The <%= configatron.site_name %> Team. </p><br/>
+
     <p> Powered by <%= configatron.site_name %> </p>
         <% admin = @dealer_profile.user.administrator %>
         <% unless admin.blank?%> 
