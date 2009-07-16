@@ -37,10 +37,10 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get }, :collection => {:import_dealer_csv => :get } ,:has_many => [:dealer_accounts, :print_data]
+    
+    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get }, :collection => {:import_dealer_csv => :get }, :has_many => [:dealer_accounts, :print_data]
 
-    admin.resources :qd_profiles, :member => {
-    :assign_dealer => :get }
+    admin.resources :qd_profiles, :member => {:assign_dealer => :get }
     admin.resources :trigger_details, :collection => { :process_triggers => :get }
     admin.resources :print_file_fields
     #admin.resources :
@@ -68,6 +68,8 @@ ActionController::Routing::Routes.draw do |map|
                                              :suspended => :get,
                                              :deleted   => :get,:admin_setting =>:post }
   end
+
+  map.print_file   'admin/print_file.csv',   :controller => 'admin/print_data',    :action => 'index', :format => 'csv'
 
   # Dashboard as the default location
       map.root :controller => 'dashboard', :action => 'index'
