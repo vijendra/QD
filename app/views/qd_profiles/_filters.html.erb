@@ -1,5 +1,5 @@
 
-<% form_tag(qd_profiles_url, :method => :get) do %> <%= indicator %>
+<% form_remote_tag(:url => qd_profiles_url, :method => :get) do %> <%= indicator %>
    <table class="search-table">
      <tr>
         <th> Date </th>

@@ -117,8 +117,8 @@ class QdProfilesController < ApplicationController
                                   @trigger = TriggerDetail.find(params[:tid])
                                   @qd_profiles = @trigger.qd_profiles
                                   render :update do |page|
-      	                            page.replace_html 'qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
-                                    page.visual_effect(:highlight, "qd_profile-list", :duration => 0.5)
+      	                            page.replace_html 'trigger_qd_profile-list', :partial => 'qd_profiles/qd_profiles_list'
+                                    page.visual_effect(:highlight, "trigger_qd_profile-list", :duration => 0.5)
      	                            end
     	                         else
     	                         	  render :update do |page|

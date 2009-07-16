@@ -1,13 +1,14 @@
 <% content_for :header do -%>
    Listing Data Set for, <%= "#{current_user.profile.name} [Orders #{@header_text}]" %>
 <% end -%>
+<div id='trigger_qd_profile-list' >
 
-<div id='qd_profile-list'>
 <%= render :partial => 'filters' %>
 
 
-<br/>
+
 
 <div id='qd_profile-list'>
    <%=render :partial=> 'trigger_list'%>
+</div>
 </div>

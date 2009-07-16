@@ -2,7 +2,8 @@
 <br />
 
 <% if @qd_profiles.blank?%>
-   No Record Found.
+   <br />
+    No QD Profile for Particular Trigger Detail .
 <% else %>
 <br />
 <%form_tag mark_data_qd_profiles_path, :id => 'myform' , :method=>:post do %>

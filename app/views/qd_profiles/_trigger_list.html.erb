@@ -1,3 +1,4 @@
+<br /> <br />
 <table>
     <tr> <td colspan =4> <b> Actions on Marked Data </b> <br /></td> </tr>
     <tr> <td colspan =4> &nbsp;</td> <tr>
@@ -10,17 +11,17 @@
 </table>
 <br />
 
-<%= indicator %>
+ 
 <% if @triggers.blank?%>
- <%= link_to("<b> Back to Date List </b>", qd_profiles_url( ) )%>
+
+
  <br />
- <br />
-   No Record Found.
+ No Trigger Detail Record Found.
 <% else %>
   <table class='listing'>
    <tr>
        <th> <%= remote_order_by_link(:created_at,:text => "Click on date to view records") %> </th>
-       <th> <%= remote_order_by_link(:order_number ,:text => "Order N0") %> </th>
+       <th> <%= remote_order_by_link(:order_number ,:text => "Order No") %> </th>
        <th> <%= remote_order_by_link(:total_records ,:text => "Total records")%> </th>
        <th> <%= remote_order_by_link(:marked , :text => "Marked?") %> </th>
        <th> Mark for print </th>

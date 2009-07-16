@@ -1,15 +1,16 @@
-<%= indicator %>
+ <br /> <br />
+ 
 <% if @triggers.blank?%>
- <%= link_to("<b> Back to Date List </b>",  admin_qd_profiles_url( ) )%>
+  
+ 
  <br />
- <br />
-   No Record Found.
+   No Trigger Detail Record Found.
 <% else %>
   <table class='listing'>
    <tr>
        <th> <%= remote_order_by_link(:created_at,:text => "Click On date to view record"    ) %></th>
        <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer Name"    )%></th>
-       <th><%= remote_order_by_link(:order_number ,:text => "Order N0"   ) %></th>
+       <th><%= remote_order_by_link(:order_number ,:text => "Order No"   ) %></th>
        <th><%= remote_order_by_link(:total_records ,:text => "Total records"    )%></th>
        <th><%= remote_order_by_link(:marked ,:text => "Marked for Print?"      ) %> </th>
        <th> CSV Print File </th>
