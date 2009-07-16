@@ -160,15 +160,16 @@ class Admin::QdProfilesController < ApplicationController
 
 private
 
-   def super_admin?
+  def super_admin?
     #logged_in? && current_user.has_role?('super_admin')
      logged_in? && (current_user.roles.map{|role| role.name}).include?('super_admin')
   end
+
   def check_role
- 		if admin? and !session[:accept_terms]
-    	 redirect_to(:controller =>"/sessions" ,:action =>:terms)
+    if admin? and !session[:accept_terms]
+       redirect_to(:controller =>"/sessions" ,:action =>:terms)
     end
-	end
+  end
 
   def admin?
     logged_in? && current_user.has_role?(:admin)

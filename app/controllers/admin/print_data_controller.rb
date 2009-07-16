@@ -1,63 +1,66 @@
 class Admin::PrintDataController < ApplicationController
   layout 'admin'
-  before_filter :find_dealer ,:except =>[:csv_print_file]
+  before_filter :find_dealer, :except =>[:csv_print_file]
   require 'fastercsv'
 
   def index
-    Profile::PRINT_FILE_VARIABELS.map{|identifier| instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, identifier)) }
-    @marked_dates = @dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"]).map { |prof| prof.marked_date }
-    @marked_dates.uniq!
-
-    @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
-    if @dealer_template.nil?
-      @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:value =>"template1")
-      @dealer_template.save
-    end
     respond_to do |format|
-                   format.html {}
+                   format.html { 
+                       Profile::PRINT_FILE_VARIABELS.map{|identifier| instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, identifier)) }
+                       @marked_dates = @dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"]).map { |prof| prof.marked_date }
+                       @marked_dates.uniq!
+
+                       @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
+  		       if @dealer_template.nil?
+     		       @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:value =>"template1")
+                       @dealer_template.save
+                       end
+                    }
+
                    format.csv {
                      search = QdProfile.new_search()
-                     search.conditions.dealer.administrator_id = current_user.id unless super_admin?
+                     search.conditions.dealer.administrator_id = current_user.id unless current_user.has_role?('super_admin')
                      search.conditions.status = 'marked'
                      search.group = 'trigger_detail_id'
                      search.select = 'trigger_detail_id'          
-                     qd_profiles = search.all
+                     triggers = search.all
                      
                      csv_file = FasterCSV.generate do |csv|
-                     print_file_headers = {}
-    
-                     #Construct CSV headers for variable fields
-    		     Profile::PRINT_FILE_VARIABELS.each do |identifier|
-        	     ob = PrintFileField.by_dealer(dealer.id).by_identifier(identifier).first
-	               if ob.blank?
-	                 print_file_headers[identifier] = identifier
-	               else
-	                 print_file_headers[identifier] = ob.label.blank? ? identifier: ob.label 
-                       end
-                     end
-     
-       #Construct CSV headers for other normal fields. Make merge with above list
-       csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
+                       #Construct CSV headers for variable fields
+                       print_file_headers = {}
+                       Profile::PRINT_FILE_VARIABELS.map{|f| print_file_headers[f] = f.humanize}
 
-       #Selected fields to be appended from dealers profile. if not found use general list.
-       fields_for_csv = dealer.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
+                       #Construct CSV headers for other normal fields. Make merge with above list
+                       csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
 
-       profile_values = profile_field_values(fields_for_csv, dealer)
-       variable_values = variable_field_values(fields_for_csv, dealer)
+                       #Selected fields to be appended from dealers profile. if not found use general list.
+                       fields_for_csv = Profile::CSV_GENERAL_FIELDS
+                       
+                       #Exporting to CSV starts here.. Exporting headers
+                       csv << QdProfile.public_attributes.map{|field| field.humanize} + csv_headers.values
 
-       #Exporting to CSV starts here.. Exporting headers
-       csv << QdProfile.public_attributes.map{|field| field.humanize} + profile_values.keys.map{|field| csv_headers[field] } + variable_values.keys.map{|field| csv_headers[field] }
+                       triggers.each do |tri|
+                         trigger = tri.trigger_detail
+                         dealer =  trigger.dealer
+                         qd_profiles = trigger.qd_profiles.to_be_printed
+                         profile_values = profile_field_values(fields_for_csv, dealer)
+                         variable_values = variable_field_values(fields_for_csv, dealer)
 
-        #Exporting data rows
-        qd_profiles.each do |prof|
-          csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + profile_values.values + variable_values.values
-          prof.print!
-        end
-    end #End CSV Export
+                         
 
-                                                 
-                   }
-    end
+                         #Exporting data rows
+                         qd_profiles.each do |prof|
+                           csv << QdProfile.public_attributes.map{|field| eval("prof.#{field}")} + profile_values.values + variable_values.values
+                           prof.print!
+                         end
+                                         
+                         trigger.update_attribute('marked', 'printed')
+                      end
+                   end #End CSV Export  
+                   #sending the file to the browser
+                   send_data(csv_file, :filename => "#{Time.now.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')                       
+               }
+      end
   end
 
   def csv_print_file
@@ -131,7 +134,7 @@ class Admin::PrintDataController < ApplicationController
 private
 
  def find_dealer
-   @dealer = Dealer.find(params[:dealer_id])
+   @dealer = Dealer.find(params[:dealer_id]) unless params[:dealer_id].blank?
  end
  
  
