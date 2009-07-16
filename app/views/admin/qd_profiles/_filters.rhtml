@@ -4,16 +4,17 @@
         <th> Imported Date Between </th>
         <th> Dealer </th>
         <th> Order Number </th>
+        <th> Status </th>
 
         <th> <input type="reset" value="Reset" />  </th>
      </tr>
      <tr>
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
-           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
-           <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %>&nbsp;&nbsp;
+           <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %> &nbsp;&nbsp;
+          <%= calendar_date_select_tag "created_at_end" ,'',:class =>"textbox-small" %> &nbsp;&nbsp;
           <%= link_to_remote "Yesterday's" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>2 },:method =>:get %> |
-           <%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" },:method =>:get %>
+          <%= link_to_remote "Today's" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" ,:today =>1 },:method =>:get %>  | <%= link_to_remote "All" ,:url =>{ :controller => "/admin/qd_profiles" ,:action =>"index" },:method =>:get %>
 
            </td>
 
@@ -23,13 +24,11 @@
                  <td> <%= p.select :dealer_id_like,  [['All' , '']] + Dealer.administrator_dealers_list(current_user.id) %></td>
                 <%end%>
 
-             <% p.fields_for p.object.dealer do |dealer| %>
-                  <% dealer.fields_for dealer.object.trigger_details do |trigger_detail| %>
-                    <td><%= trigger_detail.text_field :order_number_like,:class =>"textbox-small" %>
-                    <%end%>
-               <%end%>
-
-
+            
+        <td> <%= p.text_field :order_number_like, :class => "textbox-small" %> </td>
+                
+        <td> <%= p.select :marked_is ,[ [ 'Select' , '' ] ,[ 'Not Marked' ,'no' ],[ 'Marked' ,'yes' ] ,[ 'Printed' ,'printed' ] ]%> </td>
+        
        <%end%>
        <%end%>
         <td><%= submit_tag 'Search' %>  </td>

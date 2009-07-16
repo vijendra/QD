@@ -3,14 +3,20 @@
    <table class="search-table">
      <tr>
         <th> Date </th>
-
+        <th> Status </th>
+        <th> Search </th>
+        </tr>
+      <tr>
       <%fields_for @search do |f|%>
         <% f.fields_for @search.conditions do |p| %>
            <td> <%= calendar_date_select_tag "created_at" ,'',:class =>"textbox-small" %>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <td> <%= p.select :marked_is ,[ [ 'Select' , ''] ,[ 'Not Marked' ,'no'],[ 'Marked' ,'yes'] ,['Printed' ,'printed' ] ]%> </td>
          <%end%>
        <%end%>
-         <%= submit_tag 'Search' %>  </td>
+         <td><%= submit_tag 'Search' %>  </td>
 
        </tr>
   </table>
 <% end %>
+
+
