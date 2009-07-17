@@ -231,12 +231,12 @@ ul {
 .head {
 	color: #500050;
 	font-weight: normal;
-	background: #fff url(/images/head.jpg) repeat-x top;
+	/*background: #fff url(/images/head.jpg) repeat-x top;*/
 	margin: 0 10px 0 10px;
-	font-size: 16px;
-        padding: 7px 3px 3px 10px;
-        border: #B9D1DE 1px solid; 
-        border-top: #D1D8E3 1px solid;
+	font-size: 18px;
+        padding: 0px 3px 0px 5px;
+        /*border: #F1F1DD 1px solid; */
+        
 }
 
 .head a{
@@ -575,8 +575,8 @@ fieldset {
 
 a.button {
     background: transparent url('/images/bg_button_a.gif') no-repeat scroll top right;
-    color: #2C6EA7;
-        font-weight: bold;
+    color: #003554;
+        font-weight: normal;
     display: block;
     float: left;
     font-size: 11px;

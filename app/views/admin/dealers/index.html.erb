@@ -2,7 +2,14 @@
    Listing All Dealers
 <% end -%>
 
-<%=render :partial=> 'filters'%>
+<%= link_to_function "Show Search Bar",
+			" Element.show('search-bar'); return false;"
+			%> &nbsp;&nbsp; |&nbsp;&nbsp;
+			<%= link_to_function "Hide Search Bar",
+			"Element.hide('search-bar'); return false;"
+			%>
+
+<div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filters'%> </div>
 <br /> <br />
 
 <div id='dealer-list'>
