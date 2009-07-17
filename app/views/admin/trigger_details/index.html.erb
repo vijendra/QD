@@ -1,10 +1,10 @@
 <% if @type == "processed" %>
    <% content_for :header do -%>
-     Listing All Processed Trigger Detail. &nbsp;<%= link_to "<b>View Unprocessed Triggers</b>", admin_trigger_details_url()  %>
+     Listing All Processed Trigger Detail. &nbsp;<%= link_to "View Unprocessed Triggers", admin_trigger_details_url()  %>
    <% end -%>
 <% else %>
    <% content_for :header do -%>
-    Listing All Unprocessed Trigger Detail.&nbsp; <%= link_to "<b> View Processed Triggers </b>", admin_trigger_details_url(:type => "processed")  %>
+    Listing All Unprocessed Trigger Detail.&nbsp; <%= link_to "View Processed Triggers", admin_trigger_details_url(:type => "processed")  %>
    <% end -%>
 <%end%>
  <%= link_to_function "Show Search Bar",
