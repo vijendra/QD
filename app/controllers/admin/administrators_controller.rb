@@ -3,6 +3,10 @@ class Admin::AdministratorsController < ApplicationController
    require_role "super_admin"
    before_filter :check_role
    layout 'admin'
+   
+    %w(email login).each do |attr|
+    in_place_edit_for :administrator, attr.to_sym
+  end
 
   def index
     @administrators = Administrator.all

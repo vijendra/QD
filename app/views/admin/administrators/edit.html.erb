@@ -11,14 +11,19 @@
     <br/>
 
 
-     <table class="form-table">
-         <tr> <th> Login : </th> <td> <%= f.text_field :login ,:class => 'textbox' %> </td></tr>
-         <tr> <th> Email : </th> <td> <%= f.text_field :email ,:class => 'textbox'%>  </td></tr>
-     </table>
+     <table class ='form-table'>
+        <tr class= 'table-top'> <td colspan='2' > Enter Login Details: </td> </tr>
+       <tr><th> Login  :</th> <td> <%= in_place_editor_field :administrator, 'login' %> </td> </tr>
+       <tr><th> User ID : </th> <td><%=  h(@administrator.id) %> </td> </tr>
+       <tr> <th> Email : </th> <td> <%= in_place_editor_field :administrator, 'email' %></td></tr>
+       <tr> <th> Password : </th> <td><%= "#{"*"*8} <small>#{link_to_if !@administrator.deleted?, "send new password",  reset_password_admin_administrator_path(@administrator.id) ,:method => :put }</small>" %></td></tr>
+       <tr> <th> Account created </th> <td><%=  @administrator.created_at.to_s(:long) %> </td> </tr>
+	     <tr> <th> Last updated : </th> <td> <%=  @administrator.updated_at.to_s(:long) %> </td> </tr>
+     
 
 
     <% f.fields_for :administrator_profile do |administrator_profile_form| %>
-      <table class="form-table">
+      <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
         <tr><th>Profile Name :</th><td><%= administrator_profile_form.text_field :name ,:class =>"textbox" %>
         <tr><th> First Name :</th><td> <%= administrator_profile_form.text_area :first_name ,:class =>"textbox"%></td></tr>
         <tr><th> Mid Name :</th><td> <%= administrator_profile_form.text_area :mid_name ,:class =>"textbox"%></td></tr>
@@ -32,13 +37,13 @@
                            <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
 
 
-   </table>
+  
 
      <%end%>
 
 
       <% f.fields_for :address do |address_form| %>
-      <table class="form-table">
+      <tr class= 'table-top'> <td colspan='2' > Enter Address Details: </td> </tr>
          <tr> <th> Address: </th><td> <%= address_form.text_field :address ,:class =>'textbox'%> </td></tr>
          <tr> <th> City:</th><td> <%= address_form.text_field :city ,:class =>'textbox'%> </td></tr>
          <tr> <th>State:</th><td> <%= address_form.text_field :state ,:class =>'textbox'%> </td></tr>

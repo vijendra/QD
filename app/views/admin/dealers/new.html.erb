@@ -17,10 +17,6 @@
          <% f.fields_for :profile do |profile_form| %>
             <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
             <tr> <th>Name:</th><td> <%= profile_form.text_field :name ,:class =>'textbox'  %> </td></tr>
-            <tr> <th>E-mail(s) ( XML, use ";" as delimiter ):</th><td>
-       	                                  <%= profile_form.text_area :emails_xml ,:class =>'textarea'%></td></tr>
-            <tr> <th>E-mail(s) ( HTML, use ";" as delimiter ):</th><td>
-                                         <%= profile_form.text_area :emails_html %></td></tr>
             <tr> <th>Extra E-mail(s) ( use ";" as delimiter ):</th><td>
                                         <%= profile_form.text_area :emails_extra %></td></tr>
             <tr> <th>First name:</th><td>

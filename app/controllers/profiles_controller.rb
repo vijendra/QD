@@ -2,6 +2,9 @@ class ProfilesController < ApplicationController
   before_filter :find_profile
   before_filter :check_terms_conditions
   before_filter :check_owner_access, :only => [:edit, :update]
+  %w(email login).each do |attr|
+    in_place_edit_for :user, attr.to_sym
+  end
 
   def show
     # render show.html.erb
@@ -10,13 +13,19 @@ class ProfilesController < ApplicationController
   def edit
 
   end
+  def reset_password
+    @user.reset_password!
+
+    flash[:notice] = "A new password has been sent to the user by email."
+    redirect_to edit_profile_url(@user)
+  end
 
   def update
     unless @profile.nil?
       @profile.update_attributes(params[:profile])
       @address.update_attributes(params[:address])
       flash[:notice] = "Your profile has been succesfully updated."
-      redirect_to profile_url(@profile.user)
+       redirect_to edit_profile_url(@user)
     else
       render :edit
     end

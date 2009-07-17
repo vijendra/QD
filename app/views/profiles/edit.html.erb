@@ -16,11 +16,20 @@
 	</p>
 	<% end %>
 
+<table class ='form-table'>
+       <tr class= 'table-top'> <td colspan='2' > Enter Login Details: </td> </tr>
+       <tr><th> Login  :</th> <td> <%= in_place_editor_field :user, 'login' %> </td> </tr>
+       <tr><th> User ID : </th> <td><%=  h(@user.id) %> </td> </tr>
+       <tr> <th> Email : </th> <td> <%= in_place_editor_field :user, 'email' %></td></tr>
+       <tr> <th> Password : </th> <td><%= "#{"*"*8} <small>#{link_to_if !@user.deleted?, "send new password", reset_password_profiles_path(:id => @user.id)}</small>" %></td></tr>
+       <tr> <th> Account created </th> <td><%=  @user.created_at.to_s(:long) %> </td> </tr>
+	     <tr> <th> Last updated : </th> <td> <%=  @user.updated_at.to_s(:long) %> </td> </tr>
+	
 <% form_for :profile, @profile, :url => profile_url(@user), :html => {:method => :put} do |f| %>
   <%= f.error_messages %>
 
-
-    <table class ='form-table'>
+  
+    
         <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
             <tr><th>Name: </th><td>
             <%= f.text_field :name ,:class =>'textbox'%></td></tr>
