@@ -99,6 +99,9 @@ class Admin::QdProfilesController < ApplicationController
       end
       params[:today] = nil
     end
+    if params[:m] == "t"
+      @search.conditions.marked = "yes"
+    end
 
     unless params[:created_at].blank?
       date = params[:created_at].to_date
