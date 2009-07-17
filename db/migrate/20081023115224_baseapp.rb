@@ -39,8 +39,6 @@ class Baseapp < ActiveRecord::Migration
       t.references :user
       t.string :name
       t.string :auth_code
-      t.text :emails_xml
-      t.text :emails_html
       t.text :emails_extra
       t.text :first_name
       t.text :mid_name

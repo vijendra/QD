@@ -30,7 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session, :member => { :accept_terms => :post}
 
   # Profiles
-  map.resources :profiles
+  map.resources :profiles ,:collection => { :reset_password => :get }
   map.resources :qd_profiles, :collection =>{:mark_data => :post, :unmark_data => :post, :print_file => :get, :print_labels => :get, :csv_print_file => :get}
 
   # Administration
