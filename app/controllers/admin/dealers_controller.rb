@@ -12,25 +12,27 @@ class Admin::DealersController < ApplicationController
     @search.per_page ||=10
     @search.order_as ||= "DESC"
     @search.order_by ||= "id"
+    @search.include = [:profile, :dealer_field]
 
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
-
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @dealer }
       format.js {  render :update do |page|
-      	            page.replace_html 'dealer-list', :partial => 'dealers_list'
-     	            end
+      	              page.replace_html 'dealer-list', :partial => 'dealers_list'
+     	           end
       	        }
       format.csv  {
                     csv_file = FasterCSV.generate do |csv|
-                   #Headers
-                   csv << [ 'Id','Login','Email','Profile Name','Auth Code','Emails xml','Emails Html','Emails Extra',
-                            'First Name','Middle Name','Last Name','Phone Number','Data Source',' marketer_net_po',
-                            'wants_data_printed', 'comments','Stating Balance','Current Balance','Rate','Address','Address2',
-                            'City','State','Zip'
-                          ]
+
+                    #Headers
+                    csv << [ 'Id','Login','Email','Profile Name','Auth Code','Emails xml','Emails Html','Emails Extra',
+                             'First Name','Middle Name','Last Name','Phone Number','Data Source',' marketer_net_po',
+                             'wants_data_printed', 'comments','Stating Balance','Current Balance','Rate','Address','Address2',
+                             'City','State','Zip'
+                           ]
                     #Data
                     if params[:type] == "all"
 

@@ -7,7 +7,14 @@
     Listing All Unprocessed Trigger Detail.&nbsp; <%= link_to "<b> View Processed Triggers </b>", admin_trigger_details_url(:type => "processed")  %>
    <% end -%>
 <%end%>
-<%=render :partial=> 'filter'%>'
+ <%= link_to_function "Show Search Bar",
+			" Element.show('search-bar'); return false;"
+			%> &nbsp;&nbsp; |&nbsp;&nbsp;
+			<%= link_to_function "Hide Search Bar",
+			"Element.hide('search-bar'); return false;"
+			%>  &nbsp;&nbsp;
+
+<div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filter'%> </div>
 <br />  <br /> 
 <table>
      <tr>
@@ -18,7 +25,7 @@
          <td>
             <%form_tag process_triggers_admin_trigger_details_url, :method=>:post do %>
               <a class="button" onclick="$(this).up('form').submit(); return false;"><span>Process Pending Triggers</span></a>
-              <span style ="color: #04376E;"> <b> Wants CSV file to be attached to dealer emails? </b></span>  Yes<%= check_box_tag("attachment", 1, true)%>
+              <span style ="color: #04376E;"> CSV file to be attached to dealer emails?</span>  &nbsp; Yes<%= check_box_tag("attachment", 1, true)%>
             <%end%>
          </td>
         

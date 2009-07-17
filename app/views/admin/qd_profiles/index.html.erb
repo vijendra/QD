@@ -1,5 +1,5 @@
 <% content_for :header do -%>
- Listing Data Set &nbsp; <%= link_to("Generate Combined CSV Print File", print_file_url, :action => :get)%>
+ Listing Data Set, Categorised on Date Added &nbsp; <%= link_to("Generate Combined CSV Print File", print_file_url, :action => :get)%>
 <% end -%>
 
 <div id='trigger_qd_profile-list' >
@@ -9,8 +9,9 @@
 			<%= link_to_function "<b>Hide Search Bar</b>",
 			"Element.hide('search-bar'); return false;"
 			%>  &nbsp;&nbsp; |&nbsp;&nbsp;<b> <%= link_to "View Only Marked Data" ,admin_qd_profiles_url(:m => 't' ) %> </b>
+
    <div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filters'%> </div>
-  
+
 <div id='qd_profile-list'>
 
    <%=render :partial=> 'trigger_list'%>

@@ -7,14 +7,10 @@ javascripts:
   - controls
   - application
   - fckeditor/fckeditor
-  - facebox
-  - calendar_date_select/calendar_date_select
 stylesheets:
 - base:
   - default
   - ui.all
-  - calendar/blue2/style
-  - calendar_date_select/default
 - admin:
   - default
   - admin

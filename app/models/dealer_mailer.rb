@@ -35,8 +35,10 @@ class DealerMailer < ActionMailer::Base
     sent_on    Time.now
    
     content_type  "multipart/alternative"
+    part :content_type => 'text/plain',
+         :body => render_message('dealer_accounts_notification_plain', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order)
 
-    part :content_type => "text/html", :body => render_message('dealer_accounts_notification', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order) 
+    part :content_type => "text/html", :body => render_message('dealer_accounts_notification_html', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order) 
     if attachment
       attachment "text/csv" do |a|  
         a.body =  File.read("#{RAILS_ROOT}/public/file.csv")

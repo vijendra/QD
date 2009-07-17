@@ -1,0 +1,50 @@
+<% unless @dealer_profile.blank? %>
+  Dear <%= @dealer_profile.name %>,
+
+  There is a fresh set of data available on QD Robot. Here is the details.
+
+
+  Order number: <b> <%= @order %>
+
+  Total no of latest records available: <%= @total %>
+
+  Remaining balance: <%= @balance %>
+
+
+  <%if @balance.to_i < 200 %>
+    Your remaining balance is below 200. Please Re-order.
+  <% end %>
+        
+  Data is available with this mail as attachment, for your ready reference. However you can login to QD Robot to view and manipulate data:  
+  <%= "http://#{configatron.site_url}/login" %> 
+         
+    
+
+    Best regards, 
+    ----------------------------------
+    The <%= configatron.site_name %> Team.
+
+    Powered by <%= configatron.site_name %>
+        <% admin = @dealer_profile.user.administrator %>
+        <% unless admin.blank?%> 
+            <img src= '<%= "http://#{configatron.site_url}#{admin.administrator_profile.administrator_logo.url(:thumb)}" %>' />
+           
+            Name :</td>  <td> <%=h "#{admin.administrator_profile.first_name} #{admin.administrator_profile.mid_name} #{admin.administrator_profile.last_name}" %>
+             Email : <%=h admin.email %>
+             Address : <%=h admin.address.address %>
+             City : <%=h admin.address.city %>
+             State :<%=h admin.address.state %>
+             Zip : <%=h admin.address.postal_code %>
+             Phone Number :<%=h "#{admin.administrator_profile.phone_1} - #{admin.administrator_profile.phone_2} - #{admin.administrator_profile.phone_3}" %>
+             Fax :<%=h admin.administrator_profile.fax %>
+        
+        <% else %>
+            <img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' /> 
+        <% end %>
+<% end %>
+
+
+
+
+
+

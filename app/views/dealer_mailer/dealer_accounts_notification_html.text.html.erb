@@ -1,5 +1,9 @@
 <% unless @dealer_profile.blank? %>
-     <br />
+  <HTML> 
+     <style type="text/css"> 
+     </style> 
+     <BODY> 
+       <br />
        <center> 
        <table width=100% style="font-family:Tahoma;font-size:13px; border:3px solid #1C8CCC;" cellpadding="0" cellspacing="0"> 
        <tr bgcolor="#2594D3"> 
@@ -46,6 +50,10 @@
         <% else %>
             <img src= '<%= "http://#{configatron.site_url}#{SiteImage.find(:first).site_image.url(:thumb)}" %>' /> 
         <% end %>
+      
+  </BODY>
+</HTML>
+
 <% end %>
 
 
