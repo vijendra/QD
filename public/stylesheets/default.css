@@ -215,7 +215,7 @@ ul {
 #main {
         height: 100%;
         margin: 0 auto;
-        background: #FDFDFA;
+        background: #F3F5F7;
         width: 100%;
         
         padding-top: 15px;
@@ -229,12 +229,12 @@ ul {
 	width: 81%;
 }
 .head {
-	color: #500050;
+	color: #00446B;
 	font-weight: normal;
 	/*background: #fff url(/images/head.jpg) repeat-x top;*/
 	margin: 0 10px 0 10px;
 	font-size: 18px;
-        padding: 0px 3px 0px 5px;
+        padding: 3px 3px 3px 5px;
         /*border: #F1F1DD 1px solid; */
         
 }
@@ -245,13 +245,13 @@ ul {
 
 .head span {
 	font-size: 1em;       
-      
+        background: #fff;
 }
 
 #screen {
  	margin 0;
 	padding: 15px;
-        background: #FDFDFA;
+        background: #F3F5F7;
         min-height: 400px; 
 	height: expression( this.scrollHeight < 400 ? "400px" : "auto" ); /* sets min-height for IE */
 	}
@@ -507,7 +507,7 @@ table.search-table {border-collapse: collapse; width: 100%; margin-top: 1em; pad
 
 .part1 {
        float: left;
-        margin: 0;5289B9
+        margin: 0;
 	width: 48%;
 	color: #000;
 	padding: 0px;
@@ -575,7 +575,7 @@ fieldset {
 
 a.button {
     background: transparent url('/images/bg_button_a.gif') no-repeat scroll top right;
-    color: #003554;
+    color: #002236;
         font-weight: normal;
     display: block;
     float: left;

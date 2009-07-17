@@ -4,10 +4,10 @@
 <% end -%>
 
 <div id='trigger_qd_profile-list' >
-  <%= link_to_function "<b> Show Search Bar </b>",
+  <%= link_to_function "Show Search Bar",
 			" Element.show('search-bar'); return false;"
 			%> &nbsp;&nbsp; |&nbsp;&nbsp;
-			<%= link_to_function "<b>Hide Search Bar</b>",
+			<%= link_to_function "Hide Search Bar",
 			"Element.hide('search-bar'); return false;"
 			%>
   <div id = 'search-bar' style ="display:none"> <%= render :partial => 'filters' %> </div>

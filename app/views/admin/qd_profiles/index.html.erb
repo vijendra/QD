@@ -1,5 +1,5 @@
 <% content_for :header do -%>
- Listing Data Set, Categorised on Date Added &nbsp; <%= link_to("Generate Combined CSV Print File", print_file_url, :action => :get)%>
+ Listing Data Set, Categorised on Date Added &nbsp; <%= link_to image_tag('excel.png'), print_file_url %> &nbsp;<%= link_to("Generate Combined CSV Print File", print_file_url, :action => :get)%>
 <% end -%>
 
 <div id='trigger_qd_profile-list' >
