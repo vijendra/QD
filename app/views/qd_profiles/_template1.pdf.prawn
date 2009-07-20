@@ -72,7 +72,7 @@ for data in @profiles
   p_pdf.tags[:large] = {  :font_size => "1.3em", :font_family => "Times-Roman" }
 
   text = "<b><medium>&nbsp;&nbsp; Make the Call &amp; Bring This Voucher to </medium> <br /> 
-             &nbsp; &nbsp; &nbsp; <large>#{@dealer_profile.name}</large> <br />
+             &nbsp; &nbsp; &nbsp; <large>#{@dealer_profile.display_name}</large> <br />
              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <medium> #{@dealer_address.address} </medium> <br /> 
              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <medium> #{@dealer_address.city}, #{@dealer_address.state} </medium> <br /> 
              &nbsp; &nbsp; &nbsp; &nbsp; <large> #{@phone} </large> <br /> 

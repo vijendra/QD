@@ -61,7 +61,7 @@ for data in @profiles
   p_pdf.tags[:medium] = { :font_size => "1.1em", :font_family => "Times-Roman" }
   p_pdf.text " <medium> #{@phone} </medium>", :at => [170, box.top - 637]
   p_pdf.text " <medium> Call for the authorized dealer in your area </medium>", :at => [100, box.top - 652]
-  p_pdf.text " <medium> #{@dealer_profile.name} </medium>", :at => [130, box.top - 667]
+  p_pdf.text " <medium> #{@dealer_profile.display_name} </medium>", :at => [130, box.top - 667]
   p_pdf.text " <medium> #{@dealer_address.address} </medium>", :at => [160, box.top - 682]
   p_pdf.text " <medium> #{@dealer_address.city}, #{@dealer_address.state} </medium>", :at => [160, box.top - 696]
 
@@ -95,7 +95,7 @@ for data in @profiles
     :at       => [box.right - 165, box.top - 600]
 
   p_pdf.text Time.now.strftime("%m-%d-%y"), :at => [box.right - 150, box.top - 840]
-  p_pdf.text @dealer_profile.name, :at => [box.left + 135, box.top - 872]
+  p_pdf.text @dealer_profile.display_name, :at => [box.left + 135, box.top - 872]
 
   #Mark the data record as printed.
   unless request.request_uri =~ /test_print.pdf/
