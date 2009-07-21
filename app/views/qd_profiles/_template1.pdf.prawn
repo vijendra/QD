@@ -21,17 +21,17 @@ for data in @profiles
     p_pdf.text "&nbsp; &nbsp; &nbsp;  <b>Call with Confidence!</b>", :size => 16
     p_pdf.text "&nbsp; &nbsp; <b>You're already pre-qualified*</b>", :size => 13
     p_pdf.text "&nbsp; &nbsp; &nbsp;   <b>This is a live offer of credit.</b>", :size => 13
-    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  <b>#{@phone} </b>", :size => 15
+    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  <b>#{h(@phone)} </b>", :size => 15
     p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  <b>Authorization #:</b>", :size => 13
-    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; <b>#{@auth_code} </b>", :size => 15
-    p_pdf.text "<b>or log on #{@w_site}</b>", :size => 13
+    p_pdf.text "&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; <b>#{h(@auth_code)} </b>", :size => 15
+    p_pdf.text "<b>or log on #{h(@w_site)}</b>", :size => 13
   end
 
 
   p_pdf.bounding_box([box.left + 115, box.top - 140], :width => 200) do
-    p_pdf.text @name, :size => 14
-    p_pdf.text @address, :size => 14
-    p_pdf.text @place, :size => 14
+    p_pdf.text h(@name), :size => 14
+    p_pdf.text h(@address), :size => 14
+    p_pdf.text h(@place), :size => 14
     p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left, 0]
     #remove the image created for bar code
     FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
@@ -39,21 +39,21 @@ for data in @profiles
   
   p_pdf.text_options.update(:size => 13, :spacing => 5)
 
-  p_pdf.text "Dear #{@name}", :at => [box.left + 50, box.top - 265]
+  p_pdf.text "Dear #{h(@name)}", :at => [box.left + 50, box.top - 265]
 
-  p_pdf.text_box @first_para,
+  p_pdf.text_box "#{h(@first_para)}",
     :width    =>  box.right - 50, :height => 100,
     :at       => [box.left + 50, box.top - 275]
 
-  p_pdf.text_box "#{@name}, #{@sec_para}",
+  p_pdf.text_box "#{h(@name)}, #{h(@sec_para)}",
     :width    =>  box.right - 50, :height => 100,
     :at       => [box.left + 50, box.top - 360]
 
   p_pdf.bounding_box([box.left + 50, box.top - 445], :width => box.right - 60) do
     p_pdf.text 'All you need to do is:'
     p_pdf.tags[:indent] = { :width => "2.1em", :font_size => "1.1em", :font_family => "Times-Roman"}
-    p_pdf.text "<indent> 1. Call <b>#{@phone}</b> or log on to #{@w_site}.</indent>"
-    p_pdf.text "<indent> 2. Confirm your identity by providing your <b>Authorization #</b> #{@auth_code}</indent>"
+    p_pdf.text "<indent> 1. Call <b>#{h(@phone)}</b> or log on to #{h(@w_site)}.</indent>"
+    p_pdf.text "<indent> 2. Confirm your identity by providing your <b>Authorization #</b> #{h(@auth_code)}</indent>"
     p_pdf.text "<indent> 3. Get your pre-approved amount and write it in the space below.</indent>"
     p_pdf.text "<indent> 4. Go to the approved dealership to choose your vehicle.</indent>"
 
@@ -72,10 +72,10 @@ for data in @profiles
   p_pdf.tags[:large] = {  :font_size => "1.3em", :font_family => "Times-Roman" }
 
   text = "<b><medium>&nbsp;&nbsp; Make the Call &amp; Bring This Voucher to </medium> <br /> 
-             &nbsp; &nbsp; &nbsp; <large>#{@dealer_profile.display_name}</large> <br />
-             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <medium> #{@dealer_address.address} </medium> <br /> 
-             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <medium> #{@dealer_address.city}, #{@dealer_address.state} </medium> <br /> 
-             &nbsp; &nbsp; &nbsp; &nbsp; <large> #{@phone} </large> <br /> 
+             &nbsp; &nbsp; &nbsp; <large>#{h(@dealer_profile.display_name)}</large> <br />
+             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <medium> #{h(@dealer_address.address)} </medium> <br /> 
+             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <medium> #{h(@dealer_address.city)}, #{h(@dealer_address.state)} </medium> <br /> 
+             &nbsp; &nbsp; &nbsp; &nbsp; <large> #{h(@phone)} </large> <br /> 
              An Authorized Creditplex Dealer in your area.
          </b>"
 
