@@ -61,7 +61,7 @@ for data in @profiles
   p_pdf.tags[:medium] = { :font_size => "1.1em", :font_family => "Times-Roman" }
   p_pdf.text " <medium> #{@phone} </medium>", :at => [170, box.top - 637]
   p_pdf.text " <medium> Call for the authorized dealer in your area </medium>", :at => [100, box.top - 652]
-  p_pdf.text " <medium> #{@dealer_profile.display_name} </medium>", :at => [130, box.top - 667]
+  p_pdf.text " <medium> #{h(@dealer_profile.display_name)} </medium>", :at => [130, box.top - 667]
   p_pdf.text " <medium> #{@dealer_address.address} </medium>", :at => [160, box.top - 682]
   p_pdf.text " <medium> #{@dealer_address.city}, #{@dealer_address.state} </medium>", :at => [160, box.top - 696]
 
