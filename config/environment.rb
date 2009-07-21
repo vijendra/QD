@@ -60,5 +60,5 @@ Rails::Initializer.run do |config|
 end
 
 ExceptionNotifier.exception_recipients = %w(vijendrakarkala@gmail.com)
-ExceptionNotifier.sender_address = %("QD_ROBOT#{RAILS_ENV}" <qd_robot@isiritech.net>)
+ExceptionNotifier.sender_address = %("QD_ROBOT" <qdrobot@isiritech.net>)
 ExceptionNotifier.email_prefix = "[QDROBOT_ERROR] "
