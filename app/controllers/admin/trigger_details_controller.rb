@@ -58,7 +58,7 @@ def process_triggers
   Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
   for trigger in triggers
     dealer = trigger.dealer
-    if trigger.total_records < trigger.balance
+    if trigger.total_records < trigger.balance && !trigger.file_url.blank?
      unless dealer.blank?
       dealer_profile = dealer.profile
       if trigger.data_source == 'seekerinc'
