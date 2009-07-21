@@ -150,7 +150,7 @@ class Admin::DealersController < ApplicationController
      if params[:type] == "seekerinc"
     	trigger = TriggerDetail.create( :dealer_id => @dealer.id, :data_source => 'seekerinc' ,
     	                                :total_records => no_of_records, :order_number => params[:dealer][:order_number] ,
-    	                                :balance => @balance )
+    	                                :balance => @balance, :status => 'processed' )
       data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
     FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
       @balance = @balance - 1
@@ -162,7 +162,7 @@ class Admin::DealersController < ApplicationController
     trigger.update_attribute('total_records', no_of_records)
     trigger.update_attribute('balance', @balance)
    else
-      trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance )
+      trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance, :status => 'processed' )
        field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
       FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
          no_of_records = no_of_records + 1
