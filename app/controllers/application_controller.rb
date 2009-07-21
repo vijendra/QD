@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
  # include Robot
   include AuthenticatedSystem
   include RoleRequirementSystem
-
+  include ExceptionNotifiable
 
   helper :all # include all helpers, all the time
   filter_parameter_logging :password, :password_confirmation

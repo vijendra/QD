@@ -45,7 +45,7 @@
           <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "QD Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>  
           </td>
 
-           <td><%=  dealer.active? ? (link_to "Active", inactive_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :confirm => 'This action will mark this dealer as INACTIVE. Are you sure?') : (link_to "Inactive", activate_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :confirm => 'This action will mark this dealer as ACTIVE. Are you sure?') %>
+           <td><%=  dealer.active? ? (link_to "Active", inactive_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page),:method =>:post, :confirm => 'This action will mark this dealer as INACTIVE. Are you sure?') : (link_to "Inactive", activate_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :method =>:post,:confirm => 'This action will mark this dealer as ACTIVE. Are you sure?') %>
           </td>
 
           <% if super_admin? -%>
