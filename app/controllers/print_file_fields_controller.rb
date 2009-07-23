@@ -3,7 +3,8 @@ class PrintFileFieldsController < ApplicationController
   before_filter :find_dealer
 
   def new
-    @csv_extra_field = CsvExtraField.new
+    #@csv_extra_field = CsvExtraField.new
+    @fields = @dealer.csv_extra_field.blank??  [] : @dealer.csv_extra_field.fields
 
    Profile::PRINT_FILE_VARIABELS.map {
      |identifier|  instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(current_user.id, identifier)) }
