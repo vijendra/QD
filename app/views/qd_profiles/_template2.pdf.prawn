@@ -94,7 +94,7 @@ for data in @profiles
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 600]
 
-  p_pdf.text Time.now.strftime("%m-%d-%y"), :at => [box.right - 150, box.top - 840]
+  p_pdf.text Time.now.strftime("%m-%d-%Y"), :at => [box.right - 150, box.top - 840]
   p_pdf.text @dealer_profile.display_name, :at => [box.left + 135, box.top - 872]
 
   #Mark the data record as printed.

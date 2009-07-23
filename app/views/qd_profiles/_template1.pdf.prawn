@@ -98,6 +98,9 @@ for data in @profiles
     :width    => box.width - 40, :height => 50,
     :at       => [box.left + 29, box.bottom + 275]  
   
+  p_pdf.text Time.now.strftime("%m-%d-%Y"), :at => [box.right - 150, box.top - 826]
+  p_pdf.text @dealer_profile.display_name, :at => [box.left + 132, box.top - 864]
+
   p_pdf.start_new_page if counter < @profiles.size
   
 end

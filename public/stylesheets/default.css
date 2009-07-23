@@ -49,7 +49,7 @@ body {
 	font-size: 12px;  
 	font-family: Verdana, Arial, "Helvetica Neue", Geneva, sans-serif;
 	color: #000;
-	background-color: #FAFAF4; /* #FCF3DF; #FFF9E5;*/
+	background-color: #F5F5F5; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	height:100%;
@@ -215,7 +215,7 @@ ul {
 #main {
         height: 100%;
         margin: 0 auto;
-        background: #F3F5F7;
+        background: #FcFcFd;
         width: 100%;
         
         padding-top: 15px;
@@ -251,7 +251,7 @@ ul {
 #screen {
  	margin 0;
 	padding: 15px;
-        background: #F3F5F7;
+        background: #FcFcFd;
         min-height: 400px; 
 	height: expression( this.scrollHeight < 400 ? "400px" : "auto" ); /* sets min-height for IE */
 	}
