@@ -9,7 +9,7 @@
 <% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer.id),:method =>:post ) do |f| %>
  <table class = 'form-display'>
    <% Profile::CSV_EXTRA_FIELDS.each do |field| %>
-       <tr><td><%= check_box_tag("csv_extra_fields[]", "#{field}", true)%> </td><th><%=h "#{field}" %></th></tr>
+       <tr><td><%= check_box_tag("csv_extra_fields[]", "#{field}", true, :disabled =>true)%> </td><th><%=h "#{field}" %></th></tr>
     <% end %>
 
   </table><br/><br/>
