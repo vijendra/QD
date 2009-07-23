@@ -15,13 +15,13 @@ for data in @profiles
 
   p_pdf.text_options.update(:size => 12, :spacing => 1)
 
-  p_pdf.text "Dear #{@name}", :at => [box.left + 70, box.top - 275]
+  p_pdf.text "Dear #{h(@name)}", :at => [box.left + 70, box.top - 275]
 
-  p_pdf.text_box @first_para,
+  p_pdf.text_box "#{h(@first_para)}",
     :width    =>  320, :height => 200,
     :at       => [box.left + 70, box.top - 285]
 
-  p_pdf.text_box "#{@name}, #{@sec_para}",
+  p_pdf.text_box "#{h(@name)}, #{h(@sec_para)}",
     :width    =>  320, :height => 100,
     :at       => [box.left + 70, box.top - 400]
 
@@ -35,7 +35,7 @@ for data in @profiles
   p_pdf.text "<b> 3. Vehicles with set pricing and No Haggling </b>.", :at => [box.left + 95, box.top - 609]
 
   p_pdf.tags[:medium] = { :font_size => "1.2em", :font_family => "Times-Roman" }
-  p_pdf.text " <medium> Phone number #{@phone} </medium>", :at => [150, box.top - 640]
+  p_pdf.text " <medium> Phone number #{h(@phone)} </medium>", :at => [150, box.top - 640]
   p_pdf.text " <medium> Call for the authorized dealer in your area </medium>", :at => [110, box.top - 658]
   p_pdf.text " <medium> Call for nearest location </medium>", :at => [150, box.top - 676]
   p_pdf.text " <medium> 800-738-6959 </medium>", :at => [180, box.top - 694]
@@ -54,11 +54,11 @@ for data in @profiles
     :width    => 170, :height => 70,
     :at       => [box.right - 180, box.top - 295]
 
-  p_pdf.text_box "<b><i>Call</i> #{@phone} <br /> or log on to <br /> #{@w_site} </b>",
+  p_pdf.text_box "<b><i>Call</i> #{(@phone)} <br /> or log on to <br /> #{h(@w_site)} </b>",
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 365]
 
-  p_pdf.text_box "<b><i>Confirm</i> your identity <br /> by providing your <br /> Authorization <br /> ##{@auth_code} </b>",
+  p_pdf.text_box "<b><i>Confirm</i> your identity <br /> by providing your <br /> Authorization <br /> ##{h(@auth_code)} </b>",
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 430]
 
