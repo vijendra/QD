@@ -1,0 +1,39 @@
+
+<div class = 'part1'>
+
+<div class = 'form-box' >
+<h1 class = 'head'>  Variable field values. </h1><br/>
+<table class ="form-display">
+   <tr> <th> Text Body 1 </th> <td > <% unless @text_body_1.nil? %> <%=h @text_body_1.value %> <%end%></td></tr>
+   <tr> <th> Text Body 2 </th> <td><% unless @text_body_2.nil? %> <%=h @text_body_2.value %> <%end%></td></tr>
+   <tr> <th> Text Body 3 </th> <td > <% unless @text_body_3.nil? %><%=h @text_body_3.value %><%end%> </td></tr>
+   <tr> <th>Label </th> <th> value </th> </tr>
+   <tr> <td><%=h @variable_data_1.blank?? 'variable data 1' : @variable_data_1.label %> </td><td><%=h @variable_data_1.blank?? '' : @variable_data_1.value %> </td>
+   <tr> <td><%=h @variable_data_2.blank?? 'variable data 2' : @variable_data_2.label %> </td><td><%=h @variable_data_2.blank?? '' : @variable_data_2.value %> </td>
+   <tr> <td><%=h @variable_data_3.blank?? 'variable data 3' : @variable_data_3.label %> </td><td><%=h @variable_data_3.blank?? '' : @variable_data_3.value %> </td>
+   <tr> <td><%=h @variable_data_4.blank?? 'variable data 4' : @variable_data_4.label %> </td><td><%=h @variable_data_4.blank?? '' : @variable_data_4.value %> </td>
+   <tr> <td><%=h @variable_data_5.blank?? 'variable data 5' : @variable_data_5.label %> </td><td><%=h @variable_data_5.blank?? '' : @variable_data_5.value %> </td>
+   <tr> <td><%=h @variable_data_6.blank?? 'variable data 6' : @variable_data_6.label %> </td><td><%=h @variable_data_6.blank?? '' : @variable_data_6.value %> </td>
+   <tr> <td><%=h @variable_data_7.blank?? 'variable data 7' : @variable_data_7.label %> </td><td><%=h @variable_data_7.blank?? '' : @variable_data_7.value %> </td>
+   <tr> <td><%=h @variable_data_8.blank?? 'variable data 8' : @variable_data_8.label %> </td><td><%=h @variable_data_8.blank?? '' : @variable_data_8.value %> </td>
+   <tr> <td><%=h @variable_data_9.blank?? 'variable data 9' : @variable_data_9.label %> </td><td><%=h @variable_data_9.blank?? '' : @variable_data_9.value %> </td>
+   <tr> <td><%=h @variable_data_10.blank?? 'variable data 10' : @variable_data_10.label %> </td><td><%=h @variable_data_10.blank?? '' : @variable_data_10.value %> </td>
+      
+   <tr><th> Selected Template :</th><td>
+      <% unless @dealer_template.blank? %>
+         <% if @dealer_template.value.include?("template1")  %>
+             <%= image_tag("template4.png",  :alt => "Template 1")  %>
+          <% elsif  @dealer_template.value.include?("template2") %>
+            <%= image_tag("template5.jpg", :alt => "Template 2")  %>
+         <% elsif  @dealer_template.value.include?("template3") %>
+	    <%= image_tag("template6.jpg", :alt => "Template 3")  %>
+         <% else  'No template selected Yet.' %>
+         <%end%> 
+      <% else %>
+         No template selected Yet.
+      <% end %>
+    </td></tr>
+</table>
+
+</div>
+</div>

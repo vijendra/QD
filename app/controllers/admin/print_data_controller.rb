@@ -4,6 +4,7 @@ class Admin::PrintDataController < ApplicationController
   require 'fastercsv'
 
   def index
+    @fields =  @dealer.csv_extra_field.blank?? Profile::CSV_EXTRA_FIELDS : @dealer.csv_extra_field.fields
     respond_to do |format|
                    format.html { 
                        Profile::PRINT_FILE_VARIABELS.map{|identifier| instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, identifier)) }

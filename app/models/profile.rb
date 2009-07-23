@@ -9,7 +9,7 @@ class Profile < ActiveRecord::Base
 
   CSV_GENERAL_FIELDS = ['name', 'first_name', 'last_name', 'phone_num', 'address', 'city', 'state','postal_code', 'auth_code']
   # TODO: Add validations, if you require any for the profile fields
-  
+  CSV_EXTRA_FIELDS = ['name','display_name','auth_code','emails_extra','first_name','mid_name','last_name','phone_num','address','city','state','postal_code','text_body_1','text_body_2','text_body_3','variable_data_1','variable_data_2','variable_data_3','variable_data_4','variable_data_5','variable_data_6','variable_data_7','variable_data_8','variable_data_9','variable_data_10']
   belongs_to :user
   
   # Filter out the private attributes
