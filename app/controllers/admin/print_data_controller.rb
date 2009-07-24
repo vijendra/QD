@@ -4,9 +4,10 @@ class Admin::PrintDataController < ApplicationController
   require 'fastercsv'
 
   def index
-    @fields =  @dealer.csv_extra_field.blank?? Profile::CSV_EXTRA_FIELDS : @dealer.csv_extra_field.fields
+   
     respond_to do |format|
                    format.html { 
+                       @fields =  @dealer.csv_extra_field.blank?? Profile::CSV_EXTRA_FIELDS : @dealer.csv_extra_field.fields
                        Profile::PRINT_FILE_VARIABELS.map{|identifier| instance_variable_set( "@#{identifier}", PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, identifier)) }
                        @marked_dates = @dealer.qd_profiles.find(:all,:conditions =>["status = ? ","marked"]).map { |prof| prof.marked_date }
                        @marked_dates.uniq!
