@@ -9,6 +9,7 @@
 			<%= link_to_function "Hide Search Bar",
 			"Element.hide('search-bar'); return false;"
 			%>  &nbsp;&nbsp; |&nbsp;&nbsp;<%= link_to "View Only Marked Data" ,admin_qd_profiles_url(:m => 't' ) %>
+			&nbsp;&nbsp; |&nbsp;&nbsp;<%= link_to "Show All" ,admin_qd_profiles_url %>
 
    <div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filters'%> </div>
 
