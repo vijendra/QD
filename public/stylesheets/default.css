@@ -49,7 +49,7 @@ body {
 	font-size: 12px;  
 	font-family: Verdana, Arial, "Helvetica Neue", Geneva, sans-serif;
 	color: #000;
-	background-color: #F5F5F5; /* #FCF3DF; #FFF9E5;*/
+	background-color: #D8D8D8; /* #FCF3DF; #FFF9E5;*/
 	margin: 0;
 	padding: 0;
 	height:100%;
@@ -57,7 +57,7 @@ body {
 
 
 a:link, a:visited {
-	color: #005DB8;
+	color: #C88900;
          letter-spacing: 0.04em
 }
 a:hover {
@@ -124,9 +124,9 @@ ul {
 /** Header */
 #header {
 	background: url(/images/top_bar.png) repeat-x;
-	margin: 2px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
 	padding: 0.1em 0em 0em;
-        height: 68px;
+        height: 67px;
 }
 
 #header h1 {
@@ -149,7 +149,7 @@ ul {
 	width: 480px;
 	margin: 0 auto;
         font-weight: bold;
-	margin-top: 2.7em;
+	margin-top: 2.9em;
         
         
 }
@@ -171,7 +171,7 @@ ul {
 	margin: 5px 5px 0px 0px;
 	padding: 3px 10px 3px;
 	text-decoration: none;
-	color: #003467;
+	color: #fff;
         background: url(/images/menu-sep.jpg) no-repeat right;
 }
 
@@ -183,7 +183,7 @@ ul {
 #menu .current {
 
        /*background: #FFD167 url(/images/img03.gif) no-repeat right top;*/
-       color: #5A9500;
+       color: #8DD0FF;
 }
 
 #menu .current_page_item a {
@@ -215,7 +215,7 @@ ul {
 #main {
         height: 100%;
         margin: 0 auto;
-        background: #FcFcFd;
+        background: #fff;
         width: 100%;
         
         padding-top: 15px;
@@ -229,19 +229,20 @@ ul {
 	width: 81%;
 }
 .head {
-	color: #00446B;
-	font-weight: normal;
-	/*background: #fff url(/images/head.jpg) repeat-x top;*/
+	color: #003366;
+	font-weight: bold;
+	background: #fff /*url(/images/head.jpg) repeat-x top*/;
 	margin: 0 10px 0 10px;
-	font-size: 18px;
+	font-size: 17px;
         padding: 3px 3px 3px 5px;
         /*border: #F1F1DD 1px solid; */
         
 }
 
 .head a{
-	 font-size: 14px;
-}
+	 font-size: 13px;
+         color: #0064AC;
+}   
 
 .head span {
 	font-size: 1em;       
@@ -251,7 +252,7 @@ ul {
 #screen {
  	margin 0;
 	padding: 15px;
-        background: #FcFcFd;
+        background: #fff;
         min-height: 400px; 
 	height: expression( this.scrollHeight < 400 ? "400px" : "auto" ); /* sets min-height for IE */
 	}
@@ -367,8 +368,9 @@ ul {
         padding: 6px 0 6px 0;
 	color: #fff;
 	font-size: 0.9em;
-        background: #0373B3;
+        background: #013F6E;
         text-align: center;
+        border: #B3B3B3 1px solid;
 }
 #footer a  {
 	color: #EBFF00;
@@ -421,19 +423,19 @@ ul {
 table.listing    { border-collapse: collapse;
             width: 100%;
             color: #000;
-            border:1px solid #95A5B5;
+            border:1px solid #6D8297;
 }
 
 table.listing th {background: #DCDFE6 url(/images/table-header.jpg) repeat-x top;
              color: #003971;
              text-align: left;
              padding: 0.3em .5em 0.3em;
-             border: #95A5B5 1px solid ;
+             border: #6D8297 1px solid ;
 	     font-weight: bold;
 			  
 }
 
-table.listing td { padding: 1.1em .5em .5em .5em; color: #000000; border-bottom:1px solid #95A5B5; background: #FFF;}
+table.listing td { padding: 1.1em .5em .5em .5em; color: #000000; border-bottom:1px solid #6D8297; background: #FFF;}
 
 
 table.listing tr.processed td { 
@@ -465,9 +467,9 @@ table.listing a {
 .table-bottom{ width: 100%; border-collapse: collapse; border:1px solid #A5BDD5; }
 
 
-.form-table th {background-color: #FCFDFE; color: #004177; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left; font-weight: bold; text-align: right; vertical-align: middle;}
+.form-table th {background-color: #F6F7F8; color: #004177; padding: 0.1em .8em; border:1px solid #A5BDD5; text-align: left; font-weight: bold; text-align: right; vertical-align: middle;}
 
-.form-table td {background-color: #FCFDFE; padding: .8em; border:1px solid #A5BDD5; vertical-align: middle;}
+.form-table td {background-color: #F6F7F8; padding: .8em; border:1px solid #A5BDD5; vertical-align: middle;}
 
 .form-table {border-collapse: collapse; width: auto; border: 1px solid #A5BDD5; margin-left: 5px; width: auto;}
 
@@ -494,7 +496,7 @@ table.search-table a {
            }
 table.search-table {border-collapse: collapse; width: 100%; margin-top: 1em; padding 0; border: #B8C9DA 1px solid ;}
 
-.table-top td {background: #D5E8F2;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #A5BDD5 1px solid;}
+.table-top td {background: #CBD9E8;  padding: .3em .5em 0.3em 0.5em; color: #002E4F; font-size: 13px; font-weight: bold;  border: #A5BDD5 1px solid;}
 
 
 

@@ -30,7 +30,7 @@ class DealerMailer < ActionMailer::Base
 
    def dealer_accounts_notification(dealer_profile, total, balance, order, attachment)
     subject    "[#{configatron.site_name}] " + 'Accounts information'
-    recipients dealer_profile.user.email
+    recipients [dealer_profile.user.email] + dealer_profile.emails_extra.split(';')
     from       "#{configatron.support_name} <#{configatron.support_email}>"
     sent_on    Time.now
    

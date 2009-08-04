@@ -176,6 +176,7 @@ class QdProfilesController < ApplicationController
      @auth_code =  @dealer_profile.auth_code rescue ' '
      @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
      @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
+     @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator '
      template = current_user.print_file_fields.find_by_identifier('template')
      @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
 
@@ -184,7 +185,7 @@ class QdProfilesController < ApplicationController
        case @print_template
                    when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
                    when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
-                   when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 930])
+                   when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 1008])
                    else (file_name, size = 'print_file.pdf', [610, 1009])
                    end
        options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
