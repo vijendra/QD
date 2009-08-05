@@ -201,7 +201,7 @@ class QdProfilesController < ApplicationController
  end
 
   def print_labels
-    @profiles = current_user.qd_profiles.to_be_printed
+    @profiles = current_user.qd_profiles.to_be_dealer_printed
     unless @profiles.blank?
       options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [595, 770] }
       prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => 'labels.pdf'
@@ -213,7 +213,7 @@ class QdProfilesController < ApplicationController
  end
 
  def csv_print_file
-   qd_profiles = current_user.qd_profiles.to_be_printed
+   qd_profiles = current_user.qd_profiles.to_be_dealer_printed
    fields_to_be_shown = current_user.dealer_field.fields.sort rescue QdProfile.public_attributes
 
    csv_file = FasterCSV.generate do |csv|
