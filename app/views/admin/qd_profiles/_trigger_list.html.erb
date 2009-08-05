@@ -7,21 +7,34 @@
 <% else %>
   <table class='listing'>
    <tr>
-       <th> <%= remote_order_by_link(:created_at,:text => "Click On date to view record") %></th>
-       <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer Name")%></th>
-       <th><%= remote_order_by_link(:order_number ,:text => "Order No") %></th>
-       <th><%= remote_order_by_link(:total_records ,:text => "Total records")%></th>
-       <th><%= remote_order_by_link(:marked ,:text => "Marked for Print?") %> </th>
-       <th> CSV Print File </th>
+       <th> <%= remote_order_by_link(:created_at,:text => "Click on date") %></th>
+       <th><%= remote_order_by_link(:order_number ,:text => "Order no") %></th>
+       <th><%= remote_order_by_link(:total_records ,:text => "Records")%></th>
+       <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer name")%></th>
+       <th><%= remote_order_by_link(:marked ,:text => "Printed?") %> </th>
+       <th> Mark for print </th>
+       <th> CSV print file </th>
 
    </tr>
    <% @triggers.each do |trigger| %>
        <tr>
          <td> <b> <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%m/%d/%Y')}", :url => admin_qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}"   %>  </td> </b>
-         <td > <%= trigger.dealer.profile.name  %></td>
          <td> <%= trigger.order_number  %></td>
          <td> <%= trigger.total_records %> </td>
+         <td> <%= trigger.dealer.profile.name  %></td>
          <td> <%= (trigger.marked == 'yes' ||  trigger.marked == 'printed') ? (trigger.marked == 'printed'? 'Printed': 'Yes') : 'No' -%> </td>
+         <td> 
+           <% if trigger.dealer.profile.wants_data_printed -%>
+             <% unless trigger.marked == 'yes'%>
+               <% link_text = trigger.marked == 'printed' ? 'Re-Mark for Print' : 'Mark for Print' -%>
+               <%= link_to link_text,  mark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will mark all the records for PRINT. Are you sure?', :method => :post  -%> 
+            <% else -%>
+               <%= link_to "Un-Mark for Print", unmark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will un-mark all the records for PRINT. Are you sure?', :method => :post  -%> 
+            <% end -%>
+           <% else -%>
+               Doesn't want print
+           <% end -%>
+         </td>
          <td> <% if trigger.marked == 'yes' %>
                  <%= link_to 'CSV Print File', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %>
               <% else %>

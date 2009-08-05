@@ -37,4 +37,5 @@ class QdProfile < ActiveRecord::Base
   end
 
   named_scope :to_be_printed, {:conditions => ["status like ?",  "marked"] }
+  named_scope :to_be_dealer_printed, {:conditions => ["dealer_marked like ?",  "yes"] }
 end

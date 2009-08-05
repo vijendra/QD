@@ -146,7 +146,7 @@ class Admin::QdProfilesController < ApplicationController
    end
  end
 
-  def assign_dealer
+ def assign_dealer
 
      if (!params[:dealer].blank? and !params[:dealer][:id].blank?)
      	@qd_profile = QdProfile.find(params[:id])
@@ -157,9 +157,34 @@ class Admin::QdProfilesController < ApplicationController
      	 @qd_profile = QdProfile.find(params[:id])
      end
 
-  end
+ end
 
+ def mark_data
+   unless params[:tid].blank?
+     trigger = TriggerDetail.find(params[:tid])
+     trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', Date.today)
+                              qp.mark! 
+                            }
+     trigger.update_attribute('marked', 'yes')
+   end
 
+   flash[:notice] = "Data is successfully marked for printing."
+   redirect_to(admin_qd_profiles_path)
+ end
+
+ def unmark_data
+   unless params[:tid].blank?
+     trigger = TriggerDetail.find(params[:tid])
+     trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', '')
+                              qp.un_mark! if qp.marked?
+                            }
+     
+     trigger.update_attribute('marked', 'no')
+   end
+
+   flash[:notice] = "Data is successfully un-marked for printing."
+   redirect_to(admin_qd_profiles_path)
+ end
 
 private
 

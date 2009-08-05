@@ -3,40 +3,24 @@
 <% end -%>
 
 <div class="js_option">
-			<%= link_to_function "Show Print File Variable Data",
-			"Element.hide('hidden1');
-			 Element.show('expand');"
-			%> &nbsp;&nbsp; |&nbsp;&nbsp;
-				<%= link_to_function "Hide",
-			"Element.hide('expand');
-			 Element.show('hidden1');"
-			%>
-		</div> <br/>
+   <%= link_to_function "Show Print File Variable Data", "Element.show('expand');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
+   <%= link_to_function "Show CSV Print file Columns", "Element.show('csv_extra_field');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
+   <%= link_to_function "Hide", "Element.hide('csv_extra_field'); Element.hide('expand');" %>
+</div> <br/>
 		
-<div class="js_option">
-			<%= link_to_function "Show Columns to be appended to the CSV Print file",
-			"Element.hide('hidden2');
-			 Element.show('csv_extra_field');"
-			%> &nbsp;&nbsp; |&nbsp;&nbsp;
-				<%= link_to_function "Hide",
-			"Element.hide('csv_extra_field');
-			 Element.show('hidden2');"
-			%>
-		</div> <br/>
-		
-<div id="expand" style="display: none" >
+<div id="expand">
 <%form_tag admin_print_file_fields_path, :method=>:post do %>
 <table class ="form-table">
 <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
   <tr class= 'table-top'> <td style ='text-align: right;'> Identifier </td> <td> Label </td> <td> value </td> </tr>
   <tr> <th> Variable Data 1 </th>
-       <td> <%= text_field_tag "variable_data_1[label]" ,@variable_data_1.blank?? "website" : @variable_data_1.label,:class => "textbox" %> </td>
-       <td><%= text_field_tag "variable_data_1[value]" ,@variable_data_1.blank?? 'www.autoappnow.com' :@variable_data_1.value,:class => "textbox" %> </td>
+       <td> <%= text_field_tag "variable_data_1[label]" ,@variable_data_1.blank?? "Web site" : @variable_data_1.label, :class => "textbox", :disabled => true %> </td>
+       <td><%= text_field_tag "variable_data_1[value]", @variable_data_1.blank?? 'www.autoappnow.com' :@variable_data_1.value, :class => "textbox" %> </td>
   </tr>
      
   <tr><th> Variable Data 2 </th>
-      <td> <%= text_field_tag "variable_data_2[label]" ,@variable_data_2.blank?? '' : @variable_data_2.label,:class => "textbox" %> </td>
-      <td><%= text_field_tag "variable_data_2[value]" ,@variable_data_2.blank?? '' :@variable_data_2.value,:class => "textbox" %> </td>
+      <td> <%= text_field_tag "variable_data_2[label]" ,@variable_data_2.blank?? 'Ask for' : @variable_data_2.label, :class => "textbox", :disabled => true %> </td>
+      <td><%= text_field_tag "variable_data_2[value]" ,@variable_data_2.blank?? '' :@variable_data_2.value, :class => "textbox" %> </td>
   </tr>
      
   <tr><th> Variable Data 3 </th>

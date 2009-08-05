@@ -1,7 +1,7 @@
 body {
 	font: 12px Verdana, Arial, Helvetica, sans-serif ; 
 	color: #000;
-	background-color: #FFFCF4;
+	background-color: #E2E3E7;
 	margin: 0;
 	padding: 0;
 	min-width: 900px;
@@ -88,8 +88,8 @@ label {
 /** Main body */
 #main {
 	margin: 0 auto;
-        background: #F8F8F3;
-        width: 99.5%;
+        background: #E2E3E7;
+        width: 100%;
         border-left: #95B2CE 1px solid;
         border-right: #95B2CE 1px solid;
         border-top: #95B2CE 1px solid;
@@ -98,13 +98,13 @@ label {
 #left {
 	background-color: #fff;
 	margin: 0 auto;
-	width: 450px;
-	border: 1px solid #AFC0D4;
+	width: 480px;
+	border: 5px solid #DDDEE2;
 }
 #left .head {
-	color: #fff;
+	color: #D8EF10;
 	font-weight: normal;
-	background-color: #1587C8;
+	background-color: #346797;
 	padding: 0.2em 1em 0.2em;
 	margin: 0;
 	font-size: 1.6em;
@@ -231,18 +231,19 @@ div.progressBar div.background {
 /** Footer */
 #footer {
         margin: 0 auto;
-        width: 99.7%;
-        padding-top: 7px;
-        padding-bottom: 7px;
+        width: 100%;
+        padding-top: 4px;
+        padding-bottom: 4px;
 	color: #fff;
-	font-size: 0.8em;
-        background: #1587C8;
+	font-size: 0.9em;
+        background: #346797;
         text-align: center;
+        border-top: #346797 1px solid;
 }
 
 #footer a  {
 	color: #EBFF00;
-	font-size: 1em;
+	font-size: 1.1em;
 }
 
 #footer a:hover {

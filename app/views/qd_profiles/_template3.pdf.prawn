@@ -69,7 +69,7 @@ for data in @profiles
   
   #Mark the data record as printed.
   unless request.request_uri =~ /test_print.pdf/
-    data.dealer_print! 
+    data.update_attribute('dealer_marked', 'printed') 
     data.trigger_detail.update_attribute('marked', 'printed')
   end
 

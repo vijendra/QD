@@ -12,11 +12,7 @@
 </head>
 
 <body>
-  <div id="header">
-      <h1>Quick Data <span>Robot</span></h1>
-      <div id="global_links">
-      <%= render :partial => 'shared/global_links' %>
-    </div>
+  
 
   </div>
 
@@ -30,6 +26,10 @@
 
         <div id="screen">
            <%= yield %>
+         <br />
+        <div id= "footer">
+       Copyright © <%= configatron.company_name %> &nbsp; | &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://www.isiritech.com" , {:target => "_blank" }%>
+  </div>
         </div>
      </div>
      <br />
@@ -37,9 +37,7 @@
   </div>
   <div class="clear"> </div>
 
-  <div id= "footer">
-       Copyright © <%= configatron.company_name %> &nbsp; &nbsp;  | &nbsp; &nbsp;  Powered by <%= link_to "isiri Technologies Pvt. Ltd.", "http://www.isiritech.com" , {:target => "_blank" }%>
-  </div>
+  
   <br />
   <br />
 

@@ -34,7 +34,7 @@
             <tr> <th>MarketerNet PO:</th><td>
                                     <%= profile_form.text_field :marketer_net_po, :class =>'textbox'  %></td></tr>
             <tr> <th>Wants data printed:</th><td>
-                   <%= profile_form.select :wants_data_printed, [['Select' , ''], ['Yes', 'Yes'], ['No', 'No']]  %></td></tr>
+                   <%= profile_form.select :wants_data_printed, [['Select' , ''], ['Yes', true], ['No', false]]  %></td></tr>
             <tr> <th>Comments:</th><td>
                            <%= profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
 

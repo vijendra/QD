@@ -265,33 +265,40 @@ class Admin::DealersController < ApplicationController
 
   def test_print
    @dealer = Dealer.find(params[:id])
-   @dealer_profile =  @dealer.profile
-   @dealer_address =  @dealer.address
-   @profiles = [@dealer.qd_profiles.first]
+   record = @dealer.qd_profiles.first
+  
+   unless record.blank?
+     @profiles = [record]
+     @dealer_profile =  @dealer.profile
+     @dealer_address =  @dealer.address
+   
+     @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+     @auth_code = @dealer_profile.auth_code
+     @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
+     @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
+     @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator'
 
-   @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
-   @auth_code = @dealer_profile.auth_code
-   @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
-   @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
-   @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator'
+     @print_template = "qd_profiles/#{params[:t]}"
+     @w_site = @dealer.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
+     @ask_for = @dealer.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
 
-   @print_template = "qd_profiles/#{params[:t]}"
-   @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
-   @ask_for = current_user.print_file_fields.find_by_label('Ask for').value rescue 'Contact Admin'
-   case @print_template
-        when 'qd_profiles/template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
-        when 'qd_profiles/template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
+     case @print_template
+        when 'qd_profiles/template1' then (file_name, size = 'Crediplex.pdf', [611, 935])
+        when 'qd_profiles/template2' then (file_name, size = 'WSAC.pdf',[612, 937])
         when 'qd_profiles/template3' then (file_name, size = 'Letter_Master.pdf', [612, 1008])
         else (file_name, size = 'print_file.pdf', [610, 1009])
+     end
+     options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+     prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+     render :layout => false
+   else
+     flash[:notice] = 'No data available for test print. Please make sure this dealer has at least one data record.'
+     redirect_to admin_dealer_print_data_url(@dealer)
    end
-   options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
-   prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
-   render :layout => false
-
   end
 
 
- 	private
+  private
 
  	#def check_role
  		#if admin? and !session[:accept_terms]

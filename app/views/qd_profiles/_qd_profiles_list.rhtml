@@ -21,6 +21,7 @@
                 <th> Zip </th>
                 <th> Crrt </th>
                 <th> Status </th>
+                <th> Marked? </th>
              </tr>
 
              <% @qd_profiles.each do |profile| %>
@@ -34,6 +35,7 @@
                       <td> <%=h profile.zip %> </td>
                       <td> <%=h profile.crrt %> </td>
                       <td> <%=h profile.status %></td>
+                      <td> <%= profile.dealer_marked == 'yes'? 'Yes' : 'No'-%> </td>
                  </tr>
              <% end %>
          <% else %>
@@ -44,6 +46,7 @@
                       <th> <%= qd_field.humanize %> </th>
                   <% end %>
                  <th> Status </th>
+                 <th> Marked? </th>
              </tr>
 
              <% @qd_profiles.each do |profile| %>
@@ -53,7 +56,8 @@
                  <% @fields_to_be_shown.each do |qd_field| %>
                     <td> <%= eval("profile.#{qd_field}") %> </td>
                  <% end %>
-		 <td> <%= profile.status %></td>
+		 <td> <%= profile.status == 'printed' ? 'Admin printed' : profile.status  %></td>
+                 <td> <%= profile.dealer_marked == 'yes'? 'Yes' : (profile.dealer_marked == 'printed'? 'Printed' : 'No')-%> </td>
               </tr>
              <% end %>
          <% end %>

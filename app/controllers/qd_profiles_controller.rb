@@ -133,19 +133,18 @@ class QdProfilesController < ApplicationController
    unless params[:profiles].blank?
       params[:profiles].each do |id|
        qd_profile = QdProfile.find(id)
-       qd_profile.update_attributes(:marked_date => Date.today)
-       qd_profile.mark!
+       qd_profile.update_attributes(:marked_date => Date.today, :dealer_marked => 'yes')
      end
-     QdProfile.find(params[:profiles].first).trigger_detail.update_attribute('marked', 'yes')
+     QdProfile.find(params[:profiles].first).trigger_detail.update_attribute('dealer_marked', 'yes')
    end
  
    unless params[:tid].blank?
      trigger = TriggerDetail.find(params[:tid])
      trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', Date.today)
-                              qp.mark! 
+                              qp.update_attribute('dealer_marked', 'yes')
                             }
      
-     trigger.update_attribute('marked', 'yes')
+     trigger.update_attribute('dealer_marked', 'yes')
    end
 
    flash[:notice] = "Data is successfully marked for printing."
@@ -156,10 +155,10 @@ class QdProfilesController < ApplicationController
    unless params[:tid].blank?
      trigger = TriggerDetail.find(params[:tid])
      trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', '')
-                              qp.un_mark! if qp.marked?
+                              qp.update_attribute('dealer_marked', 'no')
                             }
      
-     trigger.update_attribute('marked', 'no')
+     trigger.update_attribute('dealer_marked', 'no')
    end
 
    flash[:notice] = "Data is successfully un-marked for printing."
@@ -167,7 +166,7 @@ class QdProfilesController < ApplicationController
  end
 
  def print_file
-   @profiles = current_user.qd_profiles.to_be_printed
+   @profiles = current_user.qd_profiles.to_be_dealer_printed
    unless @profiles.blank?
      @image = params[:t]
      @dealer_profile =  current_user.profile
@@ -176,15 +175,15 @@ class QdProfilesController < ApplicationController
      @auth_code =  @dealer_profile.auth_code rescue ' '
      @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
      @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
-     @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator '
+     @third_para = current_user.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator '
      template = current_user.print_file_fields.find_by_identifier('template')
      @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
-
+     @ask_for = current_user.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
      unless template.blank?
        @print_template = template.value
        case @print_template
-                   when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [610, 1009])
-                   when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[610, 1009])
+                   when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [611, 935])
+                   when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[612, 937])
                    when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 1008])
                    else (file_name, size = 'print_file.pdf', [610, 1009])
                    end
