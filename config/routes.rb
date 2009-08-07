@@ -38,8 +38,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
     
-    admin.resources :dealers ,:has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get }, :collection => {:import_dealer_csv => :get }, :has_many => [:dealer_accounts, :print_data]
-
+    admin.resources :dealers, :has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get }, :collection => {:import_dealer_csv => :get }, :has_many => [:dealer_accounts, :print_data]
+    admin.resources :dealers do |dealer|
+      #dealer.resource :print_data, :controller => 'print_data'
+       dealer.resources :shell_dimensions
+    end
     admin.resources :qd_profiles, :member => {:assign_dealer => :get }, :collection =>{:mark_data => :post, :unmark_data => :post}
     admin.resources :trigger_details, :collection => { :process_triggers => :get }
     admin.resources :print_file_fields
@@ -69,8 +72,9 @@ ActionController::Routing::Routes.draw do |map|
                                              :deleted   => :get,:admin_setting =>:post }
   end
 
-  map.print_file   'admin/print_file.csv',   :controller => 'admin/print_data',    :action => 'index', :format => 'csv'
-
+  map.print_file 'admin/print_data/print_file.csv',   :controller => 'admin/print_data',  :action => 'index', :format => 'csv'
+  map.shell_matrix 'admin/print_data/shell_matrix.pdf', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix', :format => 'pdf' 
+  #map.shell_dimension 'admin/print_data/print_shell_dimension', :controller => 'admin/print_data',  :action => 'print_shell_dimension'
   # Dashboard as the default location
       map.root :controller => 'dashboard', :action => 'index'
 

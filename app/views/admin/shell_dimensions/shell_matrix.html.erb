@@ -1,0 +1,23 @@
+<% content_for :header do -%>
+  <h3 class = 'head'> Print shell example layout to give an idea about x and y co-ordinates of the pdf</h3>
+<% end -%>
+
+<%form_tag(shell_matrix_path, :method => :post) do %>
+<br/>
+<table class ="form-table">
+  <tr><th> Enter shell width (Any one pair):</th>
+      <td><%= text_field_tag "width_point", '612', :class => "textbox-small" %> points </td>
+      <td><%= text_field_tag "width_mm", '216', :class => "textbox-small" %> mm or </td>
+      <td><%= text_field_tag "width_inch", '8.5', :class => "textbox-small" %> inches or</td>
+  </tr>
+  <tr>
+      <th> Enter shell height (Any one pair):</th>
+      <td><%= text_field_tag "height_point", '1009', :class => "textbox-small" %> points </td>
+      <td><%= text_field_tag "height_mm", '356', :class => "textbox-small" %> mm or </td>
+      <td><%= text_field_tag "height_inch", '14', :class => "textbox-small" %> inches or </td>    
+  </tr>
+ </table>
+
+  <br/>
+   <%= submit_tag "Show me the pdf layout for above dimension" %>
+<%end%>

@@ -42,7 +42,7 @@ body {
 font-size : 12px;
 font-family : Verdana, Arial, "Helvetica Neue", Geneva, sans-serif;
 color : #000;
-background-color : #f3f3f3;
+background-color : #f6f6f6;
 margin : 0;
 padding : 0;
 height : 100%;
@@ -75,6 +75,17 @@ background : #ffffff url(/images/field-top.gif) repeat-x top;
 padding : 2px 2px;
 width : 100px;
 height : 18px;
+}
+
+input.textbox-thick {
+border: 2px solid #3A3A3A;
+background : #ffffff url(/images/field-top.gif) repeat-x top;
+padding : 5px 3px;
+width : 60px;
+height : 20px;
+color : #003769;
+font-weight: bold;
+text-align : center;
 }
 
 input.textbox-wide {
@@ -123,7 +134,7 @@ height : 67px;
 float : left;
 font-weight : bold;
 color : #fff;
-padding : 0.1em 0 0 0.5em;
+padding : 0.2em 0 0 0.5em;
 margin : 0;
 font-size : 24px;
 }
@@ -166,7 +177,7 @@ background : url(/images/menu-sep.jpg) no-repeat right;
 }
 
 #menu .current {
-color : #b6e1ff;
+color : #3c7bc8;
 }
 
 #menu .current_page_item a {
@@ -347,20 +358,22 @@ padding : 0.5em;
 clear : both;
 margin : 0;
 padding : 6px 0 6px 0;
-color : #fff;
+color : #000;
 font-size : 0.9em;
-background : #346797;
+background : #E9E9ED;
 text-align : center;
-border : 1px solid #b3b3b3;
+border : 1px solid #C8C8CB;
 }
 
 #footer a {
-color : #ebff00;
-font-size : 1.1em;
+color : #205C92;
+text-decoration: none;
+font-size : 1em;
+font-weight: bold;
 }
 
 #footer a:hover {
-color : #fff;
+color : #000;
 }
 
 .pagination {
@@ -401,7 +414,7 @@ border : 1px solid #92a1b0;
 
 table.listing th {
 background : #dcdfe6 url(/images/table-header.jpg) repeat-x top;
-color : #0064ac;
+color : #445395;
 text-align : left;
 padding : 0.3em 0.5em 0.3em;
 border : 1px solid #92a1b0;
@@ -424,7 +437,7 @@ background : #ffffff;
 }
 
 table.listing tr th a {
-color : #0064ac;
+color : #445395;
 text-decoration : none;
 }
 
@@ -523,7 +536,7 @@ border : 1px solid #b8c9da;
 }
 
 .table-top td {
-background : #cbd9e8;
+background : #F1F2F3;
 padding : 0.3em 0.5em 0.3em 0.5em;
 color : #002e4f;
 font-size : 13px;

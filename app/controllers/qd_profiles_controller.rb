@@ -168,7 +168,7 @@ class QdProfilesController < ApplicationController
  def print_file
    @profiles = current_user.qd_profiles.to_be_dealer_printed
    unless @profiles.blank?
-     @image = params[:t]
+     @shell_needed = !params[:s].blank? ? true : false 
      @dealer_profile =  current_user.profile
      @dealer_address =  current_user.address
      @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
@@ -182,13 +182,13 @@ class QdProfilesController < ApplicationController
      unless template.blank?
        @print_template = template.value
        case @print_template
-                   when 'template1' then (file_name, size = 'Crediplex_Parchment.pdf', [611, 935])
-                   when 'template2' then (file_name, size = 'Crediplex_Brochure.pdf',[612, 937])
+                   when 'template1' then (file_name, size = 'Crediplex.pdf', [611, 935])
+                   when 'template2' then (file_name, size = 'WSAC.pdf',[612, 937])
                    when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 1008])
                    else (file_name, size = 'print_file.pdf', [610, 1009])
                    end
        options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
-       prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
+       prawnto :inline => false, :prawn => options, :page_orientation => :portrait, :filename => file_name
        render :layout => false
      else
        flash[:notice] = 'Print Shell is not yet selected. Please contact your administrator.'

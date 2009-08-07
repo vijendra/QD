@@ -271,7 +271,8 @@ class Admin::DealersController < ApplicationController
      @profiles = [record]
      @dealer_profile =  @dealer.profile
      @dealer_address =  @dealer.address
-   
+     @shell_needed = !params[:s].blank? ? true : false 
+
      @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
      @auth_code = @dealer_profile.auth_code
      @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'

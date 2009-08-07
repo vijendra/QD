@@ -4,7 +4,6 @@ class Admin::PrintDataController < ApplicationController
   require 'fastercsv'
 
   def index
-   
     respond_to do |format|
                    format.html { 
                        @fields =  @dealer.csv_extra_field.blank?? Profile::CSV_EXTRA_FIELDS : @dealer.csv_extra_field.fields
@@ -126,12 +125,10 @@ class Admin::PrintDataController < ApplicationController
    end
 
   def admin_setting
-     print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
-     print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:value =>params[:print_file_field][:value] )
-     redirect_to( admin_dealer_print_data_path(:dealer_id => @dealer.id) )
+    print_file_field = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id,params[:identifier])
+    print_file_field.update_attributes(:label =>params[:print_file_field][:label] ,:value =>params[:print_file_field][:value] )
+    redirect_to( admin_dealer_print_data_path(:dealer_id => @dealer.id) )
   end
-
-
 
 private
 

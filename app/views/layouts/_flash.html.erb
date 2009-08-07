@@ -3,7 +3,7 @@
     <% content_tag :div, :class => "flash #{name}" do %>
       <table style = 'width: 100%'> <tr> <td style = 'vertical-align : middle;'><%= msg %></td>
         <td style = 'vertical-align : middle;'>
-          <%= link_to_function "<span>OK</span>", "$('flash').fade({duration: 1});", :title => "close", :class => 'button' %>
+          <%= link_to_function "<span>Close</span>", "$('flash').fade({duration: 1});", :title => "close", :class => 'button' %>
         </td>
         </tr>
       </table>

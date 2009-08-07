@@ -1,0 +1,59 @@
+<% content_for :header do -%>
+   Setting up shell content positions for printing
+<% end -%>
+<br />
+
+<% form_for([:admin, @dealer, @shell_dimension]) do |f| %>
+  <%= f.error_messages %>        
+     <table class ='form-table'> 
+         <tr class= 'table-top'> <td c> Enter shell dimension: </td> 
+         <th> Width : </th><td> <%= text_field_tag 'values[width]', '', :class =>'textbox-small' %> </td>
+          <th> Height : </th><td> <%= text_field_tag 'values[height]', '', :class =>'textbox-small'  %> </td></tr>     
+     </table>
+      <br />
+      <div style = "height: 1298px; width: 848px; background: url(/images/print-file/crediplex_print.gif)" > 
+         <p style = "position: absolute; margin: 200px 0px 0px 140px;" >
+            <%= text_field_tag 'values[address_x]', '115',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[address_y]', '810', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 200px 0px 0px 600px;" >
+            <%= text_field_tag 'values[offer_x]', '386',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[offer_y]', '825', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 365px 0px 0px 140px;" >
+            <%= text_field_tag 'values[first_para_x]', '50', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[first_para_y]', '675', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 480px 0px 0px 140px;" >
+            <%= text_field_tag 'values[sec_para_x]', '50',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[sec_para_y]', '600', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 580px 0px 0px 140px;" >
+            <%= text_field_tag 'values[third_para_x]', '50',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[third_para_y]', '535', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 700px 0px 0px 140px;" >
+            <%= text_field_tag 'values[box_x]', '', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[box_y]', '', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 830px 0px 0px 190px;" >
+            <%= text_field_tag 'values[dealer_details_x]', '', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[dealer_details_y]', '', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 950px 0px 0px 140px;" >
+            <%= text_field_tag 'values[note_x]', '', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[note_y]', '', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 1100px 0px 0px 170px;" >
+            <%= text_field_tag 'values[dealer_x]', '', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[dealer_y]', '', :class =>'textbox-thick' %>
+         </p>
+         <p style = "position: absolute; margin: 1050px 0px 0px 600px;" >
+            <%= text_field_tag 'values[dealer_x]', '', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[dealer_y]', '', :class =>'textbox-thick' %>
+         </p>
+      </div>
+     <br />
+     <table> <tr> <td> <%= f.submit 'Save dimensions' %> </td> <td> &nbsp; &nbsp; <%= link_to 'Cancel', admin_dealers_path %> </td> </tr> </table>
+<% end %>
+
