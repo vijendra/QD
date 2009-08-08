@@ -22,7 +22,7 @@ class Admin::DealersController < ApplicationController
       format.xml  { render :xml => @dealer }
       format.js {  render :update do |page|
       	              page.replace_html 'dealer-list', :partial => 'dealers_list'
-     	           end
+     	             end
       	        }
       format.csv  {
                     csv_file = FasterCSV.generate do |csv|
@@ -66,7 +66,6 @@ class Admin::DealersController < ApplicationController
 
   def show
     @dealer = Dealer.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @dealer }
@@ -271,22 +270,29 @@ class Admin::DealersController < ApplicationController
      @profiles = [record]
      @dealer_profile =  @dealer.profile
      @dealer_address =  @dealer.address
-     @shell_needed = !params[:s].blank? ? true : false 
-
+     shell = params[:s]
+     @shell_needed = !shell.blank? ? true : false 
+     #if printing without shell then fetch the shell dimension for the dealer
+     if shell.blank?
+       @positions = {}
+       dimensions = @dealer.shell_dimensions(:all, :conditions => [:template => params[:t]])
+       dimensions.map{|rec| @positions[rec.variable]= rec.value.to_f} unless dimensions.blank?
+     end
+     
+     #Fetch the shell content for the dealer
      @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
      @auth_code = @dealer_profile.auth_code
      @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
      @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
      @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator'
-
-     @print_template = "qd_profiles/#{params[:t]}"
+     @print_template = "qd_profiles/template#{params[:t]}"
      @w_site = @dealer.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
      @ask_for = @dealer.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
 
      case @print_template
-        when 'qd_profiles/template1' then (file_name, size = 'Crediplex.pdf', [611, 935])
-        when 'qd_profiles/template2' then (file_name, size = 'WSAC.pdf',[612, 937])
-        when 'qd_profiles/template3' then (file_name, size = 'Letter_Master.pdf', [612, 1008])
+        when 'qd_profiles/template1' then (file_name, size = 'Crediplex.pdf', shell.blank? ? [@positions['width'], @positions['height']] : [611, 935])
+        when 'qd_profiles/template2' then (file_name, size = 'WSAC.pdf', shell.blank? ? [@positions['width'], @positions['height']] : [612, 937])
+        when 'qd_profiles/template3' then (file_name, size = 'Letter_Master.pdf', shell.blank? ? [@positions['width'], @positions['height']] : [612, 1008])
         else (file_name, size = 'print_file.pdf', [610, 1009])
      end
      options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }

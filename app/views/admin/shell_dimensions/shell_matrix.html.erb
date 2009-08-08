@@ -2,22 +2,49 @@
   <h3 class = 'head'> Print shell example layout to give an idea about x and y co-ordinates of the pdf</h3>
 <% end -%>
 
+ <table class ="form-table">
+   	 <tr>
+  	    <td colspan = '3' class='table-top'>Inch and mm to points conversion</td> 	
+	 </tr>	
+	 
+	 <tr>
+		<td><%= text_field_tag 'inches', '8.5', :class => 'textbox-tiny' %> inches </td>
+		<td><%= link_to_function "<span><b>=</b></span>", "$('points').value = $('inches').value * 72;",  :class => 'button' %></td>
+		<td><%= text_field_tag 'points', '612', :class => 'textbox-tiny' %> points</td>
+	 </tr>
+	 
+	 <tr>
+		<td><%= text_field_tag 'mm', '216', :class => 'textbox-tiny' %> mm </td>
+		<td><%= link_to_function "<span><b>=</b></span>", "$('points1').value = $('mm').value * 2.8334;",  :class => 'button' %></td>
+		<td><%= text_field_tag 'points1', '612', :class => 'textbox-tiny' %> points</td>
+	 </tr>
+	 
+	 <tr>
+		<td><%= text_field_tag 'cm', '21.59', :class => 'textbox-tiny' %> cm </td>
+		<td><%= link_to_function "<span><b>=</b></span>", "$('points2').value = $('cm').value * 28.346;",  :class => 'button' %></td>
+		<td><%= text_field_tag 'points2', '612', :class => 'textbox-tiny' %> points</td>
+	 </tr>
+   </table>
+   
 <%form_tag(shell_matrix_path, :method => :post) do %>
 <br/>
 <table class ="form-table">
-  <tr><th> Enter shell width (Any one pair):</th>
-      <td><%= text_field_tag "width_point", '612', :class => "textbox-small" %> points </td>
-      <td><%= text_field_tag "width_mm", '216', :class => "textbox-small" %> mm or </td>
-      <td><%= text_field_tag "width_inch", '8.5', :class => "textbox-small" %> inches or</td>
+  <tr><td class='table-top'> Enter shell width (Any one pair):</td>
+      <td><%= text_field_tag "width_point", '612', :class => "textbox-tiny" %> points </td>
+      <td><%= text_field_tag "width_mm", '216', :class => "textbox-tiny" %> mm or </td>
+      <td><%= text_field_tag "width_inch", '8.5', :class => "textbox-tiny" %> inches or</td>
+	  <td><%= text_field_tag "width_cm", '21.59', :class => "textbox-tiny" %> cm s</td>
   </tr>
   <tr>
-      <th> Enter shell height (Any one pair):</th>
-      <td><%= text_field_tag "height_point", '1009', :class => "textbox-small" %> points </td>
-      <td><%= text_field_tag "height_mm", '356', :class => "textbox-small" %> mm or </td>
-      <td><%= text_field_tag "height_inch", '14', :class => "textbox-small" %> inches or </td>    
+      <td class='table-top'> Enter shell height (Any one pair):</td>
+      <td><%= text_field_tag "height_point", '1009', :class => "textbox-tiny" %> points </td>
+      <td><%= text_field_tag "height_mm", '356', :class => "textbox-tiny" %> mm or </td>
+      <td><%= text_field_tag "height_inch", '14', :class => "textbox-tiny" %> inches or </td>    
+	  <td><%= text_field_tag "height_cm", '35.56', :class => "textbox-tiny" %> cm s</td>
   </tr>
+  <tr><td colspan='5' style = 'text-align: center'><%= submit_tag "Show me the pdf layout for above dimension" %></td></tr>
  </table>
-
-  <br/>
-   <%= submit_tag "Show me the pdf layout for above dimension" %>
+ <br/>
+  
+   
 <%end%>

@@ -1,0 +1,125 @@
+  (type.ps) runlibfile
+  (unit.ps) runlibfile
+  (IsoLatin.enc) runlibfile
+  /default_encoding IsoLatin def  
+<< /Duplex false /Tumble false >> setpagedevice
+/pagesize [104 14]  def
+/margin 3 dict def margin begin /top 0 cm  def /right 0 cm  def /bottom 0 cm  def /left	0 cm  def end
+(paper.ps) runlibfile
+   [ /Producer (Ruby Ghostscript - RGhost v0.8.7)  /DOCINFO pdfmark   /rows_per_page 80 def  /count_pages 10 def  /row_height 0.4 cm  def  /row_padding 0.1 cm  def    (basic.ps) runlibfile
+  (cursor.ps) runlibfile
+  (rectangle.ps) runlibfile
+  (font.ps) runlibfile
+  (textarea.ps) runlibfile
+  (horizontal_line.ps) runlibfile
+  (vertical_line.ps) runlibfile
+  (callbacks.ps) runlibfile
+  (show.ps) runlibfile
+  (eps.ps) runlibfile
+  (jpeg.ps) runlibfile
+  (gif.ps) runlibfile
+  (begin_document.ps) runlibfile
+  (datagrid.ps) runlibfile
+  (text.ps) runlibfile
+  (frame.ps) runlibfile
+  (link.ps) runlibfile
+  (rect_link.ps) runlibfile
+    limit_left  current_row  moveto  
+/_big{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 10 scalefont setfont  0 setgray 
+} bind def 
+
+/_normal{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+
+/_b{
+ /Helvetica-Bold encoding_font
+/Helvetica-Bold-encoding exch definefont pop
+/Helvetica-Bold-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+
+/_h2{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 13 scalefont setfont  0 setgray 
+} bind def 
+
+/_h1{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 14 scalefont setfont  0 setgray 
+} bind def 
+
+/_pre{
+ /Courier encoding_font
+/Courier-encoding exch definefont pop
+/Courier-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+
+/_small{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 7 scalefont setfont  0 setgray 
+} bind def 
+
+/_bi{
+ /Helvetica-BoldOblique encoding_font
+/Helvetica-BoldOblique-encoding exch definefont pop
+/Helvetica-BoldOblique-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+
+/_h3{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 12 scalefont setfont  0 setgray 
+} bind def 
+
+/_i{
+ /Helvetica-Oblique encoding_font
+/Helvetica-Oblique-encoding exch definefont pop
+/Helvetica-Oblique-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+
+/_h4{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 11 scalefont setfont  0 setgray 
+} bind def 
+
+/_h5{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 10 scalefont setfont  0 setgray 
+} bind def 
+
+/_bold{
+ /Helvetica-Bold encoding_font
+/Helvetica-Bold-encoding exch definefont pop
+/Helvetica-Bold-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+
+/_title{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 20 scalefont setfont  0 setgray 
+} bind def 
+
+/_span{
+ /Helvetica encoding_font
+/Helvetica-encoding exch definefont pop
+/Helvetica-encoding findfont 8 scalefont setfont  0 setgray 
+} bind def 
+   (begin_document.ps) runlibfile
+  (render.ps) runlibfile
+  (postnet.ps) runlibfile
+  limit_left  current_row  moveto   gsave newpath limit_left  current_row  translate  0 rotate    0 0 moveto (48169) (   backgroundcolor=F4D98B height=0.196463654223969) postnet barcode closepath grestore 
+
+ after_page_create  callback  after_document_create  showpage  
+%%EOF  
+
+  

@@ -4,8 +4,7 @@ class CreateShellDimensions < ActiveRecord::Migration
       t.integer :dealer_id
       t.integer :template
       t.string  :variable
-      t.string  :x
-      t.string  :y
+      t.string  :value
 
       t.timestamps
     end

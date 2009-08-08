@@ -7,7 +7,17 @@ class Admin::ShellDimensionsController < ApplicationController
 
 
   def create
-
+    @dealer = Dealer.find(params[:dealer_id])
+    template = params[:shell_dimension][:template]
+    #@shell_dimension = ShellDimension.new(params[:shell_dimension])
+    params[:values].each_pair{|k, v| ShellDimension.create( :dealer_id => params[:dealer_id],
+                                                            :template => template,
+                                                            :variable => k,
+                                                            :value =>  v
+                                                           )
+    }
+    flash[:notice]= 'Shell dimensions are successfully saved.'
+    redirect_to admin_dealer_print_data_path(:dealer_id => @dealer.id)
   end
 
   def shell_matrix

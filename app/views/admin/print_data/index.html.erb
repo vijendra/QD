@@ -79,33 +79,36 @@
  
    <tr> <th> Select Print Shell </th> 
      <td colspan=2>
-       <%= radio_button_tag('template', 'template1', @dealer_template.value.include?('template1') ) %>
+       <%= radio_button_tag('template', '1', @dealer_template.value.include?('1') ) %>
        <%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
-       <%= radio_button_tag('template', 'template2', @dealer_template.value.include?('template2') ) %>
+       <%= radio_button_tag('template', '2', @dealer_template.value.include?('2') ) %>
        <%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
-       <%= radio_button_tag('template', 'template3', @dealer_template.value.include?('template3') )%>
+       <%= radio_button_tag('template', '3', @dealer_template.value.include?('3') )%>
        <%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
      </td> 
   </tr>
 
-  <tr> <th style = "width: 250px;"> Click on shell to set dimensions</th> <td colspan=2>
+  <tr> 
+       <th style = "width: 250px;"> Click on shell to set dimensions</th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 1)%> &nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 1), :method => :get %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 1), :method => :get %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 1), :method => :get %> &nbsp;&nbsp;
-       </td>
-</tr>
-
-  <tr> <th style = "width: 250px;"> Click on shell to see sample print with shell <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</th> <td colspan=2>
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => 'template1', :s => 'true', :format => 'pdf' )%> &nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => 'template2', :s => 'true', :format => 'pdf') %> &nbsp;&nbsp;
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => 'template3', :s => 'true', :format => 'pdf')%> &nbsp;&nbsp;
        </td>
   </tr>
 
-  <tr> <th style = "width: 250px;"> Click on shell to see sample print without shell <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</th> <td colspan=2>
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => 'template1', :format => 'pdf' )%> &nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => 'template2', :format => 'pdf') %> &nbsp;&nbsp;
-           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => 'template3', :format => 'pdf')%> &nbsp;&nbsp;
+  <tr> 
+       <th style = "width: 250px;"> Click on shell to see sample print with shell <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</th> <td colspan=2>
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => '1', :s => 'true', :format => 'pdf' )%> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '2', :s => 'true', :format => 'pdf') %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '3', :s => 'true', :format => 'pdf')%> &nbsp;&nbsp;
+       </td>
+  </tr>
+
+  <tr> 
+       <th style = "width: 250px;"> Click on shell to see sample print without shell <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</th> <td colspan=2>
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => '1', :format => 'pdf' )%> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '2', :format => 'pdf') %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '3', :format => 'pdf')%> &nbsp;&nbsp;
        </td>
   </tr>
 </table>

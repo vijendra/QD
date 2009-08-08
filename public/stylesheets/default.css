@@ -49,7 +49,7 @@ height : 100%;
 }
 
 a:link, a:visited {
-color : #dc9600;
+color : #CA473E;
 letter-spacing : 0.04em;
 }
 
@@ -81,8 +81,8 @@ input.textbox-thick {
 border: 2px solid #3A3A3A;
 background : #ffffff url(/images/field-top.gif) repeat-x top;
 padding : 5px 3px;
-width : 60px;
-height : 20px;
+width : 40px;
+height : 17px;
 color : #003769;
 font-weight: bold;
 text-align : center;
@@ -177,7 +177,7 @@ background : url(/images/menu-sep.jpg) no-repeat right;
 }
 
 #menu .current {
-color : #3c7bc8;
+color : #004271;
 }
 
 #menu .current_page_item a {
@@ -414,7 +414,7 @@ border : 1px solid #92a1b0;
 
 table.listing th {
 background : #dcdfe6 url(/images/table-header.jpg) repeat-x top;
-color : #445395;
+color : #0064AC;
 text-align : left;
 padding : 0.3em 0.5em 0.3em;
 border : 1px solid #92a1b0;
@@ -437,7 +437,7 @@ background : #ffffff;
 }
 
 table.listing tr th a {
-color : #445395;
+color : #0064AC;
 text-decoration : none;
 }
 
@@ -459,18 +459,18 @@ border : 1px solid #92a1b0;
 }
 
 .form-table th {
-background-color : #f6f7f8;
+background-color : #f6f6f6;
 color : #004177;
 padding : 0.1em 0.8em;
 border : 1px solid #92a1b0;
 text-align : left;
-font-weight : bold;
+font-weight : normal;
 text-align : right;
 vertical-align : middle;
 }
 
 .form-table td {
-background-color : #f6f7f8;
+background-color : #FAFAFA;
 padding : 0.8em;
 border : 1px solid #92a1b0;
 vertical-align : middle;
@@ -536,7 +536,7 @@ border : 1px solid #b8c9da;
 }
 
 .table-top td {
-background : #F1F2F3;
+background : #E4E8E9;
 padding : 0.3em 0.5em 0.3em 0.5em;
 color : #002e4f;
 font-size : 13px;
@@ -645,7 +645,7 @@ a.button span {
 background : transparent url('/images/bg_button_span.gif') no-repeat;
 display : block;
 line-height : 11px;
-padding : 5px 0 5px 17px;
+padding : 5px 0 5px 13px;
 }
 
 a.button:active {
@@ -656,7 +656,7 @@ outline : none;
 
 a.button:active span {
 background-position : bottom left;
-padding : 5px 0 5px 18px;
+padding : 5px 0 5px 13px;
 }
 
 a.button:hover {
@@ -668,6 +668,6 @@ cursor : pointer
 
 a.button:hover span {
 background-position : bottom left;
-padding : 5px 0 5px 17px;
+padding : 5px 0 5px 13px;
 }
 

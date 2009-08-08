@@ -74,6 +74,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.print_file 'admin/print_data/print_file.csv',   :controller => 'admin/print_data',  :action => 'index', :format => 'csv'
   map.shell_matrix 'admin/print_data/shell_matrix.pdf', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix', :format => 'pdf' 
+  map.shell_matrix_html 'admin/dealers/print_data/shell_matrix', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix'
   #map.shell_dimension 'admin/print_data/print_shell_dimension', :controller => 'admin/print_data',  :action => 'print_shell_dimension'
   # Dashboard as the default location
       map.root :controller => 'dashboard', :action => 'index'
