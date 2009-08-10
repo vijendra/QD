@@ -2,6 +2,13 @@ class Admin::ShellDimensionsController < ApplicationController
   def new
     @dealer = Dealer.find(params[:dealer_id])
     @shell = params[:t]
+    if params[:t] == "1"
+      @partial = "template1"
+    elsif params[:t] == "2"
+      @partial = "template2"
+    else
+       @partial = "template3"   
+    end  
     @shell_dimension = ShellDimension.new
   end
 

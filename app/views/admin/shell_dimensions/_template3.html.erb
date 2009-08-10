@@ -1,0 +1,49 @@
+
+ <table class ='form-table'> 
+         <tr class= 'table-top'> <td c> Enter shell dimension: </td>    
+         <th> Width : </th><td> <%= text_field_tag 'values[width]', '612', :class =>'textbox-tiny' %> </td>
+         <th> Height : </th><td> <%= text_field_tag 'values[height]', '1008', :class =>'textbox-tiny'  %> </td></tr>     
+     </table>
+      <br />
+      <div style = "height: 1400px; width: 850px; background: url(/images/print-file/Letter_Master_print.gif)" > 
+         
+         
+        <p style = "position: absolute; margin: 250px 0px 0px 140px;" >  
+            <%= text_field_tag 'values[first_para_x]', '77', :class =>'textbox-thick' %>  
+            <%= text_field_tag 'values[first_para_y]', '838', :class =>'textbox-thick' %> 
+         </p>
+         
+         
+         <p style = "position: absolute; margin: 335px 0px 0px 140px;" >  
+            <%= text_field_tag 'values[sec_para_x]', '77',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[sec_para_y]', '778', :class =>'textbox-thick' %> 
+         </p>
+         
+           <p style = "position: absolute; margin: 500px 0px 0px 140px;" >
+            <%= text_field_tag 'values[third_para_x]', '77',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[third_para_y]', '658', :class =>'textbox-thick' %>
+         </p>
+                  
+         <p style = "position: absolute; margin: 1200px 0px 0px 150px;" >
+            <%= text_field_tag 'values[address_x]', '110',:class =>'textbox-thick' %>   
+            <%= text_field_tag 'values[address_y]', '148', :class =>'textbox-thick' %>
+         </p>
+   
+                
+         <p style = "position: absolute; margin: 670px 0px 0px 250px;" >
+            <%= text_field_tag 'values[dealer_details_x]', '100', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[dealer_details_y]', '561', :class =>'textbox-thick' %>  
+         </p>
+   
+          <p style = "position: absolute; margin: 468px 0px 0px 550px; " >
+            <%= text_field_tag 'values[rightbox1_x]', '405', :class =>'textbox-thick' %>     
+            <%= text_field_tag 'values[rightbox1_y]', '693', :class =>'textbox-thick' %>
+         </p>
+         
+          <p style = "position: absolute; margin: 555px 0px 0px 550px; " >
+            <%= text_field_tag 'values[rightbox2_x]', '449', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[rightbox2_y]', '597', :class =>'textbox-thick' %>  
+         </p>
+          
+		  
+      </div>
