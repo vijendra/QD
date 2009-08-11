@@ -6,7 +6,7 @@ class Dealer < User
   has_many :print_file_fields
   has_many :account_resets
   belongs_to :administrator
-  has_many :shell_dimensions
+  
 
   def self.dealers_list
     self.find(:all).collect{|dealer| [dealer.profile.name, dealer.id] }

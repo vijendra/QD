@@ -29,8 +29,25 @@
    </table>
 </div>
 
-<% form_for([:admin, @dealer, @shell_dimension]) do |f| %>
-  <%= f.error_messages %>        
+<% form_for([:admin, @dealer, @shell_dimension],:html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>   
+      <table class ='form-table'> 
+         <tr> <td> Enter shell dimension (in points): </td> 
+         <th> Width : </th><td> <%= text_field_tag 'values[width]', '612', :class =>'textbox-tiny' %> </td>
+         <th> Height : </th><td> <%= text_field_tag 'values[height]', '1008', :class =>'textbox-tiny'  %> </td></tr> 
+         <tr><td>Enter barcode background color:</td>    
+             <td colspan = '4'> <%= text_field_tag 'values[bg_color]', '#ffffff', :class =>'textbox-small'  %>&nbsp; eg: #ffffff </td>
+         </tr> 
+          <tr><td colspan = '5'>
+                <%= link_to 'Preview without shell', test_print_admin_dealer_path(:id => @dealer.id , :t => params[:t], :format => 'pdf' )%> 
+                <span> <br /><br />
+                    (Make sure that at least one data record available for this dealer and you saved the dimensions set below.)
+                </span>
+              </td>    
+         </tr> 
+         <tr> <td colspan ='5'> <%= file_field_tag 'image' %>   </td> </tr>
+     </table> 
+        
      <%= render :partial => @partial   %>
      <%= f.hidden_field 'template', :value=> params[:t]%>
      <br />

@@ -1,3 +1,3 @@
 class ShellDimension < ActiveRecord::Base
-  belongs_to :dealer
+  belongs_to :administrator
 end

@@ -26,7 +26,7 @@
 	 </tr>
    </table>
    
-<%form_tag(shell_matrix_path, :method => :post) do %>
+<% form_for(shell_matrix_path, :method => :post ,:html => { :multipart => true } ) do %>
 <br/>
 <table class ="form-table">
   <tr><td class='table-top'> Enter shell width (Any one pair):</td>
@@ -41,7 +41,9 @@
       <td><%= text_field_tag "height_mm", '356', :class => "textbox-tiny" %> mm or </td>
       <td><%= text_field_tag "height_inch", '14', :class => "textbox-tiny" %> inches or </td>    
 	  <td><%= text_field_tag "height_cm", '35.56', :class => "textbox-tiny" %> cm s</td>
+	  
   </tr>
+  <tr>  <td colspan ="5"> <%= file_field_tag 'pdf_image' %>     </td> </tr>
   <tr><td colspan='5' style = 'text-align: center'><%= submit_tag "Show me the pdf layout for above dimension" %></td></tr>
  </table>
  <br/>
