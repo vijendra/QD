@@ -89,7 +89,7 @@
   </tr>
 
   <tr> 
-       <th style = "width: 250px;"> Click on shell to set dimensions</th> <td colspan=2>
+       <th style = "width: 250px;"> Click on shell to set dimensions <span style = "color: #CF7400"> <br /><br />Note: Applicable to all dealers </span> </th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 1)%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 2), :method => :get %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 3), :method => :get %> &nbsp;&nbsp;
@@ -97,7 +97,7 @@
   </tr>
 
   <tr> 
-       <th style = "width: 250px;"> Click on shell to see sample print with shell <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</th> <td colspan=2>
+       <th style = "width: 250px;"> Click on shell to see sample print with shell <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</span> </th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => '1', :s => 'true', :format => 'pdf' )%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '2', :s => 'true', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '3', :s => 'true', :format => 'pdf')%> &nbsp;&nbsp;
@@ -105,7 +105,7 @@
   </tr>
 
   <tr> 
-       <th style = "width: 250px;"> Click on shell to see sample print without shell <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</th> <td colspan=2>
+       <th style = "width: 250px;"> Click on shell to see sample print without shell, for above set dimensions <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved the content entered above.)</span></th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => '1', :format => 'pdf' )%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '2', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '3', :format => 'pdf')%> &nbsp;&nbsp;
@@ -115,7 +115,7 @@
 
  <br/>
 
- <%= submit_tag "Save Contents" %>
+ <%= submit_tag "Save contents" %>
 
 <%end%>
 </div>

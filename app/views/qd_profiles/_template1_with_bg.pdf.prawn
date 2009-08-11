@@ -8,11 +8,11 @@ for data in @profiles
   counter = counter + 1
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
-  @place = "#{data.city}, #{data.state} #{data.zip}"
+  @place = "#{data.city}, #{data.state} #{data.zip}-#{data.zip4}"
 
   #generating postnet barcode
-  doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
-  doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#FDF6D8"})
+  doc = RGhost::Document.new :paper => [6.4, 0.45], :margin => [0, 0, 0, 0]
+  doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:background => "#FDF6D9", :height => 0.45})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
   
   p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
@@ -29,9 +29,9 @@ for data in @profiles
 
 
   p_pdf.bounding_box([115, box.top - 125], :width => 200) do
-    p_pdf.text h(@name), :size => 14
-    p_pdf.text h(@address), :size => 14
-    p_pdf.text h(@place), :size => 14
+    p_pdf.text h(@name), :size => 12
+    p_pdf.text h(@address), :size => 12
+    p_pdf.text h(@place), :size => 12
     p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left, 0]
     #remove the image created for bar code
     FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
@@ -67,7 +67,7 @@ for data in @profiles
     p_pdf.text "<indent> 3. Vehicles with set pricing and No Haggling. </indent>"
   end
   p_pdf.stroke_rectangle [box.left + 60, box.bottom + 450], box.width - 250 , 70
-
+   
   p_pdf.tags[:medium] = { :font_size => "1.1em", :font_family => "Times-Roman" }
   p_pdf.tags[:large] = {  :font_size => "1.3em", :font_family => "Times-Roman" }
 

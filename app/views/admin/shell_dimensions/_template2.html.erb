@@ -1,8 +1,10 @@
-
  <table class ='form-table'> 
-         <tr class= 'table-top'> <td c> Enter shell dimension: </td>   
+         <tr> <td> Enter shell dimension (in points): </td> 
          <th> Width : </th><td> <%= text_field_tag 'values[width]', '612', :class =>'textbox-tiny' %> </td>
-         <th> Height : </th><td> <%= text_field_tag 'values[height]', '937', :class =>'textbox-tiny'  %> </td></tr>     
+         <th> Height : </th><td> <%= text_field_tag 'values[height]', '935', :class =>'textbox-tiny'  %> </td></tr> 
+         <tr><td>Enter barcode background color</td>    
+             <td colspan = '4'> <%= text_field_tag 'values[bg_color]', '#ffffff', :class =>'textbox-small'  %>&nbsp; eg: #ffffff </td>
+         </tr> 
      </table>
       <br />
       <div style = "height: 1298px; width: 848px; background: url(/images/print-file/WSAC_print.gif)" > 

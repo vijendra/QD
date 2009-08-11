@@ -10,7 +10,7 @@ pdf.text_options.update(:size => 11, :spacing => 0)
 
 for data in @profiles
   counter = counter + 1
-  pdf.image "#{RAILS_ROOT}/public/images/print-file/labels.png", :at => [0, box.top], :scale => 0.7 if counter == 1
+  #pdf.image "#{RAILS_ROOT}/public/images/print-file/labels.png", :at => [0, box.top], :scale => 0.7 if counter == 1
 
   name = "#{data.fname} #{data.mname} #{data.lname}"
   address = data.address

@@ -1,8 +1,33 @@
 <% content_for :header do -%>
    Setting up shell content positions for printing
 <% end -%>
-<span>Enter the x and y co-ordinate values(in points). Refer layout co-ordinate matrix for help: <%=link_to 'Shell layout', shell_matrix_html_url %></span>
+<span>Enter the x and y co-ordinate values for each content part(in points). Refer <%=link_to 'Co-ordinate matrix shell layout', shell_matrix_html_url %> or <%=link_to 'Points conversion table', '#conversion-table', :rel => 'facebox' %> for help: </span>
 <br /><br />
+<div id = 'conversion-table' style = 'display: none'>
+  <table class ="form-table">
+   	 <tr>
+  	    <td colspan = '3' class='table-top'>Inch and mm to points conversion</td> 	
+	 </tr>	
+	 
+	 <tr>
+		<td><%= text_field_tag 'inches', '8.5', :class => 'textbox-tiny' %> inches </td>
+		<td><%= link_to_function "<span><b>=</b></span>", "$('points').value = $('inches').value * 72;",  :class => 'button' %></td>
+		<td><%= text_field_tag 'points', '612', :class => 'textbox-tiny' %> points</td>
+	 </tr>
+	 
+	 <tr>
+		<td><%= text_field_tag 'mm', '216', :class => 'textbox-tiny' %> mm </td>
+		<td><%= link_to_function "<span><b>=</b></span>", "$('points1').value = $('mm').value * 2.8334;",  :class => 'button' %></td>
+		<td><%= text_field_tag 'points1', '612', :class => 'textbox-tiny' %> points</td>
+	 </tr>
+	 
+	 <tr>
+		<td><%= text_field_tag 'cm', '21.59', :class => 'textbox-tiny' %> cm </td>
+		<td><%= link_to_function "<span><b>=</b></span>", "$('points2').value = $('cm').value * 28.346;",  :class => 'button' %></td>
+		<td><%= text_field_tag 'points2', '612', :class => 'textbox-tiny' %> points</td>
+	 </tr>
+   </table>
+</div>
 
 <% form_for([:admin, @dealer, @shell_dimension]) do |f| %>
   <%= f.error_messages %>        
