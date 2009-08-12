@@ -276,11 +276,11 @@ class Admin::DealersController < ApplicationController
      #if printing without shell then fetch the shell dimension for the dealer
      if shell.blank?
        @positions = {}
-       dimensions = @dealer.administrator.shell_dimensions(:all, :conditions => [:template => params[:t]])
+       dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?" , params[:t]])
        dimensions.map{|rec| @positions[rec.variable]= rec.value.to_f} unless dimensions.blank?
-      
+
        #preview image
-       @image_path = @dealer.administrator.shell_images(:all, :conditions => [:template => params[:t]]).first.shell_image.url if params[:i]
+       @image_path = @dealer.administrator.shell_images.find(:first, :conditions => ["template = ?", params[:t]]).shell_image.url if params[:i] rescue ''
      end
      
      #Fetch the shell content for the dealer
@@ -295,7 +295,7 @@ class Admin::DealersController < ApplicationController
 
      case @print_template
         when 'qd_profiles/template1' then (file_name, size = 'Crediplex.pdf', shell.blank? ? [@positions['width'], @positions['height']] : [611, 935])
-        when 'qd_profiles/template2' then (file_name, size = 'WSAC.pdf', shell.blank? ? [@positions['width'], @positions['height']] : [612, 937])
+        when 'qd_profiles/template2' then (file_name, size = 'WSAC.pdf', shell.blank? ? (@positions.blank? ? [612, 937] : [@positions['width'], @positions['height']]) : [612, 937])
         when 'qd_profiles/template3' then (file_name, size = 'Letter_Master.pdf', shell.blank? ? [@positions['width'], @positions['height']] : [612, 1008])
         else (file_name, size = 'print_file.pdf', [610, 1009])
      end
