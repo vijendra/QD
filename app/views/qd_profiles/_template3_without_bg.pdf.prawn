@@ -50,7 +50,7 @@ box = p_pdf.bounds
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
   #generating postnet barcode
-  doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
+  doc = RGhost::Document.new :paper => [6.4, 0.45], :margin => [0, 0, 0, 0]
   doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:background => @positions[:bg_color] || "#FFFFFF", :height => 0.45})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
 

@@ -52,8 +52,8 @@ for data in @profiles
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
   #generating postnet barcode
-  doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
-  doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#FDFDFD"})
+  doc = RGhost::Document.new :paper => [6.4, 0.55], :margin => [0, 0, 0, 0]
+  doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:height => 0.5, :background => "#FDFDFD"})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
 
   p_pdf.bounding_box([box.left + 110, box.top - 860], :width => 300) do

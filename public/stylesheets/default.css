@@ -127,7 +127,7 @@ margin-left : 0;
 background : url(/images/top_bar.png) repeat-x;
 margin : 0 0 0 0;
 padding : 0.1em 0 0;
-height : 67px;
+height : 64px;
 }
 
 #header h1 {
@@ -136,11 +136,11 @@ font-weight : bold;
 color : #fff;
 padding : 0.2em 0 0 0.5em;
 margin : 0;
-font-size : 24px;
+font-size : 19px;
 }
 
 #header h1 span {
-font-size : 24px;
+font-size : 19px;
 color : #fff;
 }
 
@@ -148,7 +148,7 @@ color : #fff;
 width : 480px;
 margin : 0 auto;
 font-weight : bold;
-margin-top : 2.9em;
+margin-top : 2.6em;
 }
 
 #menu ul {
@@ -360,7 +360,7 @@ margin : 0;
 padding : 6px 0 6px 0;
 color : #000;
 font-size : 0.9em;
-background : #E9E9ED;
+background : #DFDFE7;
 text-align : center;
 border : 1px solid #C8C8CB;
 }

@@ -168,7 +168,8 @@ class QdProfilesController < ApplicationController
  def print_file
    @profiles = current_user.qd_profiles.to_be_dealer_printed
    unless @profiles.blank?
-     @shell_needed = !params[:s].blank? ? true : false 
+     shell = params[:s]
+     @shell_needed = !shell.blank? ? true : false #This will help to set background image
      @dealer_profile =  current_user.profile
      @dealer_address =  current_user.address
      @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
@@ -179,14 +180,24 @@ class QdProfilesController < ApplicationController
      template = current_user.print_file_fields.find_by_identifier('template')
      @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
      @ask_for = current_user.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
+     
+     #if printing without shell then fetch the shell dimension set for the administrator
+     if shell.blank?
+       @positions = {}
+       dimensions = current_user.administrator.shell_dimensions.all(:conditions => ["template = ?" , template.value])
+       dimensions.map{ |rec| @positions[rec.variable]= rec.variable == 'bg_color'? rec.value : @positions[rec.variable]= rec.value.to_f } unless dimensions.blank?
+     end
+      
+     #set template height and width
      unless template.blank?
-       @print_template = template.value
+       @print_template = "template#{template.value}"
        case @print_template
-                   when 'template1' then (file_name, size = 'Crediplex.pdf', [611, 935])
-                   when 'template2' then (file_name, size = 'WSAC.pdf',[612, 937])
-                   when 'template3' then (file_name, size = 'Letter_Master.pdf', [612, 1008])
-                   else (file_name, size = 'print_file.pdf', [610, 1009])
-                   end
+           when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
+           when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
+           when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
+              else (file_name, size = 'print_file.pdf', [610, 1009])
+        end
+
        options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
        prawnto :inline => false, :prawn => options, :page_orientation => :portrait, :filename => file_name
        render :layout => false

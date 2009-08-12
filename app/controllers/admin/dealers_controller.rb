@@ -276,13 +276,8 @@ class Admin::DealersController < ApplicationController
      #if printing without shell then fetch the shell dimension for the dealer
      if shell.blank?
        @positions = {}
-       dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?" , params[:t]])
-       dimensions.map{ |rec| if rec.variable == 'bg_color' 
-                               @positions[rec.variable]= rec.value
-                             else
-                               @positions[rec.variable]= rec.value.to_f 
-                             end   
-                     } unless dimensions.blank?
+       dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?", params[:t]])
+       dimensions.map{ |rec| @positions[rec.variable] = (rec.variable == 'bg_color'? rec.value : rec.value.to_f) } unless dimensions.blank?
 
        #preview image
        @image_path = @dealer.administrator.shell_images.find(:first, :conditions => ["template = ?", params[:t]]).shell_image.url if params[:i] rescue ''
@@ -299,9 +294,9 @@ class Admin::DealersController < ApplicationController
      @ask_for = @dealer.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
 
      case @print_template
-        when 'qd_profiles/template1' then (file_name, size = 'Crediplex.pdf',shell.blank? ? (@positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) : [611, 935])
-        when 'qd_profiles/template2' then (file_name, size = 'WSAC.pdf', shell.blank? ? (@positions.blank? ? [612, 937] : [@positions['width'], @positions['height']]) : [612, 937])
-        when 'qd_profiles/template3' then (file_name, size = 'Letter_Master.pdf', shell.blank? ? (@positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']]) : [612, 1008])
+         when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
+         when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
+         when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
         else (file_name, size = 'print_file.pdf', [610, 1009])
      end
      options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
