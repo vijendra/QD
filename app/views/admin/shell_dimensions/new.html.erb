@@ -41,7 +41,7 @@
          <tr> <td colspan ='5'> Upload the shell background image: <br /> <br />(Not mandatory. Just to give you an idea about the content positions, during preview) </td> </tr>
          <tr> <td colspan ='5'> <%= file_field_tag 'image' %>  </td> </tr>
          <tr><td colspan = '5'>
-                <%= link_to "<b>Preview pdf print file</b>", test_print_admin_dealer_path(:id => @dealer.id, :i => 1; :t => params[:t], :format => 'pdf' )%> 
+                <%= link_to "<b>Preview pdf print file</b>", test_print_admin_dealer_path(:id => @dealer.id, :i => 1, :t => params[:t], :format => 'pdf' )%> 
                 <span> <br /><br />
                     (Make sure that at least one data record available for this dealer and you saved the dimensions set below.)
                 </span>
