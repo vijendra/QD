@@ -33,15 +33,17 @@ class Admin::ShellDimensionsController < ApplicationController
                      }
       #made changes here               
       unless params[:image].blank?
-        image = ShellImage.find(:first,:conditions =>["administrator_id = ? and template = ? ",administrator_id ,template ]) 
-        FileUtils.rm_r "#{RAILS_ROOT}/public/shell_images/#{image.id}"
-        image.destroy
+        image = ShellImage.find(:first, :conditions =>["administrator_id = ? and template = ? ",administrator_id ,template ]) 
+        unless image.blank?
+          FileUtils.rm_r "#{RAILS_ROOT}/public/shell_images/#{image.id}"
+          image.destroy
+        end
         ShellImage.create(:administrator_id => administrator_id ,:template => template ,:shell_image => params[:image] ) 
       end
       
       flash[:notice] = 'Shell dimensions are successfully saved.'
     else 
-      flash[:notice] = 'Shell dimensions not saved Because dealer not assigned to administrator'
+      flash[:notice] = 'Shell dimensions not saved, Because dealer is still not assigned to any administrator.'
     end  
     redirect_to new_admin_dealer_shell_dimension_path(:dealer_id => @dealer.id, :t => template)
   end
