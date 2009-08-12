@@ -8,14 +8,16 @@ for data in @profiles
   counter = counter + 1
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
-  @place = "#{data.city}, #{data.state} #{data.zip}"
+  @place = "#{data.city}, #{data.state} #{data.zip}-#{data.zip4}"
 
   #generating postnet barcode
-  #doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
-  #doc.barcode_postnet(data.zip.strip, {:height => 0.5, :background => "#DED0B6"})
-  #doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
+  doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
+  doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:background => @positions[:bg_color] || "#FFFFFF", :height => 0.45})
+  doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
+  
+  p_pdf.image "#{RAILS_ROOT}/public/#{@image_path}", :at => [0, box.top], :scale => 0.72 unless @image_path.blank? #preview
 
- p_pdf.bounding_box([@positions['offer_x'], @positions['offer_y']], :width => 200) do
+  p_pdf.bounding_box([@positions['offer_x'], @positions['offer_y']], :width => 200) do
     p_pdf.text "<b>Call with Confidence!</b>", :size => 14, :align => :center
     p_pdf.text "<b>You're already pre-qualified*</b>", :size => 13, :align => :center
     p_pdf.text "<b>This is a live offer of credit.</b>", :size => 13, :align => :center
@@ -25,14 +27,13 @@ for data in @profiles
     p_pdf.text "<b>or log on #{h(@w_site)}</b>", :size => 13, :align => :center
   end
 
-
   p_pdf.bounding_box([@positions['address_x'], @positions['address_y']], :width => 200) do
     p_pdf.text h(@name), :size => 12
     p_pdf.text h(@address), :size => 12
     p_pdf.text h(@place), :size => 12
-    #p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left, 0]
+    p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left, 0]
     #remove the image created for bar code
-    #FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
+    FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
   end
   
   p_pdf.text_options.update(:size => 13, :spacing => 5)
@@ -54,8 +55,10 @@ for data in @profiles
     p_pdf.text "<indent> 2. Confirm your identity by providing your <b>Authorization #</b> #{h(@auth_code)}</indent>"
     p_pdf.text "<indent> 3. Get your pre-approved amount and write it in the space below.</indent>"
     p_pdf.text "<indent> 4. Go to the approved dealership to choose your vehicle.</indent>"
+  end
 
-    p_pdf.text "<br />"
+  p_pdf.stroke_rectangle [@positions['box_x'] - 5, @positions['box_y'] + 10], box.width - 250 , 70
+  p_pdf.bounding_box([@positions['box_x'], @positions['box_y']], :width => box.right - 60) do
     p_pdf.tags[:indent] = {:width => "1.2em", :font_size => "1.1em", :font_family => "Times-Roman" }
 
     p_pdf.text "<indent> <b>Here's what you can expect when you arrive: </b></indent>"
@@ -64,8 +67,7 @@ for data in @profiles
     p_pdf.text "<indent> 2. No Hassle credit check. </indent>"
     p_pdf.text "<indent> 3. Vehicles with set pricing and No Haggling. </indent>"
   end
-  p_pdf.stroke_rectangle [@positions['box_x'] - 5, @positions['box_y'] + 5], box.width - 250 , 70
-
+  
   p_pdf.tags[:medium] = {:font_size => "1.1em", :font_family => "Times-Roman" }
   p_pdf.tags[:large] = {:font_size => "1.3em", :font_family => "Times-Roman" }
 

@@ -3,6 +3,7 @@ class Administrator < User
   has_one :administrator_setting
   has_many :dealers
   has_many :shell_dimensions
+  has_many :shell_images
 
   accepts_nested_attributes_for :administrator_profile
 

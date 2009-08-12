@@ -2,13 +2,7 @@ class Admin::ShellDimensionsController < ApplicationController
   def new
     @dealer = Dealer.find(params[:dealer_id])
     @shell = params[:t]
-    if params[:t] == "1"
-      @partial = "template1"
-    elsif params[:t] == "2"
-      @partial = "template2"
-    else
-       @partial = "template3"   
-    end  
+    @partial = "template#{params[:t]}"
     @shell_dimension = ShellDimension.new
     @positions = {}
     unless @dealer.administrator.blank?
@@ -41,17 +35,19 @@ class Admin::ShellDimensionsController < ApplicationController
     else 
       flash[:notice] = 'Shell dimensions not saved Because dealer not assigned to administrator'
     end  
-    redirect_to admin_dealer_print_data_path(:dealer_id => @dealer.id)
+    redirect_to new_admin_dealer_shell_dimension_path(:dealer_id => @dealer.id, :t => template)
   end
 
 
   def shell_matrix
     respond_to do |format|
-                   format.html
+                   format.html 
+
                    format.pdf {
-                      width ||= (params[:width_inch].to_f * 72 || params[:width_mm].to_i * 2.8334 || params[:width_points].to_i)
-                      height ||= (params[:height_inch].to_f * 72 || params[:height_mm].to_i * 2.8334 || params[:height_points].to_i)
-      #{height}"
+                      width ||= (params[:width_inch].to_f * 72 || params[:width_mm].to_i * 2.8334 || params[:width_points].to_i || params[:width_cm].to_i)
+                      height ||= (params[:height_inch].to_f * 72 || params[:height_mm].to_i * 2.8334 || params[:height_points].to_i || params[:height_cm].to_i)
+                      @image = params[:pdf_image]
+
                       options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [width, height] }
                       prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => 'shell_layout.pdf'
                       render :layout => false

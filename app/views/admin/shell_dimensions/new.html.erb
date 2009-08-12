@@ -36,16 +36,17 @@
          <th> Width : </th><td> <%= text_field_tag 'values[width]', '612', :class =>'textbox-tiny' %> </td>
          <th> Height : </th><td> <%= text_field_tag 'values[height]', '1008', :class =>'textbox-tiny'  %> </td></tr> 
          <tr><td>Enter barcode background color:</td>    
-             <td colspan = '4'> <%= text_field_tag 'values[bg_color]', '#ffffff', :class =>'textbox-small'  %>&nbsp; eg: #ffffff </td>
+             <td colspan = '4'> <%= text_field_tag 'values[bg_color]', '#FFFFFF', :class =>'textbox-small'  %>&nbsp; eg: #FFFFFF </td>
          </tr> 
-          <tr><td colspan = '5'>
-                <%= link_to 'Preview without shell', test_print_admin_dealer_path(:id => @dealer.id , :t => params[:t], :format => 'pdf' )%> 
+         <tr> <td colspan ='5'> Upload the shell background image: <br /> <br />(Not mandatory. Just to give you an idea about the content positions, during preview) </td> </tr>
+         <tr> <td colspan ='5'> <%= file_field_tag 'image' %>  </td> </tr>
+         <tr><td colspan = '5'>
+                <%= link_to "<b>Preview pdf print file</b>", test_print_admin_dealer_path(:id => @dealer.id, :i => 1; :t => params[:t], :format => 'pdf' )%> 
                 <span> <br /><br />
                     (Make sure that at least one data record available for this dealer and you saved the dimensions set below.)
                 </span>
               </td>    
          </tr> 
-         <tr> <td colspan ='5'> <%= file_field_tag 'image' %>   </td> </tr>
      </table> 
         
      <%= render :partial => @partial   %>

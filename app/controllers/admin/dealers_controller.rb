@@ -272,11 +272,15 @@ class Admin::DealersController < ApplicationController
      @dealer_address =  @dealer.address
      shell = params[:s]
      @shell_needed = !shell.blank? ? true : false 
+
      #if printing without shell then fetch the shell dimension for the dealer
      if shell.blank?
        @positions = {}
-       dimensions = @dealer.shell_dimensions(:all, :conditions => [:template => params[:t]])
+       dimensions = @dealer.administrator.shell_dimensions(:all, :conditions => [:template => params[:t]])
        dimensions.map{|rec| @positions[rec.variable]= rec.value.to_f} unless dimensions.blank?
+      
+       #preview image
+       @image_path = @dealer.administrator.shell_images(:all, :conditions => [:template => params[:t]]).first.shell_image.url if params[:i]
      end
      
      #Fetch the shell content for the dealer

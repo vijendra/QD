@@ -1,7 +1,7 @@
 require "prawn/format"
 box = pdf.bounds
 y = box.top
-pdf.image "#{RAILS_ROOT}/public/images/print-file/NelsonMazda.jpg", :at => [0, box.top], :scale => 0.72
+pdf.image @image.path, :at => [0, box.top], unless @image.blank?
 left = box.left
 right = box.right
 
