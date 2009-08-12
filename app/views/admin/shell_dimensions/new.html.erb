@@ -33,10 +33,10 @@
   <%= f.error_messages %>   
       <table class ='form-table'> 
          <tr> <td> Enter shell dimension (in points): </td> 
-         <th> Width : </th><td> <%= text_field_tag 'values[width]', '612', :class =>'textbox-tiny' %> </td>
-         <th> Height : </th><td> <%= text_field_tag 'values[height]', '1008', :class =>'textbox-tiny'  %> </td></tr> 
+         <th> Width : </th><td> <%= text_field_tag 'values[width]',@positions['width'] || '612' , :class =>'textbox-tiny' %> </td>
+         <th> Height : </th><td> <%= text_field_tag 'values[height]',@positions['height'] || '1008' , :class =>'textbox-tiny'  %> </td></tr> 
          <tr><td>Enter barcode background color:</td>    
-             <td colspan = '4'> <%= text_field_tag 'values[bg_color]', '#FFFFFF', :class =>'textbox-small'  %>&nbsp; eg: #FFFFFF </td>
+             <td colspan = '4'> <%= text_field_tag 'values[bg_color]',@positions['bg_color'] || '#FFFFFF' , :class =>'textbox-small'  %>&nbsp; eg: #FFFFFF </td>
          </tr> 
          <tr> <td colspan ='5'> Upload the shell background image: <br /> <br />(Not mandatory. Just to give you an idea about the content positions, during preview) </td> </tr>
          <tr> <td colspan ='5'> <%= file_field_tag 'image' %>  </td> </tr>

@@ -277,7 +277,12 @@ class Admin::DealersController < ApplicationController
      if shell.blank?
        @positions = {}
        dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?" , params[:t]])
-       dimensions.map{|rec| @positions[rec.variable]= rec.value.to_f} unless dimensions.blank?
+       dimensions.map{ |rec| if rec.variable == 'bg_color' 
+                               @positions[rec.variable]= rec.value
+                             else
+                               @positions[rec.variable]= rec.value.to_f 
+                             end   
+                     } unless dimensions.blank?
 
        #preview image
        @image_path = @dealer.administrator.shell_images.find(:first, :conditions => ["template = ?", params[:t]]).shell_image.url if params[:i] rescue ''
