@@ -7,38 +7,38 @@
          </p>
          <p style = "position: absolute; margin: 200px 0px 0px 600px;" >
             <%= text_field_tag 'values[offer_x]', @positions['offer_x'] || '386', :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[offer_y]', @positions['offer_y'].blank? ? '835' : @positions['offer_y'], :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[offer_y]', @positions['offer_y'] || '835', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 365px 0px 0px 140px;" >
-            <%= text_field_tag 'values[first_para_x]',@positions['first_para_x'].blank? ? '50' : @positions['first_para_x']  , :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[first_para_y]',@positions['first_para_y'].blank? ? '680' : @positions['first_para_y'] , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[first_para_x]',@positions['first_para_x'] || '50', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[first_para_y]',@positions['first_para_y'] ||'680', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 480px 0px 0px 140px;" >
-            <%= text_field_tag 'values[sec_para_x]',@positions['sec_para_x'].blank? ? '50' : @positions['sec_para_x'] ,:class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[sec_para_y]',@positions['sec_para_y'].blank? ? '620': @positions['sec_para_y'] , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[sec_para_x]',@positions['sec_para_x'] || '50',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[sec_para_y]',@positions['sec_para_y'] || '620', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 580px 0px 0px 140px;" >
-            <%= text_field_tag 'values[third_para_x]', @positions['third_para_x'].blank? ? '50' : @positions['third_para_x'],:class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[third_para_y]', @positions['third_para_y'].blank? ? '555' : @positions['third_para_y'] , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[third_para_x]', @positions['third_para_x'] || '50',:class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[third_para_y]', @positions['third_para_y'] || '555', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 700px 0px 0px 140px;" >
-            <%= text_field_tag 'values[box_x]',@positions['box_x'].blank? ? '50' : @positions['box_x']  , :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[box_y]',@positions['box_y'].blank? ? '460' : @positions['box_y']  , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[box_x]',@positions['box_x'] || '50' , :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[box_y]',@positions['box_y'] || '460' , :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 830px 0px 0px 190px;" >
-            <%= text_field_tag 'values[dealer_details_x]',@positions['dealer_details_x'].blank? ? '60': @positions['dealer_details_x']  , :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[dealer_details_y]',@positions['dealer_details_y'].blank? ? '380':@positions['dealer_details_y']  , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[dealer_details_x]',@positions['dealer_details_x'] || '60', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[dealer_details_y]',@positions['dealer_details_y'] || '380', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 950px 0px 0px 140px;" >
-            <%= text_field_tag 'values[note_x]',@positions['note_x'].blank? ? '30': @positions['note_x'] , :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[note_y]',@positions['note_y'].blank? ? '250' : @positions['note_y'] , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[note_x]',@positions['note_x'] ||  '30', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[note_y]',@positions['note_y'] || '250', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 1100px 0px 0px 170px;" >
-            <%= text_field_tag 'values[dealer_x]', @positions['dealer_x'].blank? ? '132' : @positions['dealer_x'] , :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[dealer_y]',  @positions['dealer_y'].blank? ? '120' : @positions['dealer_y'], :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[dealer_x]', @positions['dealer_x'] || '132', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[dealer_y]',  @positions['dealer_y'] || '120', :class =>'textbox-thick' %>
          </p>
          <p style = "position: absolute; margin: 1050px 0px 0px 600px;" >
-            <%= text_field_tag 'values[date_x]', @positions['date_x'].blank? ? '460' : @positions['date_x'] , :class =>'textbox-thick' %> 
-            <%= text_field_tag 'values[date_y]', @positions['date_y'].blank? ? '158' : @positions['date_y'] , :class =>'textbox-thick' %>
+            <%= text_field_tag 'values[date_x]', @positions['date_x'] || '460', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[date_y]', @positions['date_y'] || '158' , :class =>'textbox-thick' %>
          </p>
 		  </div>
