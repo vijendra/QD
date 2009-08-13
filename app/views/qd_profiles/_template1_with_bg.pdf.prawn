@@ -59,34 +59,37 @@ for data in @profiles
 
     p_pdf.text "<br />"
     p_pdf.tags[:indent] = { :width => "1.2em", :font_size => "1.1em", :font_family => "Times-Roman" }
-
+  end
+  
+  p_pdf.bounding_box([50, box.top - 500], :width => box.right - 60) do
     p_pdf.text "<indent> <b>Here's what you can expect when you arrive: </b></indent>"
     p_pdf.tags[:indent] = { :width => "3em", :font_size => "1.1em", :font_family => "Times-Roman" }
     p_pdf.text "<indent> 1. Programs available with as little as no money down. </indent>"
     p_pdf.text "<indent> 2. No Hassle credit check. </indent>"
     p_pdf.text "<indent> 3. Vehicles with set pricing and No Haggling. </indent>"
   end
-  p_pdf.stroke_rectangle [box.left + 60, box.bottom + 450], box.width - 250 , 70
+  p_pdf.stroke_rectangle [box.left + 60, box.top - 495], box.width - 250 , 70
    
   p_pdf.tags[:medium] = { :font_size => "1.1em", :font_family => "Times-Roman" }
   p_pdf.tags[:large] = {  :font_size => "1.3em", :font_family => "Times-Roman" }
+  p_pdf.tags[:small] = {  :font_size => "1em", :font_family => "Times-Roman" }
 
-  p_pdf.bounding_box([60, p_pdf.y - 20], :width    => 300) do
+  p_pdf.bounding_box([60, p_pdf.y - 20], :width => 300) do
     p_pdf.text "<b><medium>Make the Call &amp; Bring This Voucher to </medium></b>", :align => :center
     p_pdf.text "<large>#{h(@dealer_profile.display_name)}</large>", :align => :center
     p_pdf.text "<medium> #{h(@dealer_address.address)} </medium>", :align => :center
     p_pdf.text "<medium> #{h(@dealer_address.city)}, #{h(@dealer_address.state)} </medium>", :align => :center
-    p_pdf.text "<large> #{h(@phone)} </large>", :align => :center
+    p_pdf.text "<large> #{h(@phone)} </large><small> (ask for #{@ask_for})</small>", :align => :center
     p_pdf.text "An Authorized Creditplex Dealer in your area.", :align => :center
   end
   
-  p_pdf.stroke_rectangle [box.left + 27, box.bottom + 257], box.width - 39 , 45
+  p_pdf.stroke_rectangle [box.left + 27, box.bottom + 327], box.width - 39 , 45
   p_pdf.tags[:small] = { :font_size => "1em", :font_family => "Times-Roman" }
   text = "<small>*You can choose to stop receiving &quot;prescreened&quot; offers of credit from this and other companies by calling Toll Free 1-888-567-8688. See PRESCREEN &amp; OPT-OUT NOTICE on enclosed insert for more information about prescreened offers.</small>"
   
   p_pdf.text_box text,
     :width    => box.width - 40, :height => 50,
-    :at       => [box.left + 29, box.bottom + 252]  
+    :at       => [box.left + 29, box.bottom + 322]  
 
   #Mark the data record as printed.
   unless request.request_uri =~ /test_print.pdf/

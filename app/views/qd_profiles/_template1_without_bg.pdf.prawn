@@ -70,13 +70,14 @@ for data in @profiles
   
   p_pdf.tags[:medium] = {:font_size => "1.1em", :font_family => "Times-Roman" }
   p_pdf.tags[:large] = {:font_size => "1.3em", :font_family => "Times-Roman" }
+  p_pdf.tags[:small] = {  :font_size => "1em", :font_family => "Times-Roman" }
 
   p_pdf.bounding_box([@positions['dealer_details_x'], @positions['dealer_details_y']], :width => 300) do
     p_pdf.text "<b><medium>Make the Call &amp; Bring This Voucher to </medium></b>", :align => :center
     p_pdf.text "<large>#{h(@dealer_profile.display_name)}</large>", :align => :center
     p_pdf.text "<medium> #{h(@dealer_address.address)} </medium>", :align => :center
     p_pdf.text "<medium> #{h(@dealer_address.city)}, #{h(@dealer_address.state)} </medium>", :align => :center
-    p_pdf.text "<large> #{h(@phone)} </large>", :align => :center
+    p_pdf.text "<large> #{h(@phone)} </large><small>(ask for #{@ask_for})</small>", :align => :center
     p_pdf.text "An Authorized Creditplex Dealer in your area.", :align => :center
   end
   
@@ -86,7 +87,7 @@ for data in @profiles
   
   p_pdf.text_box text,
     :width    => box.width - 40, :height => 50,
-    :at       => [29, 252]  
+    :at       => [@positions['note_x'], @positions['note_y']]  
 
   #Mark the data record as printed.
   unless request.request_uri =~ /test_print.pdf/
