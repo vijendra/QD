@@ -74,7 +74,7 @@ for data in @profiles
     :at       => [@positions['rightbox4_x'], @positions['rightbox4_y']]
 
   p_pdf.text Time.now.strftime("%m-%d-%Y"), :at => [@positions['date_x'], @positions['date_y']]
-  p_pdf.text @dealer_profile.display_name, :at => [@positions['dealer_y'], @positions['dealer_x']]
+  p_pdf.text @dealer_profile.display_name, :at => [@positions['dealer_x'], @positions['dealer_y']]
 
 
   #Mark the data record as printed.

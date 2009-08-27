@@ -19,7 +19,11 @@
 <table>
      <tr>
          <td>
+<<<<<<< HEAD:app/views/admin/trigger_details/index.html.erb
              <% if super_admin? %> <%= link_to("<span> Fetch triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end %>
+=======
+             <% if super_admin? or admin? %> <%= link_to("<span> Fetch Triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end %>
+>>>>>>> c65c701c29ccc3a898f2f9f49230ad21922b172d:app/views/admin/trigger_details/index.html.erb
          </td>
 
          <td>
