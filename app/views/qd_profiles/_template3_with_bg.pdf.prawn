@@ -1,10 +1,10 @@
 p_pdf.font "Helvetica"
-p_pdf.text_options.update(:size => 13, :spacing => 1)
 counter = 0
 
 box = p_pdf.bounds
 
 for data in @profiles
+  p_pdf.text_options.update(:size => 13, :spacing => 1)
   counter = counter + 1
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address

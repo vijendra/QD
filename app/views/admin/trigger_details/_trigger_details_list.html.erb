@@ -26,10 +26,16 @@
   </tr>
 <% @triggers.each do |trigger| %>
        <tr class= '<%= trigger.status %>'>
-         <td> <%= Time.parse(trigger.created_at.to_s).strftime('%m-%d-%y') %> </td>
+          <td style = "padding: 0"> 
+            <div class="calendar-date">
+              <span class = 'cal'><%= image_tag("date.png") %></span>
+              <%= Time.parse(trigger.created_at.to_s).strftime('%b %d')%><br />
+              <%= Time.parse(trigger.created_at.to_s).strftime('%Y')%></div>
+            </div>
+         </td>
          <td> <%= trigger.id %> </td>
-         <td> <%= trigger.dealer.profile.name %> </td>
-         <td> <%= trigger.data_source %> </td>
+         <td> <%= "#{image_tag("user.png")} #{trigger.dealer.profile.name}" %> </td>
+         <td> <%= "#{image_tag("database.png")} #{trigger.data_source}" %> </td>
          <td> <%= trigger.order_number %> </td>
 	 <td> <%= trigger.total_records %> </td>
          <td <%= 'style = "background: #FFD1C2"' if trigger.balance < trigger.total_records %> > <%= trigger.balance %> </td>

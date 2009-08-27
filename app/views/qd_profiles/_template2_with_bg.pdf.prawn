@@ -1,16 +1,16 @@
 p_pdf.font "Times-Roman"
-p_pdf.text_options.update(:size => 13, :spacing => 1)
 counter = 0
 
 box = p_pdf.bounds
 
 for data in @profiles
+  p_pdf.text_options.update(:size => 13, :spacing => 1)
   counter = counter + 1
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
   #generating postnet barcode
- doc = RGhost::Document.new :paper => [6.4, 0.55], :margin => [0, 0, 0, 0]
+  doc = RGhost::Document.new :paper => [6.4, 0.55], :margin => [0, 0, 0, 0]
   doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:height => 0.5, :background => "#F4D98B"})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
 

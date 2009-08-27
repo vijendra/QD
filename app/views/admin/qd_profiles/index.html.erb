@@ -1,27 +1,32 @@
 <% content_for :header do -%>
- Listing data set, categorised on imported date &nbsp; <%= link_to image_tag('excel.png'), print_file_url %> &nbsp;<%= link_to("Generate Combined CSV Print File", print_file_url, :action => :get)%>
+ Listing data set, categorised on date &nbsp; <%= image_tag('excel.png')%><%= link_to("Generate combined csv print file", print_file_url, :action => :get)%>
 <% end -%>
 
 <div id='trigger_qd_profile-list' >
-   <%= link_to_function "Show Search Bar",
-			" Element.show('search-bar'); return false;"
-			%> &nbsp;&nbsp; |&nbsp;&nbsp;
-			<%= link_to_function "Hide Search Bar",
-			"Element.hide('search-bar'); return false;"
-			%>  &nbsp;&nbsp; |&nbsp;&nbsp;<%= link_to "View Only Marked Data" ,admin_qd_profiles_url(:m => 't' ) %>
-			&nbsp;&nbsp; |&nbsp;&nbsp;<%= link_to "View All" ,admin_qd_profiles_url %>
+  <div id = 'top-links' >
+   <span id = 's'>
+     <%= link_to_function "Show search bar", "Element.show('search-bar'); Element.show('h'); Element.hide('s'); return false;" %> &nbsp;&nbsp; |&nbsp;&nbsp;
+   </span>
+
+   <span id = 'h' style ="display:none">
+      <%= link_to_function "Hide search bar", "Element.hide('search-bar'); Element.show('s'); Element.hide('h');return false;" %> &nbsp;&nbsp; |&nbsp;&nbsp;
+   </span>
+  
+   <%= link_to "View only marked data", admin_qd_profiles_url(:m => 't' ) unless params[:m] %>
+   <%= link_to "View all", admin_qd_profiles_url if params[:m] %>
+ </div>
 
    <div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filters'%> </div>
+   
 
-<div id='qd_profile-list'>
-
-   <%=render :partial=> 'trigger_list'%>
-<!--
-<center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
-<%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
-<%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" , :search => @params)  )%> &nbsp;
-<%= link_to "Export Selected Dealers to CSV",  admin_qd_profiles_path(:format => "csv", :search => @params) %>
-</center> <br/>
--->
-</div>
+   <div id='qd_profile-list'>
+     <%=render :partial=> 'trigger_list'%>
+     <!--
+     <center><%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" ,:type =>"all")  )%> &nbsp;
+     <%= link_to "Export This Page to CSV",  admin_qd_profiles_path(:format => "csv",:type =>"all") %> &nbsp;<b>|</b>&nbsp;
+     <%= link_to(image_tag('excel.png', :border => '0'),  admin_qd_profiles_path(:format => "csv" , :search => @params)  )%> &nbsp;
+     <%= link_to "Export Selected Dealers to CSV",  admin_qd_profiles_path(:format => "csv", :search => @params) %>
+     </center> <br/>
+     -->
+   </div>
 </div>

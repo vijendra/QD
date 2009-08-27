@@ -25,7 +25,8 @@
              </tr>
 
              <% @qd_profiles.each do |profile| %>
-                 <tr> <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
+                 <tr class="<%= cycle('odd', 'even') %>"> 
+                      <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
                       <td><%= Time.parse(profile.created_at.to_s).to_date %> </td>
                       <td> <%=h profile.listid %> </td>
                       <td> <%=h "#{profile.fname} #{profile.lname}" %> </td>
@@ -40,7 +41,7 @@
              <% end %>
          <% else %>
              <tr> 
-                 <th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
+                 <th> <input type='checkbox' title ="Check all/Uncheck" name='checkall' onclick='checkedAll();'> </th>
                  <th> Imported on </th>
                   <% @fields_to_be_shown.each do |qd_field| %>
                       <th> <%= qd_field.humanize %> </th>
@@ -50,7 +51,7 @@
              </tr>
 
              <% @qd_profiles.each do |profile| %>
-               <tr>
+               <tr class="<%= cycle('odd', 'even') %>">
                  <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
                  <td> <%= Time.parse(profile.created_at.to_s).strftime('%m-%d-%Y') %> </td>
                  <% @fields_to_be_shown.each do |qd_field| %>
@@ -63,7 +64,7 @@
          <% end %>
       </table>
 
-            <%=  submit_tag "Mark Data For Print"%>
+            <%=  submit_tag "Mark data for print"%>
 
   <%end%><!-- end of form tag-->
 

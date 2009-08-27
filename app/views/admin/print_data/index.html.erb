@@ -1,11 +1,11 @@
 <% content_for :header do -%>
-  Marked Data For Dealer : <%=h  @dealer.profile.name %>
+  Print settings for dealer : <%=h  @dealer.profile.name %>
 <% end -%>
 
 <div class="js_option">
-   <%= link_to_function "Show Print File Variable Data", "Element.show('expand');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
-   <%= link_to_function "Show CSV Print file Columns", "Element.show('csv_extra_field');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
-   <%= link_to_function "Hide", "Element.hide('csv_extra_field'); Element.hide('expand');" %>
+   <%= link_to_function "Show print file variable data", "Element.show('expand'); Element.hide('csv_extra_field');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
+   <%= link_to_function "Show csv print file columns", "Element.show('csv_extra_field'); Element.hide('expand');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
+   <%= link_to_function "Hide both", "Element.hide('csv_extra_field'); Element.hide('expand');" %>
 </div> <br/>
 		
 <div id="expand">
@@ -125,7 +125,7 @@
    <% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer),:html => { :method => :put }) do |f| %>
   
   <div class = 'form-box' >
-   <h1 class = 'head'>  Columns to be appended to the CSV Print file. </h1><br/>
+   <h1 class = 'head'>  Columns to be appended to the csv print file. </h1><br/>
   <table class = 'form-display'>
     <% Profile::CSV_EXTRA_FIELDS.each do |field| %>
        <tr><td><%= check_box_tag("csv_extra_fields[]", "#{field}", @fields.include?("#{field}"))%> </td><th><%=h "#{field}" %></th></tr>
@@ -136,16 +136,13 @@
 </table>
  <br />
 
-<%=f.submit "Save CSV Fields" %>
+<%=f.submit "Save csv fields" %>
 </div>
 <% end %>
 
 </div>
 
-<div id="hidden1">
-</div>
-<div id="hidden2">
-</div>
+<!--
 <br />
 <% unless @marked_dates.blank? %>
 
@@ -185,3 +182,4 @@
    <%else%>
       No Records Found.
    <%end%>
+-->

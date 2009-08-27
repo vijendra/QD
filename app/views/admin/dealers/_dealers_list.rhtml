@@ -3,18 +3,16 @@
 
   <tr>
   <th> </th>
- 	<th><%= remote_order_by_link(:id,:text =>"ID") %></th>
- 	<th><%= remote_order_by_link({:profile => :name} ,:text => "Name" )%> </th>
-        <th> Phone </th>	
-        <th> Auth Code</th>
+ 	<th><%= remote_order_by_link({:profile => :name} ,:text => "Dealer (ID)" )%> </th>
+        <th> Auth code</th>
 	<th> Accounts </th>
- 	<th> CSV Data </th>
-        <th> QD Fields </th>
+ 	<th> CSV data </th>
+        <th> QD fields </th>
  	<th> Status </th>
         <% if super_admin? -%>
           <th> Admin </th>
         <%end%>
-        <th> Print file</th>
+        <th> Print settings</th>
  	<th> Delete </th>
 
   </tr>
@@ -28,10 +26,8 @@
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
          <td> </td>
-         <td> <%= dealer.id %> </td>
-         <td style='width:200px;'> <%unless dealer.profile.blank? %> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> <%end%> </td>
-          <td> <%= dealer.profile.phone_1 %>-<%= dealer.profile.phone_2 %>-<%= dealer.profile.phone_3 %></td>
-          <td> <% if dealer.profile.auth_code.blank?  %>
+         <td style='width:270px;'> <%unless dealer.profile.blank? %> <%= image_tag("user.png")%> <b><%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %></b> (<%= dealer.id %>) <%end%> </td>
+         <td> <% if dealer.profile.auth_code.blank?  %>
                 <%= link_to "Enter",  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
               <%else%>
              <%= link_to dealer.profile.auth_code,  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
@@ -40,9 +36,9 @@
 
           <td> <%= link_to  dealer.profile.current_balance, admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
   
-          <td> <%= link_to "Upload" , csv_admin_dealer_path(:id =>dealer.id), :rel=>"facebox" %> </td>
+          <td> <%= link_to "#{image_tag('excel.png')} Upload" , csv_admin_dealer_path(:id =>dealer.id), :rel=>"facebox" %> </td>
           
-          <td> <%= dealer.dealer_field.nil? ? (link_to "QD Fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "QD Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>  
+          <td> <%= dealer.dealer_field.nil? ? (link_to "QD fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "QD Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>  
           </td>
 
            <td><%=  dealer.active? ? (link_to "Active", inactive_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page),:method =>:post, :confirm => 'This action will mark this dealer as INACTIVE. Are you sure?') : (link_to "Inactive", activate_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :method =>:post,:confirm => 'This action will mark this dealer as ACTIVE. Are you sure?') %>
@@ -59,8 +55,8 @@
 
           <%end%>
 
-         <td> <%= link_to "print file",  admin_dealer_print_data_path(:dealer_id => dealer.id) %></td>
-         <td> <%= link_to "Delete",admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
+         <td> <%= link_to "#{image_tag('printer.png')} print settings",  admin_dealer_print_data_path(:dealer_id => dealer.id) %></td>
+         <td> <%= link_to image_tag('user_delete.png'), admin_dealer_path(dealer) , :confirm => 'Are you sure?', :method => :delete %></td>
        </tr>
     <% end %>
 	</tbody>

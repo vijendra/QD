@@ -29,7 +29,7 @@
 <body>
 
   <div id="header">
-    <h1>Quick Data <span>Robot</span></h1>
+    <h1><%= image_tag("QD-logo.gif") %></h1>
     <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
     </div>
@@ -40,12 +40,12 @@
   </div>
 
   <div id="main">
+    <!-- <%= flash_message %> -->
+    <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
 
-    <h3 class="head"> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %> </h3>
+    <h3 class="head"> <%= yield_or_default yield(:header) %> </h3>
 
     <div id="screen">
-       <!-- <%= flash_message %> -->
-       <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
        <%= yield %>
     </div>
   </div>

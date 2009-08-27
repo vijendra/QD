@@ -1,10 +1,10 @@
 p_pdf.font "Times-Roman"
-p_pdf.text_options.update(:size => 13, :spacing => 1)
 counter = 0
 
 box = p_pdf.bounds
 
 for data in @profiles
+  p_pdf.text_options.update(:size => 13, :spacing => 1)
   counter = counter + 1
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
@@ -99,5 +99,4 @@ for data in @profiles
   p_pdf.text @dealer_profile.display_name, :at => [box.left + 132, box.top - 817]
 
   p_pdf.start_new_page if counter < @profiles.size
-  
 end

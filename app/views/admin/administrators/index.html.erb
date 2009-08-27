@@ -33,7 +33,7 @@ Total No Of Inactive Dealers: <b> <%= Dealer.inactive_dealers.all(:select => "co
 
   </tr>
 <% @administrators.each do |administrator| %>
-       <tr>
+       <tr class="<%= cycle('odd', 'even')%>">
          <td> <%= administrator.id %> </td>
          <td> <%= link_to h(administrator.login), admin_administrator_url(administrator) %> </td>
          <td> <%= administrator.email %> </td>
