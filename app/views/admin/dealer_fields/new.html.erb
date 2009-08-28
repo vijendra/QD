@@ -3,11 +3,9 @@
 <h3> Select the QD fields which can be shown to the dealer. </h3><br/>
 <table class = 'form-table'>
    <% for field in QdProfile.public_attributes %>
-     <tr><td> <%= check_box_tag("dealer_fields[]", field, true)%></td><th><%= field.humanize %></th></tr>
+     <tr><th><%= field.humanize %></th><td> <%= check_box_tag("dealer_fields[]", field, true)%></td></tr>
    <% end %>
+<tr><td><br /><%=f.submit "Save Fields List" %></td> <td> <br />&nbsp; &nbsp;<%= link_to "Cancel" , admin_dealers_url %></td>
 </table><br/>
-   <%=f.submit "Save Fields List" %>
-
-<br/>
- <%= link_to "Cancel" , admin_dealers_url %>
+   
 <%end%>

@@ -1,19 +1,15 @@
 <%form_tag( authentication_code_admin_dealer_path(@dealer.id), :method=>:get) do %>
 <br/>
+<h2> Assigning an authentication code to the dealer:<br /> <%= @dealer.profile.name %> </h2> <br />
 <table class ="form-table">
-  <tr><th> Authentication Code :</th>
-      <% if @dealer.profile.auth_code.blank? %>
-
-      <td><%= text_field_tag "auth_code" ,'',:class => "textbox" %> </td>
-      <%else%>
-
-      <td><%= text_field_tag "auth_code" ,@dealer.profile.auth_code,:class => "textbox" %> </td>
-      <%end%>
+  
+  <tr><th> Enter authentication code :</th>
+      <td><%= text_field_tag "auth_code" ,@dealer.profile.auth_code || '', :class => "textbox" %> </td>
   </tr>
-      </table>
+  </table>
 
   <br/>
 
-      <%= submit_tag "save" %>
+      <%= submit_tag "Save autentication code" %>
 
 <%end%>

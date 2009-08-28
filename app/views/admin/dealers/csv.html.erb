@@ -1,9 +1,11 @@
 <% form_for :dealer, :url=>{:controller=>"dealers", :action=>"csv_import"}, :html => { :multipart => true } do |f| -%>
+     <h2> Manually importing data from the csv file for dealer:<br /> <%= @dealer.profile.name %></h2> <br />
        <%= radio_button_tag 'type', 'seekerinc' ,:checked =>true%> seekerinc  &nbsp;&nbsp;&nbsp;&nbsp;
      <%= radio_button_tag 'type', 'marketernet' %> marketernet <br/><br/>
       Order Number : <%=  text_field_tag "dealer[order_number]" ,'',:class =>"textbox"%><br/><br/>
-       <%= f.file_field :file, :class => 'file' -%>
-       <%= submit_tag('Submit') -%>
+      Select csv file: <%= f.file_field :file, :class => 'file' -%>
+       
+       <%= submit_tag('Upload data') -%>
        <%= hidden_field_tag 'dealer_id', @dealer.id %>
 
 <% end -%>
