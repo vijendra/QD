@@ -1,7 +1,15 @@
 <% content_for :header do -%>
- Listing data set, categorised on date &nbsp; <%= image_tag('table.png')%><%= link_to("Generate combined csv print file", print_file_url, :action => :get)%>
+ Listing data set, categorised on date  
 <% end -%>
 
+<table cellspacing=0 cellpadding=0>  
+    <tr>
+    
+       <td class='hide-for-print' style ='vertical-align: top;'> <%= link_to("<span>Generate csv print file for marked data</span>", print_file_url(:m => 1), :action => :get, :class=> "button")%> </td>
+       <td class='hide-for-print' style ='vertical-align: top;'> <%= link_to("<span>Generate csv print file for unmarked data</span>", print_file_url(), :action => :get, :class=> "button")%> </td>
+    </tr>
+</table>
+<br />
 <div id='trigger_qd_profile-list' >
   <div id = 'top-links' >
    <span id = 's'>

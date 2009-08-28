@@ -7,6 +7,11 @@ box = p_pdf.bounds
 for data in @profiles
   p_pdf.text_options.update(:size => 13, :spacing => 1)
   counter = counter + 1
+  p_pdf.bounding_box([@positions['head_quarters_x'], @positions['head_quarters_y'] ], :width => 200) do
+   p_pdf.text 'Program Headquarters', :size => 12 
+   p_pdf.text @ph_address, :size => 12 
+   p_pdf.text "#{@ph_city}, #{@ph_state_zip}", :size => 12 
+  end
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}-#{data.zip4}"

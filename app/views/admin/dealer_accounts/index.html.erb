@@ -59,7 +59,7 @@
     <% @trigger_details.each do |trigger| %>
       <tr>
           <td> <%=h Time.parse(trigger.created_at.to_s).to_date %>  </td>
-          <td> <%= (trigger.balance+trigger.total_records) %></td>
+          <td> <%= trigger.balance.blank? ? trigger.total_records : (trigger.balance + trigger.total_records) %></td>
           <td><%=h trigger.total_records %></td>
           <td> <%=h  trigger.balance %></td>
           </tr>

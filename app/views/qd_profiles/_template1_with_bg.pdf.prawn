@@ -6,6 +6,15 @@ box = p_pdf.bounds
 for data in @profiles
   p_pdf.text_options.update(:size => 13, :spacing => 1)
   counter = counter + 1
+  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
+  
+  p_pdf.bounding_box([50, box.top - 15], :width => 200) do
+   p_pdf.text 'Program Headquarters', :size => 12 
+   p_pdf.text @ph_address, :size => 12 
+   p_pdf.text "#{@ph_city}, #{@ph_state_zip}", :size => 12 
+  end
+  
+  
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}-#{data.zip4}"
@@ -15,7 +24,7 @@ for data in @profiles
   doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:background => "#FDF6D9", :height => 0.5})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
   
-  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template1.png", :at => [0, box.top], :scale => 0.72
+  
 
  p_pdf.bounding_box([box.right - 225, box.top - 110], :width => 200) do
     p_pdf.text "<b>Call with Confidence!</b>", :size => 16, :align => :center

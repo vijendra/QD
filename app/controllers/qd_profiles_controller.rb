@@ -180,6 +180,9 @@ class QdProfilesController < ApplicationController
      template = current_user.print_file_fields.find_by_identifier('template')
      @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
      @ask_for = current_user.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
+     @ph_address = current_user.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
+     @ph_city = current_user.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
+     @ph_state_zip = current_user.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
      
      #if printing without shell then fetch the shell dimension set for the administrator
      if shell.blank?

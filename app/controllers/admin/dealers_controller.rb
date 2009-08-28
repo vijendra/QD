@@ -292,7 +292,11 @@ class Admin::DealersController < ApplicationController
      @print_template = "qd_profiles/template#{params[:t]}"
      @w_site = @dealer.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
      @ask_for = @dealer.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
-
+     @ph_address = @dealer.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
+     @ph_city = @dealer.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
+     @ph_state_zip = @dealer.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
+     
+     
      case @print_template
          when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
          when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])

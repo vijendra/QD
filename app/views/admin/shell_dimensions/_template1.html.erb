@@ -1,6 +1,12 @@
 
       <br />
       <div style = "height: 1298px; width: 848px; background: url(/images/print-file/crediplex_print.gif)" > 
+      
+         <p style = "position: absolute; margin: 40px 0px 0px 85px;" >
+            <%= text_field_tag 'values[head_quarters_x]', @positions['head_quarters_x'] || '50', :class =>'textbox-thick' %> 
+            <%= text_field_tag 'values[head_quarters_y]', @positions['head_quarters_y'] || '920', :class =>'textbox-thick' %>
+         </p>
+         
          <p style = "position: absolute; margin: 200px 0px 0px 140px;" >
             <%= text_field_tag 'values[address_x]', @positions['address_x'] || '115', :class =>'textbox-thick' %> 
             <%= text_field_tag 'values[address_y]', @positions['address_y'] || '810', :class =>'textbox-thick' %>

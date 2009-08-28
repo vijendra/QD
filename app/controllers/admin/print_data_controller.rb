@@ -19,13 +19,14 @@ class Admin::PrintDataController < ApplicationController
                     }
 
                    format.csv {
+                   puts "pppppppppppppppppppppppppppppppppppppppppppppppppp #{params[:mn]}"
                      search = QdProfile.new_search()
                      search.conditions.dealer.administrator_id = current_user.id unless current_user.has_role?('super_admin')
-                     search.conditions.status = 'marked'
+                     params[:m].blank?? search.conditions.status = 'new' : search.conditions.status = 'marked' 
                      search.group = 'trigger_detail_id'
                      search.select = 'trigger_detail_id'          
                      triggers = search.all
-                     
+                     puts "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq:::#{search.inspect}    ppppp :#{triggers.inspect}"
                      csv_file = FasterCSV.generate do |csv|
                        #Construct CSV headers for variable fields
                        variable_field_headers = {}
@@ -40,10 +41,10 @@ class Admin::PrintDataController < ApplicationController
                        triggers.each do |tri|
                          trigger = tri.trigger_detail
                          dealer =  trigger.dealer
-                         qd_profiles = trigger.qd_profiles.to_be_printed
+                         qd_profiles = params[:m].blank?? trigger.qd_profiles.to_be_unmark_printed : trigger.qd_profiles.to_be_printed   
                          profile_values = profile_field_values(Profile::CSV_HEADERS.keys, dealer)
                          variable_values = variable_field_values(variable_field_headers.keys, dealer)
-
+                           puts "qqqqqqqqqqqqqqqqqqqqqq#{qd_profiles.size}"
                          #Exporting data rows
                          if dealer.profile.wants_data_printed
                            qd_profiles.each do |prof|

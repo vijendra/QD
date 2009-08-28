@@ -1,10 +1,11 @@
 <% content_for :header do -%>
    Displaying Print file variable values and CSV file fields.
 <% end -%> 
+<div class = 'form-box' >
  <%= render :partial => "csv_print_file_fields" %>
 
 <div class = 'part2'>
-<div class = 'form-box' >
+
 <h1 class = 'head'>  Columns to be appended to the CSV Print file. </h1><br/>
 <!--
 <% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer),:html => { :method => :put }) do |f| %>
@@ -24,5 +25,6 @@
 <%end%>
 -->
 </div>
-</div>
   <div class = 'clear'> </div>
+</div>
+

@@ -25,22 +25,22 @@
   </tr>
      
   <tr><th> Variable data 3 </th>
-      <td> <%= text_field_tag "variable_data_3[label]" ,@variable_data_3 || '', :class => "textbox" %> </td>
+      <td> <%= text_field_tag "variable_data_3[label]" ,@variable_data_3.blank?? '': @variable_data_3.label, :class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_3[value]" ,@variable_data_3.blank?? '' : @variable_data_3.value,:class => "textbox" %> </td>
   </tr>
      
   <tr><th> Variable data 4</th>
-      <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4 || '', :class => "textbox" %> </td>
+      <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.blank?? 'Program headquarters address': @variable_data_4.label, :class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_4[value]" ,@variable_data_4.blank?? '' :  @variable_data_4.value,:class => "textbox" %> </td>
   </tr>
       
   <tr><th>Variable data 5 </th>
-      <td><%= text_field_tag "variable_data_5[label]", @variable_data_5.blank?? '' : @variable_data_5.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_5[label]", @variable_data_5.blank?? 'Program headquarters city' : @variable_data_5.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_5[value]" ,@variable_data_5.blank?? '' : @variable_data_5.value,:class => "textbox" %> </td>
   </tr>
 
   <tr><th>Variable data 6 </th>
-      <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.blank?? '' : @variable_data_6.label,:class => "textbox" %> </td>
+      <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.blank?? 'Program headquarters state, zip' : @variable_data_6.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_6[value]" ,@variable_data_6.blank?? '' : @variable_data_6.value,:class => "textbox" %> </td>
   </tr>
      
