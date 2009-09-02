@@ -21,7 +21,7 @@
    </span>
   
     <%= image_tag('database_go.png') unless params[:m]%><%= link_to "View only marked data", admin_qd_profiles_url(:m => 't' ) unless params[:m] %>
-    <%= image_tag('database_refresh.png') if params[:m]%><%= link_to "View all", admin_qd_profiles_url if params[:m] %>
+    <%= image_tag('database_refresh.png') %><%= link_to "View all", admin_qd_profiles_url if params[:m] %>
  </div>
 
    <div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filters'%> </div>

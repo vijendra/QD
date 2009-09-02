@@ -7,22 +7,14 @@
     Listing all unprocessed trigger detail.&nbsp; <%= link_to "View processed triggers", admin_trigger_details_url(:type => "processed")  %>
    <% end -%>
 <%end%>
- <%= link_to_function "Show Search Bar",
-			" Element.show('search-bar'); return false;"
-			%> &nbsp;&nbsp; |&nbsp;&nbsp;
-			<%= link_to_function "Hide Search Bar",
-			"Element.hide('search-bar'); return false;"
-			%>  &nbsp;&nbsp;
 
-<div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filter'%> </div>
-<br />  <br /> 
 <table>
      <tr>
-         <td>
+         <td style= "vertical-align : middle;">
              <% if super_admin? or admin? %> <%= link_to("<span>Fetch triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end %>
          </td>
 
-         <td>
+         <td style= "vertical-align : middle;">
             <%form_tag process_triggers_admin_trigger_details_url, :method=>:post do %>
               <a class="button" onclick="$(this).up('form').submit(); return false;"><span>Process pending triggers</span></a>
               <span style ="color: #04376E;"> CSV file to be attached to dealer emails?</span>  &nbsp; Yes<%= check_box_tag("attachment", 1, true)%>
@@ -31,6 +23,18 @@
         
      </tr>
 </table>
+<br /> 
+
+  <span id = 's'>
+     <%= image_tag('zoom.png') %><%= link_to_function 'Show search bar', "Element.show('search-bar'); Element.show('h'); Element.hide('s'); return false;" %>
+   </span>
+
+   <span id = 'h' style ="display:none">
+    <%= image_tag('magifier_zoom_out.png') %> <%= link_to_function "Hide search bar", "Element.hide('search-bar'); Element.show('s'); Element.hide('h');return false;" %>
+   </span>
+
+<div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filter'%> </div>
+
 
 <br /> <br />
 <div id='trigger-list'>

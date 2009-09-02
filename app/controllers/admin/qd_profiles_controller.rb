@@ -125,6 +125,8 @@ class Admin::QdProfilesController < ApplicationController
     @search.per_page ||= 15
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
+    @search.include = 'dealer'
+
     @search.conditions.dealer.administrator_id = current_user.id unless super_admin?
 
     @triggers = @search.all

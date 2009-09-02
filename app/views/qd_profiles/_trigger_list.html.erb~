@@ -13,10 +13,11 @@
    </tr>
    <% @triggers.each do |trigger| %>
        <tr class="<%= cycle('odd', 'even') %>">
-         <td> 
+         <td style = "padding: 0"> 
             <div class="calendar-date">
               <span class = 'cal'><%= image_tag("date.png") %></span>
-              <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%b %d, %Y')}", :url => qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}" %></div>
+              <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%b %d')}", :url => qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}" %><br />
+              <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%Y')}", :url => qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}"  %></div>
             </div>
          </td>
 

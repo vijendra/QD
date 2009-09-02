@@ -26,11 +26,10 @@
   </tr>
 <% @triggers.each do |trigger| %>
        <tr class= '<%= trigger.status %>'>
-          <td style = "padding: 0"> 
+          <td> 
             <div class="calendar-date">
               <span class = 'cal'><%= image_tag("date.png") %></span>
-              <%= Time.parse(trigger.created_at.to_s).strftime('%b %d')%><br />
-              <%= Time.parse(trigger.created_at.to_s).strftime('%Y')%></div>
+              <%= Time.parse(trigger.created_at.to_s).strftime('%b %d, %Y')%>
             </div>
          </td>
          <td> <%= trigger.id %> </td>

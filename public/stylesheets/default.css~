@@ -232,6 +232,7 @@ padding : 5px;
 margin : 0 10px 0px 10px;
 font-size : 23px;
 
+border-bottom : #ddd 1px solid;
 }
 
 .head a {

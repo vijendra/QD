@@ -4,7 +4,7 @@ class DealerMailer < ActionMailer::Base
   def active_dealer_mail(dealer, body_content, subject)
     subject    "[#{configatron.site_name}] " + subject
     recipients dealer.email
-    from       configatron.support_email
+    from       "#{configatron.support_name} <#{configatron.support_email}>"
     reply_to   "#{configatron.support_email}"
     sent_on    Time.now
     content_type  "text/html"

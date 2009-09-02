@@ -19,8 +19,8 @@ class MailProcessor < ActionMailer::Base
         TriggerDetail.create(:dealer_id => dealer_profile.user_id, :data_source => 'seekerinc', :total_records => no_of_records, :order_number => order_number, :balance => dealer_profile.current_balance, :file_id => file_id, :file_password => password, :file_url => file_url ) unless dealer_profile.blank?
       end   
     end
-    
-    if (mail.from.to_s =~ /@tranzactis.com/ || mail.subject =~ /Order Fulfillment Notification/)  
+
+    if (mail.from.to_s =~ /@tranzactis.com/ || mail.subject =~ /Order Fulfillment Notification/) 
       dealer_id = parser.search("table").search("table")[2].at("tr").search("td")[1].inner_text.strip
       no_of_records = parser.search("table").search("table")[2].search("tr")[3].search("td")[1].inner_text.strip
       file_url = parser.search("table").search("table")[2].search("tr")[4].at("td").at("p").at("b").at("span").at("a").attributes['href']

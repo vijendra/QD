@@ -461,4 +461,73 @@ throw'Server returned an invalid collection representation.';this._collection=ev
 tempOption.update((text||'').stripScripts().stripTags());},checkForExternalText:function(){this._text=this.getText();if(this.options.loadTextURL)
 this.loadExternalText();else
 this.buildOptionList();},loadExternalText:function(){this.showLoadingText(this.options.loadingText);var options=Object.extend({method:'get'},this.options.ajaxOptions);Object.extend(options,{parameters:'editorId='+encodeURIComponent(this.element.id),onComplete:Prototype.emptyFunction,onSuccess:function(transport){this._text=transport.responseText.strip();this.buildOptionList();}.bind(this),onFailure:this.onFailure});new Ajax.Request(this.options.loadTextURL,options);},buildOptionList:function(){this._form.removeClassName(this.options.loadingClassName);this._collection=this._collection.map(function(entry){return 2===entry.length?entry:[entry,entry].flatten();});var marker=('value'in this.options)?this.options.value:this._text;var textFound=this._collection.any(function(entry){return entry[0]==marker;}.bind(this));this._controls.editor.update('');var option;this._collection.each(function(entry,index){option=document.createElement('option');option.value=entry[0];option.selected=textFound?entry[0]==marker:0==index;option.appendChild(document.createTextNode(entry[1]));this._controls.editor.appendChild(option);}.bind(this));this._controls.editor.disabled=false;Field.scrollFreeActivate(this._controls.editor);}});Ajax.InPlaceEditor.prototype.initialize.dealWithDeprecatedOptions=function(options){if(!options)return;function fallback(name,expr){if(name in options||expr===undefined)return;options[name]=expr;};fallback('cancelControl',(options.cancelLink?'link':(options.cancelButton?'button':options.cancelLink==options.cancelButton==false?false:undefined)));fallback('okControl',(options.okLink?'link':(options.okButton?'button':options.okLink==options.okButton==false?false:undefined)));fallback('highlightColor',options.highlightcolor);fallback('highlightEndColor',options.highlightendcolor);};Object.extend(Ajax.InPlaceEditor,{DefaultOptions:{ajaxOptions:{},autoRows:3,cancelControl:'link',cancelText:'cancel',clickToEditText:'Click to edit',externalControl:null,externalControlOnly:false,fieldPostCreation:'activate',formClassName:'inplaceeditor-form',formId:null,highlightColor:'#ffff99',highlightEndColor:'#ffffff',hoverClassName:'',htmlResponse:true,loadingClassName:'inplaceeditor-loading',loadingText:'Loading...',okControl:'button',okText:'ok',paramName:'value',rows:1,savingClassName:'inplaceeditor-saving',savingText:'Saving...',size:0,stripLoadedTextTags:false,submitOnBlur:false,textAfterControls:'',textBeforeControls:'',textBetweenControls:''},DefaultCallbacks:{callback:function(form){return Form.serialize(form);},onComplete:function(transport,element){new Effect.Highlight(element,{startcolor:this.options.highlightColor,keepBackgroundImage:true});},onEnterEditMode:null,onEnterHover:function(ipe){ipe.element.style.backgroundColor=ipe.options.highlightColor;if(ipe._effect)
-ipe._effect.cancel();},onFailure:function(transport,ipe){alert('Error communication with the server: '+transport.responseText.stripTags());},onFormCustomization:null,onLeaveEditMode:null,onLeaveHover:function(ipe){ipe._effect=new Effect.Highlight(ipe.element,{startcolor:ipe.options.highlightColor,endcolor:ipe.options.highlightEndColor,restorecolor:ipe._originalBackground,keepBackgroundImage:true});}},Listeners:{click:'enterEditMode',keydown:'checkForEscapeOrReturn',mouseover:'enterHover',mouseout:'leaveHover'}});Ajax.InPlaceCollectionEditor.DefaultOptions={loadingCollectionText:'Loading options...'};Form.Element.DelayedObserver=Class.create({initialize:function(element,delay,callback){this.delay=delay||0.5;this.element=$(element);this.callback=callback;this.timer=null;this.lastValue=$F(this.element);Event.observe(this.element,'keyup',this.delayedListener.bindAsEventListener(this));},delayedListener:function(event){if(this.lastValue==$F(this.element))return;if(this.timer)clearTimeout(this.timer);this.timer=setTimeout(this.onTimerEvent.bind(this),this.delay*1000);this.lastValue=$F(this.element);},onTimerEvent:function(){this.timer=null;this.callback(this.element,$F(this.element));}});
+ipe._effect.cancel();},onFailure:function(transport,ipe){alert('Error communication with the server: '+transport.responseText.stripTags());},onFormCustomization:null,onLeaveEditMode:null,onLeaveHover:function(ipe){ipe._effect=new Effect.Highlight(ipe.element,{startcolor:ipe.options.highlightColor,endcolor:ipe.options.highlightEndColor,restorecolor:ipe._originalBackground,keepBackgroundImage:true});}},Listeners:{click:'enterEditMode',keydown:'checkForEscapeOrReturn',mouseover:'enterHover',mouseout:'leaveHover'}});Ajax.InPlaceCollectionEditor.DefaultOptions={loadingCollectionText:'Loading options...'};Form.Element.DelayedObserver=Class.create({initialize:function(element,delay,callback){this.delay=delay||0.5;this.element=$(element);this.callback=callback;this.timer=null;this.lastValue=$F(this.element);Event.observe(this.element,'keyup',this.delayedListener.bindAsEventListener(this));},delayedListener:function(event){if(this.lastValue==$F(this.element))return;if(this.timer)clearTimeout(this.timer);this.timer=setTimeout(this.onTimerEvent.bind(this),this.delay*1000);this.lastValue=$F(this.element);},onTimerEvent:function(){this.timer=null;this.callback(this.element,$F(this.element));}});var FCKeditor=function(instanceName,width,height,toolbarSet,value)
+{this.InstanceName=instanceName;this.Width=width||'100%';this.Height=height||'200';this.ToolbarSet=toolbarSet||'Default';this.Value=value||'';this.BasePath=FCKeditor.BasePath;this.CheckBrowser=true;this.DisplayErrors=true;this.Config=new Object();this.OnError=null;}
+FCKeditor.BasePath='/fckeditor/';FCKeditor.MinHeight=200;FCKeditor.MinWidth=750;FCKeditor.prototype.Version='2.6.4';FCKeditor.prototype.VersionBuild='21629';FCKeditor.prototype.Create=function()
+{document.write(this.CreateHtml());}
+FCKeditor.prototype.CreateHtml=function()
+{if(!this.InstanceName||this.InstanceName.length==0)
+{this._ThrowError(701,'You must specify an instance name.');return'';}
+var sHtml='';if(!this.CheckBrowser||this._IsCompatibleBrowser())
+{sHtml+='<input type="hidden" id="'+this.InstanceName+'" name="'+this.InstanceName+'" value="'+this._HTMLEncode(this.Value)+'" style="display:none" />';sHtml+=this._GetConfigHtml();sHtml+=this._GetIFrameHtml();}
+else
+{var sWidth=this.Width.toString().indexOf('%')>0?this.Width:this.Width+'px';var sHeight=this.Height.toString().indexOf('%')>0?this.Height:this.Height+'px';sHtml+='<textarea name="'+this.InstanceName+'" rows="4" cols="40" style="width:'+sWidth+';height:'+sHeight;if(this.TabIndex)
+sHtml+='" tabindex="'+this.TabIndex;sHtml+='">'+
+this._HTMLEncode(this.Value)+'<\/textarea>';}
+return sHtml;}
+FCKeditor.prototype.ReplaceTextarea=function()
+{if(document.getElementById(this.InstanceName+'___Frame'))
+return;if(!this.CheckBrowser||this._IsCompatibleBrowser())
+{var oTextarea=document.getElementById(this.InstanceName);var colElementsByName=document.getElementsByName(this.InstanceName);var i=0;while(oTextarea||i==0)
+{if(oTextarea&&oTextarea.tagName.toLowerCase()=='textarea')
+break;oTextarea=colElementsByName[i++];}
+if(!oTextarea)
+{alert('Error: The TEXTAREA with id or name set to "'+this.InstanceName+'" was not found');return;}
+oTextarea.style.display='none';if(oTextarea.tabIndex)
+this.TabIndex=oTextarea.tabIndex;this._InsertHtmlBefore(this._GetConfigHtml(),oTextarea);this._InsertHtmlBefore(this._GetIFrameHtml(),oTextarea);}}
+FCKeditor.prototype._InsertHtmlBefore=function(html,element)
+{if(element.insertAdjacentHTML)
+element.insertAdjacentHTML('beforeBegin',html);else
+{var oRange=document.createRange();oRange.setStartBefore(element);var oFragment=oRange.createContextualFragment(html);element.parentNode.insertBefore(oFragment,element);}}
+FCKeditor.prototype._GetConfigHtml=function()
+{var sConfig='';for(var o in this.Config)
+{if(sConfig.length>0)sConfig+='&amp;';sConfig+=encodeURIComponent(o)+'='+encodeURIComponent(this.Config[o]);}
+return'<input type="hidden" id="'+this.InstanceName+'___Config" value="'+sConfig+'" style="display:none" />';}
+FCKeditor.prototype._GetIFrameHtml=function()
+{var sFile='fckeditor.html';try
+{if((/fcksource=true/i).test(window.top.location.search))
+sFile='fckeditor.original.html';}
+catch(e){}
+var sLink=this.BasePath+'editor/'+sFile+'?InstanceName='+encodeURIComponent(this.InstanceName);if(this.ToolbarSet)
+sLink+='&amp;Toolbar='+this.ToolbarSet;var html='<iframe id="'+this.InstanceName+'___Frame" src="'+sLink+'" width="'+this.Width+'" height="'+this.Height;if(this.TabIndex)
+html+='" tabindex="'+this.TabIndex;html+='" frameborder="0" scrolling="no"></iframe>';return html;}
+FCKeditor.prototype._IsCompatibleBrowser=function()
+{return FCKeditor_IsCompatibleBrowser();}
+FCKeditor.prototype._ThrowError=function(errorNumber,errorDescription)
+{this.ErrorNumber=errorNumber;this.ErrorDescription=errorDescription;if(this.DisplayErrors)
+{document.write('<div style="COLOR: #ff0000">');document.write('[ FCKeditor Error '+this.ErrorNumber+': '+this.ErrorDescription+' ]');document.write('</div>');}
+if(typeof(this.OnError)=='function')
+this.OnError(this,errorNumber,errorDescription);}
+FCKeditor.prototype._HTMLEncode=function(text)
+{if(typeof(text)!="string")
+text=text.toString();text=text.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");return text;};(function()
+{var textareaToEditor=function(textarea)
+{var editor=new FCKeditor(textarea.name);editor.Width=Math.max(textarea.offsetWidth,FCKeditor.MinWidth);editor.Height=Math.max(textarea.offsetHeight,FCKeditor.MinHeight);return editor;}
+FCKeditor.ReplaceAllTextareas=function()
+{var textareas=document.getElementsByTagName('textarea');for(var i=0;i<textareas.length;i++)
+{var editor=null;var textarea=textareas[i];var name=textarea.name;if(!name||name.length==0)
+continue;if(typeof arguments[0]=='string')
+{var classRegex=new RegExp('(?:^| )'+arguments[0]+'(?:$| )');if(!classRegex.test(textarea.className))
+continue;}
+else if(typeof arguments[0]=='function')
+{editor=textareaToEditor(textarea);if(arguments[0](textarea,editor)===false)
+continue;}
+if(!editor)
+editor=textareaToEditor(textarea);editor.ReplaceTextarea();}}})();function FCKeditor_IsCompatibleBrowser()
+{var sAgent=navigator.userAgent.toLowerCase();if(false&&sAgent.indexOf("mac")==-1)
+{var sBrowserVersion=navigator.appVersion.match(/MSIE (.\..)/)[1];return(sBrowserVersion>=5.5);}
+if(navigator.product=="Gecko"&&navigator.productSub>=20030210&&!(typeof(opera)=='object'&&opera.postError))
+return true;if(window.opera&&window.opera.version&&parseFloat(window.opera.version())>=9.5)
+return true;if(sAgent.indexOf(' adobeair/')!=-1)
+return(sAgent.match(/ adobeair\/(\d+)/)[1]>=1);if(sAgent.indexOf(' applewebkit/')!=-1)
+return(sAgent.match(/ applewebkit\/(\d+)/)[1]>=522);return false;}
