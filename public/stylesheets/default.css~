@@ -127,7 +127,7 @@ margin-left : 0;
 background : #fff url(/images/top_bar.png) repeat-x;
 margin : 0;
 padding : 0em 0 0px 0px;
-height : 85px;
+height : 83px;
 }
 
 #header h1 {
@@ -167,7 +167,7 @@ display : inline;
 #menu a {
 display : block;
 float : left;
-margin : 41px 0px 0 0;
+margin : 52px 0px 0 0;
 padding : 6px 15px 6px 15px;
 text-decoration : none;
 color : #004271;
@@ -226,13 +226,13 @@ width : 81%;
 }
 
 .head {
+position: absolute;
 color : #454449;
 font-weight : bold;
 padding : 5px;
 margin : 0 10px 0px 10px;
 font-size : 23px;
 
-border-bottom : #ddd 1px solid;
 }
 
 .head a {
