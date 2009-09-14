@@ -5,7 +5,7 @@
 
 <div id='trigger_qd_profile-list' >
 
-<table cellspacing=0 cellpadding=0>  
+<table cellspacing=0 cellpadding=0 id='top-buttons'>  
     <tr><td style ='vertical-align: middle;'> <span style ="color: #04376E;"><b> Act on marked data: &nbsp; </b></span> </td>
        <td class='hide-for-print' style ='vertical-align: top;'> <%= link_to("<span>Print with shell </span>", print_file_qd_profiles_url(:format => "pdf", :s => 'true'), :action => :get, :class=> "button")%> </td>
        <td class='hide-for-print' style ='vertical-align: top;'> <%= link_to("<span>Print without shell</span>", print_file_qd_profiles_url(:format => "pdf"), :action => :get, :class=> "button")%> </td>
@@ -26,7 +26,7 @@
   
     
  </div>
-
+ <div class='clear'> </div>
    <div id = 'search-bar' style ="display:none"> <%=render :partial=> 'filters'%> </div>
 <br />
   <div id='qd_profile-list'>

@@ -8,7 +8,7 @@
    <% end -%>
 <%end%>
 
-<table style = "float : left;">
+<table>
      <tr>
          <td style= "vertical-align : middle;">
              <% if super_admin? or admin? %> <%= link_to("<span>Fetch triggers</span>", run_admin_robot_url() , :class => 'button')%> <% end %>

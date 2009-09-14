@@ -44,8 +44,9 @@
  
   <div id="main">
       <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
-     <p class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></p>
+    
       <div id="screen">
+         <p class="head"><%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></p>
         <%= yield %>
       </div>
   </div>
