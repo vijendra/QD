@@ -273,10 +273,10 @@ class Admin::DealersController < ApplicationController
      shell = params[:s]
      @shell_needed = !shell.blank? ? true : false 
 
-     #if printing without shell then fetch the shell dimension for the dealer
+     #if printing without shell then fetch the saved shell dimensions for the dealer
      if shell.blank?
        @positions = {}
-       dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?", params[:t]])
+       dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?", params[:t]]) unless @dealer.administrator.blank?
        dimensions.map{ |rec| @positions[rec.variable] = (rec.variable == 'bg_color'? rec.value : rec.value.to_f) } unless dimensions.blank?
 
        #preview image
@@ -298,9 +298,9 @@ class Admin::DealersController < ApplicationController
      
      
      case @print_template
-         when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
-         when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
-         when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
+        when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
+        when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
+        when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
         else (file_name, size = 'print_file.pdf', [610, 1009])
      end
      options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }

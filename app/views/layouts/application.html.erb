@@ -29,7 +29,7 @@
 <body>
 
   <div id="header">
-    <h1><%= image_tag("QD-logo.gif") %></h1>
+    <h1>Quick Data Robot</h1>
     <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
     </div>
@@ -43,9 +43,8 @@
     <!-- <%= flash_message %> -->
     <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
 
-    <h3 class="head"> <%= yield_or_default yield(:header) %> </h3>
-
     <div id="screen">
+       <h3 class="head"> <%= yield_or_default yield(:header) %> </h3>
        <%= yield %>
     </div>
   </div>

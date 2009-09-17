@@ -97,7 +97,7 @@
   </tr>
 
   <tr> 
-       <th style = "width: 250px;"> Click on shell to see sample print with shell <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved his table's content.)</span> </th> <td colspan=2>
+       <th style = "width: 250px;"> Click on shell to see sample print with background <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved his table's content.)</span> </th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => '1', :s => 'true', :format => 'pdf' )%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '2', :s => 'true', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '3', :s => 'true', :format => 'pdf')%> &nbsp;&nbsp;
@@ -105,7 +105,7 @@
   </tr>
 
   <tr> 
-       <th style = "width: 250px;"> Click on shell to see sample print without shell, for above set dimensions <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved this table's content.)</span></th> <td colspan=2>
+       <th style = "width: 250px;"> Click on shell to see sample print without background, for above set dimensions <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved this table's content.)</span></th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id, :t => '1', :format => 'pdf' )%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id, :t => '2', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id, :t => '3', :format => 'pdf')%> &nbsp;&nbsp;
