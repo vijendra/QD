@@ -223,10 +223,10 @@ width : 81%;
 
 .head {
 color : #21567e;
-font-weight : normal;
+font-weight : bold;
 padding : 0px 5px 10px 5px;
 margin-bottom: 25px;
-font-size : 20px;
+font-size : 17px;
 background: #fff url(/images/head-bg.gif) repeat-x;
 
 }
@@ -726,7 +726,7 @@ a.button:hover span {
 #top-links{
 float : right; 
 margin-bottom: 5px;
-font-size: 15px;
+font-size: 14px;
 color: #cda400;
 }
 

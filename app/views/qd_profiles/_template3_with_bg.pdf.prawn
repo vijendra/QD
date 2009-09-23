@@ -2,7 +2,6 @@ p_pdf.font "Helvetica"
 counter = 0
 
 box = p_pdf.bounds
-
 for data in @profiles
   p_pdf.text_options.update(:size => 13, :spacing => 1)
   counter = counter + 1
@@ -10,7 +9,7 @@ for data in @profiles
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
 
-  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/shell3.png", :scale => 0.36, :at => [0, box.top]
+  p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template3.png", :scale => 0.72, :at => [0, box.top]
 
   p_pdf.text_options.update(:size => 9, :spacing => 1)
 

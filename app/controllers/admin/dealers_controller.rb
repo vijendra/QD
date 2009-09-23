@@ -277,35 +277,44 @@ class Admin::DealersController < ApplicationController
      if shell.blank?
        @positions = {}
        dimensions = @dealer.administrator.shell_dimensions.all(:conditions => ["template = ?", params[:t]]) unless @dealer.administrator.blank?
-       dimensions.map{ |rec| @positions[rec.variable] = (rec.variable == 'bg_color'? rec.value : rec.value.to_f) } unless dimensions.blank?
+       unless dimensions.blank?
+         dimensions.map{ |rec| @positions[rec.variable] = (rec.variable == 'bg_color'? rec.value : rec.value.to_f) }
 
-       #preview image
-       @image_path = @dealer.administrator.shell_images.find(:first, :conditions => ["template = ?", params[:t]]).shell_image.url if params[:i] rescue ''
+         #preview image
+         @image_path = @dealer.administrator.shell_images.find(:first, :conditions => ["template = ?", params[:t]]).shell_image.url if params[:i] rescue ''
+       end
      end
      
-     #Fetch the shell content for the dealer
-     @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
-     @auth_code = @dealer_profile.auth_code
-     @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
-     @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
-     @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator'
-     @print_template = "qd_profiles/template#{params[:t]}"
-     @w_site = @dealer.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
-     @ask_for = @dealer.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
-     @ph_address = @dealer.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
-     @ph_city = @dealer.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
-     @ph_state_zip = @dealer.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
+      #Fetch the shell content for the dealer
+      @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+      @auth_code = @dealer_profile.auth_code
+      @first_para = @dealer.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
+      @sec_para = @dealer.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
+      @third_para = @dealer.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator'
+      @print_template = "template#{params[:t]}"
+      @w_site = @dealer.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
+      @ask_for = @dealer.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
+      @ph_address = @dealer.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
+      @ph_city = @dealer.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
+      @ph_state_zip = @dealer.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
      
-     
+
      case @print_template
         when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
         when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
-        when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
-        else (file_name, size = 'print_file.pdf', [610, 1009])
+        when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 936] : [@positions['width'], @positions['height']])
      end
-     options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+
+     options = {:left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
      prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
-     render :layout => false
+    
+     if shell.blank? and dimensions.blank? 
+       flash[:notice] = 'Dimensions are not yet set for this shell. Make sure it is set, before previewing the print.'
+       redirect_to admin_dealer_print_data_url(@dealer)
+     else
+       render :layout => false
+     end
+
    else
      flash[:notice] = 'No data available for test print. Please make sure this dealer has at least one data record.'
      redirect_to admin_dealer_print_data_url(@dealer)
