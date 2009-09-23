@@ -12,7 +12,7 @@ box = p_pdf.bounds
   p_pdf.image "#{RAILS_ROOT}/public/#{@image_path}", :at => [0, box.top], :scale => 0.72 unless @image_path.blank? #preview
   p_pdf.text_options.update(:size => 9, :spacing => 1)
 
-  p_pdf.text "Dear #{h(@name)}", :at => [box.left + 77, box.top - 160]
+  p_pdf.text "Dear #{h(@name)}", :at => [box.left + 77, box.top - 125]
 
   p_pdf.bounding_box([@positions['first_para_x'], @positions['first_para_y']], :width => 300) do
     p_pdf.text "#{h(@first_para)}", :size => 9
@@ -28,9 +28,10 @@ box = p_pdf.bounds
   
   p_pdf.bounding_box([@positions['dealer_details_x'], @positions['dealer_details_y']], :width => 250) do
     p_pdf.tags[:medium] = { :font_size => "1em" }
+    p_pdf.tags[:medium1] = { :font_size => "0.9em" }
     p_pdf.tags[:big] = { :font_size => "1.3em" }
     p_pdf.tags[:red] = { :font_size => "1.7em", :color => "#A81808" }
-
+    p_pdf.text "<medium1><b>MAKE THE CALL &amp; BRING THIS VOUCHER TO </b></medium1><br />"
     p_pdf.text " <big> <b> #{h(@dealer_profile.display_name)} </b></big>  <br /><br />", :align => :center
     p_pdf.text " <medium> THE AUTHORIZED </medium>", :align => :center
     p_pdf.text " <medium> DEALER IN YOUR AREA </medium>", :align => :center
@@ -43,9 +44,19 @@ box = p_pdf.bounds
     p_pdf.text "Bring this voucher to #{h(@dealer_profile.display_name)} and ask for #{@ask_for} or call us at: <br /><red><b>#{h(@phone)}</b></red>", :size => 9
   end
   
-  p_pdf.tags[:red2] = { :font_size => "1em", :color => "#A81808" }
-  p_pdf.text "<red2> #{h(@auth_code)}</red2>", :at => [@positions['rightbox2_x'], @positions['rightbox2_y']]
- 
+  p_pdf.bounding_box([@positions['rightbox2_x'], @positions['rightbox2_y']], :width => 125) do
+    p_pdf.tags[:red2] = { :font_size => "1.4em", :color => "#A81808" }
+    p_pdf.text "Provide us your Personal Identication Code <red2> #{h(@auth_code)}</red2>", :size => 9
+  end
+  
+  
+  p_pdf.bounding_box([@positions['rightbox3_x'], @positions['rightbox3_y']], :width => 125) do
+    p_pdf.tags[:red3] = { :font_size => "1em", :color => "#A81808" }
+    p_pdf.text "<red3><i><b>MAKE THE CALL!</b></i></red3><br/> Go to the Authorized Dealer and drive home your new or newer vehicle today!", :size => 9
+  end  
+  
+  
+  
   @name = "#{data.fname} #{data.mname} #{data.lname}"
   @address = data.address
   @place = "#{data.city}, #{data.state} #{data.zip}"
