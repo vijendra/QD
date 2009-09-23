@@ -3,13 +3,13 @@
 
 development: &local
     site_name: Quick Data Robot
-    site_url: www.newcarvalet.com:3000
+    site_url: www.qdrllc.com
     
     company_name: Quick Data Robot
-    admin_email: qdrobot@isiritech.net
+    admin_email: support@qdrllc.com
     
-    support_name: Quick Data Robot
-    support_email: qdrobot@isiritech.net
+    support_name: QDRobot Support
+    support_email: support@qdrllc.com
 
 production:
   <<: *local
