@@ -141,12 +141,7 @@ color : #fff;
 }
 
 #menu {
-width : 850px;
-margin : 0 auto ;
-padding : 0;
-font-weight : bold;
-font-size: 14px;
-}
+padding: 0; margin: 0;   list-style: none; font-size: 14px;}
 
 #menu ul {
 margin : 0em;
@@ -162,10 +157,11 @@ display : inline;
 #menu a {
 display : block;
 float : left;
-margin : 58px 0px 0 0;
+margin : 56px 0px 0 0;
 padding : 6px 15px 6px 15px;
 text-decoration : none;
 color : #fff;
+font-weight: bold;
 background : url(/images/menu-sep.jpg) no-repeat right;
 }
 
@@ -186,6 +182,7 @@ background : #e8922b;
 border-right : 2px solid #b24100;
 border-bottom : 1px solid #b24100;
 }
+
 
 #global_links {
 float : right;
@@ -222,12 +219,13 @@ width : 81%;
 }
 
 .head {
+clear: both;
 color : #21567e;
 font-weight : bold;
 padding : 0px 5px 10px 5px;
 margin-bottom: 25px;
 font-size : 17px;
-background: #fff url(/images/head-bg.gif) repeat-x;
+background-image: url(/images/head-bg.gif) repeat-x;
 
 }
 
@@ -281,7 +279,7 @@ margin : 1em 1.5em;
 background-color : #fff1c0;
 font-weight : bold;
 }
-006fbd
+
 .fieldWithErrors {
 padding : 2px;
 background-color : red;
@@ -705,7 +703,7 @@ a.button:active {
 
 a.button:active span {
     background-position: bottom left;
-    padding: 5px 0 5px 13px;
+    padding: 5px 0 5px 17px;
 }
 
 a.button:hover {
