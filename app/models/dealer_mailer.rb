@@ -15,7 +15,7 @@ class DealerMailer < ActionMailer::Base
     subject    "[#{configatron.site_name}] " + subject
     recipients dealer.email
     reply_to   "#{configatron.support_email}"
-    from       "#{configatron.support_name} <#{configatron.support_email}>"
+    from       "#{configatron.support_email}"
     sent_on    Time.now
     content_type  "text/html"
     body       :dealer => dealer, :body_content => body_content
@@ -25,7 +25,7 @@ class DealerMailer < ActionMailer::Base
     subject    "[#{configatron.site_name}] " + subject
     recipients admin.email
     reply_to   "#{configatron.support_email}"
-    from       "#{configatron.support_name} <#{configatron.support_email}>"
+    from       "#{configatron.support_email}"
     sent_on    Time.now
     content_type  "text/html"
     body       :admin => admin, :body_content => body_content
@@ -34,9 +34,9 @@ class DealerMailer < ActionMailer::Base
    def dealer_accounts_notification(dealer_profile, total, balance, order, attachment)
     subject    "[#{configatron.site_name}] " + 'Accounts information'
     recipients [dealer_profile.user.email] + dealer_profile.emails_extra.split(';')
-    from       "#{configatron.support_name} <#{configatron.support_email}>"
+    from       configatron.support_email
     sent_on    Time.now
-    reply_to   "#{configatron.support_email}"
+    reply_to   [configatron.support_email]
     content_type  "multipart/alternative"
     part :content_type => 'text/plain',
          :body => render_message('dealer_accounts_notification_plain', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order)

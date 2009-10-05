@@ -226,7 +226,7 @@ color : #21567e;
 font-weight : bold;
 padding : 0px 5px 10px 5px;
 margin-bottom: 25px;
-font-size : 16px;
+font-size : 17px;
 background: #fff url(/images/head-bg.gif) repeat-x;
 
 }
@@ -281,7 +281,7 @@ margin : 1em 1.5em;
 background-color : #fff1c0;
 font-weight : bold;
 }
-006fbd
+
 .fieldWithErrors {
 padding : 2px;
 background-color : red;

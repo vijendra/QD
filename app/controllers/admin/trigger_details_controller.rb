@@ -54,10 +54,11 @@ def process_triggers
   search.conditions.dealer.administrator_id = current_user.id unless (current_user.roles.map{|role| role.name}).include?('super_admin')
   search.conditions.status = 'unprocessed'
   triggers = search.all
- 
+  
   Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
   for trigger in triggers
     dealer = trigger.dealer
+    
     if trigger.total_records <= trigger.balance && !trigger.file_url.blank?
      unless dealer.blank?
       dealer_profile = dealer.profile
@@ -126,22 +127,27 @@ def process_triggers
         page = agent.submit(login_form)
  
         #extract order_id from link like 228_Courtesy Dodge_942310_322548.CSV
-        csv_file_name = page.links[4].to_s
-        object_id = (((csv_file_name.split('_'))[3]).split('.'))[0].strip
+        links = page.links
+        for li in links
+          csv_file_name = li.to_s if li.to_s =~ /[0-9].CSV/
+        end
+        #csv_file_name = page.links[5].to_s
+        csv_array = csv_file_name.to_s.split('_')
+        object_id = ((csv_array[csv_array.length - 1]).split('.'))[0].strip
  
         #Now we will directly construct link, instead of mimicng csv link click, as its quite difficult
         csv_link_string = "https://intelidataexpress.marketernet.com/file/download.aspx?objectid=#{object_id}"
         page = agent.get(csv_link_string)
-        if  page.title == "Login\r\n\t\t\t\t- Intelidata Express"           #means it asked us to login again
+        #if  page.title == "Login\r\n\t\t\t\t- Intelidata Express"           #means it asked us to login again
           login_form = page.forms[0]
           login_form.username = 'ewatson@mailadvanta.com'
           login_form.password = 'a5$DOWNLOAD'
           login_form.checkbox_with(:name => 'saveagreement').check
           file_page = agent.submit(login_form)
           agent.get(file_page.uri).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
-        else   #directly downloading
-           agent.get(csv_link_string).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
-        end
+        #else   #directly downloading
+           #agent.get(csv_link_string).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
+        #end
        
         orders_csv = File.join(ORDERS_DOWNLOAD_PATH, csv_file_name)
  
