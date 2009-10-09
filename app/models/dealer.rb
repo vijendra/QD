@@ -28,4 +28,20 @@ class Dealer < User
 
   named_scope :active_dealers, {:conditions => ["state = ?",  'active'] }
   named_scope :inactive_dealers, {:conditions => ["state = ?",  'inactive'] }
+  
+   def self.profile_field_values(fields, dealer)
+     profile = dealer.profile
+     values = {}
+     fields.map{|field| unless Profile::PRINT_FILE_VARIABELS.include?(field)
+                        if field == "phone_num"
+                          values[field] = "#{profile.phone_1}-#{profile.phone_2}-#{profile.phone_3}" rescue ''
+                        else
+                          #if not found in profile check in adrs.
+                          values[field] = eval("profile.#{field}") rescue eval("dealer.address.#{field}")
+                        end
+                      end
+                }
+    return values
+  end
+  
 end

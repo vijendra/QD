@@ -226,38 +226,50 @@ class QdProfilesController < ApplicationController
     end
  end
 
+
  def csv_print_file
    qd_profiles = current_user.qd_profiles.to_be_dealer_printed
    fields_to_be_shown = current_user.dealer_field.fields.sort rescue QdProfile.public_attributes
-
-   csv_file = FasterCSV.generate do |csv|
-      print_file_headers = {}
+   
+   #Construct CSV headers 
+   dealer_profile_headers = [] 
+   Profile::CSV_GENERAL_FIELDS.map{ |key| dealer_profile_headers << Profile::CSV_HEADERS[key] }
+   variable_data_labels = PrintFileField.print_file_headers(current_user)
+   variable_data_headers = Profile::PRINT_FILE_VARIABELS.map {|key| variable_data_labels[key]}
+   fields_for_csv = current_user.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
+   #Get and store dealer profile and variable data field values in an array
+   profile_values = Dealer.profile_field_values(fields_for_csv, current_user)
+   variable_values = PrintFileField.variable_field_values(fields_for_csv, current_user)
+                            
+   #Construct CSV row values for dealer profile related fields  
+    dealer_profile_field_values = []
+    Profile::CSV_GENERAL_FIELDS.map {|key| dealer_profile_field_values << profile_values[key] } 
+    dealer_profile_variable_values = Profile::PRINT_FILE_VARIABELS.map {|key| variable_values[key] }
     
-      #Construct CSV headers for variable fields
-      Profile::PRINT_FILE_VARIABELS.each do |identifier|
-        ob = PrintFileField.by_dealer(current_user.id).by_identifier(identifier).first
-	if ob.blank?
-	  print_file_headers[identifier] = identifier
-	else
-	  print_file_headers[identifier] = ob.label.blank? ? identifier: ob.label 
-        end
-      end
+    qd_profile_headers = []
+    
+    #only slected filed can shown
+    QdProfile::FIELDS_TO_BE_SHOWN.map{ |key|
      
-      #Construct CSV headers for other normal fields. Make merge with above list
-      csv_headers = Profile::CSV_HEADERS.merge(print_file_headers)
-
-      #Selected fields to be appended from dealers profile. if not found use general list.
-      fields_for_csv = current_user.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
-
-      profile_values = profile_field_values(fields_for_csv)
-      variable_values = variable_field_values(fields_for_csv)
-      
-      #Exporting to CSV starts here.. Exporting headers
-      csv <<  fields_to_be_shown.map{|field| field.humanize} + profile_values.keys.map{|field| csv_headers[field] } + variable_values.keys.map{|field| csv_headers[field] }
+       qd_profile_headers <<  QdProfile::QDPROFILE_HEADERS["#{key}"]  if fields_to_be_shown.include?("#{key}")
+          
+ }
+    
+   
+   csv_file = FasterCSV.generate do |csv|
+    
+   
+      csv <<  qd_profile_headers +['Exported date'] + dealer_profile_headers + variable_data_headers
 
       #Exporting data rows
       qd_profiles.each do |prof|
-         csv << (fields_to_be_shown.map{|qd_field| eval("prof.#{qd_field}")} + profile_values.values + variable_values.values)
+       
+        qd_profile_values = []
+        QdProfile::FIELDS_TO_BE_SHOWN.map{ |field|
+          qd_profile_values <<  eval("prof.#{field}") if fields_to_be_shown.include?("#{field}")
+         }
+         
+         csv << qd_profile_values + ["#{Time.now.strftime('%m-%d-%Y')}"] + dealer_profile_field_values + dealer_profile_variable_values
       end
     end #End CSV Export
 
