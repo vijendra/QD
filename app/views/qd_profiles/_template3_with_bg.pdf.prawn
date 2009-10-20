@@ -27,7 +27,7 @@ for data in @profiles
     p_pdf.text "#{h(@third_para)}", :size => 9
   end
   
-  p_pdf.bounding_box([box.left + 100, box.top - 390], :width => 300) do
+  p_pdf.bounding_box([box.left + 80, box.top - 390], :width => 300) do
     p_pdf.tags[:medium] = { :font_size => "1em" }
     p_pdf.tags[:medium1] = { :font_size => "0.9em" }
     p_pdf.tags[:big] = { :font_size => "1.3em" }
