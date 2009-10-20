@@ -33,9 +33,10 @@ for data in @profiles
     p_pdf.tags[:big] = { :font_size => "1.3em" }
     p_pdf.tags[:large] = { :font_size => "1.7em"}
     p_pdf.text "<medium1><b>MAKE THE CALL &amp; BRING THIS VOUCHER TO </b></medium1><br />", :align => :center
-    p_pdf.text " <big> <b> #{h(@dealer_profile.display_name)} </b></big> <br /><br />", :align => :center
-    p_pdf.text " <medium> THE AUTHORIZED </medium>", :align => :center
-    p_pdf.text " <medium> DEALER IN YOUR AREA </medium>", :align => :center
+    p_pdf.text " <big> <b> #{h(@dealer_profile.display_name)} </b></big> <br />", :align => :center
+    p_pdf.text "<medium> #{h(@dealer_address.address)} </medium>", :align => :center
+    p_pdf.text "<medium> #{h(@dealer_address.city)}, #{h(@dealer_address.state)} </medium>", :align => :center
+    p_pdf.text " <medium> THE AUTHORIZED DEALER IN YOUR AREA </medium>", :align => :center
     p_pdf.text " <big> <b> Call #{@ask_for} </b></big>", :align => :center
     p_pdf.text " <large> #{h(@phone)} </large>", :align => :center
   end
