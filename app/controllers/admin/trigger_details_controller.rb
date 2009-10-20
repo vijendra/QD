@@ -155,7 +155,8 @@ def process_triggers
         dealer_profile = Profile.find_by_user_id(trigger.dealer_id)
         balance = trigger.balance - trigger.total_records.to_i
  
-        field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip', 'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
+        #field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip', 'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
+        field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip', 'zip4', 'level', '', 'fico', 'auto17', 'pr01', 'phone_num', 'crrt', 'dpc']
         FasterCSV.foreach(orders_csv, :headers => :false) do |row|
           data_set = {:dealer_id => trigger.dealer_id, :trigger_detail_id => trigger.id, :listid => "#{trigger.order_number}_#{row[10]}" }
           field_list.map {|f| data_set[f] = row[field_list.index(f)] unless f.blank?}

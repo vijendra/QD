@@ -136,7 +136,7 @@ class Admin::DealersController < ApplicationController
 
   def csv
     @dealer = Dealer.find(params[:id])
-    render :lauout =>"false"
+    render :layout =>"false"
   end
 
 
@@ -162,7 +162,8 @@ class Admin::DealersController < ApplicationController
     trigger.update_attribute('balance', @balance)
    else
       trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance, :status => 'processed' )
-       field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
+      # field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
+       field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip', 'zip4', 'level', '', 'fico', 'auto17', 'pr01', 'phone_num', 'crrt', 'dpc']
       FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
          no_of_records = no_of_records + 1
          @balance = @balance -1
