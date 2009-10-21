@@ -7,12 +7,12 @@ class QdProfile < ActiveRecord::Base
   SEEKERNIC_LABELS = ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ]
   TRANSACTIS_LABELS = ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM', 'ADDRESS 2', ' LEVEL', 'AUTO17', 'PR01']
 
-  QDPROFILE_HEADERS = { 'listid' => 'Order id', 'fname' => 'First Name' ,'mname' => 'Mid Name','lname' => 'Last Name', 'suffix' =>'suffix', 'address' => 'address','address2' => 'address2','city' => 'city', 'state' => 'state','zip' => 'zip','zip4' => 'zip4','crrt' =>'ccrt','dpc' => 'dpc','phone_num' =>'Phone' ,'pr01' => 'pr01' }
+  QDPROFILE_HEADERS = { 'listid' => 'Order id', 'fname' => 'First Name' ,'mname' => 'Mid Name','lname' => 'Last Name', 'suffix' =>'suffix', 'address' => 'address','address2' => 'address2','city' => 'city', 'state' => 'state','zip' => 'zip','zip4' => 'zip4','crrt' =>'ccrt','dpc' => 'dpc','phone_num' =>'Phone' ,'pr01' => 'pr01' ,'fico' => 'fico' }
  
-  QDPROFILE_CSV_HEADERS = ['Order id','First Name','Mid Name','Last Name','Suffix','Address','City', 'State','Zip', 'Zip4','Ccrt', 'dpc', 'Phone' ]
-  QDPROFILE_CSV_FIELDS = ['listid','fname','mname','lname','suffix','address','city','state','zip','zip4','crrt','dpc','phone_num']
+  QDPROFILE_CSV_HEADERS = ['Order id','First Name','Mid Name','Last Name','Suffix','Address','City', 'State','Zip', 'Zip4','Ccrt', 'dpc', 'Phone','fico' ]
+  QDPROFILE_CSV_FIELDS = ['listid','fname','mname','lname','suffix','address','city','state','zip','zip4','crrt','dpc','phone_num','fico']
   
-  FIELDS_TO_BE_SHOWN = ['listid','fname','mname','lname','suffix','address','address2','city','state','zip','zip4','crrt','dpc','phone_num','pr01']
+  FIELDS_TO_BE_SHOWN = ['listid','fname','mname','lname','suffix','address','address2','city','state','zip','zip4','crrt','dpc','phone_num','pr01','fico']
 	
 
   
