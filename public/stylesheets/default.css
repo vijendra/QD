@@ -128,10 +128,10 @@ height : 85px;
 #header h1 {
 float: left;
 font-weight : bold;
-color : #fff;
+color : #ffd86e;
 padding : 0;
-margin : 6px;
-font-size : 24px;
+margin : 10px;
+font-size : 26px;
 }
 
 #header h1 span {
@@ -140,8 +140,7 @@ color : #fff;
 
 }
 
-#menu {
-padding: 0; margin: 0;   list-style: none; font-size: 14px;}
+#menu { padding: 0; margin: 0;   list-style: none; font-size: 14px; }
 
 #menu ul {
 margin : 0em;
@@ -157,7 +156,7 @@ display : inline;
 #menu a {
 display : block;
 float : left;
-margin : 56px 0px 0 0;
+margin : 54px 0px 0 0;
 padding : 6px 15px 6px 15px;
 text-decoration : none;
 color : #fff;
@@ -171,8 +170,8 @@ text-decoration : underline;
 }
 
 #menu .current {
-color : #b7ecf9;
-padding : 5px 15px 6px 15px;
+color : #5ecb40;
+padding : 6px 15px 6px 15px;
 
 background : url(/images/menu-sep.jpg) no-repeat right;
 }
@@ -204,8 +203,9 @@ background-color : #e3fdff;
 #main {
 height : 100%;
 margin : 0 auto;
-background : #eee;
-padding : 0px;
+background : #bcc0c4;
+padding : 10px;
+border-top: 2px solid #ddd;
 
 }
 
@@ -223,8 +223,8 @@ clear: both;
 color : #21567e;
 font-weight : bold;
 padding : 0px 5px 10px 5px;
-margin-bottom: 25px;
-font-size : 17px;
+margin-bottom: 10px;
+font-size : 20px;
 background-image: url(/images/head-bg.gif) repeat-x;
 
 }
@@ -244,8 +244,7 @@ background : #fff;
 #screen {
 padding : 20px 25px 15px 25px;
 background : #fff url(/images/contentbody.gif) repeat-x;
-border: 1px solid #ccc;
-border-top: 1px solid #fff;
+border: 2px solid #f6f6f6;
 min-height : 400px;
 }
 
@@ -255,13 +254,13 @@ background : #f1f3f5;
 border : 2px solid #E5E9EE;
 }
 
-div.notice {
-color : #000;
+.notice {
+color : #fff;
 padding : 0.3em 1em;
 margin : 0.1em 0.1em 1em 0;
-background-color : #9cef98;
-border : 1px solid #d6dfc6;
-font-weight : bold;
+background-color: #3bb83b;
+border: 2px solid #d6dfc6;
+font-weight: bold;
 }
 
 #left #error {
@@ -364,15 +363,15 @@ padding : 0.5em;
 clear : both;
 margin : 0;
 padding : 8px 0 6px 0;
-color : #000;
+color : #fff;
 font-size : 0.9em;
-background : #e7e6e4;
+background : #3a6c9f;
 text-align : center;
-border-top : 5px solid #2a6da6;
+border-top : 5px solid #1b4266;
 }
 
 #footer a {
-color : #0A3062;
+color : #f9cb50;
 text-decoration: none;
 font-size : 1.1em;
 font-weight: bold;
@@ -425,7 +424,7 @@ background : #f1f1f1 url(/images/table-header.jpg) repeat-x top;
 color : #2A384D;
 text-align : left;
 padding : 0.4em 0.5em 0.4em;
-border : 1px solid #ddd;
+border : 1px solid #ccc;
 font-weight : bold;
 }
 
@@ -442,7 +441,7 @@ text-decoration : none;
 table.listing td {
 padding : 0.7em 0.3em 0.7em 0.3em;
 color : #2a2f38;
-border-bottom : 1px solid #eee;
+border-bottom : 1px solid #bbb;
 background : #fff;
 }
 

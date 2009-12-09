@@ -136,7 +136,7 @@ class Admin::DealersController < ApplicationController
 
   def csv
     @dealer = Dealer.find(params[:id])
-    render :layout =>"false"
+    #render :layout =>"false"
   end
 
 
@@ -151,25 +151,28 @@ class Admin::DealersController < ApplicationController
     	                                :total_records => no_of_records, :order_number => params[:dealer][:order_number] ,
     	                                :balance => @balance, :status => 'processed' )
       data_source1 = ['listid', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip',  'zip4', 'crrt', 'dpc', 'phone_num']
-    FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
-      @balance = @balance - 1
-      no_of_records = no_of_records + 1
-      data_set = {:dealer_id =>  @dealer.id, :trigger_detail_id => trigger.id}
-      data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
-      QdProfile.create(data_set)
-    end
+      FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
+        @balance = @balance - 1
+        no_of_records = no_of_records + 1
+        data_set = {:dealer_id =>  @dealer.id, :trigger_detail_id => trigger.id}
+        data_source1.map {|f| data_set[f] = row[data_source1.index(f)] }
+        QdProfile.create(data_set)
+      end
     trigger.update_attribute('total_records', no_of_records)
     trigger.update_attribute('balance', @balance)
    else
       trigger = TriggerDetail.create(:dealer_id => @dealer.id, :data_source => 'marketernet', :total_records => no_of_records, :order_number => params[:dealer][:order_number], :balance => @balance, :status => 'processed' )
-      # field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip',  'zip4', 'level', '', 'auto17', 'crrt', 'dpc', 'phone_num', 'pr01']
-       field_list = ['lname', 'fname', 'mname', 'address', 'address2', 'city', 'state', 'zip', 'zip4', 'level', '', 'fico', 'auto17', 'pr01', 'phone_num', 'crrt', 'dpc']
+       field_list = {'LNAME' => 'lname', 'FNAME' => 'fname', 'MI' => 'mname', 'ADDR1' => 'address', 'ADDR2' => 'address2', 'CITY' => 'city', 'STATE' => 'state', 'ZIP' => 'zip', 'ZIP4' => 'zip4', 'LEVEL' => 'level', 'FICO' => 'fico', 'AUTO17' => 'auto17', 'PR01' => 'pr01', 'PHONE' =>'phone_num', 'CRRT' => 'crrt', 'DPCD' => 'dpc'}
       FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
          no_of_records = no_of_records + 1
          @balance = @balance -1
-       	 data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id, :listid => "#{params[:dealer][:order_number]}_#{row[10]}" }
-         field_list.map {|f| data_set[f] = row[field_list.index(f)] unless f.blank?}
-         QdProfile.create(data_set)
+
+         data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id, :listid => "#{params[:dealer][:order_number]}_#{row[10]}" }
+         row.each do |col|
+           data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
+           QdProfile.create(data_set)
+         end
+       	
         end
       trigger.update_attribute('total_records', no_of_records)
       trigger.update_attribute('balance', @balance)
