@@ -128,10 +128,10 @@ height : 85px;
 #header h1 {
 float: left;
 font-weight : bold;
-color : #ffd86e;
+color : #fff;
 padding : 0;
 margin : 10px;
-font-size : 26px;
+font-size : 24px;
 }
 
 #header h1 span {
@@ -204,7 +204,7 @@ background-color : #e3fdff;
 height : 100%;
 margin : 0 auto;
 background : #bcc0c4;
-padding : 10px;
+padding : 5px;
 border-top: 2px solid #ddd;
 
 }
@@ -242,7 +242,7 @@ background : #fff;
 }
 
 #screen {
-padding : 20px 25px 15px 25px;
+padding : 10px 25px 15px 25px;
 background : #fff url(/images/contentbody.gif) repeat-x;
 border: 2px solid #f6f6f6;
 min-height : 400px;
@@ -723,7 +723,7 @@ a.button:hover span {
 #top-links{
 float : right; 
 margin-bottom: 5px;
-font-size: 14px;
+font-size: 13px;
 color: #cda400;
 }
 
