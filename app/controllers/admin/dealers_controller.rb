@@ -157,14 +157,15 @@ class Admin::DealersController < ApplicationController
 	    no_of_records = no_of_records + 1
 	    @balance = @balance - 1
 
-	    data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id, :listid => "#{params[:dealer][:order_number]}_#{row[10]}" }
+	    data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id}
 	    row.each do |col|
-		  data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
+	      data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
 	    end
+            data_set['listid'] = "#{params[:dealer][:order_number]}_#{row[10]}" if params[:type] == 'marketernet'
 	    QdProfile.create(data_set)
 	  end
 	  trigger.update_attribute('total_records', no_of_records)
-      trigger.update_attribute('balance', @balance)
+          trigger.update_attribute('balance', @balance)
     
       @dealer.profile.update_attribute('current_balance', @balance)
       flash[:notice] = 'CSV data is successfully imported.'

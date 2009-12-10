@@ -204,8 +204,7 @@ background-color : #e3fdff;
 height : 100%;
 margin : 0 auto;
 background : #bcc0c4;
-padding : 5px;
-border-top: 2px solid #ddd;
+padding : 0px 8px 0px 8px;
 
 }
 
@@ -242,9 +241,10 @@ background : #fff;
 }
 
 #screen {
-padding : 10px 25px 15px 25px;
+padding : 15px 25px 15px 25px;
 background : #fff url(/images/contentbody.gif) repeat-x;
 border: 2px solid #f6f6f6;
+border-top: 1px solid #aeaeae;
 min-height : 400px;
 }
 
@@ -257,7 +257,7 @@ border : 2px solid #E5E9EE;
 .notice {
 color : #fff;
 padding : 0.3em 1em;
-margin : 0.1em 0.1em 1em 0;
+margin : 0.1em 0.1em 0em 0;
 background-color: #3bb83b;
 border: 2px solid #d6dfc6;
 font-weight: bold;

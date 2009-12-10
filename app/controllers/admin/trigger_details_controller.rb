@@ -52,16 +52,18 @@ def process_triggers
   #TODO: Clean this code. Make the methods for distinct functions for example csv import, send_mail etc.
   search = TriggerDetail.new_search()
   search.conditions.dealer.administrator_id = current_user.id unless (current_user.roles.map{|role| role.name}).include?('super_admin')
+  search.per_page = 5000
   search.conditions.status = 'unprocessed'
   triggers = search.all
+
   field_list = {'LISTID' => 'listid', 'LNAME' => 'lname', 'FNAME' => 'fname', 'MI' => 'mname',  'MNAME' => 'mname', 'SUFFIX' => 'suffix' , 'ADDRESS' => 'address', 'ADDR1' => 'address', 'ADDR2' => 'address2', 'CITY' => 'city', 'STATE' => 'state', 'ZIP' => 'zip', 'ZIP4' => 'zip4', 'LEVEL' => 'level', 'FICO' => 'fico', 'AUTO17' => 'auto17', 'PR01' => 'pr01', 'PHONE' =>'phone_num', 'PHONE_NUM' =>'phone_num',  'CRRT' => 'crrt',  'DPCD' => 'dpc',  'DPC' => 'dpc' }	
   
   Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
   for trigger in triggers
     dealer = trigger.dealer
    
-	unless dealer.blank?
-	  dealer_profile = dealer.profile
+    unless dealer.blank?
+      dealer_profile = dealer.profile
       if trigger.total_records <= trigger.balance && !trigger.file_url.blank?
 	  
         if trigger.data_source == 'seekerinc'
@@ -124,35 +126,35 @@ def process_triggers
           agent.get(file_page.uri).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
           orders_csv = File.join(ORDERS_DOWNLOAD_PATH, csv_file_name)
         end
-	    # import to the corresponding dealer
+	# import to the corresponding dealer
         balance = trigger.balance - trigger.total_records.to_i
-	    FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
-	   
-	      data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id, :listid => "#{params[:dealer][:order_number]}_#{row[10]}" }
-	      row.each do |col|
-		    data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
-	      end
-	      QdProfile.create(data_set)
-	    end
-	    dealer_profile.update_attribute('current_balance', balance)
+	FasterCSV.foreach(orders_csv, :headers => :false) do |row|
+	  data_set = {:dealer_id => trigger.dealer_id, :trigger_detail_id => trigger.id }
+	  row.each do |col|
+	    data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
+	  end
+          data_set['listid'] = "#{trigger.order_number}_#{row.field('ORDERRECORDID')}" if trigger.data_source == 'marketernet'
+	  QdProfile.create(data_set)
+        end
+	dealer_profile.update_attribute('current_balance', balance)
         trigger.update_attribute('balance', balance )
         trigger.process!
 	   
-	    #generate masked csv to be attached to the dealer's mail
+	#generate masked csv to be attached to the dealer's mail
         generate_csv_file(trigger, dealer_profile)
  
         #sending mail with account information
         send_mail(dealer_profile, trigger.total_records, balance, trigger.order_number, attachment)
        
-	    #delete the downloded folder
-	    if trigger.data_source == 'seekerinc'
-	      FileUtils.rm_r zipped_order
+	#delete the downloded folder
+	if trigger.data_source == 'seekerinc'
+	  FileUtils.rm_r zipped_order
           FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}")
-	    else
-	 	  FileUtils.rm_r orders_csv
-	    end 
-	   
-	  end # if condition
+	else
+	  FileUtils.rm_r orders_csv
+	end 
+   
+      end # if condition
     end # unless condition
   end #for loop
  
