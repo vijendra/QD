@@ -156,7 +156,7 @@ display : inline;
 #menu a {
 display : block;
 float : left;
-margin : 54px 0px 0 0;
+margin : 48px 0px 0 0;
 padding : 6px 15px 6px 15px;
 text-decoration : none;
 color : #fff;
@@ -203,8 +203,8 @@ background-color : #e3fdff;
 #main {
 height : 100%;
 margin : 0 auto;
-background : #bcc0c4;
-padding : 0px 8px 0px 8px;
+background : #fff;
+padding : 0px;
 
 }
 
@@ -241,10 +241,9 @@ background : #fff;
 }
 
 #screen {
-padding : 15px 25px 15px 25px;
+padding : 15px 30px 15px 30px;
 background : #fff url(/images/contentbody.gif) repeat-x;
-border: 2px solid #f6f6f6;
-border-top: 1px solid #aeaeae;
+border: 1px solid #f6f6f6;
 min-height : 400px;
 }
 
@@ -367,7 +366,7 @@ color : #fff;
 font-size : 0.9em;
 background : #3a6c9f;
 text-align : center;
-border-top : 5px solid #1b4266;
+border-top : 5px solid #325c87;
 }
 
 #footer a {

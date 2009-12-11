@@ -55,7 +55,7 @@ def process_triggers
   search.per_page = 5000
   search.conditions.status = 'unprocessed'
   triggers = search.all
-  puts "pppppppppppppppppppppppppppppppppp #{triggers}"
+
   field_list = {'LISTID' => 'listid', 'LNAME' => 'lname', 'FNAME' => 'fname', 'MI' => 'mname',  'MNAME' => 'mname', 'SUFFIX' => 'suffix' , 'ADDRESS' => 'address', 'ADDR1' => 'address', 'ADDR2' => 'address2', 'CITY' => 'city', 'STATE' => 'state', 'ZIP' => 'zip', 'ZIP4' => 'zip4', 'LEVEL' => 'level', 'FICO' => 'fico', 'AUTO17' => 'auto17', 'PR01' => 'pr01', 'PHONE' =>'phone_num', 'PHONE_NUM' =>'phone_num',  'CRRT' => 'crrt',  'DPCD' => 'dpc',  'DPC' => 'dpc' }	
   
   Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH)) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH))
