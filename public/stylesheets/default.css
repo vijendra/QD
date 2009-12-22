@@ -122,7 +122,7 @@ margin-left : 0;
 background : #fff url(/images/top_bar.png) repeat-x;
 margin : 0;
 padding : 0em 0 0px 0px;
-height : 85px;
+height : 79px;
 }
 
 #header h1 {
@@ -148,7 +148,7 @@ padding : 0;
 list-style : none;
 
 }
-
+0
 #menu li {
 display : inline;
 }
@@ -362,17 +362,17 @@ padding : 0.5em;
 clear : both;
 margin : 0;
 padding : 8px 0 6px 0;
-color : #fff;
+color : #203d5a;
 font-size : 0.9em;
-background : #3a6c9f;
+
 text-align : center;
-border-top : 5px solid #325c87;
+border-top : 2px solid #325c87;
 }
 
 #footer a {
-color : #f9cb50;
+color : #831f00;
 text-decoration: none;
-font-size : 1.1em;
+font-size : 1em;
 font-weight: bold;
 }
 
