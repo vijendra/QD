@@ -13,8 +13,8 @@ class Admin::PrintDataController < ApplicationController
 
                        @dealer_template = PrintFileField.find_by_dealer_id_and_identifier(@dealer.id, "template")
   		       if @dealer_template.nil?
-     		       @dealer_template = PrintFileField.new(:dealer_id =>@dealer.id,:identifier =>"template",:value =>"template1")
-                       @dealer_template.save
+     		         @dealer_template = PrintFileField.new(:dealer_id => @dealer.id, :identifier =>"template", :value =>"template1")
+                         @dealer_template.save
                        end
                     }
 
@@ -22,7 +22,8 @@ class Admin::PrintDataController < ApplicationController
                    
                      search = QdProfile.new_search()
                      search.conditions.dealer.administrator_id = current_user.id unless current_user.has_role?('super_admin')
-                     params[:m].blank?? search.conditions.status = 'new' : search.conditions.status = 'marked' 
+                     params[:m].blank? ? search.conditions.status = 'new' : search.conditions.status = 'marked'
+                     search.per_page = 5000 
                      search.group = 'trigger_detail_id'
                      search.select = 'trigger_detail_id'          
                      triggers = search.all
@@ -38,8 +39,6 @@ class Admin::PrintDataController < ApplicationController
                        #Selected fields to be appended from dealers profile. if not found use general list.
                        #Exporting to CSV starts here.. Exporting headers
                        csv << qd_data_headers + ['Exported date'] + dealer_profile_headers + variable_data_headers
-
-
 
                        triggers.each do |tri|
                          trigger = tri.trigger_detail
