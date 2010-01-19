@@ -76,24 +76,24 @@ def process_triggers
           page = agent.submit(login_form)
  
           #creating folders required to extract file
-          Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}")) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}"))
+          Dir.mkdir(File.join(ORDERS_DOWNLOAD_PATH, "#{dealer.login}_#{trigger.order_number}")) unless File.exists?(File.join(ORDERS_DOWNLOAD_PATH, "#{dealer.login}_#{trigger.order_number}"))
  
           #Downloading ZIP File
           confirm_form = page.forms[0]
           confirm_form.checkbox_with(:name => 'order_cbk').check
-          zipped_order = File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}.zip")
+          zipped_order = File.join(ORDERS_DOWNLOAD_PATH, "#{dealer.login}_#{trigger.order_number}.zip")
           agent.submit(confirm_form).save_as(zipped_order)
  
           #unzipping the order
           Zip::ZipFile.open(zipped_order) do |zip|
             dir = zip.dir
             dir.entries('.').each do |entry|
-              zip.extract(entry, File.join(ORDERS_DOWNLOAD_PATH , "#{dealer_profile.name}_#{trigger.order_number}/#{entry}" ))
+              zip.extract(entry, File.join(ORDERS_DOWNLOAD_PATH , "#{dealer.login}_#{trigger.order_number}/#{entry}" ))
             end
           end
  
           #Find the CSV among all extracted files
-          csvfiles = File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}", "*.csv")
+          csvfiles = File.join(ORDERS_DOWNLOAD_PATH, "#{dealer.login}_#{trigger.order_number}", "*.csv")
           orders_csv = Dir.glob(csvfiles).first
  
         elsif trigger.data_source == 'marketernet'
@@ -149,7 +149,7 @@ def process_triggers
 	#delete the downloded folder
 	if trigger.data_source == 'seekerinc'
 	  FileUtils.rm_r zipped_order
-          FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer_profile.name}_#{trigger.order_number}")
+          FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer.login}_#{trigger.order_number}")
 	else
 	  FileUtils.rm_r orders_csv
 	end 
