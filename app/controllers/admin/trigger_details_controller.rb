@@ -131,7 +131,7 @@ def process_triggers
 	FasterCSV.foreach(orders_csv, :headers => :false) do |row|
 	  data_set = {:dealer_id => trigger.dealer_id, :trigger_detail_id => trigger.id }
 	  row.each do |col|
-	    data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
+	    data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID' unless field_list[col.first].blank?
 	  end
           data_set['listid'] = "#{trigger.order_number}_#{row.field('ORDERRECORDID')}" if trigger.data_source == 'marketernet'
 	  QdProfile.create(data_set)

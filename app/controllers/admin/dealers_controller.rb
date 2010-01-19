@@ -159,7 +159,7 @@ class Admin::DealersController < ApplicationController
 
 	    data_set = {:dealer_id => @dealer.id, :trigger_detail_id => trigger.id}
 	    row.each do |col|
-	      data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID'
+	      data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID' unless field_list[col.first].blank?
 	    end
             data_set['listid'] = "#{params[:dealer][:order_number]}_#{row[10]}" if params[:type] == 'marketernet'
 	    QdProfile.create(data_set)
