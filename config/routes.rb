@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
        dealer.resources :shell_dimensions
     end
     admin.resources :qd_profiles, :member => {:assign_dealer => :get }, :collection =>{:mark_data => :post, :unmark_data => :post}
-    admin.resources :trigger_details, :collection => { :process_triggers => :get }
+    admin.resources :trigger_details, :collection => { :process_triggers => :get}, :member => {:mark_processed => :any }
     admin.resources :print_file_fields
     #admin.resources :
     admin.resource :robot, :member => {:run => :get, :active_dealer_email => :get,  :inactive_dealer_email => :get}

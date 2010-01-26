@@ -2,12 +2,11 @@
 <table class='listing'>
   <tr>
     <th>Date </th>
-    <th>ID</th>
     <th>Dealer </th>
     <th>Data Source</th>
-    <th>Order_number</th>
+    <th>Order No</th>
     <th>Total Records </th>
-
+    <th>Mark processed </th>
   </tr>
   </table>
    <br/>
@@ -16,14 +15,14 @@
 
 <table class='listing'>
   <tr>
-    <th><%= remote_order_by_link(:created_at,:text =>"Date") %> </th>
-    <th><%= remote_order_by_link(:id,:text =>"ID") %></th>
+    <th><%= remote_order_by_link(:created_at, :text => "Date") %> </th>
     <th> <%= remote_order_by_link({:dealer =>{:profile => :name}} ,:text => "Dealer" )%> </th>
     <th>Data Source</th>
-    <th><%= remote_order_by_link(:order_number,:text =>"Order Number") %></th>
+    <th><%= remote_order_by_link(:order_number,:text =>"Order No") %></th>
     <th>Total Records </th>
     <th>Balance </th>
-  </tr>
+    <th>Mark processed </th>
+    </tr>
 <% @triggers.each do |trigger| %>
        <tr class= '<%= trigger.status %>'>
           <td> 
@@ -32,12 +31,12 @@
               <%= Time.parse(trigger.created_at.to_s).strftime('%b %d, %Y')%>
             </div>
          </td>
-         <td> <%= trigger.id %> </td>
-         <td> <%= "#{image_tag("user.png")} #{trigger.dealer.profile.name}" %> </td>
-         <td> <%= "#{image_tag("database.png")} #{trigger.data_source}" %> </td>
+         <td> <%= "#{image_tag("user.gif")} #{trigger.dealer.profile.name}" %> </td>
+         <td> <%= "#{image_tag("database.gif")} #{trigger.data_source}" %> </td>
          <td> <%= trigger.order_number %> </td>
 	 <td> <%= trigger.total_records %> </td>
          <td <%= 'style = "background: #FFD1C2"' if trigger.balance < trigger.total_records %> > <%= trigger.balance %> </td>
+         <td <%= link_to 'Mark processed', mark_processed_admin_trigger_detail_url(trigger) unless trigger.processed? %> </td>
        </tr>
 <% end %>
 </table>

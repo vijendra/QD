@@ -166,6 +166,13 @@ def process_triggers
    redirect_to(admin_trigger_details_url)
  end
  
+  def mark_processed
+    trigger = TriggerDetail.find(params[:id])
+    trigger.process!
+    flash[:notice] = "Selected trigger is successfully marked as rocessed."
+    redirect_to(admin_trigger_details_url)
+  end
+
   protected
  
   def send_mail(dealer_profile, total, balance, order, attachment)
