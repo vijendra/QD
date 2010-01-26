@@ -34,7 +34,7 @@
               <%end%>
           </td>
 
-          <td> <%= link_to  dealer.profile.current_balance || NA, admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
+          <td> <%= link_to  dealer.profile.current_balance || 0 , admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
   
           <td NOWRAP> <%= link_to "#{image_tag('excel.gif')} Upload" , csv_admin_dealer_path(:id =>dealer.id), :rel=>"facebox" %> </td>
           
