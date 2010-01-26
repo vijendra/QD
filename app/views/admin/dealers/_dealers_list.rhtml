@@ -26,7 +26,7 @@
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
          <td> </td>
-         <td style='width:220px;'> <%unless dealer.profile.blank? %> <%= image_tag("user.gif")%> <b><%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %></b> (<%= dealer.id %>) <%end%> </td>
+         <td> <%unless dealer.profile.blank? %> <%= image_tag("user.gif")%> <b><%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %></b> (<%= dealer.id %>) <%end%> </td>
          <td> <% if dealer.profile.auth_code.blank?  %>
                 <%= link_to "Enter",  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
               <%else%>
