@@ -104,7 +104,6 @@ def process_triggers
           login_form.password = 'a5$DOWNLOAD'
           login_form.checkbox_with(:name => 'saveagreement').check
           page = agent.submit(login_form)
- 
           #extract order_id from link like 228_Courtesy Dodge_942310_322548.CSV
           links = page.links
           for li in links
@@ -113,17 +112,19 @@ def process_triggers
           #csv_file_name = page.links[5].to_s
           csv_array = csv_file_name.to_s.split('_')
           object_id = ((csv_array[csv_array.length - 1]).split('.'))[0].strip
- 
           #Now we will directly construct link, instead of mimicng csv link click, as its quite difficult
-          csv_link_string = "https://intelidataexpress.marketernet.com/file/download.aspx?objectid=#{object_id}"
+          csv_link_string = "https://intelidataexpress.tranzactis.com/file/download.aspx?objectid=#{object_id}"
+=begin
+#Before tt was asking to login again. Now its working fine.
           page = agent.get(csv_link_string)
-        
           login_form = page.forms[0]
           login_form.username = 'ewatson@mailadvanta.com'
           login_form.password = 'a5$DOWNLOAD'
           login_form.checkbox_with(:name => 'saveagreement').check
           file_page = agent.submit(login_form)
           agent.get(file_page.uri).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
+=end
+          agent.get(csv_link_string).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
           orders_csv = File.join(ORDERS_DOWNLOAD_PATH, csv_file_name)
         end
 	# import to the corresponding dealer

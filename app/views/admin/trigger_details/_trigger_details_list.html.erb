@@ -36,7 +36,7 @@
          <td> <%= trigger.order_number %> </td>
 	 <td> <%= trigger.total_records %> </td>
          <td <%= 'style = "background: #FFD1C2"' if trigger.balance < trigger.total_records %> > <%= trigger.balance %> </td>
-         <td style = "color: #2c97d4; font-weight: bold;"> <%= link_to 'Mark processed', mark_processed_admin_trigger_detail_url(trigger) unless trigger.processed? %> </td>
+         <td> <%= link_to 'Mark processed', mark_processed_admin_trigger_detail_url(trigger) unless trigger.processed? %> </td>
        </tr>
 <% end %>
 </table>
