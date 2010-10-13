@@ -1,6 +1,13 @@
-<%= link_to("<b> Back to Date List </b>",  admin_qd_profiles_url( ) )%>
+<h3 class = 'left'> 
+   <%= "Data set imported on - #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }" %> 
 
-<br />
+</h3>
+
+<div id = 'top-links'>
+  <%= link_to("<b> Back to Date List </b>",  admin_qd_profiles_url( ) )%>
+</div>
+
+<br /><br />
 <% if @qd_profiles.blank?%>
    <br />
     No Qd Profile Record Found.
@@ -9,12 +16,11 @@
 
     <table class='listing'>
        <tr>
-       <th>  Imported on  </th>
        <th> Order No </th>
-       <th>  First Name </th>
-       <th>  Last Name </th>
+       <th> First Name </th>
+       <th> Last Name </th>
        <th> Address </th>
-       <th>  City  </th>
+       <th> City  </th>
        <th> State </th>
        <th> Zip </th>
        <th> Crrt </th>
@@ -24,7 +30,6 @@
 
    <% @qd_profiles.each do |profile| %>
       <tr  class="<%= cycle('odd', 'even')%>">
-           <td> <%=h Time.parse(profile.created_at.to_s).to_date %> </td>
            <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>
            <td> <%=h profile.fname %> </td>
            <td> <%=h profile.lname  %>

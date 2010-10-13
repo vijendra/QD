@@ -1,0 +1,11 @@
+<h1>New data_append</h1>
+
+<% form_for(@data_append) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', data_appends_path %>

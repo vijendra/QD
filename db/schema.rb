@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090612114932) do
+ActiveRecord::Schema.define(:version => 20101012094728) do
+
+  create_table "account_resets", :force => true do |t|
+    t.integer  "dealer_id"
+    t.integer  "user_id"
+    t.integer  "unit"
+    t.decimal  "rate",       :precision => 8, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "addresses", :force => true do |t|
     t.string   "address"
@@ -22,15 +31,16 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.datetime "updated_at"
   end
 
-  create_table "admin_settings", :force => true do |t|
-    t.string   "identifier"
-    t.text     "values"
+  create_table "admin_data_appends", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "administrator_profiles", :force => true do |t|
     t.integer "administrator_id"
+    t.string  "administrator_logo_file_name"
+    t.string  "administrator_logo_content_type"
+    t.integer "administrator_logo_file_size"
     t.string  "name"
     t.string  "auth_code"
     t.string  "corp_name"
@@ -48,9 +58,21 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.string  "marketer_net_po"
     t.boolean "wants_data_printed"
     t.text    "comments"
-    t.string  "administrator_logo_file_name"
-    t.string  "administrator_logo_content_type"
-    t.integer "administrator_logo_file_size"
+  end
+
+  create_table "administrator_settings", :force => true do |t|
+    t.integer  "administrator_id"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "identifier"
+  end
+
+  create_table "application_settings", :force => true do |t|
+    t.string   "identifier"
+    t.text     "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "csv_extra_fields", :force => true do |t|
@@ -60,19 +82,37 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.datetime "updated_at"
   end
 
+  create_table "data_appends", :force => true do |t|
+    t.integer  "requestor_id"
+    t.integer  "no_of_records"
+    t.integer  "dealer_id"
+    t.string   "csv_file_name"
+    t.string   "status_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "dealer_fields", :force => true do |t|
+    t.text     "fields"
     t.integer  "dealer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "fields"
   end
 
-  create_table "disclaimer_contents", :force => true do |t|
-    t.integer  "administrator_id"
-    t.text     "values"
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
@@ -93,7 +133,7 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.integer  "dealer_id"
     t.string   "identifier"
     t.string   "label"
-    t.text     "values"
+    t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -105,9 +145,9 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.text     "emails_xml"
     t.text     "emails_html"
     t.text     "emails_extra"
-    t.string   "first_name"
-    t.string   "mid_name"
-    t.string   "last_name"
+    t.text     "first_name"
+    t.text     "mid_name"
+    t.text     "last_name"
     t.string   "phone_1"
     t.string   "phone_2"
     t.string   "phone_3"
@@ -115,28 +155,20 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.string   "marketer_net_po"
     t.boolean  "wants_data_printed"
     t.text     "comments"
+    t.integer  "starting_balance",                                 :default => 1000
+    t.integer  "current_balance",                                  :default => 1000
+    t.decimal  "rate",               :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "administrator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "starting_balance",   :default => 1000
-    t.integer  "current_balance",    :default => 1000
-    t.string   "rate",               :default => "1",  :null => false
-    t.integer  "administrator_id"
-    t.text     "text_body_1"
-    t.text     "text_body_2"
-    t.text     "text_body_3"
-    t.string   "variable_data_4"
-    t.string   "variable_data_5"
-    t.string   "variable_data_6"
-    t.string   "variable_data_7"
-    t.string   "variable_data_8"
-    t.string   "variable_data_9"
+    t.string   "display_name"
   end
 
   create_table "qd_profiles", :force => true do |t|
     t.string   "listid"
-    t.string   "fname"
-    t.string   "mname"
-    t.string   "lname"
+    t.text     "fname"
+    t.text     "mname"
+    t.text     "lname"
     t.string   "suffix"
     t.string   "address"
     t.string   "city"
@@ -146,9 +178,6 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.string   "crrt"
     t.string   "dpc"
     t.string   "phone_num"
-    t.integer  "dealer_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "trigger_detail_id"
     t.string   "address2"
     t.integer  "level"
@@ -156,6 +185,21 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.integer  "pr01"
     t.string   "status"
     t.date     "marked_date"
+    t.integer  "dealer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "dealer_marked"
+    t.string   "fico"
+    t.string   "he_lendername"
+    t.string   "ddt09"
+    t.string   "mtg_lendername"
+    t.string   "rev16"
+    t.string   "rev24"
+    t.string   "mktval02_range"
+    t.string   "mktval02"
+    t.string   "fhamtgbal"
+    t.string   "bk_filing_date"
+    t.string   "bk_status"
   end
 
   create_table "roles", :force => true do |t|
@@ -177,14 +221,50 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.datetime "updated_at"
   end
 
+  create_table "shell_dimensions", :force => true do |t|
+    t.integer  "administrator_id"
+    t.integer  "template"
+    t.string   "variable"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "shell_images", :force => true do |t|
+    t.integer  "administrator_id"
+    t.integer  "template"
+    t.string   "shell_image_file_name"
+    t.string   "shell_image_content_type"
+    t.integer  "shell_image_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "site_images", :force => true do |t|
+    t.string   "site_image_file_name"
+    t.string   "site_image_content_type"
+    t.integer  "site_image_file_size"
+    t.integer  "user_id"
+    t.integer  "administrator_id"
+    t.integer  "dealer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "trigger_details", :force => true do |t|
     t.integer  "dealer_id"
     t.string   "data_source"
     t.integer  "total_records"
     t.string   "order_number"
+    t.integer  "balance"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "balance"
+    t.string   "file_id"
+    t.string   "file_password"
+    t.string   "file_url"
+    t.string   "status"
+    t.string   "marked",        :default => "no"
+    t.string   "dealer_marked"
   end
 
   create_table "users", :force => true do |t|
@@ -202,10 +282,9 @@ ActiveRecord::Schema.define(:version => 20090612114932) do
     t.string   "password_reset_code"
     t.datetime "activated_at"
     t.datetime "deleted_at"
+    t.integer  "administrator_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "dealer_id"
-    t.integer  "administrator_id"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

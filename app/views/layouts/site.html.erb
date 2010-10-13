@@ -1,0 +1,55 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<title>qdrlc</title>
+	<%= stylesheet_link_merged 'style' %>
+</head>	
+<body>
+  <div class="header">
+    <div class="header_left">
+		<h1>Quick Data <span> Robot</span><h1>
+	</div>
+	<div class="header_right">
+      <div class="btn">
+      <% unless logged_in? %> <%= link_to 'Login', login_path %> <%end-%>
+    </div>
+	  <div class="clear"></div>	
+	</div>
+  </div>
+ 
+<div class="spacing"></div>
+  <div class="container">
+	<div class="wrapper">
+	  <h2>Automate your data list</h2>
+      <h2>Auto import and assign to sub-accounts</h2>
+	  <h2>Print with your data</h2>
+    </div>
+
+    
+   <div class="clear"></div>
+   <div class="left_box">
+   <h3 class="first">Phone Append</h3>
+      <p>Quickly and cost effectively add phone numbers to your customer list</p>
+      <h3 class="second">Email Append</h3>
+      <p>Add email address to your list with more than 500 million opt-in email addresses.</p>
+    </div>
+    <div class="right_box">
+	  <h3 class="third">Data Enhancement</h3>
+      <p>Correct and enhance leads with NCOA,CASS append.</p>
+	  <h3 class="fourth">Auto Export </h3>
+	  <p>To any Xml compatible crm or lmt system turning data into leads!</p>
+   </div>
+  </div>
+  
+    <div class="clear"></div>
+
+    <div id="footer">
+
+    </div>
+
+</body>
+</html>

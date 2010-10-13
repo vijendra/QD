@@ -122,7 +122,7 @@ class Admin::QdProfilesController < ApplicationController
       @search.conditions.created_at_after   = "#{start_date}#{time}"
       @search.conditions.and_created_at_before = "#{end_date}"
     end
-    @search.per_page ||= 15
+    @search.per_page ||= 25
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
     @search.include = 'dealer'
@@ -188,6 +188,20 @@ class Admin::QdProfilesController < ApplicationController
    redirect_to(admin_qd_profiles_path)
  end
 
+ def accurate_append
+    unless params[:tid].blank?
+     trigger = TriggerDetail.find(params[:tid])
+     trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', '')
+                              qp.un_mark! if qp.marked?
+                            }
+     
+     trigger.update_attribute('marked', 'no')
+   end
+
+   flash[:notice] = "Data is successfully un-marked for printing."
+   redirect_to(admin_qd_profiles_path)
+ end
+ 
 private
 
   def super_admin?

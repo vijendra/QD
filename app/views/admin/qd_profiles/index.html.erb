@@ -1,8 +1,9 @@
 
 <% content_for :header do -%>
- Listing data set, categorised on date  
+ Listing data set, categorised on imported date  
 <% end -%>
 
+<div id='trigger_qd_profile-list' >
 <table cellspacing=0 cellpadding=0 id='top-buttons'>  
     <tr>
     
@@ -10,9 +11,7 @@
        <td class='hide-for-print' style ='vertical-align: bottom;'> <%= link_to("<span>Generate print file for all un-marked data</span>", print_file_url(), :action => :get, :class=> "button")%> </td>
     </tr>
 </table>
-   <br />
-
-<div id='trigger_qd_profile-list' >
+ 
   <div id = 'top-links'>
    <span id = 's'>
      <%= image_tag('zoom.png') %><%= link_to_function 'Show search bar', "Element.show('search-bar'); Element.show('h'); Element.hide('s'); return false;" %> &nbsp;&nbsp; |&nbsp;&nbsp;
@@ -26,9 +25,9 @@
     <%= image_tag('database_refresh.png') if params[:m]%><%= link_to "View all", admin_qd_profiles_url if params[:m] %>
  </div>
 
-   <div id = 'search-bar' style ="display:none ; clear:both"> <%=render :partial=> 'filters'%> </div>
-    <div class='clear'> </div>
-
+ <div id = 'search-bar' style ="display:none ; clear:both"> <%=render :partial=> 'filters'%> </div>
+ <div class='clear'> </div>
+ <br />
 
    <div id='qd_profile-list'>
      <%=render :partial=> 'trigger_list'%>

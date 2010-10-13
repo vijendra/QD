@@ -55,7 +55,7 @@
 
           <%end%>
 
-         <td NOWRAP> <%= link_to "#{image_tag('printer.gif')} print settings",  admin_dealer_print_data_path(:dealer_id => dealer.id) %></td>
+         <td NOWRAP> <%= link_to "#{image_tag('printer.gif')} Settings",  admin_dealer_print_data_path(:dealer_id => dealer.id) %></td>
          <td> <%= link_to image_tag('user_delete.png'), admin_dealer_path(dealer) , :confirm => "You are deleting #{dealer.profile.name}'s record from the qd robot system. Are you sure?", :method => :delete %></td>
        </tr>
     <% end %>

@@ -13,7 +13,7 @@
        <th><%= remote_order_by_link(:marked ,:text => "Printed?") %> </th>
        <th> Mark for print </th>
        <th> CSV print file </th>
-
+       <th> Append data </th>
    </tr>
    <% @triggers.each do |trigger| %>
        <tr class="<%= cycle('odd', 'even') %>">
@@ -34,20 +34,31 @@
            <% if trigger.dealer.profile.wants_data_printed -%>
              <%= image_tag("printer_add.png") %>
              <% unless trigger.marked == 'yes'%>
-               <% link_text = trigger.marked == 'printed' ? 'Re-mark for print' : 'Mark for print' -%>
+               <% link_text = trigger.marked == 'printed' ? 'Re-mark' : 'Mark for print' -%>
                <%= link_to link_text,  mark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will mark all the records for PRINT. Are you sure?', :method => :post  -%> 
-            <% else -%>
-               <%= link_to "Un-Mark for Print", unmark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will un-mark all the records for PRINT. Are you sure?', :method => :post  -%> 
-            <% end -%>
+             <% else -%>
+               <%= link_to "Un-Mark", unmark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will un-mark all the records for PRINT. Are you sure?', :method => :post  -%> 
+             <% end -%>
            <% else -%>
                <%= image_tag("printer_delete.png") %> Doesn't want print
            <% end -%>
          </td>
-         <td> <% if trigger.marked == 'yes' %>
-                 <%= link_to 'CSV Print File', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %>
+         <td> 
+              <% if trigger.marked == 'yes' %>
+                 <%= link_to 'Print file', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %>
               <% else %>
-                 <%= trigger.marked == 'printed'? 'Already printed' : 'Not marked yet' %>
+                 <%= trigger.marked == 'printed'? 'Printed' : 'Unmarked' %>
               <% end %>
+         </td>
+         
+         <td>
+            <%form_for [:admin, DataAppend.new] do |f| -%>
+               <%= f.hidden_field :requestor_id, :value => current_user.id %>
+               <%= f.hidden_field :no_of_records, :value => trigger.total_records %>
+               <%= f.hidden_field :dealer_id, :value => trigger.dealer.id %>
+               <%= f.hidden_field :tid, :value => trigger.id -%>
+               <%= submit_tag "Send #{trigger.total_records} records for append", :confirm => "Are you sure, You want to send this data for append? " %>
+            <%end-%>
          </td>
       </tr>
    <% end %>

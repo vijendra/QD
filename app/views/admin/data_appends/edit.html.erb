@@ -1,0 +1,12 @@
+<h1>Editing data_append</h1>
+
+<% form_for(@data_append) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @data_append %> |
+<%= link_to 'Back', data_appends_path %>

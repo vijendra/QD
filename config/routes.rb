@@ -1,5 +1,8 @@
 # See how all your routes lay out with "rake routes"
 ActionController::Routing::Routes.draw do |map|
+  map.resources :appended_qd_profiles
+
+  map.resources :data_appends
 
   map.resources :dealers ,:has_one =>[:print_file_field ,:csv_extra_field]
 
@@ -43,8 +46,11 @@ ActionController::Routing::Routes.draw do |map|
       #dealer.resource :print_data, :controller => 'print_data'
        dealer.resources :shell_dimensions
     end
-    admin.resources :qd_profiles, :member => {:assign_dealer => :get }, :collection =>{:mark_data => :post, :unmark_data => :post}
-    admin.resources :trigger_details, :collection => { :process_triggers => :get}, :member => {:mark_processed => :any }
+    admin.resources :qd_profiles, :member => {:assign_dealer => :get }, :collection =>{:mark_data => :post, :unmark_data => :post, :accurate_append => :post}
+    admin.resources :trigger_details, :collection => { :process_triggers => :get}, :member => {:mark_processed => :any } 
+    admin.resources :data_appends
+ 
+    
     admin.resources :print_file_fields
     #admin.resources :
     admin.resource :robot, :member => {:run => :get, :active_dealer_email => :get,  :inactive_dealer_email => :get}
@@ -77,8 +83,8 @@ ActionController::Routing::Routes.draw do |map|
   map.shell_matrix_html 'admin/dealers/print_data/shell_matrix', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix'
   #map.shell_dimension 'admin/print_data/print_shell_dimension', :controller => 'admin/print_data',  :action => 'print_shell_dimension'
   # Dashboard as the default location
-      map.root :controller => 'dashboard', :action => 'index'
-
+  map.root :controller => 'sites', :action => 'index'
+  map.dashboard '/dashboard', :controller => 'dashboard', :action => 'index'
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

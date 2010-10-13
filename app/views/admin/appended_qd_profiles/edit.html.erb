@@ -1,0 +1,12 @@
+<h1>Editing appended_qd_profile</h1>
+
+<% form_for(@appended_qd_profile) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @appended_qd_profile %> |
+<%= link_to 'Back', appended_qd_profiles_path %>

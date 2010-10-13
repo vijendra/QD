@@ -5,7 +5,7 @@
 ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -14,7 +14,7 @@ Rails::Initializer.run do |config|
   ORDERS_DOWNLOAD_PATH = %W( #{RAILS_ROOT}/orders)
 
   # Gems
-  config.gem "capistrano-ext", :lib => "capistrano"
+  #config.gem "capistrano-ext", :lib => "capistrano"
   config.gem "configatron"
   config.gem "calendar_date_select", :lib => "calendar_date_select"
   config.gem "prawn", :lib => "prawn"
@@ -25,10 +25,12 @@ Rails::Initializer.run do |config|
   config.gem "rghost_barcode"
   config.gem "rubyzip", :lib => "zip/zip"
   config.gem "ruby-openid", :lib => "openid"
-
+  #config.gem 'delayed_job', :version => '2.0.3'
+  #config.gem 'collectiveidea-delayed_job', :lib => 'delayed_job', :version => '1.8.2', :source => 'http://gems.github.com'
+                     
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
-  config.time_zone = 'UTC'
+  config.time_zone = 'Mumbai'
 
 
   # The internationalization framework can be changed to have another default locale (standard is :en) or more load paths.
@@ -41,7 +43,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random,
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_base_session',
+    :key => '_base_session',
     :secret      => '7389ea9180b15f1495a5e73a69a893311f859ccff1ffd0fa2d7ea25fdf1fa324f280e6ba06e3e5ba612e71298d8fbe7f15fd7da2929c45a9c87fe226d2f77347'
   }
 

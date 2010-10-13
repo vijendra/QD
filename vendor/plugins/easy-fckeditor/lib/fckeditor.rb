@@ -81,8 +81,12 @@ module Fckeditor
   end
 end
 
+
+
+=begin
 include ActionView
 module ActionView::Helpers::AssetTagHelper
+
   alias_method :rails_javascript_include_tag, :javascript_include_tag
 
   #  <%= javascript_include_tag :defaults, :fckeditor %>
@@ -99,3 +103,4 @@ module ActionView::Helpers::AssetTagHelper
     [main_sources.join("\n"), application_source].join("\n")
   end
 end
+=end

@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   def destroy
     logout_killing_session!
     session[:accept_terms] = nil
-    flash[:notice] = "You have been logged out."
+ 
     redirect_back_or_default(root_path)
   end
 
@@ -45,7 +45,6 @@ class SessionsController < ApplicationController
 
   def accept_terms
   	if params[:commit] == 'Agree'
-      flash[:notice] = "Logged in successfully"
       redirect_to(qd_profiles_url)
       session[:accept_terms] = true
     else
@@ -91,9 +90,8 @@ class SessionsController < ApplicationController
     	redirect_to(:controller => :sessions ,:action =>:terms)
     else
      	session[:accept_terms] = true
-     	flash[:notice] = "Logged in successfully"
      	if super_admin?
-     	   redirect_back_or_default(root_path) 
+     	   redirect_back_or_default(dashboard_path) 
    	  else
         redirect_to(admin_qd_profiles_url)
       end 

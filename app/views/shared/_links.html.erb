@@ -1,6 +1,6 @@
 
 <% if logged_in? %>
-   <%= link_to "Home page", root_url, :class => ('current' if request.request_uri == '/')%>
+   <%= link_to "Dashboard", dashboard_path, :class => ('current' if request.request_uri =~ /dashboard/)%>
 
    <% if admin? -%><%= link_to "Data set", admin_qd_profiles_url, :class => ('current' if request.request_uri =~ /qd_profiles/) %><% end -%>
 
@@ -16,4 +16,8 @@
      <%= link_to "Print file settings" , (current_user.csv_extra_field.nil? ? new_dealer_print_file_field_path(current_user) : edit_dealer_print_file_field_path(current_user)), :class => ('current' if request.request_uri =~ /print_file_field/) %>
    <%end-%>
 
+    <% if admin? -%><%= link_to "Data appends", admin_data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current last' : 'last') %><% end -%>
+    
+    <% unless admin? -%><%= link_to "Data appends",  data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current last' : 'last') %><% end -%>
+   
 <% end %>
