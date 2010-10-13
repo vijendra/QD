@@ -14,13 +14,13 @@ class DataAppend < ActiveRecord::Base
       trigger = TriggerDetail.find(tid)
       dealer = trigger.dealer
       #construct the csv file name and open it for writing
-      fname = "#{dealer.id}#{dealer.login}#{Time.now.strftime("%d%m%Y%H%M")}.csv"
+      fname = "#{dealer.id}-#{dealer.login}-#{Time.now.strftime('%d%M%Y')}-#{Time.now.strftime('%H%M')}.csv"
       csv_file = "#{RAILS_ROOT}/data_append_in/#{fname}"
       File.new(csv_file, "w")
       
       unless trigger.blank?
         qd_profiles = trigger.qd_profiles
-        fields_to_be_exported = QdProfile.public_attributes
+        fields_to_be_exported = QdProfile::DATA_APPEND_FIELDS
         FasterCSV.open(csv_file, "w") do |csv|
           #Exporting to CSV starts here.. Exporting headers
           csv << fields_to_be_exported.map{|field| field.humanize}
@@ -31,12 +31,12 @@ class DataAppend < ActiveRecord::Base
           end
         end
         self.update_attribute('csv_file_name', fname)
-        #self.send_at(1.minutes.from_now, :listen_to_append)
-        self.listen_to_append
+        self.update_attribute('status_message', "Data is sent for append.")
+ 
         #Now send the file for append thru FTP
         #TODO move this to delayed job.
         #----------------------------------------------------------------------------
-=begin        
+        
         begin
           ftp = Net::FTP.new('ftp.accurateappend.com')
           ftp.login('b2binnovations', 'innovator')
@@ -57,14 +57,14 @@ class DataAppend < ActiveRecord::Base
           self.update_attribute('csv_file_name', fname)
           
           #schedule listening for appended data
-          self.listen_to_append
+          self.send_at(10.minutes.from_now, :listen_to_append)
           
         rescue Net::FTPPermError => e
           #puts "Failed: #{e.message}"
           return false
         end
         #----------------------------------------------------------------------------
-=end        
+        
       end
     end  
   end
@@ -73,39 +73,38 @@ class DataAppend < ActiveRecord::Base
   def listen_to_append
     begin
       found = false
-      csv_file = "#{RAILS_ROOT}/data_append_out/#{self.csv_file_name}"
-      
+      fname = self.csv_file_name
+      out_file = "#{RAILS_ROOT}/data_append_out/#{fname}"
+          
       ftp = Net::FTP.new('ftp.accurateappend.com')
       ftp.login('b2binnovations', 'innovator')
       ftp.passive = true
       #logged in, ready to check files
       ftp.chdir('out')
-      
+ 
       ftp.list('*.csv').each do |file|
-        if file == self.csv_file_name
+        if file =~ Regexp.new(fname)
           found = true
-          ftp.get(file, File.basename(csv_file))
+          ftp.getbinaryfile(fname, out_file)
         end  
       end
       #Quit the connection
       ftp.quit()
   
- 
-      #Delayed job will run again after some time if there is an error   
       if found == false
-        raise "error: file is not yet in out file"
+        #schedule it again after 10 minutes
+        self.send_at(10.minutes.from_now, :listen_to_append)
       else
         #update status in the data_append object
-        self.update_attribute('status_message', 'Data appended succssfully')  
+        self.update_attribute('status_message', 'Data appended. No of phone number appended records: ')  
       end
           
       rescue Net::FTPPermError => e
-        #puts "Failed: #{e.message}"
+        puts "Failed: #{e.message}"
         return false
       end
   
   end
-  
-  #handle_asynchronously :listen_to_append, :run_at => Proc.new { 1.minutes.from_now.getutc}
+ 
   
 end

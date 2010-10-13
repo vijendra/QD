@@ -1,14 +1,6 @@
 <% content_for :header do %>
    Listing all data sent for append
 <% end -%>
-
-<% @data_appends.each do |da| %>
-  <div class = 'data_append'>
-    <%= da.csv_file_name %>
-    <br />
-    Data sent: <%= da.created_at.strftime("%d/%m/%Y") %>
-  </div>
-<%end-%>
  
 <table class='listing'>
   <tr>
@@ -20,13 +12,14 @@
   </tr>
 
 <% @data_appends.each do |data_append| %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td> <%= data_append.csv_file_name %>
-    <td> <%= data_append.created_at.strftime("%d/%m/%Y") %>
-    <td> <%= data_append.dealer.profile.name %>
-    <td> <%= data_append.no_of_records %>
-    <td> <%= data_append.requestor.login %>
+  <tr class="<%= cycle('odd', 'even') %> no_border">
+    <td> <%= data_append.csv_file_name %></td> 
+    <td> <%= data_append.created_at.strftime("%d/%m/%Y") %></td> 
+    <td> <%= data_append.dealer.profile.name %></td> 
+    <td> <%= data_append.no_of_records %></td> 
+    <td> <%= data_append.requestor.login %></td> 
   </tr>
+  <tr class = "<%= cycle('odd', 'even') %> details"><td  COLSPAN = '5'> <%= data_append.status_message %></td></tr>
 <% end %>
 </table>
 

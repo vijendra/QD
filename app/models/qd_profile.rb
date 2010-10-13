@@ -24,6 +24,7 @@ class QdProfile < ActiveRecord::Base
 				'HE_LENDERNAME' => 'he_lendername', 'MTG_LENDERNAME' => 'mtg_lendername', 'REV16' => 'rev16', 'REV24' => 'rev24',  
                                 'MKTVAL02_RANGE' => 'mktval02_range', 'MKTVAL02' => 'mktval02', 'FHAMTGBAL' => 'fhamtgbal', 'BK_FILING_DATE' => 'bk_filing_date', 'BK_STATUS' => 'bk_status'}
 
+  DATA_APPEND_FIELDS = ['id', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip', 'zip4', 'phone_num']
 
   def self.public_attributes
     self.new.attribute_names.select{|a| !QdProfile::PRIVATE_FIELDS.include?(a)}.sort

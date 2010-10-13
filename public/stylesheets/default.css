@@ -112,7 +112,7 @@ background : #ffffff;
 border : 1px solid #838F99;
 padding : 1px 1px;
 }
-376ea6
+ 
 ul {
 padding-left : 2em;
 margin-left : 0;
@@ -262,7 +262,7 @@ border : 2px solid #E5E9EE;
 color : #fff;
 padding : 0.3em 1em;
 margin : 0.1em 0.1em 0em 0;
-background-color: #3bb83b;
+background-color: #2e8b57;
 border: 2px solid #d6dfc6;
 font-weight: bold;
 }
@@ -438,15 +438,23 @@ text-decoration : none;
 }
 
 table.listing tr td a {
-color : #215f9f;
+color : #205891;
 text-decoration : none;
 }
 
 table.listing td {
-padding : 0.8em 0.3em 0.8em 0.3em;
+padding : 0.8em 0.5em 0.8em 0.5em;
 color : #2a2f38;
-border-bottom : 1px solid #dcdcdc;
+border-bottom : 1px solid #ccc;
 background : #fff;
+}
+
+table.listing tr.details td {border-top: none; padding: 0.2em 0.5em; color: #bf7000;}
+table.listing tr.no_border td{border: none;}
+
+table.listing td.fixed {
+ width: 25%;
+ 
 }
 
 table.listing tr.even td {
