@@ -120,7 +120,7 @@ class DataAppend < ActiveRecord::Base
   def import_appended_data
     csv_file = "#{RAILS_ROOT}/data_append_out/#{self.csv_file_name}"
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
-      qd_profile = QdProfile.find_by_listid(row.field(0)) #row.field(0) is ID
+      qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
       unless qd_profile.blank?
         self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
         qd_profile.update_attribute('appended_landline', row.field('Land Line'))
