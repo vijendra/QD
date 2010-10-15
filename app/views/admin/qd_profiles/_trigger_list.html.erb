@@ -57,6 +57,7 @@
                <%= f.hidden_field :no_of_records, :value => trigger.total_records %>
                <%= f.hidden_field :dealer_id, :value => trigger.dealer.id %>
                <%= f.hidden_field :tid, :value => trigger.id -%>
+               <%= f.hidden_field :status_message, :value => 'sent' -%>
                <%= submit_tag "Send #{trigger.total_records} records for append", :confirm => "Are you sure, You want to send this data for append? " %>
             <%end-%>
          </td>

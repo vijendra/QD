@@ -1,5 +1,5 @@
 <h3 class = 'left'> 
-   <%= "Data set imported on - #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }" %> 
+   <%= "Data set imported on: #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }. &nbsp; &nbsp; Order No: #{@qd_profiles.first.trigger_detail.order_number}"  %> 
 
 </h3>
 
@@ -16,28 +16,20 @@
 
     <table class='listing'>
        <tr>
-       <th> Order No </th>
        <th> First Name </th>
        <th> Last Name </th>
-       <th> Address </th>
-       <th> City  </th>
-       <th> State </th>
-       <th> Zip </th>
-       <th> Crrt </th>
+       <th> Full address </th>
+       <th> Phone </th>
        <th>  Dealer  </th>
        <th> Status</th>
    </tr>
 
    <% @qd_profiles.each do |profile| %>
       <tr  class="<%= cycle('odd', 'even')%>">
-           <td> <%=h TriggerDetail.find(profile.trigger_detail_id).order_number %> </td>
            <td> <%=h profile.fname %> </td>
            <td> <%=h profile.lname  %>
-           <td> <%=h profile.address %> </td>
-           <td> <%=h profile.city %> </td>
-           <td> <%=h profile.state %> </td>
-           <td> <%=h profile.zip %> </td>
-           <td> <%=h profile.crrt %> </td>
+           <td> <%=h profile.full_addrress %> </td>
+           <td> <%=h profile.phone_num %> </td>
            <td> <%= link_to profile.dealer.profile.name,  assign_dealer_admin_qd_profile_path(profile.id),:rel => "facebox" %> </td>
            <td> <%=h profile.status%></td>
        </tr>

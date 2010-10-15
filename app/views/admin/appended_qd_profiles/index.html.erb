@@ -1,18 +1,27 @@
-<h1>Listing appended_qd_profiles</h1>
+<% content_for :header do %>
+   Listing all appended data. File name: <%= @data_append.csv_file_name %>
+<% end -%>
 
-<table>
+<table class='listing'>
   <tr>
+    <th> First Name </th>
+    <th> Last Name </th>
+    <th> Full address </th>
+    <th> Phone </th>
+    <th> Appended landline </th>
   </tr>
 
 <% @appended_qd_profiles.each do |appended_qd_profile| %>
+  <% profile = appended_qd_profile.qd_profile %>
   <tr>
-    <td><%= link_to 'Show', appended_qd_profile %></td>
-    <td><%= link_to 'Edit', edit_appended_qd_profile_path(appended_qd_profile) %></td>
-    <td><%= link_to 'Destroy', appended_qd_profile, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+    <td> <%=h profile.fname %> </td>
+    <td> <%=h profile.lname  %>
+    <td> <%=h profile.full_addrress %> </td>
+    <td> <%=h profile.phone_num %> </td>
+    <td> <%=h profile.appended_landline %> </td>
+   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New appended_qd_profile', new_appended_qd_profile_path %>

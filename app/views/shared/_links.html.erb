@@ -2,9 +2,9 @@
 <% if logged_in? %>
    <%= link_to "Dashboard", dashboard_path, :class => ('current' if request.request_uri =~ /dashboard/)%>
 
-   <% if admin? -%><%= link_to "Data set", admin_qd_profiles_url, :class => ('current' if request.request_uri =~ /qd_profiles/) %><% end -%>
+   <% if admin? -%><%= link_to "Data set", admin_qd_profiles_url, :class => ('current' if request.request_uri =~ /\/qd_profiles/) %><% end -%>
 
-   <% unless admin? -%><%= link_to "Data set", qd_profiles_url, :class => ('current' if request.request_uri =~ /qd_profiles/) %><% end -%>
+   <% unless admin? -%><%= link_to "Data set", qd_profiles_url, :class => ('current' if request.request_uri =~ /\/qd_profiles/) %><% end -%>
 
    <% if admin? -%><%= link_to "Dealers", admin_dealers_url , :class => ('current' if request.request_uri =~ /dealers/) %> <% end -%>
 

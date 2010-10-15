@@ -1,7 +1,5 @@
 # See how all your routes lay out with "rake routes"
 ActionController::Routing::Routes.draw do |map|
-  map.resources :appended_qd_profiles
-
   map.resources :data_appends
 
   map.resources :dealers ,:has_one =>[:print_file_field ,:csv_extra_field]
@@ -48,7 +46,9 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :qd_profiles, :member => {:assign_dealer => :get }, :collection =>{:mark_data => :post, :unmark_data => :post, :accurate_append => :post}
     admin.resources :trigger_details, :collection => { :process_triggers => :get}, :member => {:mark_processed => :any } 
-    admin.resources :data_appends
+    admin.resources :data_appends do |append|
+      append.resources :appended_qd_profiles
+    end
  
     
     admin.resources :print_file_fields

@@ -7,7 +7,9 @@ class DataAppend < ActiveRecord::Base
   
   belongs_to :dealer
   belongs_to :requestor, :class_name => 'User', :foreign_key => :requestor_id
-
+  has_many :appended_qd_profiles
+  has_many :qd_profiles, :through => :appended_qd_profiles
+  
   #TODO try to move this into some library
   def send_for_append
     unless tid.blank?
@@ -20,36 +22,35 @@ class DataAppend < ActiveRecord::Base
       
       unless trigger.blank?
         qd_profiles = trigger.qd_profiles
-        fields_to_be_exported = QdProfile::DATA_APPEND_FIELDS
+        fields  = QdProfile::DATA_APPEND_FIELDS
+        headers = QdProfile:: DATA_APPEND_HEADERS
         FasterCSV.open(csv_file, "w") do |csv|
           #Exporting to CSV starts here.. Exporting headers
-          csv << fields_to_be_exported.map{|field| field.humanize}
+          csv << headers.map{|field| field}
  
           #Exporting data rows
           qd_profiles.each do |prof|
-            csv << fields_to_be_exported.map{|qd_field| eval("prof.#{qd_field}")}
+            csv << headers.map{|key| eval("prof.#{fields[key]}")}
           end
         end
         self.update_attribute('csv_file_name', fname)
-        self.update_attribute('status_message', "Data is sent for append.")
+
  
         #Now send the file for append thru FTP
         #TODO move this to delayed job.
         #----------------------------------------------------------------------------
-        
+      
         begin
           ftp = Net::FTP.new('ftp.accurateappend.com')
           ftp.login('b2binnovations', 'innovator')
           ftp.passive = true
+          
           #logged in, ready to start copying files..."
           ftp.chdir('in')
   
- 			    #csv_files = Dir.glob("#{RAILS_ROOT}/data_append/*.csv")   
-  			  #csv_files.each do |file|
-   		      #"uploading file 
-    	      ftp.put(csv_file)
-          #end
-          
+          #"uploading file 
+    	    ftp.put(csv_file)
+ 
           #Quit the connection
           ftp.quit()
   
@@ -59,16 +60,17 @@ class DataAppend < ActiveRecord::Base
           #schedule listening for appended data
           self.send_at(10.minutes.from_now, :listen_to_append)
           
+          FileUtils.rm_r csv_file
+          
         rescue Net::FTPPermError => e
           #puts "Failed: #{e.message}"
           return false
         end
         #----------------------------------------------------------------------------
-        
+       
       end
     end  
   end
-
 
   def listen_to_append
     begin
@@ -86,6 +88,9 @@ class DataAppend < ActiveRecord::Base
         if file =~ Regexp.new(fname)
           found = true
           ftp.getbinaryfile(fname, out_file)
+          ftp.getbinaryfile("#{fname}.manifest.xml", "#{out_file}.manifest.xml")
+          import_appended_data
+          parse_output_xml("#{out_file}.manifest.xml")
         end  
       end
       #Quit the connection
@@ -96,15 +101,31 @@ class DataAppend < ActiveRecord::Base
         self.send_at(10.minutes.from_now, :listen_to_append)
       else
         #update status in the data_append object
-        self.update_attribute('status_message', 'Data appended. No of phone number appended records: ')  
+        self.update_attribute('status_message', 'appended')  
       end
           
-      rescue Net::FTPPermError => e
-        puts "Failed: #{e.message}"
-        return false
-      end
-  
+    rescue Net::FTPPermError => e
+      #schedule it again after 10 minutes
+      self.send_at(10.minutes.from_now, :listen_to_append)
+    end
   end
  
+  def parse_output_xml(xml_report)
+    xml = File.read(xml_report)
+    doc = Hpricot::XML(xml)
+    self.update_attributes(:matches => (doc/:matches).inner_html, :total_errors => (doc/:errors).inner_html, :completed_on => Time.parse((doc/:datecomplete).inner_html) )
+    FileUtils.rm_r xml_report
+  end
   
+  def import_appended_data
+    csv_file = "#{RAILS_ROOT}/data_append_out/#{self.csv_file_name}"
+    FasterCSV.foreach(csv_file, :headers => :false) do |row|
+      qd_profile = QdProfile.find_by_listid(row.field(0)) #row.field(0) is ID
+      unless qd_profile.blank?
+        self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
+        qd_profile.update_attribute('appended_landline', row.field('Land Line'))
+      end   
+    end
+    FileUtils.rm_r csv_file
+  end
 end

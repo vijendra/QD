@@ -449,7 +449,10 @@ border-bottom : 1px solid #ccc;
 background : #fff;
 }
 
-table.listing tr.details td {border-top: none; padding: 0.2em 0.5em; color: #bf7000;}
+table.listing tr.sent td {border-top: none; padding: 0.2em 0.5em; color: #dbaf00;}
+table.listing tr.appended td {border-top: none; padding: 0.2em 0.5em; color: #40a625;}
+table.listing tr.appended td span{font-weight: bold; color: #a94c00; margin-right: 15px; }
+
 table.listing tr.no_border td{border: none;}
 
 table.listing td.fixed {

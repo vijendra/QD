@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101012094728) do
+ActiveRecord::Schema.define(:version => 20101015043436) do
 
   create_table "account_resets", :force => true do |t|
     t.integer  "dealer_id"
@@ -68,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20101012094728) do
     t.string   "identifier"
   end
 
+  create_table "appended_qd_profiles", :force => true do |t|
+    t.integer  "qd_profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "data_append_id", :null => false
+  end
+
   create_table "application_settings", :force => true do |t|
     t.string   "identifier"
     t.text     "value"
@@ -90,6 +97,9 @@ ActiveRecord::Schema.define(:version => 20101012094728) do
     t.string   "status_message"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "total_errors"
+    t.integer  "matches"
+    t.datetime "completed_on"
   end
 
   create_table "dealer_fields", :force => true do |t|
@@ -200,6 +210,7 @@ ActiveRecord::Schema.define(:version => 20101012094728) do
     t.string   "fhamtgbal"
     t.string   "bk_filing_date"
     t.string   "bk_status"
+    t.integer  "appended_landline"
   end
 
   create_table "roles", :force => true do |t|

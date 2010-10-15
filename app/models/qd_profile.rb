@@ -2,7 +2,9 @@ class QdProfile < ActiveRecord::Base
   include AASM
   belongs_to :dealer
   belongs_to :trigger_detail 
-
+  has_many :appended_qd_profiles
+  has_many :data_appends, :through => :appended_qd_profiles
+  
   PRIVATE_FIELDS = ["id", "created_at", "updated_at", "dealer_id", "trigger_detail_id", "status", "marked_date", "level", "dealer_marked"]
   SEEKERNIC_LABELS = ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ]
   TRANSACTIS_LABELS = ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM', 'ADDRESS 2', ' LEVEL', 'AUTO17', 'PR01']
@@ -24,7 +26,8 @@ class QdProfile < ActiveRecord::Base
 				'HE_LENDERNAME' => 'he_lendername', 'MTG_LENDERNAME' => 'mtg_lendername', 'REV16' => 'rev16', 'REV24' => 'rev24',  
                                 'MKTVAL02_RANGE' => 'mktval02_range', 'MKTVAL02' => 'mktval02', 'FHAMTGBAL' => 'fhamtgbal', 'BK_FILING_DATE' => 'bk_filing_date', 'BK_STATUS' => 'bk_status'}
 
-  DATA_APPEND_FIELDS = ['id', 'fname', 'mname', 'lname', 'suffix', 'address', 'city', 'state', 'zip', 'zip4', 'phone_num']
+  DATA_APPEND_FIELDS = {'id' => 'id', 'first name' => 'fname',  'last name' => 'lname',  'address' => 'address', 'city' => 'city', 'state' => 'state', 'zip' => 'zip'}
+  DATA_APPEND_HEADERS = ['id', 'first name', 'last name', 'address', 'city',  'state', 'zip'] #We could use keys on above hash. but order of fields are altered.
 
   def self.public_attributes
     self.new.attribute_names.select{|a| !QdProfile::PRIVATE_FIELDS.include?(a)}.sort
@@ -58,4 +61,8 @@ class QdProfile < ActiveRecord::Base
   named_scope :to_be_printed, {:conditions => ["status like ?",  "marked"] }
   named_scope :to_be_unmark_printed, {:conditions => ["status like ?",  "new"] }
   named_scope :to_be_dealer_printed, {:conditions => ["dealer_marked like ?",  "yes"] }
+  
+  def full_addrress
+    "#{address}, #{city}, #{state} - #{zip}"
+  end
 end
