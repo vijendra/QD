@@ -13,6 +13,7 @@
 <table class='listing'>
   <tr>
     <th> File name </th>
+    <th> Type </th>
     <th> Sent on </th>
     <th> Dealer </th>
     <th> Total records </th>
@@ -22,7 +23,8 @@
 
 <% @data_appends.each do |da| %>
   <tr class="no_border">
-    <td> <%= da.csv_file_name %></td> 
+    <td class = 'fixed'> <%= da.csv_file_name %></td> 
+    <td> <%= DataAppend::AppendProductDisplay[da.product] %></td> 
     <td> <%= da.created_at.strftime("%d/%m/%Y") %></td> 
     <td> <%= da.dealer.profile.name %></td> 
     <td> <%= da.no_of_records %></td> 
@@ -30,7 +32,7 @@
     <td> <%= link_to('Details', admin_data_append_appended_qd_profiles_path(da)) if da.status_message == 'appended' %></td>
   </tr>
   <tr class = "<%=da.status_message %>">
-     <td COLSPAN = '6'> 
+     <td COLSPAN = '7'> 
        <%= 'Data sent for append.' if da.status_message == 'sent' %>
        <%= "Data appended succssfully on <span> #{da.completed_on.strftime('%d %M, %Y. %I:%M') unless da.completed_on.blank?}.</span> &nbsp; Matches: <span>#{da.matches}.</span> Errors: <span>#{da.total_errors}</span>" if da.status_message == 'appended' %>
      </td>

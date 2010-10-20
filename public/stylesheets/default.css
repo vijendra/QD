@@ -194,7 +194,7 @@ margin : 1em 2.1em;
 }
 
 #global_links a {
-color : #bf7000;
+color : #dc7200;
 font-size : 12px;
 }
 
@@ -267,10 +267,11 @@ border: 2px solid #d6dfc6;
 font-weight: bold;
 }
 
-#left #error {
+.error {
 color : #9f1d20;
-padding : 0.7em 1em;
-margin : 1em 1.5em;
+padding : 5px;
+width : 80%;
+margin: 0px auto;
 background-color : #ffb7bc;
 font-weight : bold;
 }
@@ -395,7 +396,7 @@ padding : 0 5px 0 5px;
 margin : 2px;
 border : 1px solid #aaa;
 text-decoration : none;
-color : #2c5ebf;
+color : #d08900;
 background-color : #fff;
 }
 
@@ -423,7 +424,7 @@ border : 1px solid #E6E6E6;
 }
 
 table.listing th {
-background : #f1f1f1 url(/images/table-header.jpg) repeat-x top;
+background : #f1f1f1 url(/images/table-header.jpg) repeat-x bottom;
 
 color : #2A384D;
 text-align : left;
@@ -441,9 +442,10 @@ table.listing tr td a {
 color : #205891;
 text-decoration : none;
 }
+ 
 
 table.listing td {
-padding : 0.8em 0.5em 0.8em 0.5em;
+padding : 0.9em 0.5em 0.9em 0.5em;
 color : #2a2f38;
 border-bottom : 1px solid #ccc;
 background : #fff;
@@ -461,7 +463,7 @@ table.listing td.fixed {
 }
 
 table.listing tr.even td {
-background : #f6f6f6;
+background : #f1f1f1;
 }
 
 table.listing tr.processed td {
@@ -489,11 +491,12 @@ table.listing .calendar-date{
 
  text-align: center;
  font-weight: bold;
- color: #0353a4;
+ color: #d08900;
 
 }
 
 table.listing input[type="submit"]{font-size: 90%; color: #0353a4; }
+table.listing select{font-size: 90%; }
 
 table.listing .calendar-date .cal{
 float: left;
@@ -502,9 +505,14 @@ float: left;
 table.listing .calendar-date a{
  text-align: center;
  font-weight: bold;
- color: #0353a4;
-
+ color: #c69000;
 }
+
+table.listing td.brown a{
+ font-weight: bold;
+ color: #c69000;
+}
+
 .table-footer td {
 background : #f1f0ee;
 padding : 4px;
@@ -691,7 +699,7 @@ border : 1px solid #e5e9ef;
 
 a.button {
     background: transparent url('/images/bg_button_a.gif') no-repeat scroll top right;
-    color: #d78900;
+    color: #c69000;
     display: block;
     float: left;
     font-size: 90%;
@@ -740,11 +748,11 @@ a.button:hover span {
 float : right; 
 margin-bottom: 5px;
 font-size: 13px;
-color: #cda400;
+color: #c69000;
 }
 
 #top-links a{
-color: #d78900;
+color: #c69000;
 }
 
 

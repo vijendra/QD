@@ -4,15 +4,15 @@
   <tr>
   <th> </th>
  	<th><%= remote_order_by_link({:profile => :name} ,:text => "Dealer (ID)" )%> </th>
-        <th> Auth code</th>
+  <th> Auth code</th>
 	<th> Accounts </th>
  	<th> CSV data </th>
-        <th> QD fields </th>
+  <th> QD fields </th>
  	<th> Status </th>
-        <% if super_admin? -%>
-          <th> Admin </th>
-        <%end%>
-        <th> Print settings</th>
+    <% if super_admin? -%>
+       <th> Admin </th>
+    <%end%>
+  <th> Print settings</th>
  	<th> Del </th>
 
   </tr>
@@ -26,7 +26,9 @@
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
          <td> </td>
-         <td class = 'fixed'> <%unless dealer.profile.blank? %> <%= image_tag("user.gif")%> <b><%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %></b> (<%= dealer.id %>) <%end%> </td>
+         <td class = 'fixed brown'> 
+            <%unless dealer.profile.blank? %> <%= image_tag("user.gif")%> <b><%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %></b> (<%= dealer.id %>) <%end%> 
+         </td>
          <td> <% if dealer.profile.auth_code.blank?  %>
                 <%= link_to "Enter",  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
               <%else%>

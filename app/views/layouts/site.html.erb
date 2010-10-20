@@ -11,45 +11,50 @@
 <body>
   <div class="header">
     <div class="header_left">
-		<h1>Quick Data <span> Robot</span><h1>
+		<h1>D2<span> Leads</span><h1>
 	</div>
-	<div class="header_right">
-      <div class="btn">
-      <% unless logged_in? %> <%= link_to 'Login', login_path %> <%end-%>
+	 <div class="header_right">  
+      <div class="left_col ">
+        <p class="one">support@d2leads.com </p> 
+        <p class="two">615-823-7285</p>
+      </div>
+      <div class="right_col">
+        <p class="three">franklin tn  usa   </p>
+        <p class="four">ewatson200</p>
+      </div>
+      <div class="clear"></div>	
     </div>
-	  <div class="clear"></div>	
-	</div>
   </div>
- 
-<div class="spacing"></div>
   <div class="container">
-	<div class="wrapper">
-	  <h2>Automate your data list</h2>
+    <div class="wrapper">
+      <h2>Automate your data list</h2>
       <h2>Auto import and assign to sub-accounts</h2>
-	  <h2>Print with your data</h2>
+      <h2>Print with your data</h2>
     </div>
-
-    
-   <div class="clear"></div>
-   <div class="left_box">
-   <h3 class="first">Phone Append</h3>
+    <div class="btn"> 
+       <% unless logged_in? %>
+         <%= link_to 'Login', login_path %>
+       <%else-%>
+         <%= link_to 'Dashboard', dashboard_path %>
+       <%end-%>   
+    </div> 
+    <div class="clear"></div>
+    <div class="left_box">
+      <h3 class="first">Phone Append</h3>
       <p>Quickly and cost effectively add phone numbers to your customer list</p>
       <h3 class="second">Email Append</h3>
       <p>Add email address to your list with more than 500 million opt-in email addresses.</p>
     </div>
     <div class="right_box">
-	  <h3 class="third">Data Enhancement</h3>
+      <h3 class="third">Data Enhancement</h3>
       <p>Correct and enhance leads with NCOA,CASS append.</p>
-	  <h3 class="fourth">Auto Export </h3>
-	  <p>To any Xml compatible crm or lmt system turning data into leads!</p>
-   </div>
-  </div>
-  
-    <div class="clear"></div>
-
-    <div id="footer">
-
+      <h3 class="fourth">Auto Export </h3>
+      <p>To any Xml compatible crm or lmt system turning data into leads!</p>
     </div>
-
+  </div>
+  <div class="clear"></div>
+  <div id="footer">
+  
+  </div>
 </body>
 </html>

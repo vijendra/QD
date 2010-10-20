@@ -9,17 +9,25 @@ class DataAppend < ActiveRecord::Base
   belongs_to :requestor, :class_name => 'User', :foreign_key => :requestor_id
   has_many :appended_qd_profiles
   has_many :qd_profiles, :through => :appended_qd_profiles
+  AppendProducts = [['Append type', ''], ['Landline', 'll'], ['Mobile', 'mb'], ['Mobile & Landline', 'ml'], ['Email', 'em']]
+  
+  AppendXmlProduct = {'ll' => 'AppendPhoneToNameAddress_LandLine', 'mb' => 'AppendPhoneToNameAddress_CellLine', 'ml' => 'AppendPhoneToNameAddress_Composite', 'em' => 'AppendEmailToNameAddress'} 
+  
+  AppendProductDisplay = {'ll' => 'Landline', 'mb' => 'Mobile', 'ml' => 'Mobile & Landline', 'em' => 'Email'}
+  
   
   #TODO try to move this into some library
   def send_for_append
     unless tid.blank?
       trigger = TriggerDetail.find(tid)
       dealer = trigger.dealer
-      #construct the csv file name and open it for writing
+      #construct the csv and xml files and open them for writing
       fname = "#{dealer.id}-#{dealer.login}-#{Time.now.strftime('%d%M%Y')}-#{Time.now.strftime('%H%M')}.csv"
       csv_file = "#{RAILS_ROOT}/data_append_in/#{fname}"
-      File.new(csv_file, "w")
+      xml_file =  "#{RAILS_ROOT}/data_append_in/#{fname}.manifest.xml"
       
+      File.new(csv_file, "w")
+                 
       unless trigger.blank?
         qd_profiles = trigger.qd_profiles
         fields  = QdProfile::DATA_APPEND_FIELDS
@@ -33,9 +41,11 @@ class DataAppend < ActiveRecord::Base
             csv << headers.map{|key| eval("prof.#{fields[key]}")}
           end
         end
+        
+        construct_xml(xml_file)
+        
         self.update_attribute('csv_file_name', fname)
-
- 
+                
         #Now send the file for append thru FTP
         #TODO move this to delayed job.
         #----------------------------------------------------------------------------
@@ -48,9 +58,10 @@ class DataAppend < ActiveRecord::Base
           #logged in, ready to start copying files..."
           ftp.chdir('in')
   
-          #"uploading file 
+          #"uploading file s
     	    ftp.put(csv_file)
- 
+          ftp.put(xml_file)
+          
           #Quit the connection
           ftp.quit()
   
@@ -61,7 +72,12 @@ class DataAppend < ActiveRecord::Base
           self.send_at(10.minutes.from_now, :listen_to_append)
           
           FileUtils.rm_r csv_file
+          FileUtils.rm_r xml_file
           
+        rescue Errno::ETIMEDOUT
+          self.errors.add_to_base 'Seems append service is down. Please try after some time.'
+        rescue SystemCallError
+          self.errors.add_to_base 'Something went wrong. Please try after some time'
         rescue Net::FTPPermError => e
           #puts "Failed: #{e.message}"
           return false
@@ -127,5 +143,19 @@ class DataAppend < ActiveRecord::Base
       end   
     end
     FileUtils.rm_r csv_file
+  end
+  
+  def construct_xml(filename)
+    product = DataAppend::AppendXmlProduct[self.product]
+    columnmap = 'Unknown;FirstName;LastName;StreetAddress;City;State;PostalCode;'
+    
+    xml_file = File.new(filename, "a")
+    xml_file.puts('<?xml version="1.0" encoding="utf-8"?>')
+    #builder = Builder::XmlMarkup.new(:target => xml_file, :ident=>2)
+    builder = Builder::XmlMarkup.new(:ident=>2)
+    data = builder.file{|f| f.name(filename); f.product(product); f.columnmap(columnmap)}
+    data.gsub('<inspect />', '')
+    xml_file.puts(data)
+    xml_file.close
   end
 end

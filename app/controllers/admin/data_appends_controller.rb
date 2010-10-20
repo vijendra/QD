@@ -28,10 +28,18 @@ class Admin::DataAppendsController < ApplicationController
 
 
   def create
-    @data_append = DataAppend.new(params[:data_append])
-    if @data_append.save
-      redirect_to(:back, :notice => 'Data is successfully sent for append. Please check the results after 10 minutes.') 
-    end  
- 
+    if params[:data_append][:product].blank?
+      flash[:error] = "Records can't be sent for append. You must select append product type."
+      redirect_to :back
+    else
+      @data_append = DataAppend.new(params[:data_append])
+      if @data_append.save
+        redirect_to(:back, :notice => 'Data is successfully sent for append. Please check the results after 10 minutes.')  
+      else
+        #Display exception
+        flash[:error] = @data_append.each_full {|msg| msg}.join("<br />")
+        redirect_to :back
+      end  
+    end
   end
 end
