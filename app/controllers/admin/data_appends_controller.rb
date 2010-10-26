@@ -28,7 +28,7 @@ class Admin::DataAppendsController < ApplicationController
 
 
   def create
-    if params[:data_append][:product].blank?
+    if params[:product_types].blank?
       flash[:error] = "Records can't be sent for append. You must select append product type."
       redirect_to :back
     else

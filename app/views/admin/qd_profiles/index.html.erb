@@ -4,10 +4,23 @@
 <% end -%>
 
 <div id='trigger_qd_profile-list' >
-<table cellspacing=0 cellpadding=0 id='top-buttons'>  
+<table id='top-buttons'>  
     <tr>
-       <td class='hide-for-print' style ='vertical-align: bottom;'> <%= link_to("<span>Generate print file for all marked data</span>", print_file_url(:m => 1), :action => :get, :class=> "button")%> </td>
-       <td class='hide-for-print' style ='vertical-align: bottom;'> <%= link_to("<span>Generate print file for all un-marked data</span>", print_file_url(), :action => :get, :class=> "button")%> </td>
+       <td COLSPAN = "2"> <%= link_to("<span>Generate print file for all marked data</span>", print_file_url(:m => 1), :action => :get, :class=> "button")%>  
+         <%= link_to("<span>Generate print file for all un-marked data</span>", print_file_url(), :action => :get, :class=> "button")%> </td>
+    </tr>
+    <tr>   
+       <td>
+         Append type ->
+          <%= check_box_tag 'product_types[]', 'll' %> Landline 
+         <%= check_box_tag 'product_types[]', 'mb' %> Mobile
+         <%= check_box_tag 'product_types[]', 'em' %> Email
+         <%= check_box_tag 'product_types[]', 'nc' %> Ncoa
+           ->
+       </td>
+       <td> 
+         <%=link_to("<span>Send all selected data for append</span>", print_file_url(), :action => :get, :class=> "button") %> 
+       </td>
     </tr>
 </table>
  
@@ -26,7 +39,7 @@
 
  <div id = 'search-bar' style ="display:none ; clear:both"> <%=render :partial=> 'filters'%> </div>
  <div class='clear'> </div>
- <br />
+ 
 
    <div id='qd_profile-list'>
      <%=render :partial=> 'trigger_list'%>

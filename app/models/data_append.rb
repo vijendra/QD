@@ -2,7 +2,7 @@ class DataAppend < ActiveRecord::Base
   require 'net/ftp'
   require 'fileutils'
   
-  attr_accessor :tid, :profile_ids
+  attr_accessor :td_list, :profile_ids
   after_create :send_for_append
   
   belongs_to :dealer
@@ -42,7 +42,7 @@ class DataAppend < ActiveRecord::Base
           end
         end
         
-        construct_xml(xml_file)
+        construct_xml(xml_file, fname)
         
         self.update_attribute('csv_file_name', fname)
                 
@@ -145,7 +145,7 @@ class DataAppend < ActiveRecord::Base
     FileUtils.rm_r csv_file
   end
   
-  def construct_xml(filename)
+  def construct_xml(filename, fname)
     product = DataAppend::AppendXmlProduct[self.product]
     columnmap = 'Unknown;FirstName;LastName;StreetAddress;City;State;PostalCode;'
     
@@ -153,7 +153,7 @@ class DataAppend < ActiveRecord::Base
     xml_file.puts('<?xml version="1.0" encoding="utf-8"?>')
     #builder = Builder::XmlMarkup.new(:target => xml_file, :ident=>2)
     builder = Builder::XmlMarkup.new(:ident=>2)
-    data = builder.file{|f| f.name(filename); f.product(product); f.columnmap(columnmap)}
+    data = builder.file{|f| f.name(fname); f.product(product); f.columnmap(columnmap)}
     data.gsub('<inspect />', '')
     xml_file.puts(data)
     xml_file.close
