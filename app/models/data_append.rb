@@ -98,7 +98,7 @@ class DataAppend < ActiveRecord::Base
          
       end
     end  
-  endEmail Address
+  end 
 
   def listen_to_append
     begin
@@ -152,13 +152,12 @@ class DataAppend < ActiveRecord::Base
       qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
       unless qd_profile.blank?
         self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
-        case self.product
+        case self.product 
         when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
         when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
         when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
         when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
         end
-         
       end   
     end
     FileUtils.rm_r csv_file
