@@ -264,7 +264,7 @@ padding : 0.3em 1em;
 margin : 0.1em 0.1em 0em 0;
 background-color: #2e8b57;
 border: 2px solid #d6dfc6;
-font-weight: bold;#fafbfc;
+font-weight: bold; 
 }
 
 .error {
@@ -424,9 +424,9 @@ border : 1px solid #bbb;
 }
 
 table.listing th {
-background : #cbdcf2 url(/images/top-header.gif) repeat-x bottom /*#f1f1f1 url(/images/table-header.jpg) repeat-x bottom*/;
+background: #cbdcf2 url(/images/top-header.gif) repeat-x bottom; /*#f1f1f1 url(/images/table-header.jpg) repeat-x bottom*/
 
-color : #2A384D;
+color: #2A384D;
 text-align : left;
 padding : 0.5em 0.5em 0.6em;
 border : 1px solid #bbb;
@@ -734,13 +734,13 @@ a.button:hover {
     background-position: bottom right;
     color: #496877;
     outline: none; /* hide dotted outline in Firefox */
-    cursor: hand;
+    cursor: pointer;
 }
 
 a.button:hover span {
     background-position: bottom left;
     padding: 5px 0 5px 17px; /* push text down 1px */
-    cursor: hand;
+    cursor: pointer;
 }
 /*------------------------- links as buttons --------------*/
 
