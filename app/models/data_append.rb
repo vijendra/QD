@@ -98,7 +98,7 @@ class DataAppend < ActiveRecord::Base
          
       end
     end  
-  end
+  endEmail Address
 
   def listen_to_append
     begin
@@ -156,7 +156,7 @@ class DataAppend < ActiveRecord::Base
         when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
         when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
         when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
-        when 'em' then qd_profile.update_attribute('email', row.field('Email'))
+        when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
         end
          
       end   
