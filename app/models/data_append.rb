@@ -77,7 +77,7 @@ class DataAppend < ActiveRecord::Base
           self.update_attribute('csv_file_name', fname)
           
           #schedule listening for appended data
-          self.send_at(10.minutes.from_now, :listen_to_append)
+          self.send_at(5.minutes.from_now, :listen_to_append)
     
           FileUtils.rm_r csv_file
           FileUtils.rm_r xml_file
@@ -104,7 +104,7 @@ class DataAppend < ActiveRecord::Base
     begin
       found = false
       fname = self.csv_file_name
-      out_file = "#{RAILS_ROOT}/data_append_out/#{fname}"
+      out_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{fname}"
           
       ftp = Net::FTP.new('ftp.accurateappend.com')
       ftp.login('b2binnovations', 'innovator')
@@ -126,15 +126,16 @@ class DataAppend < ActiveRecord::Base
   
       if found == false
         #schedule it again after 10 minutes
-        self.send_at(10.minutes.from_now, :listen_to_append)
+        #self.send_at(10.minutes.from_now, :listen_to_append)
+        raise "Not yet processed"
       else
         #update status in the data_append object
         self.update_attribute('status_message', 'appended')  
       end
           
-    rescue Net::FTPPermError => e
+    #rescue Net::FTPPermError => e
       #schedule it again after 10 minutes
-      self.send_at(10.minutes.from_now, :listen_to_append)
+      #self.send_at(10.minutes.from_now, :listen_to_append)
     end
   end
  
@@ -151,7 +152,13 @@ class DataAppend < ActiveRecord::Base
       qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
       unless qd_profile.blank?
         self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
-        qd_profile.update_attribute('appended_landline', row.field('Land Line'))
+        case self.product
+        when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
+        when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
+        when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
+        when 'em' then qd_profile.update_attribute('email', row.field('Email'))
+        end
+         
       end   
     end
     FileUtils.rm_r csv_file
@@ -162,7 +169,6 @@ class DataAppend < ActiveRecord::Base
     columnmap = 'Unknown;FirstName;LastName;StreetAddress;City;State;PostalCode;'
     
     xml_file = File.new(filename, "a")
-      puts "ppppppppppppppppppppppppppp #{xml_file}"
     xml_file.puts('<?xml version="1.0" encoding="utf-8"?>')
     #builder = Builder::XmlMarkup.new(:target => xml_file, :ident=>2)
     builder = Builder::XmlMarkup.new(:ident=>2)

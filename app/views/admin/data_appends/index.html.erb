@@ -33,8 +33,8 @@
   </tr>
   <tr class = "<%=da.status_message %>">
      <td COLSPAN = '7'> 
-       <%= 'Data sent for append.' if da.status_message == 'sent' %>
-       <%= "Data appended succssfully on <span> #{da.completed_on.strftime('%d %M, %Y. %I:%M') unless da.completed_on.blank?}.</span> &nbsp; Matches: <span>#{da.matches}.</span> Errors: <span>#{da.total_errors}</span>" if da.status_message == 'appended' %>
+       <%= 'Sent for append.' if da.status_message == 'sent' %>
+       <%= "Appended successfully on <span> #{da.completed_on.strftime('%d %b, %Y. %I:%M %p') unless da.completed_on.blank?}.</span> &nbsp; Matches: <span>#{da.matches}.</span> Errors: <span>#{da.total_errors}</span>" if da.status_message == 'appended' %>
      </td>
   </tr>
 <% end %>
