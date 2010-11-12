@@ -8,7 +8,7 @@
     <th> Last Name </th>
     <th> Full address </th>
     <th> Phone </th>
-    <th> Appended landline </th>
+    <th> Appended <%= DataAppend::AppendProductDisplay[@data_append.product] %> </th>
   </tr>
 
 <% @appended_qd_profiles.each do |appended_qd_profile| %>
