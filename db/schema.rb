@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101015043436) do
+ActiveRecord::Schema.define(:version => 20101019163134) do
 
   create_table "account_resets", :force => true do |t|
     t.integer  "dealer_id"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20101015043436) do
     t.integer  "total_errors"
     t.integer  "matches"
     t.datetime "completed_on"
+    t.string   "product"
   end
 
   create_table "dealer_fields", :force => true do |t|
@@ -210,7 +211,7 @@ ActiveRecord::Schema.define(:version => 20101015043436) do
     t.string   "fhamtgbal"
     t.string   "bk_filing_date"
     t.string   "bk_status"
-    t.integer  "appended_landline"
+    t.string   "appended_landline"
   end
 
   create_table "roles", :force => true do |t|

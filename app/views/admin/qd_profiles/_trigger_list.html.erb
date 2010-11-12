@@ -14,12 +14,12 @@
        <th><%= remote_order_by_link(:marked, :text => "Printed?") %> </th>
        <th> Mark for print </th>
        <th> Print file </th>
-       <th> Append data </th>
+       <!-- <th> Append data </th> -->
    </tr>
-   <%form_for [:admin, DataAppend.new] do |f| -%>
+
      <% @triggers.each do |trigger| %>
        <tr class="<%= cycle('odd', 'even') %>">
-         <td> <%= check_box_tag("data_append[td_list][]", trigger.id, false, :id=> trigger.id)%></td>
+         <td> <%= check_box_tag("data_append[tid_list][]", trigger.id, false, :id=> trigger.id)%></td>
          <td> 
             <div class="calendar-date">
               <span class = 'cal'><%= image_tag("date.png") %></span>
@@ -52,48 +52,41 @@
                  <%= trigger.marked == 'printed'? 'Printed' : 'Unmarked' %>
               <% end %>
          </td>
-         
+        <!-- 
          <td style ='width: 380px; padding-left: 0px;'>
              <%= check_box_tag 'product_type[]', 'll' %> Landline &nbsp;
              <%= check_box_tag 'product_types[]', 'mb' %> Mobile &nbsp;
              <%= check_box_tag 'product_types[]', 'em' %> Email &nbsp;
-             <%= check_box_tag 'product_types[]', 'nc' %> NCOA | 
-             <%= f.hidden_field :requestor_id, :value => current_user.id %>
-             <%= f.hidden_field :no_of_records, :value => trigger.total_records %>
-             <%= f.hidden_field :dealer_id, :value => trigger.dealer.id %>
-             <%= f.hidden_field :tid_list, :value => trigger.id -%>
-             <%= f.hidden_field :status_message, :value => 'sent' -%>
+             <%= check_box_tag 'product_types[]', 'nc' %> NCOA  &nbsp;
+            
              
- 
              <%= submit_tag "Send", :confirm => "Are you sure, You want to send this data for append? " %>
            </td>
+           -->
         </tr>
       <% end %>
-    <%end-%>
+
   </table>
 
 
   <table class='table-bottom'>
-        <tr class="table-footer">
-
-  	    <td><%= remote_per_page_select %></td>
-
-            <td>
-                <% form_tag(admin_qd_profiles_path, :method => :get ) do %>
-                    <% fields_for @search do |f|%>
-                       <%= f.text_field :page, :class => 'textbox-tiny' %>
-                        <%= submit_tag 'Go' %>
-                    <%end%>
-                <%end%>
-            </td>
-
-            <td> <% unless  @triggers.blank? %>
+     <tr class="table-footer">
+       <td><%= remote_per_page_select %></td>
+       <td>
+          <% form_tag(admin_qd_profiles_path, :method => :get ) do %>
+            <% fields_for @search do |f|%>
+                 <%= f.text_field :page, :class => 'textbox-tiny' %>
+                 <%= submit_tag 'Go' %>
+            <%end%>
+           <%end%>
+        </td>
+        <td> <% unless  @triggers.blank? %>
                     <div class="pagination">
                        <%= remote_page_links %>
                     </div>
                  <% end %>
-            </td>
+        </td>
 
-         </tr>
+      </tr>
   </table>
-  <% end %>
+<% end %>

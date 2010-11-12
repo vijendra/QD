@@ -2,19 +2,27 @@ class DataAppend < ActiveRecord::Base
   require 'net/ftp'
   require 'fileutils'
   
-  attr_accessor :td_list, :profile_ids
+  attr_accessor :tid_list, :tid, :product_types, :profile_ids
   after_create :send_for_append
   
   belongs_to :dealer
   belongs_to :requestor, :class_name => 'User', :foreign_key => :requestor_id
   has_many :appended_qd_profiles
   has_many :qd_profiles, :through => :appended_qd_profiles
+   
   AppendProducts = [['Append type', ''], ['Landline', 'll'], ['Mobile', 'mb'], ['Mobile & Landline', 'ml'], ['Email', 'em']]
   
   AppendXmlProduct = {'ll' => 'AppendPhoneToNameAddress_LandLine', 'mb' => 'AppendPhoneToNameAddress_CellLine', 'ml' => 'AppendPhoneToNameAddress_Composite', 'em' => 'AppendEmailToNameAddress'} 
   
   AppendProductDisplay = {'ll' => 'Landline', 'mb' => 'Mobile', 'ml' => 'Mobile & Landline', 'em' => 'Email'}
   
+=begin  
+  def send_each_trigger_for_append
+    tid_list.each do |tid|
+      send_for_append(tid)
+    end
+  end
+=end
   
   #TODO try to move this into some library
   def send_for_append
@@ -23,8 +31,8 @@ class DataAppend < ActiveRecord::Base
       dealer = trigger.dealer
       #construct the csv and xml files and open them for writing
       fname = "#{dealer.id}-#{dealer.login}-#{Time.now.strftime('%d%M%Y')}-#{Time.now.strftime('%H%M')}.csv"
-      csv_file = "#{RAILS_ROOT}/data_append_in/#{fname}"
-      xml_file =  "#{RAILS_ROOT}/data_append_in/#{fname}.manifest.xml"
+      csv_file = "#{RAILS_ROOT}/data_appends/data_append_in/#{fname}"
+      xml_file =  "#{RAILS_ROOT}/data_appends/data_append_in/#{fname}.manifest.xml"
       
       File.new(csv_file, "w")
                  
@@ -70,7 +78,7 @@ class DataAppend < ActiveRecord::Base
           
           #schedule listening for appended data
           self.send_at(10.minutes.from_now, :listen_to_append)
-          
+    
           FileUtils.rm_r csv_file
           FileUtils.rm_r xml_file
           
@@ -81,9 +89,13 @@ class DataAppend < ActiveRecord::Base
         rescue Net::FTPPermError => e
           #puts "Failed: #{e.message}"
           return false
+        #rescue => e
+          #puts "Failed: #{e.message}"
+          #self.errors.add_to_base e.message  
+          #return false
         end
         #----------------------------------------------------------------------------
-       
+         
       end
     end  
   end
@@ -134,7 +146,7 @@ class DataAppend < ActiveRecord::Base
   end
   
   def import_appended_data
-    csv_file = "#{RAILS_ROOT}/data_append_out/#{self.csv_file_name}"
+    csv_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{self.csv_file_name}"
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
       qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
       unless qd_profile.blank?
@@ -150,6 +162,7 @@ class DataAppend < ActiveRecord::Base
     columnmap = 'Unknown;FirstName;LastName;StreetAddress;City;State;PostalCode;'
     
     xml_file = File.new(filename, "a")
+      puts "ppppppppppppppppppppppppppp #{xml_file}"
     xml_file.puts('<?xml version="1.0" encoding="utf-8"?>')
     #builder = Builder::XmlMarkup.new(:target => xml_file, :ident=>2)
     builder = Builder::XmlMarkup.new(:ident=>2)
