@@ -42,7 +42,7 @@ class DataAppend < ActiveRecord::Base
         headers = QdProfile:: DATA_APPEND_HEADERS
         FasterCSV.open(csv_file, "w") do |csv|
           #Exporting to CSV starts here.. Exporting headers
-          csv << headers.map{|field| field}
+          #csv << headers.map{|field| field}
  
           #Exporting data rows
           qd_profiles.each do |prof|
