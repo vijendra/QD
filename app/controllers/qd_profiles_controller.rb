@@ -89,6 +89,7 @@ class QdProfilesController < ApplicationController
     end
 
 =end
+
  def index
    @search = TriggerDetail.new_search(params[:search])
    unless params[:created_at].blank?
@@ -102,7 +103,8 @@ class QdProfilesController < ApplicationController
    @search.order_by ||= "created_at"
 
    @triggers = @search.all
-  
+   @pending_append = current_user.pending_data_apppends.blank?
+   
    @fields_to_be_shown = current_user.dealer_field.fields rescue []
 
    dealer = current_user.profile
@@ -250,16 +252,12 @@ class QdProfilesController < ApplicationController
     
     #only slected filed can shown
     QdProfile::FIELDS_TO_BE_SHOWN.map{ |key|
-     
        qd_profile_headers <<  QdProfile::QDPROFILE_HEADERS["#{key}"]  if fields_to_be_shown.include?("#{key}")
-          
- }
+    }
     
    
    csv_file = FasterCSV.generate do |csv|
-    
-   
-      csv <<  qd_profile_headers +['Exported date'] + dealer_profile_headers + variable_data_headers
+      csv <<  qd_profile_headers + ['Exported date'] + dealer_profile_headers + variable_data_headers
 
       #Exporting data rows
       qd_profiles.each do |prof|

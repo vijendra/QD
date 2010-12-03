@@ -7,7 +7,8 @@ class Dealer < User
   has_many :account_resets
   belongs_to :administrator
   has_many :data_apppends
-
+  has_many :pending_data_apppends, :conditions => ["status_message = 'sent'"], :class_name => 'DataAppend'
+  
   def self.dealers_list
     self.find(:all, :include => :profile).collect{|dealer| [dealer.profile.name, dealer.id] }
   end

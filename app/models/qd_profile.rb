@@ -9,13 +9,13 @@ class QdProfile < ActiveRecord::Base
   SEEKERNIC_LABELS = ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM' ]
   TRANSACTIS_LABELS = ['LIST ID', 'F NAME', 'M NAME', 'L NAME', 'SUFFIX', 'ADDRESS', 'CITY', 'STATE', 'ZIP', 'ZIP4', 'CRRT', 'DPC', 'PHONE_NUM', 'ADDRESS 2', ' LEVEL', 'AUTO17', 'PR01']
 
-  QDPROFILE_HEADERS = { 'listid' => 'Order id', 'fname' => 'First Name' ,'mname' => 'Mid Name','lname' => 'Last Name', 'suffix' =>'suffix', 'address' => 'address','address2' => 'address2','city' => 'city', 'state' => 'state','zip' => 'zip','zip4' => 'zip4','crrt' =>'ccrt','dpc' => 'dpc','phone_num' =>'Phone' ,'pr01' => 'pr01' ,'fico' => 'fico' }
+  QDPROFILE_HEADERS = { 'listid' => 'Order id', 'fname' => 'First Name' ,'mname' => 'Mid Name','lname' => 'Last Name', 'suffix' =>'suffix', 'address' => 'address','address2' => 'address2','city' => 'city', 'state' => 'state','zip' => 'zip','zip4' => 'zip4','crrt' =>'ccrt','dpc' => 'dpc','phone_num' =>'Phone', 'landline' => 'Appended landline', 'mobile' => 'Appended mobile', 'email' => 'Appended email' }
  
   QDPROFILE_CSV_HEADERS = ['Order id','First Name','Mid Name','Last Name','Suffix','Address','City', 'State','Zip', 'Zip4','Ccrt', 'dpc', 'Phone','fico', 'PR01', 'HE_LENDERNAME', 'MTG_LENDERNAME', 'REV16', 'REV24', 'MKTVAL02_RANGE', 'MKTVAL02', 'FHAMTGBAL', 'BK_FILING_DATE', 'BK_STATUS']
 
   QDPROFILE_CSV_FIELDS = ['listid','fname','mname','lname','suffix','address','city','state','zip','zip4','crrt','dpc','phone_num','pr01','fico', 'he_lendername', 'mtg_lendername', 'rev16', 'rev24', 'mktval02_range', 'mktval02', 'fhamtgbal', 'bk_filing_date','bk_status' ]
   
-  FIELDS_TO_BE_SHOWN =  ['listid','fname','mname','lname','suffix','address','address2','city','state','zip','zip4','crrt','dpc','phone_num', 'pr01', 'fico', 'he_lendername', 'mtg_lendername', 'rev16', 'rev24', 'mktval02_range', 'mktval02', 'fhamtgbal']
+  FIELDS_TO_BE_SHOWN =  ['listid','fname','mname','lname','suffix','address','address2','city','state','zip','zip4','crrt','dpc','phone_num', 'landline', 'mobile', 'email' ]
 	
 
   IMPORT_FILE_FIELDS = {'LISTID' => 'listid', 'LNAME' => 'lname', 'FNAME' => 'fname', 'MI' => 'mname',  
