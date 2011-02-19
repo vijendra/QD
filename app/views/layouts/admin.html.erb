@@ -30,7 +30,7 @@
 <body>
 
   <div id="header">
-    <h1>Quick Data Robot </h1>
+    <h1>D2 Leads </h1>
     
     <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
@@ -46,6 +46,7 @@
      <div id="screen">
        <p class="head"><%= image_tag('bricks.png') %> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></p>
         <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
+        <hr />
         <%= yield %>
       </div>
   </div>

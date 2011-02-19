@@ -47,22 +47,22 @@
   <br /><br />
 
   <hr />
-
-   <% unless @trigger_details.blank? %>
-     <b> Listing Trigger Details </b><br /><br />
-     <table class='listing'>
-         <tr> <th> Trigger Detail Imported On </th>
+   <table class='listing'>
+     <% unless @trigger_details.blank? %>
+       <b> Listing Trigger Details </b><br /><br />
+      <tr> 
+       <th> Trigger Detail Imported On </th>
        <th> Previous Balance </th>
        <th> Total Records </th>
        <th> Balance</th>
-    </tr>
+      </tr>
     <% @trigger_details.each do |trigger| %>
       <tr>
           <td> <%=h Time.parse(trigger.created_at.to_s).to_date %>  </td>
           <td> <%= trigger.balance.blank? ? trigger.total_records : (trigger.balance + trigger.total_records) %></td>
-          <td><%=h trigger.total_records %></td>
+          <td> <%=h trigger.total_records %></td>
           <td> <%=h  trigger.balance %></td>
-          </tr>
+      </tr>
 
     <%end%>
    </table>

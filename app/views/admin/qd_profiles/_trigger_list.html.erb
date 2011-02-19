@@ -29,7 +29,8 @@
          </td>
 
          <td> <%= trigger.order_number  %></td>
-         <td> <%= image_tag("user.png")%> <%= trigger.dealer.profile.name  %></td>
+         <td><%= image_tag("user.png")%> <%= link_to trigger.dealer.profile.name, edit_admin_dealer_path(trigger.dealer.id) %> </td>
+          
          <td> <%= trigger.total_records %> </td>
          <td> <%= (trigger.marked == 'yes' ||  trigger.marked == 'printed') ? (trigger.marked == 'printed'? 'Printed': 'Yes') : 'No' -%> </td>
          <td> 

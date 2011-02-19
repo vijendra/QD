@@ -1,6 +1,10 @@
 <% content_for :header do %>
    Listing all data sent for append
 <% end -%>
+<div class = 'left'>
+   <%= link_to("<span>Send to NCOA append</span>", ncoa_append_admin_data_appends_path() , :class => 'button')%> 
+</div>
+
 <div class = 'right'>
   <% unless @data_appends.blank? %>
      <div class="pagination">
@@ -9,6 +13,7 @@
   <% end %> 
 </div>
 <div class = 'clear'> </div>
+<br />
   
 <table class='listing'>
   <tr>

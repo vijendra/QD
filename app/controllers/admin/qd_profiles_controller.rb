@@ -122,7 +122,7 @@ class Admin::QdProfilesController < ApplicationController
       @search.conditions.created_at_after   = "#{start_date}#{time}"
       @search.conditions.and_created_at_before = "#{end_date}"
     end
-    @search.per_page ||= 25
+    @search.per_page = 50
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
     @search.include = [[:dealer], [:dealer => :profile]]

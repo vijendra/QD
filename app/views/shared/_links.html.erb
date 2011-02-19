@@ -8,7 +8,7 @@
 
    <% if admin? -%><%= link_to "Dealers", admin_dealers_url , :class => ('current' if request.request_uri =~ /dealers/) %> <% end -%>
 
-   <% if super_admin? -%><%= link_to "Admin list", admin_administrators_url() , :class => ('current' if request.request_uri =~ /administrators/)%> <% end -%>
+   <% if super_admin? -%><%= link_to "Admins", admin_administrators_url() , :class => ('current' if request.request_uri =~ /administrators/)%> <% end -%>
 
    <% if admin? -%><%= link_to "Triggers", admin_trigger_details_url() , :class => ('current' if request.request_uri =~ /trigger_details/)%> <% end -%>
 
@@ -17,7 +17,5 @@
    <%end-%>
 
     <% if admin? -%><%= link_to "Data appends", admin_data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current last' : 'last') %><% end -%>
-    
-    <% unless admin? -%><%= link_to "Data appends",  data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current last' : 'last') %><% end -%>
    
 <% end %>

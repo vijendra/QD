@@ -9,7 +9,7 @@ class Admin::DealersController < ApplicationController
     @search = Dealer.new_search(params[:search])
     @params = params[:search]
     @search.page ||=1
-    @search.per_page ||=10
+    @search.per_page  = 50
     @search.order_as ||= "DESC"
     @search.order_by ||= "id"
     @search.include = [:profile, :dealer_field]

@@ -7,8 +7,6 @@ class Admin::TriggerDetailsController < ApplicationController
  
   def index
     @search = TriggerDetail.new_search(params[:search])
- 
- 
     if params[:type] == "processed"
       @search.conditions.status = "processed"
       @type = "processed"
@@ -17,7 +15,7 @@ class Admin::TriggerDetailsController < ApplicationController
        @search.conditions.status = "unprocessed"
     end
  
-    @search.per_page ||= 15
+    @search.per_page  = 50
     @search.page ||= 1
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
@@ -26,7 +24,7 @@ class Admin::TriggerDetailsController < ApplicationController
  
     unless params[:today].blank?
       @search.conditions.created_at_after = Time.now.beginning_of_day()
-       params[:today] = nil
+      params[:today] = nil
     end
  
     unless params[:created_at].blank?
@@ -64,7 +62,7 @@ def process_triggers
    
     unless dealer.blank?
       dealer_profile = dealer.profile
-      if trigger.total_records <= trigger.balance && !trigger.file_url.blank?
+      if trigger.total_records <= dealer_profile.current_balance && !trigger.file_url.blank?
 	  
         if trigger.data_source == 'seekerinc'
           #Logging in
@@ -115,7 +113,7 @@ def process_triggers
           #Now we will directly construct link, instead of mimicng csv link click, as its quite difficult
           csv_link_string = "https://intelidataexpress.tranzactis.com/file/download.aspx?objectid=#{object_id}"
 =begin
-#Before tt was asking to login again. Now its working fine.
+          #Before tt was asking to login again. Now its working fine.
           page = agent.get(csv_link_string)
           login_form = page.forms[0]
           login_form.username = 'ewatson@mailadvanta.com'
@@ -127,33 +125,33 @@ def process_triggers
           agent.get(csv_link_string).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
           orders_csv = File.join(ORDERS_DOWNLOAD_PATH, csv_file_name)
         end
-	# import to the corresponding dealer
-        balance = trigger.balance - trigger.total_records.to_i
-	FasterCSV.foreach(orders_csv, :headers => :false) do |row|
-	  data_set = {:dealer_id => trigger.dealer_id, :trigger_detail_id => trigger.id }
-	  row.each do |col|
-	    data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID' unless field_list[col.first].blank?
-	  end
+	      # import to the corresponding dealer
+        balance = dealer_profile.current_balance - trigger.total_records.to_i
+	      FasterCSV.foreach(orders_csv, :headers => :false) do |row|
+	        data_set = {:dealer_id => trigger.dealer_id, :trigger_detail_id => trigger.id }
+	        row.each do |col|
+	          data_set[field_list[col.first]] = col.second unless col.first == 'ORDERRECORDID' unless field_list[col.first].blank?
+	        end
           data_set['listid'] = "#{trigger.order_number}_#{row.field('ORDERRECORDID')}" if trigger.data_source == 'marketernet'
-	  QdProfile.create(data_set)
+	        QdProfile.create(data_set)
         end
-	dealer_profile.update_attribute('current_balance', balance)
+      	dealer_profile.update_attribute('current_balance', balance)
         trigger.update_attribute('balance', balance )
-        trigger.process!
+        trigger.make_processed
 	   
-	#generate masked csv to be attached to the dealer's mail
+	      #generate masked csv to be attached to the dealer's mail
         generate_csv_file(trigger, dealer_profile)
  
         #sending mail with account information
         send_mail(dealer_profile, trigger.total_records, balance, trigger.order_number, attachment)
        
-	#delete the downloded folder
-	if trigger.data_source == 'seekerinc'
-	  FileUtils.rm_r zipped_order
+      	#delete the downloded folder
+      	if trigger.data_source == 'seekerinc'
+	        FileUtils.rm_r zipped_order
           FileUtils.rm_r File.join(ORDERS_DOWNLOAD_PATH, "#{dealer.login}_#{trigger.order_number}")
-	else
-	  FileUtils.rm_r orders_csv
-	end 
+	      else
+	        FileUtils.rm_r orders_csv
+	      end 
    
       end # if condition
     end # unless condition

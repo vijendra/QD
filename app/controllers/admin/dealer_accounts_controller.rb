@@ -1,6 +1,6 @@
 class Admin::DealerAccountsController < ApplicationController
   before_filter :find_dealer
-
+  require_role 'super_admin'
 
   def index
      @trigger_details = @dealer.trigger_details
