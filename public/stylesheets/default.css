@@ -34,9 +34,9 @@ quotes : "" "";
 }
 
 body {
-font-size : 82%;
+font-size : 80%;
 font-family : Arial, verdana, "Helvetica Neue", Geneva, sans-serif;
-color : #2a2f38;
+color : #000;
 background-color : #f1f1f1;
 margin : 0;
 padding : 0;
@@ -231,14 +231,11 @@ width : 81%;
 clear: both;
 color : #666; /*#3e6e93;*/
 font-weight : bold;
-padding : 0px 5px 0px 35px;
- 
- 
+padding : 10px 5px 5px 35px;
+
 font-size : 16px;
 /*background: #cbdcf2 url(/images/top-header.gif) repeat-x bottom; #f1eee8 */
- 
-margin: 35px -30px 0px -30px;
- 
+margin: 25px -30px 0px -30px;
 }
 
 .head a {
@@ -460,7 +457,7 @@ table.listing td {
 padding : 0.4em 0.5em 0.4em 0.5em;
 color : #2a2f38;
 border-bottom : 1px solid #ccc;
- background : #f8f8f8;
+ background : #fff;
 
 }
 
@@ -475,8 +472,8 @@ table.listing td.fixed {
  
 }
 
-table.listing tr.even td { background : #f7f8f8; }
-.listing tr.odd td  { background : #f7f8f8; }
+table.listing tr.even td { background : #fff; }
+.listing tr.odd td  { background : #fff; }
 
 table.listing tr.processed td {
 background : #eff9ef;

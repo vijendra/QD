@@ -39,8 +39,8 @@ class Admin::TriggerDetailsController < ApplicationController
       format.html # index.html.erb
       format.xml { render :xml => @dealer }
       format.js { render :update do |page|
-       page.replace_html 'trigger-list', :partial => 'trigger_details_list'
-      end
+                    page.replace_html 'trigger-list', :partial => 'trigger_details_list'
+                   end
        }
     end
   end

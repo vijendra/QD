@@ -34,7 +34,44 @@ class DataAppend < ActiveRecord::Base
     end  
   end
     
-  #TODO try to move this into some library
+  def send_for_ncoa_append
+    dummy_file = "#{RAILS_ROOT}/data_appends/dummy_records.csv"
+    trigger = TriggerDetail.find(tid)
+    unless trigger.blank?
+      csv_file = construct_csv(trigger)
+      if trigger.total_records < 100
+        #NCOA needs min 100 records to process. So append some dummy records.
+        FasterCSV.open(csv_file, "a") do |csv|
+          FasterCSV.foreach(dummy_file, :headers => :false) do |row|
+            csv << row
+          end
+        end  
+      end
+      
+      # Open FTP connection. Change to "in" folder. Upload files. Quit the connection 
+      #begin
+        ftp = ftp_connection('btobinnovations.com', 'admin', 'watson1', '2111')
+        ftp.chdir('in')
+    	  ftp.put(csv_file)
+        ftp.put(xml_file)
+        ftp.quit()
+      #rescue Errno::ETIMEDOUT
+        #self.errors.add_to_base 'Append service is down. Please try after some time.'
+      #rescue SystemCallError
+        #self.errors.add_to_base 'Something went wrong. Please try after some time'
+      #rescue => e
+        #return false
+      #end
+       
+      # Schedule listening for appended data
+      self.send_at(5.minutes.from_now, :listen_to_append)
+      #update file name in append record
+      self.update_attribute('csv_file_name', csv_file.gsub("#{RAILS_ROOT}/data_appends/data_append_in/", '') )
+      remove_file(csv_file)
+      remove_file(xml_file)  
+    end
+  end
+  
   def send_for_other_appends
     unless tid.blank?
       trigger = TriggerDetail.find(tid)
@@ -67,8 +104,9 @@ class DataAppend < ActiveRecord::Base
     end  
   end 
   
-  def ftp_connection(ftp_server, username, password)
-    ftp = Net::FTP.new(ftp_server)
+  def ftp_connection(ftp_server, username, password, port=nil)
+    ftp = Net::FTP.new
+    ftp.connect(ftp_server, 2111)
     ftp.login(username, password)
     ftp.passive = true
     return ftp
