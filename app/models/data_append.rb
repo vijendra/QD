@@ -49,26 +49,24 @@ class DataAppend < ActiveRecord::Base
       end
       
       # Open FTP connection. Change to "in" folder. Upload files. Quit the connection 
-      #begin
-        ftp = ftp_connection('btobinnovations.com', 'admin', 'watson1', '2111')
+      begin
+        ftp = ftp_connection('btobinnovations.com', 'admin', 'watson01', 2111)
         ftp.chdir('in')
-    	  ftp.put(csv_file)
-        ftp.put(xml_file)
+    	  #ftp.put(csv_file)
         ftp.quit()
-      #rescue Errno::ETIMEDOUT
-        #self.errors.add_to_base 'Append service is down. Please try after some time.'
-      #rescue SystemCallError
-        #self.errors.add_to_base 'Something went wrong. Please try after some time'
-      #rescue => e
-        #return false
-      #end
+      rescue Errno::ETIMEDOUT
+        self.errors.add_to_base 'Append service is down. Please try after some time.'
+      rescue SystemCallError
+        self.errors.add_to_base 'Something went wrong. Please try after some time'
+      rescue => e
+        return false
+      end
        
       # Schedule listening for appended data
       self.send_at(5.minutes.from_now, :listen_to_append)
       #update file name in append record
       self.update_attribute('csv_file_name', csv_file.gsub("#{RAILS_ROOT}/data_appends/data_append_in/", '') )
       remove_file(csv_file)
-      remove_file(xml_file)  
     end
   end
   
@@ -106,7 +104,7 @@ class DataAppend < ActiveRecord::Base
   
   def ftp_connection(ftp_server, username, password, port=nil)
     ftp = Net::FTP.new
-    ftp.connect(ftp_server, 2111)
+    ftp.connect(ftp_server, port)
     ftp.login(username, password)
     ftp.passive = true
     return ftp
@@ -118,7 +116,8 @@ class DataAppend < ActiveRecord::Base
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_in/#{identifier}"
     fields  = QdProfile::DATA_APPEND_FIELDS
     FasterCSV.open(csv_file, "w") do |csv|
-    #Exporting data rows
+      csv << QdProfile::DATA_APPEND_HEADERS
+      #Exporting data rows
       trigger.qd_profiles.each do |qd_profile|
         csv << QdProfile::DATA_APPEND_HEADERS.map{|key| eval("qd_profile.#{fields[key]}")}
       end
@@ -148,17 +147,24 @@ class DataAppend < ActiveRecord::Base
       found = false
       csv_file = self.csv_file_name
       out_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{csv_file}"
-          
-      ftp = ftp_connection('ftp.accurateappend.com', 'b2binnovations', 'innovator')
+      if self.product == 'ncoa'   
+        ftp = ftp_connection('btobinnovations.com', 'admin', 'watson01', 2111)
+      else
+        ftp = ftp_connection('ftp.accurateappend.com', 'b2binnovations', 'innovator')
+      end
+      
       ftp.chdir('out')
  
       ftp.list('*.csv').each do |file|
         if file =~ Regexp.new(csv_file)
           found = true
           ftp.getbinaryfile(csv_file, out_file)
-          ftp.getbinaryfile("#{csv_file}.manifest.xml", "#{out_file}.manifest.xml")
           import_appended_data
-          parse_output_xml("#{out_file}.manifest.xml")
+          
+          unless self.product == 'ncoa'  
+            ftp.getbinaryfile("#{csv_file}.manifest.xml", "#{out_file}.manifest.xml")
+            parse_output_xml("#{out_file}.manifest.xml")
+          end  
         end  
       end
 
@@ -167,7 +173,6 @@ class DataAppend < ActiveRecord::Base
       if found == false
         raise "Not yet processed"
       else
-        #update status in the data_append object
         self.update_attribute('status_message', 'appended')  
       end
           
@@ -187,18 +192,23 @@ class DataAppend < ActiveRecord::Base
   
   def import_appended_data
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{self.csv_file_name}"
+    profiles = TriggerDetail.find(tid)
+    
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
       qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
-      unless qd_profile.blank?
-        self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
-        case self.product 
-        when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
-        when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
-        when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
-        when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
-        end
-      end   
-    end
+      if profiles.include?(qd_profile)
+        unless qd_profile.blank?
+          self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
+          case self.product 
+          when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
+          when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
+          when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
+          when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
+          when 'ncoa' then qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('state'), 'zip' => row.field('zip'))
+          end
+        end   
+      end
+    end  
     remove_file(csv_file)
   end
   

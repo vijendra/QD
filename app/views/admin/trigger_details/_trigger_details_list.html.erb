@@ -31,7 +31,7 @@
               <%= Time.parse(trigger.created_at.to_s).strftime('%b %d, %Y')%>
             </div>
          </td>
-         <td> <%= "#{image_tag("user.gif")} #{trigger.dealer.profile.name}" %> </td>
+         <td><%= image_tag("user.png")%> <%= link_to trigger.dealer.profile.name, edit_admin_dealer_path(trigger.dealer.id) %>  </td>
          <td> <%= "#{image_tag("database.gif")} #{trigger.data_source}" %> </td>
          <td> <%= trigger.order_number %> </td>
 	 <td> <%= trigger.total_records %> </td>
