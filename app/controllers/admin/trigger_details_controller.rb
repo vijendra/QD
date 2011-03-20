@@ -175,7 +175,7 @@ def process_triggers
   protected
  
   def send_mail(dealer_profile, total, balance, order, attachment)
-    email = DealerMailer.deliver_dealer_accounts_notification(dealer_profile, total, balance, order, attachment)
+     DealerMailer.deliver_dealer_accounts_notification(dealer_profile, total, balance, order, attachment)
   end
  
   def generate_csv_file(trigger, dealer_profile)
