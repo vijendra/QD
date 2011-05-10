@@ -1,25 +1,85 @@
 class DncNumber < ActiveRecord::Base
   $config = YAML.load_file(File.join(File.dirname(__FILE__), '../../config/database.yml'))
   self.establish_connection  $config["dnc_database"]
+  require 'zip/zipfilesystem'
   
-  def fetch_dnc_numbers(dealer)
+  def self.fetch_dnc_numbers(dealer)
     agent = WWW::Mechanize.new
-    page = agent.get(trigger.file_url)
+    page = agent.get('https://telemarketing.donotcall.gov/login/login.aspx?ReturnUrl=%2fdownload%2fdnld.aspx')
+    #First login form
     login_form = page.forms[0]
-    login_form.order_id = dealer.file_id
-    login_form.order_pass = dealer.file_password
-    page = agent.submit(login_form)
+
+    login_form.field_with(:name => 'ctl00$MainContentPlaceHolder$ActNumberTextBox').value = dealer.profile.dnc_user_name
+    login_form.field_with(:name => 'ctl00$MainContentPlaceHolder$ActPassTextBox').value = dealer.profile.dnc_password
+    login_form.radiobutton_with(:value => 'DownloaderRoleRadioButton').check
+    login_form.action = 'https://telemarketing.donotcall.gov/login/login.aspx?ReturnUrl=%2fdownload%2fdnld.aspx'
+    certify_page = agent.submit(login_form, login_form.buttons.first)
     
-    agent.get(csv_link_string).save_as(File.join(ORDERS_DOWNLOAD_PATH, csv_file_name))
-    dnc_csv = File.join(ORDERS_DOWNLOAD_PATH, csv_file_name)
+    #Once logged in, asks for certify
+    certify_form = certify_page.forms[0]
+    certify_form.radiobutton_with(:value => 'YES').check
+    certify_form.action = 'https://telemarketing.donotcall.gov/login/login.aspx?ReturnUrl=%2fdownload%2fdnld.aspx'
+    agent.submit(certify_form, certify_form.buttons.first)
     
-    FasterCSV.foreach(orders_csv, :headers => :false) do |row|
-      number = row.field('number')
-      #mark the profile as dnd
-      profile = dealer.qd_profiles.by_landline(number).first || dealer.qd_profiles.by_mobile(number).first
-      profile.update_attribute('dnd', true) unless profile.blank?
+    #Once certified asks for clicking on full list of updates
+    download_types_page = agent.get('https://telemarketing.donotcall.gov/download/dnldfull.aspx')
+    download_types_form = download_types_page.forms[0]
+    download_types_form.radiobutton_with(:value => 'txt').check
+    download_page = agent.submit(download_types_form, download_types_form.buttons.first)
+    
+    download_links = download_page.links_with(:href => /dnldredrct.aspx/)
+    unless download_links.blank?
+      download_links.each do |link|
+        download_dnc_files(link, dealer)
+      end  
+    end  
+  end
+  
+  protected
+  
+  def self.download_dnc_files(link, dealer)
+    agent = WWW::Mechanize.new
+    append_folder = "#{RAILS_ROOT}/data_appends/"
+    begin
+      #When we click on download link, it redirects to new page, if the file is already downloaded once. 
+      #So we will construct the url like below, directly instead of handling such situations.
+      #download link https://telemarketing.donotcall.gov/full/2011-3-27_24036554E44-EAB3-4167-B3BF-13E73EE57B8A.txt.zip
+      base = "https://telemarketing.donotcall.gov/full/"
+      file_num = "#{link.text}_#{link.href.gsub('dnldredrct.aspx?SetNm=', '').upcase}"
+      file_link =  "#{base}#{Time.now.strftime('%Y-%m-%d').gsub('-0', '-')}_#{file_num}.txt.zip"
+      target_file = "#{append_folder}/#{file_num}.txt"  
+        
+      agent.get(file_link).save_as("#{target_file}.zip")
       
-      self.create(:number => row.field('number'), :dealer_id => dealer.id)
+      zipped_order = File.join(append_folder, "#{file_num}.txt.zip")
+      unzip_dnc_file(zipped_order, target_file)
+      read_dnc_file(target_file, dealer)
+    rescue Exception => e  
+      logger.error("Error downloading file: #{link}   #{e.to_s}")   
     end
   end
+    
+  def self.unzip_dnc_file(zipped_order, file_name)
+    begin
+      #unzipping the order
+      Zip::ZipFile.open(zipped_order) do |zip|
+        dir = zip.dir
+        dir.entries('.').each do |entry|
+          zip.extract(entry, file_name) { true }
+        end
+      end  
+    rescue Exception => e
+      log_error("Error unzipping file: #{zipped_order}  #{e.to_s}")   
+    end    
+  end
+    
+  def self.read_dnc_file(target_file, dealer)
+    phone_numbers = ""
+    File.new(target_file, "r").each do |number|
+      phone_number = (number.sub /.+,/, '').gsub(/[\n]+/, ""); #extract 9919981 from 571,9919981/n
+      qd_profile = dealer.qd_profiles.find(:first, :conditions => ['phone_num in ? OR mobile in ? OR landline in ?', "(#{phone_number})", "(#{phone_number})", "(#{phone_number})"])
+      qd_profile.update_attribute('dnc', true) unless qd_profile.blank?
+    end
+  end  
+  
 end

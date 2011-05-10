@@ -73,7 +73,7 @@ for data in @profiles
   p_pdf.bounding_box([50, box.top - 500], :width => box.right - 60) do
     p_pdf.text "<indent> <b>Here's what you can expect when you arrive: </b></indent>"
     p_pdf.tags[:indent] = { :width => "3em", :font_size => "1.1em", :font_family => "Times-Roman" }
-    p_pdf.text "<indent> 1. Programs available with as little as no money down. </indent>"
+    p_pdf.text "<indent> 1. Programs with little or no money down. </indent>"
     p_pdf.text "<indent> 2. No Hassle credit check. </indent>"
     p_pdf.text "<indent> 3. Vehicles with set pricing and No Haggling. </indent>"
   end

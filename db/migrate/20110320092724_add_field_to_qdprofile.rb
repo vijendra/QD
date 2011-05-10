@@ -1,6 +1,6 @@
 class AddFieldToQdprofile < ActiveRecord::Migration
   def self.up
-    add_column :qd_profiles, :dnd, :boolean, :default => false
+    add_column :qd_profiles, :dnc, :boolean, :default => false
   end
 
   def self.down

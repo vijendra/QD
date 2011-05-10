@@ -62,8 +62,8 @@ class QdProfile < ActiveRecord::Base
   named_scope :to_be_unmark_printed, {:conditions => ["status like ?",  "new"] }
   named_scope :to_be_dealer_printed, {:conditions => ["dealer_marked like ?",  "yes"] }
   
-  named_scope :by_landline, lambda{|num| :conditions => ["landline = ?",  num] }
-  named_scope :by_mobile, lambda{|num| :conditions => ["mobile = ?",  num] }
+  #named_scope :by_landline, lambda{|num| :conditions => ["landline = ?",  num] }
+  #named_scope :by_mobile, lambda{|num| :conditions => ["mobile = ?",  num] }
   
   def full_addrress
     "#{address}, #{city}, #{state} - #{zip}"

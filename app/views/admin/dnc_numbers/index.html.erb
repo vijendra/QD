@@ -1,0 +1,27 @@
+<% unless @qd_profiles.blank? -%>
+  <table class='listing'>
+       <tr>
+       <th> First Name </th>
+       <th> Last Name </th>
+       <th> Full address </th>
+       <th> Phone </th>
+       <th> Mobile </th>
+       <th> Landline </th>
+       <th> Dealer  </th>
+ 
+   </tr>
+
+   <% @qd_profiles.each do |profile| %>
+      <tr  class="<%= cycle('odd', 'even')%>">
+           <td> <%=h profile.fname %> </td>
+           <td> <%=h profile.lname  %>
+           <td> <%=h profile.full_addrress %> </td>
+           <td> <%=h profile.phone_num %> </td>
+           <td> <%=h profile.mobile %> </td>
+           <td> <%=h profile.landline %> </td>
+           <td> <%= link_to profile.dealer.profile.name,  assign_dealer_admin_qd_profile_path(profile.id),:rel => "facebox" %> </td>
+       </tr>
+
+    <% end %>
+   </table>
+<%end-%>
