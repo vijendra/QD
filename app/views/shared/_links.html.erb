@@ -16,7 +16,7 @@
      <%= link_to "Print file settings" , (current_user.csv_extra_field.nil? ? new_dealer_print_file_field_path(current_user) : edit_dealer_print_file_field_path(current_user)), :class => ('current' if request.request_uri =~ /print_file_field/) %>
    <%end-%>
 
-    <% if admin? -%>
+    <% if(admin? || super_admin?) -%>
       <%= link_to "Data appends", admin_data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current' : '') %>
       <%= link_to "DNC numbers", admin_dnc_numbers_path, :class => (request.request_uri =~ /dnc_numbers/ ? 'current last' : 'last') %>
     <% end -%>
