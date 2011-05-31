@@ -19,7 +19,7 @@
        <tr> <th> Password : </th> <td><%= "#{"*"*8} <small>#{link_to_if !@administrator.deleted?, "send new password",  reset_password_admin_administrator_path(@administrator.id) ,:method => :put }</small>" %></td></tr>
        <tr> <th> Account created </th> <td><%=  @administrator.created_at.to_s(:long) %> </td> </tr>
 	     <tr> <th> Last updated : </th> <td> <%=  @administrator.updated_at.to_s(:long) %> </td> </tr>
-     
+
 
 
     <% f.fields_for :administrator_profile do |administrator_profile_form| %>
@@ -33,11 +33,12 @@
         <tr><th>Fax :</th><td><%= administrator_profile_form.text_field :fax ,:class =>"textbox" %>
           <tr><th>Phone :</th><td> <%= administrator_profile_form.text_field :phone_1 ,:class =>'textbox-tiny' %>-<%= administrator_profile_form.text_field :phone_2,:class =>'textbox-tiny'  %>-<%= administrator_profile_form.text_field :phone_3,:class =>'textbox-tiny'  %></td></tr>
 
-       <tr> <th>Comments:</th><td>
-                           <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
+       <tr> <th>Comments:</th><td> <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
+       <tr> <th>Marketernet username:</th><td> <%= administrator_profile_form.text_field :datasource_username,:class =>'textbox'  %></td></tr>
+       <tr> <th>Marketernet password:</th><td> <%= administrator_profile_form.text_field :datasource_password,:class =>'textbox'  %></td></tr>
 
 
-  
+
 
      <%end%>
 
@@ -71,3 +72,4 @@
 <br />
 <br />
 <br />
+

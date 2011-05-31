@@ -37,7 +37,8 @@ Creating a new Administrator Record.
 
        <tr> <th>Comments:</th><td>
                            <%= administrator_profile_form.text_area :comments,:class =>'textbox'  %></td></tr>
-
+<tr> <th>Marketernet username:</th><td> <%= administrator_profile_form.text_field :datasource_username,:class =>'textbox'  %></td></tr>
+       <tr> <th>Marketernet password:</th><td> <%= administrator_profile_form.text_field :datasource_password,:class =>'textbox'  %></td></tr>
 
      <%end%>
       <% f.fields_for :address do |address_form| %>
@@ -54,3 +55,4 @@ Creating a new Administrator Record.
 <% end -%>
 
 <%= link_to 'Back', admin_administrators_path %>
+

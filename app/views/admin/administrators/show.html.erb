@@ -55,6 +55,8 @@
     <tr><th>Fax :</th><td><%=  @administrator.administrator_profile.fax%> </td></tr>
     <tr><th>Phone :</th><td><%=  @administrator.administrator_profile.phone_1%>-<%=  @administrator.administrator_profile.phone_2%>-<%=  @administrator.administrator_profile.phone_3%> </td></tr>
     <tr><th>Comments:</th><td><%=  @administrator.administrator_profile.comments %> </td></tr>
+    <tr><th>Marketernet username:</th><td><%=  @administrator.administrator_profile.datasource_username %> </td></tr>
+    <tr><th>Marketernet password:</th><td><%=  @administrator.administrator_profile.datasource_password %> </td></tr>
     <tr class= 'table-top'> <td colspan='2' > Address Details: </td> </tr>
     <tr> <th> Address: </th><td><%= @administrator.address.address %> </td></tr>
     <tr> <th> City:</th><td> <%= @administrator.address.city%> </td></tr>
@@ -67,3 +69,4 @@
 
 <%= link_to 'Edit', edit_admin_administrator_path(@administrator) %> |
 <%= link_to 'Back', admin_administrators_path %>
+
