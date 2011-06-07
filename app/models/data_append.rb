@@ -1,25 +1,25 @@
 class DataAppend < ActiveRecord::Base
   require 'net/ftp'
   require 'fileutils'
-  
+
   attr_accessor :tid_list, :product_types, :profile_ids
   after_create :send_for_append
- 
+
   validates_presence_of :tid
   validates_presence_of :product
-  
+
   belongs_to :dealer
   belongs_to :requestor, :class_name => 'User', :foreign_key => :requestor_id
   has_many :appended_qd_profiles
   has_many :qd_profiles, :through => :appended_qd_profiles
-  
+
   named_scope :pending_ncoa_appends, {:conditions => ["status_message = ? AND product = ?", 'pending', 'ncoa'] }
-    
+
   AppendProducts = [['Append type', ''], ['Landline', 'll'], ['Mobile', 'mb'], ['Mobile & Landline', 'ml'], ['Email', 'em'], ['NCOA', 'ncoa']]
-  AppendXmlProduct = {'ll' => 'AppendPhoneToNameAddress_LandLine', 'mb' => 'AppendPhoneToNameAddress_CellLine', 'ml' => 'AppendPhoneToNameAddress_Composite', 'em' => 'AppendEmailToNameAddress', 'ncoa' => 'AppendNcoaToNameAddress' } 
+  AppendXmlProduct = {'ll' => 'AppendPhoneToNameAddress_LandLine', 'mb' => 'AppendPhoneToNameAddress_CellLine', 'ml' => 'AppendPhoneToNameAddress_Composite', 'em' => 'AppendEmailToNameAddress', 'ncoa' => 'AppendNcoaToNameAddress' }
   AppendProductDisplay = {'ll' => 'Landline', 'mb' => 'Mobile', 'ml' => 'Mobile & Landline', 'em' => 'Email', 'ncoa' => 'NCOA'}
-  
-=begin  
+
+=begin
   def send_each_trigger_for_append
     tid_list.each do |tid|
       send_for_append(tid)
@@ -31,9 +31,9 @@ class DataAppend < ActiveRecord::Base
       send_for_ncoa_append
     else
       send_for_other_appends
-    end  
+    end
   end
-    
+
   def send_for_ncoa_append
     dummy_file = "#{RAILS_ROOT}/data_appends/dummy_records.csv"
     trigger = TriggerDetail.find(tid)
@@ -45,14 +45,14 @@ class DataAppend < ActiveRecord::Base
           FasterCSV.foreach(dummy_file, :headers => :false) do |row|
             csv << row
           end
-        end  
+        end
       end
-      
-      # Open FTP connection. Change to "in" folder. Upload files. Quit the connection 
+
+      # Open FTP connection. Change to "in" folder. Upload files. Quit the connection
       begin
         ftp = ftp_connection('btobinnovations.com', 'admin', 'watson01', 2111)
         ftp.chdir('in')
-    	  #ftp.put(csv_file)
+    	  ftp.put(csv_file)
         ftp.quit()
       rescue Errno::ETIMEDOUT
         self.errors.add_to_base 'Append service is down. Please try after some time.'
@@ -61,7 +61,7 @@ class DataAppend < ActiveRecord::Base
       rescue => e
         return false
       end
-       
+
       # Schedule listening for appended data
       self.send_at(5.minutes.from_now, :listen_to_append)
       #update file name in append record
@@ -69,7 +69,7 @@ class DataAppend < ActiveRecord::Base
       remove_file(csv_file)
     end
   end
-  
+
   def send_for_other_appends
     unless tid.blank?
       trigger = TriggerDetail.find(tid)
@@ -77,7 +77,7 @@ class DataAppend < ActiveRecord::Base
         csv_file = construct_csv(trigger)
         xml_file = construct_xml(csv_file)
 
-        # Open FTP connection. Change to "in" folder. Upload files. Quit the connection 
+        # Open FTP connection. Change to "in" folder. Upload files. Quit the connection
         begin
           ftp = ftp_connection('ftp.accurateappend.com', 'b2binnovations', 'innovator')
           ftp.chdir('in')
@@ -91,7 +91,7 @@ class DataAppend < ActiveRecord::Base
         rescue => e
           return false
         end
-        
+
         # Schedule listening for appended data
         self.send_at(5.minutes.from_now, :listen_to_append)
         #update file name in append record
@@ -99,17 +99,17 @@ class DataAppend < ActiveRecord::Base
         remove_file(csv_file)
         remove_file(xml_file)
       end
-    end  
-  end 
-  
-  def ftp_connection(ftp_server, username, password, port=nil)
+    end
+  end
+
+  def ftp_connection(ftp_server, username, password, port=21)
     ftp = Net::FTP.new
     ftp.connect(ftp_server, port)
     ftp.login(username, password)
     ftp.passive = true
     return ftp
   end
-  
+
   #Constructing the csv file to be sent for append
   def construct_csv(trigger)
     identifier = "#{self.dealer_id}-#{Time.now.strftime('%H%M%S')}.csv"
@@ -124,13 +124,13 @@ class DataAppend < ActiveRecord::Base
     end
     return csv_file
   end
-  
+
   #Constructing xml file to be sent for append
   def construct_xml(csv_file_name)
     xml_file_name =  "#{csv_file_name}.manifest.xml"
     product = DataAppend::AppendXmlProduct[self.product]
     columnmap = 'Unknown;FirstName;LastName;StreetAddress;City;State;PostalCode;'
-    
+
     xml_file = File.new(xml_file_name, "a")
     xml_file.puts('<?xml version="1.0" encoding="utf-8"?>')
     #builder = Builder::XmlMarkup.new(:target => xml_file, :ident=>2)
@@ -141,78 +141,79 @@ class DataAppend < ActiveRecord::Base
     xml_file.close
     return xml_file_name
   end
-  
+
   def listen_to_append
     begin
       found = false
       csv_file = self.csv_file_name
       out_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{csv_file}"
-      if self.product == 'ncoa'   
+      if self.product == 'ncoa'
         ftp = ftp_connection('btobinnovations.com', 'admin', 'watson01', 2111)
       else
         ftp = ftp_connection('ftp.accurateappend.com', 'b2binnovations', 'innovator')
       end
-      
+
       ftp.chdir('out')
- 
+
       ftp.list('*.csv').each do |file|
         if file =~ Regexp.new(csv_file)
           found = true
           ftp.getbinaryfile(csv_file, out_file)
           import_appended_data
-          
-          unless self.product == 'ncoa'  
+
+          unless self.product == 'ncoa'
             ftp.getbinaryfile("#{csv_file}.manifest.xml", "#{out_file}.manifest.xml")
             parse_output_xml("#{out_file}.manifest.xml")
-          end  
-        end  
+          end
+        end
       end
 
       ftp.quit()
-  
+
       if found == false
         raise "Not yet processed"
       else
-        self.update_attribute('status_message', 'appended')  
+        self.update_attribute('status_message', 'appended')
       end
-          
+
     #rescue Net::FTPPermError => e
       #schedule it again after 10 minutes
       #self.send_at(10.minutes.from_now, :listen_to_append)
     end
   end
- 
+
   def parse_output_xml(xml_report)
     xml = File.read(xml_report)
     doc = Hpricot::XML(xml)
-    self.update_attributes(:matches => (doc/:matches).inner_html, :total_errors => (doc/:errors).inner_html, 
+    self.update_attributes(:matches => (doc/:matches).inner_html, :total_errors => (doc/:errors).inner_html,
                            :completed_on => Time.parse((doc/:datecomplete).inner_html) )
     remove_file(xml_report)
   end
-  
+
   def import_appended_data
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{self.csv_file_name}"
     profiles = TriggerDetail.find(tid)
-    
+
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
       qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
       if profiles.include?(qd_profile)
         unless qd_profile.blank?
-          self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id) 
-          case self.product 
+          self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id)
+          case self.product
           when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
           when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
           when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
           when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
           when 'ncoa' then qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('state'), 'zip' => row.field('zip'))
           end
-        end   
+        end
       end
-    end  
+    end
     remove_file(csv_file)
   end
-  
+
   def remove_file(file)
     FileUtils.rm_r file
   end
 end
+
