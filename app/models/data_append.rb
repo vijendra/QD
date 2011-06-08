@@ -192,7 +192,7 @@ class DataAppend < ActiveRecord::Base
 
   def import_appended_data
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{self.csv_file_name}"
-    profiles = TriggerDetail.find(tid)
+    profiles = TriggerDetail.find(tid).qd_profiles rescue []
 
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
       qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
