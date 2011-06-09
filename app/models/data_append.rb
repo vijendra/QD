@@ -15,9 +15,11 @@ class DataAppend < ActiveRecord::Base
 
   named_scope :pending_ncoa_appends, {:conditions => ["status_message = ? AND product = ?", 'pending', 'ncoa'] }
 
-  AppendProducts = [['Append type', ''], ['Landline', 'll'], ['Mobile', 'mb'], ['Mobile & Landline', 'ml'], ['Email', 'em'], ['NCOA', 'ncoa']]
-  AppendXmlProduct = {'ll' => 'AppendPhoneToNameAddress_LandLine', 'mb' => 'AppendPhoneToNameAddress_CellLine', 'ml' => 'AppendPhoneToNameAddress_Composite', 'em' => 'AppendEmailToNameAddress', 'ncoa' => 'AppendNcoaToNameAddress' }
-  AppendProductDisplay = {'ll' => 'Landline', 'mb' => 'Mobile', 'ml' => 'Mobile & Landline', 'em' => 'Email', 'ncoa' => 'NCOA'}
+
+  AppendProducts = [['Append type', ''], ['Phone', 'ph'], ['Email', 'em'], ['NCOA', 'ncoa']]
+  AppendXmlProduct = {'ph' => 'AppendPhoneAllToNameAddress',  'em' => 'AppendEmailToNameAddress', 'ncoa' => 'AppendNcoaToNameAddress' }
+  AppendProductDisplay = {'ph' => 'Phone', 'em' => 'Email', 'ncoa' => 'NCOA'}
+
 
 =begin
   def send_each_trigger_for_append
@@ -96,8 +98,8 @@ class DataAppend < ActiveRecord::Base
         self.send_at(5.minutes.from_now, :listen_to_append)
         #update file name in append record
         self.update_attribute('csv_file_name', csv_file.gsub("#{RAILS_ROOT}/data_appends/data_append_in/", '') )
-        remove_file(csv_file)
-        remove_file(xml_file)
+       # remove_file(csv_file)
+        #remove_file(xml_file)
       end
     end
   end
@@ -200,9 +202,11 @@ class DataAppend < ActiveRecord::Base
         unless qd_profile.blank?
           self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id)
           case self.product
-          when 'll' then qd_profile.update_attribute('landline', row.field('Land Line'))
-          when 'mb' then qd_profile.update_attribute('mobile', row.field('Cell Line'))
-          when 'ml' then qd_profile.update_attributes('landline' => row.field('Land Line'), 'mobile' => row.field('Cell Line'))
+          when 'ph' then
+            qd_profile.update_attribute('compiled_landline', row.field('Compiled Land Line'))
+            qd_profile.update_attribute('da_landline', row.field('DA Land Line'))
+            qd_profile.update_attribute('mobile', row.field('Mobile'))
+
           when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
           when 'ncoa' then qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('state'), 'zip' => row.field('zip'))
           end

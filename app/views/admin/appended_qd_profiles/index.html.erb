@@ -8,12 +8,13 @@
     <th> Last Name </th>
     <th> Full address </th>
     <th> Phone </th>
-    <% if @data_append.product == 'ml' %>
-      <th> Appended Landline </th>
-      <th> Appended Mobile </th>
+    <% if @data_append.product == 'ph' %>
+      <th> Compiled Landline </th>
+      <th> DA Landline </th>
+      <th> Mobile </th>
     <%else-%>
-      <th> Appended <%= DataAppend::AppendProductDisplay[@data_append.product] %> </th>
-    <%end-%>  
+      <th> <%= DataAppend::AppendProductDisplay[@data_append.product] %> </th>
+    <%end-%>
   </tr>
 
 <% @appended_qd_profiles.each do |appended_qd_profile| %>
@@ -23,16 +24,15 @@
     <td> <%=h profile.lname  %>
     <td> <%=h profile.full_addrress %> </td>
     <td> <%=h profile.phone_num %> </td>
-    <%if @data_append.product == 'll' %>
-      <td> <%=h profile.landline %> </td>
-    <%elsif @data_append.product == 'mb' %>
-      <td> <%=h profile.mobile %> </td>
-    <%elsif @data_append.product == 'ml' %>
-      <td> <%=h profile.landline %> </td>
+
+    <%if @data_append.product == 'ph' %>
+      <td> <%=h profile.compiled_landline %> </td>
+      <td> <%=h profile.da_landline %> </td>
       <td> <%=h profile.mobile %> </td>
     <%elsif @data_append.product == 'em' %>
-      <td> <%=h profile.email %> </td>    
-    <%end-%>  
+      <td> <%=h profile.email %> </td>
+    <%end-%>
+
    </tr>
 <% end %>
 </table>

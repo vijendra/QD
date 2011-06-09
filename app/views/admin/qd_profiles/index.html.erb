@@ -1,13 +1,13 @@
 
 <% content_for :header do -%>
- Listing data set, categorised on imported date  
+ Listing data set, categorised on imported date
 <% end -%>
- 
+
 <div id='trigger_qd_profile-list' >
-  <table id='top-buttons'>  
+  <table id='top-buttons'>
     <tr>
-       <td COLSPAN = "2"> 
-         <%= link_to("<span>Generate print file for all marked data</span>", print_file_url(:m => 1), :action => :get, :class=> "button")%>  
+       <td COLSPAN = "2">
+         <%= link_to("<span>Generate print file for all marked data</span>", print_file_url(:m => 1), :action => :get, :class=> "button")%>
          <%= link_to("<span>Generate print file for all un-marked data</span>", print_file_url(), :action => :get, :class=> "button")%> </td>
     </tr>
   </table>
@@ -20,34 +20,32 @@
     <span id = 'h' style ="display:none">
        <%= image_tag('magifier_zoom_out.png') %> <%= link_to_function "Hide search bar", "Element.hide('search-bar'); Element.show('s'); Element.hide('h');return false;" %> &nbsp;&nbsp; |&nbsp;&nbsp;
     </span>
-  
+
     <%= image_tag('database_go.png') unless params[:m]%><%= link_to "View only marked data", admin_qd_profiles_url(:m => 't' ) unless params[:m] %>
     <%= image_tag('database_refresh.png') if params[:m]%><%= link_to "View all", admin_qd_profiles_url if params[:m] %>
  </div>
- 
+
  <div id = 'search-bar' style ="display:none ; clear:both"> <%=render :partial=> 'filters'%> </div>
  <div class='clear'> </div>
- 
-<%form_for [:admin, DataAppend.new] do |f| -%>      
-   <table id='top-buttons'>    
-     <tr>   
+
+<%form_for [:admin, DataAppend.new] do |f| -%>
+   <table id='top-buttons'>
+     <tr>
        <td>
-         <%= f.radio_button 'product', 'll', :checked => true %> Landline 
-         <%= f.radio_button 'product', 'mb' %> Mobile
-         <%= f.radio_button 'product', 'ml' %> Mobile & Landline
+         <%= f.radio_button 'product', 'ph', :checked => true %> Phone
          <%= f.radio_button 'product', 'em' %> Email
          <%= f.radio_button 'product', 'ncoa' %> NCOA
          <!--
          <%= f.radio_button 'product', 'nc' %> Ncoa
-         <%= check_box_tag 'data_append[product_types][]', 'll' %> Landline 
+         <%= check_box_tag 'data_append[product_types][]', 'll' %> Landline
          <%= check_box_tag 'data_append[product_types][]', 'mb' %> Mobile
          <%= check_box_tag 'data_append[product_types][]', 'em' %> Email
-   
+
          -->
          >>
        </td>
-       <td> 
-         <%=link_to_function("<span>Send all selected data for append</span>", "document.forms[1].submit();", :class => "button") %> 
+       <td>
+         <%=link_to_function("<span>Send all selected data for append</span>", "document.forms[1].submit();", :class => "button") %>
        </td>
      </tr>
    </table>
@@ -62,6 +60,6 @@
      </center> <br/>
      -->
    </div>
-<%end-%>   
+<%end-%>
 </div>
 
