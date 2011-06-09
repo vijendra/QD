@@ -1,4 +1,4 @@
-<br /> 
+<br />
 
 <% if @triggers.blank?%>
  <br />
@@ -20,7 +20,7 @@
      <% @triggers.each do |trigger| %>
        <tr class="<%= cycle('odd', 'even') %>">
          <td> <%= check_box_tag("data_append[tid_list][]", trigger.id, false, :id=> trigger.id)%></td>
-         <td> 
+         <td>
             <div class="calendar-date">
               <span class = 'cal'><%= image_tag("date.png") %></span>
               <%= link_to_remote "#{Time.parse(trigger.created_at.to_s).strftime('%b %d, %Y')}", :url => admin_qd_profiles_url, :method => :get, :with => "'tid=' + #{trigger.id}" %>
@@ -30,37 +30,37 @@
 
          <td> <%= trigger.order_number  %></td>
          <td><%= image_tag("user.png")%> <%= link_to trigger.dealer.profile.name, edit_admin_dealer_path(trigger.dealer.id) %> </td>
-          
+
          <td> <%= trigger.total_records %> </td>
          <td> <%= (trigger.marked == 'yes' ||  trigger.marked == 'printed') ? (trigger.marked == 'printed'? 'Printed': 'Yes') : 'No' -%> </td>
-         <td> 
+         <td>
            <% if trigger.dealer.profile.wants_data_printed -%>
              <%= image_tag("printer_add.png") %>
              <% unless trigger.marked == 'yes'%>
                <% link_text = trigger.marked == 'printed' ? 'Re-mark' : 'Mark for print' -%>
-               <%= link_to link_text,  mark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will mark all the records for PRINT. Are you sure?', :method => :post  -%> 
+               <%= link_to link_text,  mark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will mark all the records for PRINT. Are you sure?', :method => :post  -%>
              <% else -%>
-               <%= link_to "Un-Mark", unmark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will un-mark all the records for PRINT. Are you sure?', :method => :post  -%> 
+               <%= link_to "Un-Mark", unmark_data_admin_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will un-mark all the records for PRINT. Are you sure?', :method => :post  -%>
              <% end -%>
            <% else -%>
                <%= image_tag("printer_delete.png") %> Doesn't want print
            <% end -%>
          </td>
-         <td> 
+         <td>
               <% if trigger.marked == 'yes' %>
                  <%= link_to 'Print file', "/admin/print_data/csv_print_file?tid=#{trigger.id}" %>
               <% else %>
                  <%= trigger.marked == 'printed'? 'Printed' : 'Unmarked' %>
               <% end %>
          </td>
-        <!-- 
+        <!--
          <td style ='width: 380px; padding-left: 0px;'>
              <%= check_box_tag 'product_type[]', 'll' %> Landline &nbsp;
              <%= check_box_tag 'product_types[]', 'mb' %> Mobile &nbsp;
              <%= check_box_tag 'product_types[]', 'em' %> Email &nbsp;
              <%= check_box_tag 'product_types[]', 'nc' %> NCOA  &nbsp;
-            
-             
+
+
              <%= submit_tag "Send", :confirm => "Are you sure, You want to send this data for append? " %>
            </td>
            -->
@@ -74,12 +74,7 @@
      <tr class="table-footer">
        <td><%= remote_per_page_select %></td>
        <td>
-          <% form_tag(admin_qd_profiles_path, :method => :get ) do %>
-            <% fields_for @search do |f|%>
-                 <%= f.text_field :page, :class => 'textbox-tiny' %>
-                 <%= submit_tag 'Go' %>
-            <%end%>
-           <%end%>
+
         </td>
         <td> <% unless  @triggers.blank? %>
                     <div class="pagination">
@@ -91,3 +86,4 @@
       </tr>
   </table>
 <% end %>
+
