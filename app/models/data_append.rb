@@ -98,8 +98,8 @@ class DataAppend < ActiveRecord::Base
         self.send_at(5.minutes.from_now, :listen_to_append)
         #update file name in append record
         self.update_attribute('csv_file_name', csv_file.gsub("#{RAILS_ROOT}/data_appends/data_append_in/", '') )
-       # remove_file(csv_file)
-        #remove_file(xml_file)
+        remove_file(csv_file)
+        remove_file(xml_file)
       end
     end
   end
