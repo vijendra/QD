@@ -18,10 +18,11 @@
     <script type="text/javascript">
       checked = false;
       function checkedAll () {
-        if (checked == false){checked = true}else{checked = false}
-	for (var i = 0; i < document.getElementById('myform').elements.length; i++) {
-	  document.getElementById('myform').elements[i].checked = checked;
-	}
+        if (checked == false) {checked = true }else{ checked = false}
+          for (var i = 0; i < document.getElementById('myform').elements.length; i++) {
+            if(document.getElementById('myform').elements[i].type=='checkbox')
+            { document.getElementById('myform').elements[i].checked = checked; }
+          }
       }
     </script>
 
@@ -31,7 +32,7 @@
 
   <div id="header">
     <h1>D2 Leads </h1>
-    
+
     <div id="global_links">
       <%= render :partial => 'shared/global_links' %>
     </div>
@@ -41,7 +42,7 @@
     </div>
 
   </div>
- 
+
   <div id="main">
      <div id="screen">
        <p class="head"><%= image_tag('bricks.png') %> <%= yield_or_default yield(:header), "Use 'content_for :header do; end' in your view to set this title" %></p>
@@ -57,3 +58,4 @@
 
 </body>
 </html>
+

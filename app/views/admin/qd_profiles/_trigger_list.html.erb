@@ -6,7 +6,7 @@
 <% else %>
   <table class='listing'>
    <tr>
-       <th></th>
+        <th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
        <th> <%= remote_order_by_link(:created_at,:text => "Click on date") %></th>
        <th><%= remote_order_by_link(:order_number ,:text => "Order no") %></th>
        <th><%= remote_order_by_link( {:dealer => { :profile => :name }} ,:text => "Dealer")%></th>

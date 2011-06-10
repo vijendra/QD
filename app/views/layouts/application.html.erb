@@ -14,15 +14,17 @@
 
 
 
-	<script language='JavaScript'>
+    <script type="text/javascript">
       checked = false;
       function checkedAll () {
-        if (checked == false){checked = true}else{checked = false}
-	for (var i = 0; i < document.getElementById('myform').elements.length; i++) {
-	  document.getElementById('myform').elements[i].checked = checked;
-	}
+        if (checked == false) {checked = true }else{ checked = false}
+          for (var i = 0; i < document.getElementById('myform').elements.length; i++) {
+            if(document.getElementById('myform').elements[i].type=='checkbox')
+            { document.getElementById('myform').elements[i].checked = checked; }
+          }
       }
     </script>
+
 
 </head>
 
@@ -58,3 +60,4 @@
 
 </body>
 </html>
+

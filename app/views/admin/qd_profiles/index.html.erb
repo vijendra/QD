@@ -28,7 +28,7 @@
  <div id = 'search-bar' style ="display:none ; clear:both"> <%=render :partial=> 'filters'%> </div>
  <div class='clear'> </div>
 
-<%form_for [:admin, DataAppend.new] do |f| -%>
+<%form_for([:admin, DataAppend.new] , :html => { :id => 'myform' })do |f| -%>
    <table id='top-buttons'>
      <tr>
        <td>
