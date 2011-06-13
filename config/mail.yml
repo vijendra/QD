@@ -3,10 +3,10 @@ development:
   server: IMAP.gmail.com
   port: 993
   ssl: yes
-  username: support@qdrllc.com
+  username: support@d2leads.com
   password: password01
   use_login: yes
-  
+
 development-pop:
   type: pop
   server: mail.isiritech.net
@@ -18,19 +18,20 @@ development1:
   server: mail.qdrobot.com
   username: qd1@qdrobot.com
   password: password01
-  
+
 test:
   type: imap
   server: mail.isiritech.net
   username: qdrobot@isiritech.net
   password: qdrobot
   processed_folder: INBOX.Processed
-  
+
 production:
   type: IMAP
   server: IMAP.gmail.com
   port: 993
   ssl: yes
-  username: support@qdrllc.com
+  username: support@d2leads.com
   password: password01
   use_login: yes
+

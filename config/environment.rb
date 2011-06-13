@@ -27,7 +27,7 @@ Rails::Initializer.run do |config|
   config.gem "ruby-openid", :lib => "openid"
   #config.gem 'delayed_job', :version => '2.0.3'
   #config.gem 'collectiveidea-delayed_job', :lib => 'delayed_job', :version => '1.8.2', :source => 'http://gems.github.com'
-                     
+
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.
   config.time_zone = 'UTC'
@@ -54,14 +54,15 @@ Rails::Initializer.run do |config|
     :enable_starttls_auto => true,
     :address => "smtp.gmail.com",
     :port => 587,
-    :domain => "qdrllc.com",
+    :domain => "d2leads.com",
     :authentication => :plain,
-    :user_name => "support@qdrllc.com",
+    :user_name => "support@d2leads.com",
     :password => "password01"
 }
 
 end
 
-ExceptionNotifier.exception_recipients = %w(vijendrakarkala@gmail.com support@qdrllc.com)
-ExceptionNotifier.sender_address = %(support@qdrllc.com)
-ExceptionNotifier.email_prefix = "[QDROBOT_ERROR] "
+ExceptionNotifier.exception_recipients = %w(vijendrakarkala@gmail.com support@d2leads.com)
+ExceptionNotifier.sender_address = %(support@d2leads.com)
+ExceptionNotifier.email_prefix = "[D2LEADS_ERROR]
+
