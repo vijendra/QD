@@ -1,5 +1,14 @@
 class DealerMailer < ActionMailer::Base
-  
+
+  def append_details(data_append)
+    subject    "[#{configatron.site_name}] Append Details"
+    recipients "#{data_append.dealer.email}, #{data_append.dealer.administrator.email}"
+    from       configatron.support_email
+    reply_to   "#{configatron.support_email}"
+    sent_on    Time.now
+    content_type  "text/html"
+    body       :data_append => data_append, :site_name => configatron.site_name
+  end
 
   def active_dealer_mail(dealer, body_content, subject)
     subject    "[#{configatron.site_name}] " + subject
@@ -20,7 +29,7 @@ class DealerMailer < ActionMailer::Base
     content_type  "text/html"
     body       :dealer => dealer, :body_content => body_content
   end
-  
+
   def admin_mail(admin, body_content, subject)
     subject    "[#{configatron.site_name}] " + subject
     recipients admin.email
@@ -41,12 +50,13 @@ class DealerMailer < ActionMailer::Base
     part :content_type => 'text/plain',
          :body => render_message('dealer_accounts_notification_plain', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order)
 
-    part :content_type => "text/html", :body => render_message('dealer_accounts_notification_html', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order) 
+    part :content_type => "text/html", :body => render_message('dealer_accounts_notification_html', :dealer_profile => dealer_profile, :total => total, :balance => balance, :order => order)
     if attachment
-      attachment "text/csv" do |a|  
+      attachment "text/csv" do |a|
         a.body =  File.read("#{RAILS_ROOT}/public/file.csv")
         a.filename = "#{order}.csv"
       end
     end
   end
 end
+

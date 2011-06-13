@@ -1,0 +1,7 @@
+Hello,
+<br />
+<p> The request for <%= DataAppend::AppendProductDisplay[@data_append.product] %> type data append process completed, Here is the details.</p>
+<p> <%= "Appended on: <span> #{@data_append.completed_on.strftime('%d %b, %Y. %I:%M %p')}.</span> &nbsp; Matches: <span>#{@data_append.matches}.</span> Errors: <span>#{@data_append.total_errors || 0}</span>"  %> </p>
+<br />
+<p> The <%= @site_name %> Team.</p>
+

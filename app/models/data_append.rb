@@ -176,6 +176,7 @@ class DataAppend < ActiveRecord::Base
         raise "Not yet processed"
       else
         self.update_attribute('status_message', 'appended')
+        DealerMailer.deliver_append_details(self)
       end
 
     #rescue Net::FTPPermError => e
