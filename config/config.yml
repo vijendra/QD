@@ -2,20 +2,21 @@
 #   configatron.site_name
 
 development: &local
-    site_name: Quick Data Robot
-    site_url: www.qdrllc.com
-    
-    company_name: Quick Data Robot
-    admin_email: support@qdrllc.com
-    
-    support_name: QDRobot Support
-    support_email: support@qdrllc.com
+    site_name: D2 Leads
+    site_url: www.d2leads.com
+
+    company_name: D2 Leads
+    admin_email: support@d2leads.com
+
+    support_name: D2 Leads
+    support_email: support@d2leads.com
 
 production:
   <<: *local
-  
+
 staging:
   <<: *local
 
 test:
   <<: *local
+
