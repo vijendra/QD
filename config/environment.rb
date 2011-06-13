@@ -64,5 +64,5 @@ end
 
 ExceptionNotifier.exception_recipients = %w(vijendrakarkala@gmail.com support@d2leads.com)
 ExceptionNotifier.sender_address = %(support@d2leads.com)
-ExceptionNotifier.email_prefix = "[D2LEADS_ERROR]
+ExceptionNotifier.email_prefix = "[D2LEADS_ERROR]"
 
