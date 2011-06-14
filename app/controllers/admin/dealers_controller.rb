@@ -16,7 +16,7 @@ class Admin::DealersController < ApplicationController
 
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @dealer }
@@ -146,13 +146,13 @@ class Admin::DealersController < ApplicationController
     @balance = @dealer.profile.current_balance
     no_of_records = 0
     field_list = QdProfile::IMPORT_FILE_FIELDS
-    
+
 	unless (params[:dealer][:order_number].blank? or params[:dealer][:file].blank?)
-     
+
 	  trigger = TriggerDetail.create( :dealer_id => @dealer.id, :data_source => params[:type] ,
     	                                :total_records => no_of_records, :order_number => params[:dealer][:order_number] ,
     	                                :balance => @balance, :status => 'processed' )
-      
+
       FasterCSV.foreach(params[:dealer][:file].path, :headers => :false) do |row|
 	    no_of_records = no_of_records + 1
 	    @balance = @balance - 1
@@ -166,7 +166,7 @@ class Admin::DealersController < ApplicationController
 	  end
 	  trigger.update_attribute('total_records', no_of_records)
           trigger.update_attribute('balance', @balance)
-    
+
       @dealer.profile.update_attribute('current_balance', @balance)
       flash[:notice] = 'CSV data is successfully imported.'
     else
@@ -257,13 +257,13 @@ class Admin::DealersController < ApplicationController
   def test_print
    @dealer = Dealer.find(params[:id])
    record = @dealer.qd_profiles.first
-  
+
    unless record.blank?
      @profiles = [record]
      @dealer_profile =  @dealer.profile
      @dealer_address =  @dealer.address
      shell = params[:s]
-     @shell_needed = !shell.blank? ? true : false 
+     @shell_needed = !shell.blank? ? true : false
 
      #if printing without shell then fetch the saved shell dimensions for the dealer
      if shell.blank?
@@ -276,7 +276,7 @@ class Admin::DealersController < ApplicationController
          @image_path = @dealer.administrator.shell_images.find(:first, :conditions => ["template = ?", params[:t]]).shell_image.url if params[:i] rescue ''
        end
      end
-     
+
       #Fetch the shell content for the dealer
       @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
       @auth_code = @dealer_profile.auth_code
@@ -289,18 +289,19 @@ class Admin::DealersController < ApplicationController
       @ph_address = @dealer.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
       @ph_city = @dealer.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
       @ph_state_zip = @dealer.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
-     
+
 
      case @print_template
-        when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
+        when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']])
         when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
         when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 936] : [@positions['width'], @positions['height']])
+        when 'template4' then (file_name, size = 'snap_pack.pdf', @positions.blank? ? [1267, 807] : [@positions['width'], @positions['height']])
      end
 
      options = {:left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
      prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => file_name
-    
-     if shell.blank? and dimensions.blank? 
+
+     if shell.blank? and dimensions.blank?
        flash[:notice] = 'Dimensions are not yet set for this shell. Make sure it is set, before previewing the print.'
        redirect_to admin_dealer_print_data_url(@dealer)
      else
@@ -342,3 +343,4 @@ class Admin::DealersController < ApplicationController
    end
 
 end
+

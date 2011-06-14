@@ -7,7 +7,7 @@
    <%= link_to_function "Show csv print file columns", "Element.show('csv_extra_field'); Element.hide('expand');" %> &nbsp;&nbsp; |&nbsp;&nbsp;
    <%= link_to_function "Hide both", "Element.hide('csv_extra_field'); Element.hide('expand');" %>
 </div> <br/>
-		
+
 <div id="expand">
 <%form_tag admin_print_file_fields_path, :method=>:post do %>
 <table class ="form-table">
@@ -18,22 +18,22 @@
        <td> <%= text_field_tag "variable_data_1[label]" ,@variable_data_1.blank?? "Web site" : @variable_data_1.label, :class => "textbox", :disabled => true %> </td>
        <td><%= text_field_tag "variable_data_1[value]", @variable_data_1.blank?? 'www.autoappnow.com' :@variable_data_1.value, :class => "textbox" %> </td>
   </tr>
-     
+
   <tr><th> Variable data 2 </th>
       <td> <%= text_field_tag "variable_data_2[label]" ,@variable_data_2.blank?? 'Ask for' : @variable_data_2.label, :class => "textbox", :disabled => true %> </td>
       <td><%= text_field_tag "variable_data_2[value]" ,@variable_data_2.blank?? '' :@variable_data_2.value, :class => "textbox" %> </td>
   </tr>
-     
+
   <tr><th> Variable data 3 </th>
       <td> <%= text_field_tag "variable_data_3[label]" ,@variable_data_3.blank?? '': @variable_data_3.label, :class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_3[value]" ,@variable_data_3.blank?? '' : @variable_data_3.value,:class => "textbox" %> </td>
   </tr>
-     
+
   <tr><th> Variable data 4</th>
       <td> <%= text_field_tag "variable_data_4[label]" ,@variable_data_4.blank?? 'Program headquarters address': @variable_data_4.label, :class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_4[value]" ,@variable_data_4.blank?? '' :  @variable_data_4.value,:class => "textbox" %> </td>
   </tr>
-      
+
   <tr><th>Variable data 5 </th>
       <td><%= text_field_tag "variable_data_5[label]", @variable_data_5.blank?? 'Program headquarters city' : @variable_data_5.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_5[value]" ,@variable_data_5.blank?? '' : @variable_data_5.value,:class => "textbox" %> </td>
@@ -43,41 +43,41 @@
       <td><%= text_field_tag "variable_data_6[label]",@variable_data_6.blank?? 'Program headquarters state, zip' : @variable_data_6.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_6[value]" ,@variable_data_6.blank?? '' : @variable_data_6.value,:class => "textbox" %> </td>
   </tr>
-     
+
   <tr><th> Variable data 7</th>
       <td><%= text_field_tag "variable_data_7[label]", @variable_data_7.blank?? '' : @variable_data_7.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_7[value]" ,@variable_data_7.blank?? '' : @variable_data_7.value,:class => "textbox" %> </td>
   </tr>
-      
+
   <tr><th>Variable data 8 </th>
       <td><%= text_field_tag "variable_data_8[label]",@variable_data_8.blank?? '' : @variable_data_8.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_8[value]" ,@variable_data_8.blank?? '' : @variable_data_8.value,:class => "textbox" %> </td>
   </tr>
-      
+
   <tr><th> Variable data 9 </th>
       <td><%= text_field_tag "variable_data_9[label]",@variable_data_9.blank?? '' : @variable_data_9.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_9[value]" ,@variable_data_9.blank?? '' : @variable_data_9.value,:class => "textbox" %> </td>
   </tr>
-    
+
   <tr><th> Variable data 10 </th>
       <td> <%= text_field_tag "variable_data_10[label]" ,@variable_data_10.blank?? '' : @variable_data_10.label,:class => "textbox" %> </td>
       <td><%= text_field_tag "variable_data_10[value]" ,@variable_data_10.blank?? '' : @variable_data_10.value,:class => "textbox" %> </td>
    </tr>
-   <tr class= 'table-top'> <td colspan='3'> Large text fields </td> </tr>   
+   <tr class= 'table-top'> <td colspan='3'> Large text fields </td> </tr>
    <tr> <td colspan='3'> </td> </tr>
    <tr> <th> Identifier </th><td colspan=2> Text Body 1</td></tr>
    <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_1[label]" ,@text_body_1.blank?? '' : @text_body_1.label,:class => "textbox" %> </td></tr>
    <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_1[value]" ,@text_body_1.blank?? '' : @text_body_1.value,:class => "textbox" %> </td></tr>
-          
+
    <tr> <th> Identifier </th><td colspan=2> Text Body 2</td></tr>
    <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_2[label]" ,@text_body_2.blank?? '' : @text_body_2.label,:class => "textbox" %> </td></tr>
    <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_2[value]" ,@text_body_2.blank?? '' : @text_body_2.value,:class => "textbox" %> </td></tr>
-         
+
    <tr> <th> Identifier </th><td colspan=2> Text Body 3</td></tr>
    <tr> <th> label </th><td colspan=2> <%= text_field_tag "text_body_3[label]" ,@text_body_3.blank?? '' : @text_body_3.label,:class => "textbox" %> </td></tr>
    <tr> <th> Value</th><td colspan=2><%= text_area_tag "text_body_3[value]" ,@text_body_3.blank?? '' : @text_body_3.value,:class => "textbox" %> </td></tr>
    <tr class= 'table-top'> <td colspan='3'> Print shell settings </td> </tr>
-   <tr> <th> Select Print Shell </th> 
+   <tr> <th> Select Print Shell </th>
      <td colspan=2>
        <%= radio_button_tag('template', '1', @dealer_template.value.include?('1') ) %>
        <%= image_tag("template4.png", :size => "75x100", :alt => "Template 1")  %>
@@ -85,30 +85,37 @@
        <%= image_tag("template5.jpg", :size => "75x100", :alt => "Template 2")  %>
        <%= radio_button_tag('template', '3', @dealer_template.value.include?('3') )%>
        <%= image_tag("template6.jpg", :size => "75x100", :alt => "Template 3")  %>
-     </td> 
+       <%= radio_button_tag('template', '4', @dealer_template.value.include?('4') )%>
+       <%= image_tag("template7.jpg", :size => "75x100", :alt => "Template 4")  %>
+     </td>
   </tr>
 
-  <tr> 
+  <tr>
        <th style = "width: 250px;"> Click on shell to set dimensions <span style = "color: #CF7400"> <br /><br />Note: Applicable to all dealers </span> </th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 1)%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 2), :method => :get %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 3), :method => :get %> &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template7.jpg", :size => "75x100"), new_admin_dealer_shell_dimension_path(@dealer.id, :t => 4), :method => :get %> &nbsp;&nbsp;
        </td>
   </tr>
 
-  <tr> 
+  <tr>
        <th style = "width: 250px;"> Click on shell to see sample print with background <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved his table's content.)</span> </th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id , :t => '1', :s => 'true', :format => 'pdf' )%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '2', :s => 'true', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id , :t => '3', :s => 'true', :format => 'pdf')%> &nbsp;&nbsp;
+           &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template7.jpg", :size => "75x100"), test_print_admin_dealer_path(:id => @dealer.id , :t => '4', :s => 'true', :format => 'pdf')%> &nbsp;&nbsp;
        </td>
   </tr>
 
-  <tr> 
+  <tr>
        <th style = "width: 250px;"> Click on shell to see sample print without background, for above set dimensions <span style = "color: #CF7400"> <br /><br />(Make sure that at least one data record available for this dealer and you saved this table's content.)</span></th> <td colspan=2>
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template4.png"), test_print_admin_dealer_path(:id => @dealer.id, :t => '1', :format => 'pdf' )%> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template5.jpg"), test_print_admin_dealer_path(:id => @dealer.id, :t => '2', :format => 'pdf') %> &nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template6.jpg"), test_print_admin_dealer_path(:id => @dealer.id, :t => '3', :format => 'pdf')%> &nbsp;&nbsp;
+            &nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp; <%= link_to image_tag("template7.jpg", :size => "75x100"), test_print_admin_dealer_path(:id => @dealer.id, :t => '4', :format => 'pdf')%> &nbsp;&nbsp;
        </td>
   </tr>
 </table>
@@ -121,16 +128,16 @@
 </div>
 
 <div id="csv_extra_field" style="display: none" >
-  
+
    <% form_for(:csv_extra_field,:url=>dealer_print_file_field_path(@dealer),:html => { :method => :put }) do |f| %>
-  
+
   <div class = 'form-box' >
    <h1 class = 'head'>  Columns to be appended to the csv print file. </h1><br/>
   <table class = 'form-display'>
     <% Profile::CSV_EXTRA_FIELDS.each do |field| %>
        <tr><td><%= check_box_tag("csv_extra_fields[]", "#{field}", @fields.include?("#{field}"))%> </td><th><%=h "#{field}" %></th></tr>
     <% end %>
- 
+
 
   <input id="redirection" name="redirection" type="hidden" value="1" />
 </table>
@@ -147,7 +154,7 @@
 <% unless @marked_dates.blank? %>
 
  <%form_tag ("/admin/print_data/csv_print_file", :id => 'myform' ,:method=>:post) do %>
-      <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />    
+      <input id="dealer_id" name="dealer[id]" type="hidden" value="<%= @dealer.id %>" />
       <% @marked_dates.each do |date| %>
         <b><%=h date %> </b>
            <% qd_profiles = find_qd_profile_for_date(date) %>
@@ -183,3 +190,4 @@
       No Records Found.
    <%end%>
 -->
+

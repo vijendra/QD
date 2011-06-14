@@ -104,7 +104,7 @@ class QdProfilesController < ApplicationController
 
    @triggers = @search.all
    @pending_append = current_user.pending_data_apppends.blank?
-   
+
    @fields_to_be_shown = current_user.dealer_field.fields rescue []
 
    dealer = current_user.profile
@@ -139,27 +139,27 @@ class QdProfilesController < ApplicationController
      end
      QdProfile.find(params[:profiles].first).trigger_detail.update_attribute('dealer_marked', 'yes')
    end
- 
+
    unless params[:tid].blank?
      trigger = TriggerDetail.find(params[:tid])
      trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', Date.today)
                               qp.update_attribute('dealer_marked', 'yes')
                             }
-     
+
      trigger.update_attribute('dealer_marked', 'yes')
    end
 
    flash[:notice] = "Data is successfully marked for printing."
    redirect_to(qd_profiles_path)
  end
- 
+
  def unmark_data
    unless params[:tid].blank?
      trigger = TriggerDetail.find(params[:tid])
      trigger.qd_profiles.map{|qp| qp.update_attribute('marked_date', '')
                               qp.update_attribute('dealer_marked', 'no')
                             }
-     
+
      trigger.update_attribute('dealer_marked', 'no')
    end
 
@@ -185,22 +185,23 @@ class QdProfilesController < ApplicationController
      @ph_address = current_user.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
      @ph_city = current_user.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
      @ph_state_zip = current_user.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
-     
+
      #if printing without shell then fetch the shell dimension set for the administrator
      if shell.blank?
        @positions = {}
        dimensions = current_user.administrator.shell_dimensions.all(:conditions => ["template = ?" , template.value])
        dimensions.map{ |rec| @positions[rec.variable]= rec.variable == 'bg_color'? rec.value : @positions[rec.variable]= rec.value.to_f } unless dimensions.blank?
      end
-      
+
      #set template height and width
      unless template.blank?
        @print_template = "template#{template.value}"
        case @print_template
-           when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']]) 
+           when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']])
            when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
            when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
-              else (file_name, size = 'print_file.pdf', [610, 1009])
+           when 'template4' then (file_name, size = 'snap_pack.pdf', @positions.blank? ? [1267, 807] : [@positions['width'], @positions['height']])
+           else (file_name, size = 'print_file.pdf', [610, 1009])
         end
 
        options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
@@ -221,7 +222,7 @@ class QdProfilesController < ApplicationController
     unless @profiles.blank?
       options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [595, 770] }
       prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => 'labels.pdf'
-      render :layout => false  
+      render :layout => false
     else
       flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
       redirect_to(qd_profiles_path)
@@ -232,9 +233,9 @@ class QdProfilesController < ApplicationController
  def csv_print_file
    qd_profiles = current_user.qd_profiles.to_be_dealer_printed
    fields_to_be_shown = current_user.dealer_field.fields.sort rescue QdProfile.public_attributes
-   
-   #Construct CSV headers 
-   dealer_profile_headers = [] 
+
+   #Construct CSV headers
+   dealer_profile_headers = []
    Profile::CSV_GENERAL_FIELDS.map{ |key| dealer_profile_headers << Profile::CSV_HEADERS[key] }
    variable_data_labels = PrintFileField.print_file_headers(current_user)
    variable_data_headers = Profile::PRINT_FILE_VARIABELS.map {|key| variable_data_labels[key]}
@@ -242,31 +243,31 @@ class QdProfilesController < ApplicationController
    #Get and store dealer profile and variable data field values in an array
    profile_values = Dealer.profile_field_values(fields_for_csv, current_user)
    variable_values = PrintFileField.variable_field_values(fields_for_csv, current_user)
-                            
-   #Construct CSV row values for dealer profile related fields  
+
+   #Construct CSV row values for dealer profile related fields
     dealer_profile_field_values = []
-    Profile::CSV_GENERAL_FIELDS.map {|key| dealer_profile_field_values << profile_values[key] } 
+    Profile::CSV_GENERAL_FIELDS.map {|key| dealer_profile_field_values << profile_values[key] }
     dealer_profile_variable_values = Profile::PRINT_FILE_VARIABELS.map {|key| variable_values[key] }
-    
+
     qd_profile_headers = []
-    
+
     #only slected filed can shown
     QdProfile::FIELDS_TO_BE_SHOWN.map{ |key|
        qd_profile_headers <<  QdProfile::QDPROFILE_HEADERS["#{key}"]  if fields_to_be_shown.include?("#{key}")
     }
-    
-   
+
+
    csv_file = FasterCSV.generate do |csv|
       csv <<  qd_profile_headers + ['Exported date'] + dealer_profile_headers + variable_data_headers
 
       #Exporting data rows
       qd_profiles.each do |prof|
-       
+
         qd_profile_values = []
         QdProfile::FIELDS_TO_BE_SHOWN.map{ |field|
           qd_profile_values <<  eval("prof.#{field}") if fields_to_be_shown.include?("#{field}")
          }
-         
+
          csv << qd_profile_values + ["#{Time.now.strftime('%m-%d-%Y')}"] + dealer_profile_field_values + dealer_profile_variable_values
       end
     end #End CSV Export
@@ -292,7 +293,7 @@ class QdProfilesController < ApplicationController
                  }
    return values
  end
-   
+
  def variable_field_values(field_list)
    values = {}
    field_list.map{|field| if Profile::PRINT_FILE_VARIABELS.include?(field)
@@ -311,3 +312,4 @@ class QdProfilesController < ApplicationController
  	end
 
 end
+
