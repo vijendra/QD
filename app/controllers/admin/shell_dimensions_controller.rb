@@ -1,4 +1,5 @@
 class Admin::ShellDimensionsController < ApplicationController
+  before_filter :check_login
   require 'fileutils'
   def new
     @dealer = Dealer.find(params[:dealer_id])
@@ -7,12 +8,12 @@ class Admin::ShellDimensionsController < ApplicationController
     @shell_dimension = ShellDimension.new
     @positions = {}
     unless @dealer.administrator.blank?
-     dimensions = @dealer.administrator.shell_dimensions.find(:all, :conditions => ["template = ? ", params[:t] ])   
-     dimensions.map{ |rec| if rec.variable == 'bg_color' 
+     dimensions = @dealer.administrator.shell_dimensions.find(:all, :conditions => ["template = ? ", params[:t] ])
+     dimensions.map{ |rec| if rec.variable == 'bg_color'
                               @positions[rec.variable]= rec.value
                            else
-                              @positions[rec.variable]= rec.value.to_f 
-                           end   
+                              @positions[rec.variable]= rec.value.to_f
+                           end
                     } unless dimensions.blank?
     end
 
@@ -27,7 +28,7 @@ class Admin::ShellDimensionsController < ApplicationController
     elsif current_user.has_role?('admin')
       administrator_id = current_user.id
     end
-    
+
     if administrator_id
       ShellDimension.find(:all,:conditions =>["administrator_id = ? and template = ? ",administrator_id ,template ]).map{ |ob| ob.destroy }
       params[:values].each_pair{|k, v| ShellDimension.create( :administrator_id => administrator_id,
@@ -36,27 +37,27 @@ class Admin::ShellDimensionsController < ApplicationController
                                                               :value =>  v
                                                             )
                      }
-      #made changes here               
+      #made changes here
       unless params[:image].blank?
-        image = ShellImage.find(:first, :conditions =>["administrator_id = ? and template = ? ",administrator_id ,template ]) 
+        image = ShellImage.find(:first, :conditions =>["administrator_id = ? and template = ? ",administrator_id ,template ])
         unless image.blank?
           FileUtils.rm_r "#{RAILS_ROOT}/public/shell_images/#{image.id}"
           image.destroy
         end
-        ShellImage.create(:administrator_id => administrator_id ,:template => template ,:shell_image => params[:image] ) 
+        ShellImage.create(:administrator_id => administrator_id ,:template => template ,:shell_image => params[:image] )
       end
-      
+
       flash[:notice] = 'Shell dimensions are successfully saved.'
-    else 
+    else
       flash[:notice] = 'Shell dimensions not saved, Because dealer is still not assigned to any administrator.'
-    end  
+    end
     redirect_to new_admin_dealer_shell_dimension_path(:dealer_id => @dealer.id, :t => template)
   end
 
 
   def shell_matrix
     respond_to do |format|
-                   format.html 
+                   format.html
 
                    format.pdf {
                       width ||= (params[:width_inch].to_f * 72 || params[:width_mm].to_i * 2.8334 || params[:width_points].to_i || params[:width_cm].to_i)
@@ -70,3 +71,4 @@ class Admin::ShellDimensionsController < ApplicationController
                    end
   end
 end
+

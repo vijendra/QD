@@ -1,4 +1,5 @@
 class Admin::TriggerDetailsController < ApplicationController
+  before_filter :check_login
   layout 'admin'
   require_role 'super_admin'
   require 'zip/zipfilesystem'
@@ -142,7 +143,7 @@ def process_triggers
         end
       	dealer_profile.update_attribute('current_balance', balance)
         trigger.update_attribute('balance', balance )
-        trigger.make_processed
+        trigger.make_processed(current_user.id)
 
 	      #generate masked csv to be attached to the dealer's mail
         generate_csv_file(trigger, dealer_profile)

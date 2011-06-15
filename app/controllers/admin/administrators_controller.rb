@@ -1,9 +1,9 @@
 class Admin::AdministratorsController < ApplicationController
-
+   before_filter :check_login
    require_role "super_admin"
    before_filter :check_role
    layout 'admin'
-   
+
     %w(email login).each do |attr|
     in_place_edit_for :administrator, attr.to_sym
   end
@@ -143,3 +143,4 @@ class Admin::AdministratorsController < ApplicationController
     logged_in? && current_user.has_role?(:admin)
   end
 end
+

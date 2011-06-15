@@ -1,4 +1,5 @@
 class Admin::DealerFieldsController < ApplicationController
+  before_filter :check_login
   before_filter :find_dealer
 
   def new
@@ -52,3 +53,4 @@ class Admin::DealerFieldsController < ApplicationController
   	 @dealer = Dealer.find(params[:dealer_id])
    end
  end
+

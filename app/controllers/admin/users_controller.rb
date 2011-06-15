@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_filter :check_login
   require_role :super_admin
   layout 'admin'
 
@@ -156,3 +157,4 @@ class Admin::UsersController < ApplicationController
 
 
 end
+

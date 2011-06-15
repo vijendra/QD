@@ -1,4 +1,5 @@
 class Admin::DealersController < ApplicationController
+  before_filter :check_login
   require_role :admin
 
   layout 'admin'

@@ -1,4 +1,5 @@
 class Admin::RobotsController < ApplicationController
+  before_filter :check_login
   require 'mechanize'
   #require File.dirname(__FILE__) + '/../config/environment.rb'
 
@@ -69,3 +70,4 @@ class Admin::RobotsController < ApplicationController
     redirect_to(admin_user_path(params[:id]))
   end
 end
+

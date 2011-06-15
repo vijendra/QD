@@ -1,4 +1,5 @@
 class Admin::DealerAccountsController < ApplicationController
+  before_filter :check_login
   before_filter :find_dealer
   require_role 'super_admin'
 
@@ -29,3 +30,4 @@ class Admin::DealerAccountsController < ApplicationController
     end
 
 end
+
