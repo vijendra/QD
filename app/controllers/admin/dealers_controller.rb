@@ -12,7 +12,7 @@ class Admin::DealersController < ApplicationController
     @search.per_page  = 50
     @search.order_as ||= "DESC"
     @search.order_by ||= "id"
-    @search.include = [:profile, :dealer_field]
+    @search.include = [:profile, :dealer_field, :dnc_numbers]
 
     @search.conditions.administrator_id = current_user.id unless super_admin?
     @dealers = @search.all
