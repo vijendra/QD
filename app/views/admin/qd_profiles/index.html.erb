@@ -10,6 +10,13 @@
          <%= link_to("<span>Generate print file for all marked data</span>", print_file_url(:m => 1), :action => :get, :class=> "button")%>
          <%= link_to("<span>Generate print file for all un-marked data</span>", print_file_url(), :action => :get, :class=> "button")%> </td>
     </tr>
+    <%  unless super_admin?%>
+      <tr>
+        <td COLSPAN= "2">
+           <%= 'There are data records pending append. Please refresh after some time to know the status, before generating print file.' if check_for_pending_append  %>
+        </td>
+      </tr>
+    <%end%>
   </table>
 
   <div id = 'top-links'>
