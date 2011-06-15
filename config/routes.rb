@@ -1,7 +1,7 @@
 # See how all your routes lay out with "rake routes"
 ActionController::Routing::Routes.draw do |map|
   map.resources :data_appends
-  
+
   map.resources :dealers, :has_one =>[:print_file_field ,:csv_extra_field]
 
   # RESTful rewrites
@@ -38,18 +38,18 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:admin) do |admin|
     admin.root :controller => 'dashboard', :action => 'index'
     admin.resources :settings
-    
-    admin.resources :dealers, :has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get }, :collection => {:import_dealer_csv => :get }, :has_many => [:dealer_accounts, :print_data]
+
+    admin.resources :dealers, :has_one =>[:dealer_field] ,:member => {:activate => :post, :inactive => :post, :test_print => :get, :reset_password => :put, :csv => :get, :assign_administrator =>:get, :authentication_code => :get, :export_dnc => :get }, :collection => {:import_dealer_csv => :get }, :has_many => [:dealer_accounts, :print_data]
     admin.resources :dealers do |dealer|
       #dealer.resource :print_data, :controller => 'print_data'
        dealer.resources :shell_dimensions
     end
     admin.resources :qd_profiles, :member => {:assign_dealer => :get }, :collection =>{:mark_data => :post, :unmark_data => :post, :accurate_append => :post}
-    admin.resources :trigger_details, :collection => { :process_triggers => :get}, :member => {:mark_processed => :any } 
+    admin.resources :trigger_details, :collection => { :process_triggers => :get}, :member => {:mark_processed => :any }
     admin.resources :data_appends, :collection => {:ncoa_append => :get} do |append|
       append.resources :appended_qd_profiles
     end
- 
+
     admin.resources :dnc_numbers
     admin.resources :print_file_fields
     #admin.resources :
@@ -79,7 +79,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.print_file 'admin/print_data/print_file.csv',   :controller => 'admin/print_data',  :action => 'index', :format => 'csv'
-  map.shell_matrix 'admin/print_data/shell_matrix.pdf', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix', :format => 'pdf' 
+  map.shell_matrix 'admin/print_data/shell_matrix.pdf', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix', :format => 'pdf'
   map.shell_matrix_html 'admin/dealers/print_data/shell_matrix', :controller => 'admin/shell_dimensions',  :action => 'shell_matrix'
   #map.shell_dimension 'admin/print_data/print_shell_dimension', :controller => 'admin/print_data',  :action => 'print_shell_dimension'
   # Dashboard as the default location
@@ -89,3 +89,4 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
+

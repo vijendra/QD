@@ -7,8 +7,9 @@ class Dealer < User
   has_many :account_resets
   belongs_to :administrator
   has_many :data_apppends
+  has_many :dnc_numbers
   has_many :pending_data_apppends, :conditions => ["status_message = 'sent'"], :class_name => 'DataAppend'
-  
+
   def self.dealers_list
     self.find(:all, :include => :profile).collect{|dealer| [dealer.profile.name, dealer.id] }
   end
@@ -29,7 +30,7 @@ class Dealer < User
 
   named_scope :active_dealers, {:conditions => ["state = ?",  'active'] }
   named_scope :inactive_dealers, {:conditions => ["state = ?",  'inactive'] }
-  
+
    def self.profile_field_values(fields, dealer)
      profile = dealer.profile
      values = {}
@@ -44,5 +45,6 @@ class Dealer < User
                 }
     return values
   end
-  
+
 end
+

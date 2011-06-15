@@ -13,6 +13,7 @@
        <th> Admin </th>
     <%end%>
   <th> Print settings</th>
+  <th> Export Dnc</th>
  	<th> Del </th>
 
   </tr>
@@ -26,8 +27,8 @@
    <% @dealers.each do |dealer| %>
        <tr class="<%= cycle('odd', 'even')%>">
          <td> </td>
-         <td class = 'fixed brown'> 
-            <%unless dealer.profile.blank? %> <%= image_tag("user.gif")%> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> (<%= dealer.id %>) <%end%> 
+         <td class = 'fixed brown'>
+            <%unless dealer.profile.blank? %> <%= image_tag("user.gif")%> <%= link_to dealer.profile.name, edit_admin_dealer_path(dealer.id) %> (<%= dealer.id %>) <%end%>
          </td>
          <td> <% if dealer.profile.auth_code.blank?  %>
                 <%= link_to "Enter",  authentication_code_admin_dealer_path(dealer.id) ,:rel =>'facebox' %>
@@ -37,10 +38,10 @@
           </td>
 
           <td> <%= link_to  dealer.profile.current_balance || 0 , admin_dealer_dealer_accounts_path(:dealer_id =>dealer.id)  %> </td>
-  
+
           <td NOWRAP> <%= link_to "#{image_tag('excel.gif')} Upload" , csv_admin_dealer_path(:id =>dealer.id), :rel=>"facebox" %> </td>
-          
-          <td> <%= dealer.dealer_field.nil? ? (link_to "Fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>  
+
+          <td> <%= dealer.dealer_field.nil? ? (link_to "Fields",  new_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") : (link_to "Fields", edit_admin_dealer_dealer_field_path(dealer.id), :rel=> "facebox") %>
           </td>
 
            <td NOWRAP><%=  dealer.active? ? (link_to "#{image_tag("user_green.gif")} Active", inactive_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page),:method =>:post, :confirm => "This action will mark #{dealer.profile.name} as INACTIVE. Do you want to continue?") : (link_to "#{image_tag("user_red.gif")} Inactive", activate_admin_dealer_path(:id => dealer.id, :page =>@search.page, :per_page => @search.per_page), :method =>:post, :confirm => "This action will mark #{dealer.profile.name} as ACTIVE. Are you sure?") %>
@@ -58,6 +59,7 @@
           <%end%>
 
          <td NOWRAP> <%= link_to "#{image_tag('printer.gif')} Settings",  admin_dealer_print_data_path(:dealer_id => dealer.id) %></td>
+         <td> <%= link_to "Export Dnc", export_dnc_admin_dealer_path(dealer) %></td>
          <td> <%= link_to image_tag('user_delete.png'), admin_dealer_path(dealer) , :confirm => "You are deleting #{dealer.profile.name}'s record from the qd robot system. Are you sure?", :method => :delete %></td>
        </tr>
     <% end %>
@@ -90,3 +92,4 @@
 
 
 <br />
+

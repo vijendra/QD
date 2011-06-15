@@ -1,6 +1,7 @@
 class DncNumber < ActiveRecord::Base
   $config = YAML.load_file(File.join(File.dirname(__FILE__), '../../config/database.yml'))
   self.establish_connection  $config["dnc_database"]
+  belongs_to :dealer
   require 'zip/zipfilesystem'
 
   def self.fetch_dnc_numbers(dealer)

@@ -6,9 +6,10 @@
        <th> Full address </th>
        <th> Phone </th>
        <th> Mobile </th>
-       <th> Landline </th>
+       <th> compiled landline </th>
+       <th> da landline </th>
        <th> Dealer  </th>
- 
+
    </tr>
 
    <% @qd_profiles.each do |profile| %>
@@ -18,10 +19,12 @@
            <td> <%=h profile.full_addrress %> </td>
            <td> <%=h profile.phone_num %> </td>
            <td> <%=h profile.mobile %> </td>
-           <td> <%=h profile.landline %> </td>
+           <td> <%=h profile.compiled_landline %> </td>
+           <td> <%=h profile.da_landline %> </td>
            <td> <%= link_to profile.dealer.profile.name,  assign_dealer_admin_qd_profile_path(profile.id),:rel => "facebox" %> </td>
        </tr>
 
     <% end %>
    </table>
 <%end-%>
+

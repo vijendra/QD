@@ -314,6 +314,16 @@ class Admin::DealersController < ApplicationController
    end
   end
 
+  def export_dnc
+    dealer = Dealer.find(params[:id])
+    csv_file = FasterCSV.generate do |csv|
+                 csv << ['Number', 'Dealer Name']
+                 dealer.dnc_numbers.each do |dnc_number|
+                   csv << [dnc_number.number,(dealer.profile.name rescue dealer.login )]
+                 end
+               end
+    send_data(csv_file, :filename => "dealer_#{dealer.id}_dnc_numbers.csv", :type => 'text/csv', :disposition => 'attachment')
+  end
 
   private
 
