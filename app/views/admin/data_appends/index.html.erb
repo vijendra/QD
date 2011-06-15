@@ -32,7 +32,7 @@
     <td> <%= da.created_at.strftime("%d/%m/%Y") %></td>
     <td> <%= da.dealer.profile.name %></td>
     <td> <%= da.no_of_records %></td>
-    <td> <%= da.requestor.login %></td>
+    <td> <%= da.requestor.login rescue ' '%></td>
     <td class = "<%=da.status_message %>">
       <%= 'Sent for append.' if da.status_message == 'sent' %>
       <%= "Appended on: <span> #{da.completed_on.strftime('%d %b, %Y. %I:%M %p') unless da.completed_on.blank?}.</span> &nbsp; Matches: <span>#{da.matches}.</span> Errors: <span>#{da.total_errors}</span>" if da.status_message == 'appended' %>
