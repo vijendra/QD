@@ -45,7 +45,8 @@
        <%= profile_form.text_field :dnc_user_name,:class => 'textbox' %> </td></tr>
       <tr> <th> DNC registry password:</th> <td>
        <%= profile_form.text_field :dnc_password,:class => 'textbox' %> </td></tr>
-
+      <tr> <th> Send to DNC:</th> <td>
+       <%= profile_form.select :dnc_schedule, [['Select' , ''], ['Weekly', 'weekly'], ['15 Days', '15 days'], ['Monthly', 'monthly']]  %> </td></tr>
      <tr> <th>Comments:</th> <td>
        <%= profile_form.text_area :comments %> </td></tr>
       <% end %>

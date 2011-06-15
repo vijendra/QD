@@ -29,10 +29,10 @@
      <!--  <tr> <th> Password : </th> <td><%= "#{"*"*8} <small>#{link_to_if !@user.deleted?, "send new password", reset_password_profiles_path(:id => @user.id)}</small>" %></td></tr> -->
        <tr> <th> Account created </th> <td><%=  @user.created_at.to_s(:long) %> </td> </tr>
 	     <tr> <th> Last updated : </th> <td> <%=  @user.updated_at.to_s(:long) %> </td> </tr>
-	
 
-  
-    
+
+
+
         <tr class= 'table-top'> <td colspan='2' > Enter Personal Details: </td> </tr>
             <tr><th>Name: </th><td>
             <%= f.text_field :name ,:class =>'textbox'%></td></tr>
@@ -52,12 +52,25 @@
        <%= f.text_field :last_name ,:class =>'textbox'%></td></tr>
       <tr><th>Phone:</th><td>
        <%= f.text_field :phone_1 ,:class =>'textbox-tiny'%>-<%= f.text_field :phone_2,:class =>'textbox-tiny' %>-<%= f.text_field :phone_3,:class =>'textbox-tiny' %></td></tr>
+       <tr class= 'table-top'> <td colspan='2' > Data Fields: </td> </tr>
       <tr> <th>Used data source:</th> <td>
        <%= f.select :data_sources, [['Select' , ''], ['seekerinc', 'seekerinc'], ['marketernet', 'marketernet']] %> </td></tr>
       <tr><th>MarketerNet PO:</th><td>
        <%= f.text_field :marketer_net_po ,:class =>'textbox' %></td></tr>
       <tr><th>Wants data printed:</th><td>
        <%= f.select :wants_data_printed, [['Select' , ''], ['Yes', 1], ['No', 0]] %></td></tr>
+               <tr> <th> NCOA append automatically?:</th> <td>
+       <%= f.select :ncoa_append, [['Select' , ''], ['Yes', true], ['No', false]] %> </td></tr>
+      <tr> <th> Email append automatically?:</th> <td>
+       <%= f.select :email_append, [['Select' , ''], ['Yes', true], ['No', false]] %> </td></tr>
+      <tr> <th> Phone append automatically?:</th> <td>
+       <%= f.select :phone_append, [['Select' , ''], ['Yes', true], ['No', false]] %> </td></tr>
+      <tr> <th> DNC registry user name:</th> <td>
+       <%= f.text_field :dnc_user_name,:class => 'textbox' %> </td></tr>
+      <tr> <th> DNC registry password:</th> <td>
+       <%= f.text_field :dnc_password,:class => 'textbox' %> </td></tr>
+      <tr> <th> Send to DNC:</th> <td>
+       <%= f.select :dnc_schedule, [['Select' , ''], ['Weekly', 'weekly'], ['15 Days', '15 days'], ['Monthly', 'monthly']]  %> </td></tr>
       <tr><th>Comments:</th><td>
        <%= f.text_area :comments ,:class =>"textarea" %></td></tr>
 
@@ -84,3 +97,4 @@
 <br />
 	<% end %>
 <% end -%>
+
