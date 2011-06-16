@@ -78,7 +78,7 @@ class DncNumber < ActiveRecord::Base
     phone_numbers = ""
     File.new(target_file, "r").each do |number|
       phone_number = (number.sub /.+,/, '').gsub(/[\n]+/, ""); #extract 9919981 from 571,9919981/n
-      qd_profile = dealer.qd_profiles.find(:first, :conditions => ['phone_num = ? OR mobile = ? OR landline = ?', phone_number, phone_number, phone_number])
+      qd_profile = dealer.qd_profiles.find(:first, :conditions => ['phone_num = ? OR mobile = ? OR compiled_landline = ?', phone_number, phone_number, phone_number])
       unless qd_profile.blank?
         qd_profile.update_attribute('dnc', true)
         DncNumber.create(:dealer_id => dealer.id, :number => phone_number )
