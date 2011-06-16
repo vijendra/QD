@@ -17,8 +17,8 @@
    <%end-%>
 
     <% if(admin? || super_admin?) -%>
-      <%= link_to "Data appends", admin_data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current' : '') %>
-      <%= link_to "DNC numbers", admin_dnc_numbers_path, :class => (request.request_uri =~ /dnc_numbers/ ? 'current last' : 'last') %>
+      <%= link_to "Data appends", admin_data_appends_path, :class => (request.request_uri =~ /data_appends/ ? 'current last' : 'last') %>
     <% end -%>
-   
+
 <% end %>
+
