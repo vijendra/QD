@@ -30,6 +30,8 @@ class Admin::PrintFileFieldsController < ApplicationController
      	  PrintFileField.by_dealer(dealer.id).by_identifier("template").first.update_attributes(:value => params[:template])
      end
 
+     ShellDimension.dimensions_detail_for_template(dealer.administrator, params[:template]) unless dealer.administrator.blank?
+
 
      redirect_to  admin_dealer_print_data_path(:dealer_id => dealer.id)
   end
