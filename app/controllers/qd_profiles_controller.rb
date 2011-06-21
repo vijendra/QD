@@ -189,6 +189,7 @@ class QdProfilesController < ApplicationController
      #if printing without shell then fetch the shell dimension set for the administrator
      if shell.blank?
        @positions = {}
+       ShellDimension.dimensions_detail_for_template(current_user.administrator, template.value)
        dimensions = current_user.administrator.shell_dimensions.all(:conditions => ["template = ?" , template.value])
        dimensions.map{ |rec| @positions[rec.variable]= rec.variable == 'bg_color'? rec.value : @positions[rec.variable]= rec.value.to_f } unless dimensions.blank?
      end
