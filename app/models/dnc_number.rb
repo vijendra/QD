@@ -5,7 +5,7 @@ class DncNumber < ActiveRecord::Base
   require 'zip/zipfilesystem'
 
   def self.fetch_dnc_numbers(dealer)
-    puts "xxxxxxxxxxxxxxxx"
+    puts "xxxxxxxxxxxxxx"
     agent = WWW::Mechanize.new
     page = agent.get('https://telemarketing.donotcall.gov/login/login.aspx?ReturnUrl=%2fdownload%2fdnld.aspx')
     #First login form
@@ -39,30 +39,15 @@ class DncNumber < ActiveRecord::Base
 
   def self.send_dnc_in_week
     dealers = Dealer.dnc_for_week.all
-    puts "pppppppppppppp #{dealers.inspect}"
-    puts "pppppppppppppp #{dealers.class}"
-    unless dealers.blank?
-      dealers.each do |dealer|
-        DncNumber.fetch_dnc_numbers(dealer)
-      end
-    end
+    dealers.each do |dealer| DncNumber.fetch_dnc_numbers(dealer) end unless dealers.blank?
   end
-
   def self.send_dnc_twice_in_month
     dealers = Dealer.dnc_for_15_days.all
-    unless dealers.blank?
-      dealers.each do |dealer|
-        DncNumber.fetch_dnc_numbers(dealer)
-      end
-    end
+    dealers.each do |dealer| DncNumber.fetch_dnc_numbers(dealer) end unless dealers.blank?
   end
   def self.send_dnc_in_month
     dealers = Dealer.dnc_for_month.all
-    unless dealers.blank?
-      dealers.each do |dealer|
-        DncNumber.fetch_dnc_numbers(dealer)
-      end
-    end
+    dealers.each do |dealer| DncNumber.fetch_dnc_numbers(dealer) end unless dealers.blank?
   end
 
   protected
@@ -107,7 +92,7 @@ class DncNumber < ActiveRecord::Base
     phone_numbers = ""
     File.new(target_file, "r").each do |number|
       phone_number = (number.sub /.+,/, '').gsub(/[\n]+/, ""); #extract 9919981 from 571,9919981/n
-      qd_profile = dealer.qd_profiles.find(:first, :conditions => ['phone_num = ? OR mobile = ? OR compiled_landline = ?', phone_number, phone_number, phone_number])
+      qd_profile = dealer.qd_profiles.find(:first, :conditions => ['da_landline = ? OR mobile = ? OR compiled_landline = ?', phone_number, phone_number, phone_number])
       unless qd_profile.blank?
         qd_profile.update_attribute('dnc', true)
         DncNumber.create(:dealer_id => dealer.id, :number => phone_number )
