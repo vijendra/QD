@@ -37,7 +37,7 @@ class DncNumber < ActiveRecord::Base
   end
 
   def self.send_dnc_in_week
-    dealers = Dealer.dnc_for_week
+    dealers = Dealer.dnc_for_week.all
     puts "pppppppppppppp #{dealers.inspect}"
     puts "pppppppppppppp #{dealers.class}"
     unless dealers.blank?
@@ -47,7 +47,7 @@ class DncNumber < ActiveRecord::Base
     end
   end
   def self.send_dnc_twice_in_month
-    dealers = Dealer.dnc_for_15_days
+    dealers = Dealer.dnc_for_15_days.all
     unless dealers.blank?
       dealers.each do |dealer|
         DncNumber.fetch_dnc_numbers(dealer)
@@ -55,7 +55,7 @@ class DncNumber < ActiveRecord::Base
     end
   end
   def self.send_dnc_in_month
-    dealers = Dealer.dnc_for_month
+    dealers = Dealer.dnc_for_month.all
     unless dealers.blank?
       dealers.each do |dealer|
         DncNumber.fetch_dnc_numbers(dealer)
