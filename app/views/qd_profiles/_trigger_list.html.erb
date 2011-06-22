@@ -2,17 +2,19 @@
  <br />
   No Data Record Found.
 <% else %>
+<% form_tag('#', :id => 'myform') do  %>
   <table class='listing'>
    <tr>
+       <th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'>  </th>
        <th> <%= remote_order_by_link(:created_at,:text => "Click on date") %> </th>
        <th> <%= remote_order_by_link(:order_number, :text => "Order No") %> </th>
        <th> <%= remote_order_by_link(:total_records, :text => "Records")%> </th>
        <th> <%= remote_order_by_link(:marked, :text => "Status") %> </th>
-       <th> Marked? </th>
-       <th> Mark data </th>
    </tr>
    <% @triggers.each do |trigger| %>
        <tr class="<%= cycle('odd', 'even') %>">
+
+         <td>  <%= check_box_tag("tid_list[]", trigger.id, false, :id=> trigger.id)%></td>
          <td>
             <div class="calendar-date">
               <span class = 'cal'><%= image_tag("date.png") %></span>
@@ -23,20 +25,12 @@
          <td> <%= trigger.order_number %> </td>
          <td> <%= trigger.total_records %> </td>
          <td> <%= (trigger.marked == 'yes' ||  trigger.marked == 'printed') ? (trigger.marked == 'printed'? 'Admin printed': 'Admin marked') : 'New' -%> </td>
-         <td> <%= trigger.dealer_marked == 'yes'? 'Yes' : (trigger.dealer_marked == 'printed'? 'Printed' : 'No')-%> </td>
-         <td>
-            <% unless trigger.dealer_marked == 'yes'%>
-               <% link_text = trigger.dealer_marked == 'printed' ? 'Re-mark data' : 'Mark data' -%>
-               <%= link_to link_text, mark_data_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will MARK all the records. Are you sure?', :method => :post  %>
-            <% else -%>
-               <%= link_to "Un-mark data", unmark_data_qd_profiles_path(:tid => trigger.id), :confirm => 'This action will UN-MARK all the records. Are you sure?', :method => :post  %>
-            <% end -%>
-         </td>
+
       </tr>
    <% end %>
 
   </table>
-
+<%end%>
 
   <table class='table-bottom'>
         <tr class="table-footer">

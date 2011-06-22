@@ -44,11 +44,11 @@
 
   <div id="main">
     <!-- <%= flash_message %> -->
-    <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
+     <div id="screen">
+        <h3 class="head"> <%= yield_or_default yield(:header) %> </h3>
+        <div id = 'flash'> <%= render :partial => "layouts/flash", :object => flash %></div>
 
-    <div id="screen">
-       <h3 class="head"> <%= yield_or_default yield(:header) %> </h3>
-       <%= yield %>
+        <%= yield %>
     </div>
   </div>
 

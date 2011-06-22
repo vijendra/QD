@@ -168,113 +168,144 @@ class QdProfilesController < ApplicationController
  end
 
  def print_file
-   @profiles = current_user.qd_profiles.to_be_dealer_printed
-   unless @profiles.blank?
-     shell = params[:s]
-     @shell_needed = !shell.blank? ? true : false #This will help to set background image
-     @dealer_profile =  current_user.profile
-     @dealer_address =  current_user.address
-     @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
-     @auth_code =  @dealer_profile.auth_code rescue ' '
-     @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
-     @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
-     @third_para = current_user.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator '
-     template = current_user.print_file_fields.find_by_identifier('template')
-     @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
-     @ask_for = current_user.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
-     @ph_address = current_user.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
-     @ph_city = current_user.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
-     @ph_state_zip = current_user.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
+   if params.has_key?('tid_list')
+     @profiles = []
+     params[:tid_list].each do |tid|
+       trigger = TriggerDetail.find(tid, :include => [:qd_profiles])
+       @profiles.concat(trigger.qd_profiles.all) unless trigger.qd_profiles.blank?
+     end
+     @profiles.uniq!
+
+     unless @profiles.blank?
+       shell = params[:s]
+       @shell_needed = !shell.blank? ? true : false #This will help to set background image
+       @dealer_profile =  current_user.profile
+       @dealer_address =  current_user.address
+       @phone = "#{@dealer_profile.phone_1}-#{@dealer_profile.phone_2}-#{@dealer_profile.phone_3}"
+       @auth_code =  @dealer_profile.auth_code rescue ' '
+       @first_para = current_user.print_file_fields.find_by_identifier('text_body_1').value rescue 'Data Not entered. Conatcat your administrator'
+       @sec_para = current_user.print_file_fields.find_by_identifier('text_body_2').value rescue 'Data Not entered. Conatcat your administrator'
+       @third_para = current_user.print_file_fields.find_by_identifier('text_body_3').value rescue 'Data Not entered. Conatcat your administrator '
+      template = current_user.print_file_fields.find_by_identifier('template')
+       @w_site = current_user.print_file_fields.find_by_identifier('variable_data_1').value rescue 'www.autoappnow.com'
+       @ask_for = current_user.print_file_fields.find_by_identifier('variable_data_2').value rescue ' '
+       @ph_address = current_user.print_file_fields.find_by_identifier('variable_data_4').value rescue ' '
+       @ph_city = current_user.print_file_fields.find_by_identifier('variable_data_5').value rescue ' '
+       @ph_state_zip = current_user.print_file_fields.find_by_identifier('variable_data_6').value rescue ' '
 
      #if printing without shell then fetch the shell dimension set for the administrator
-     if shell.blank?
-       @positions = {}
-       ShellDimension.dimensions_detail_for_template(current_user.administrator, template.value)
-       dimensions = current_user.administrator.shell_dimensions.all(:conditions => ["template = ?" , template.value])
-       dimensions.map{ |rec| @positions[rec.variable]= rec.variable == 'bg_color'? rec.value : @positions[rec.variable]= rec.value.to_f } unless dimensions.blank?
-     end
+       if shell.blank?
+         @positions = {}
+         ShellDimension.dimensions_detail_for_template(current_user.administrator, template.value)
+         dimensions = current_user.administrator.shell_dimensions.all(:conditions => ["template = ?" , template.value])
+         dimensions.map{ |rec| @positions[rec.variable]= rec.variable == 'bg_color'? rec.value : @positions[rec.variable]= rec.value.to_f } unless dimensions.blank?
+       end
 
-     #set template height and width
-     unless template.blank?
-       @print_template = "template#{template.value}"
-       case @print_template
-           when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']])
-           when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
-           when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
-           when 'template4' then (file_name, size = 'snap_pack.pdf', @positions.blank? ? [1267, 807] : [@positions['width'], @positions['height']])
-           else (file_name, size = 'print_file.pdf', [610, 1009])
-        end
+      #set template height and width
+       unless template.blank?
+         @print_template = "template#{template.value}"
+         case @print_template
+            when 'template1' then (file_name, size = 'Crediplex.pdf', @positions.blank? ? [611, 935] : [@positions['width'], @positions['height']])
+            when 'template2' then (file_name, size = 'WSAC.pdf', @positions.blank? ? [612, 937] : [@positions['width'], @positions['height']])
+            when 'template3' then (file_name, size = 'Letter_Master.pdf', @positions.blank? ? [612, 1008] : [@positions['width'], @positions['height']])
+            when 'template4' then (file_name, size = 'snap_pack.pdf', @positions.blank? ? [1267, 807] : [@positions['width'], @positions['height']])
+            else (file_name, size = 'print_file.pdf', [610, 1009])
+         end
 
-       options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
-       prawnto :inline => false, :prawn => options, :page_orientation => :portrait, :filename => file_name
-       render :layout => false
+         options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => size }
+         prawnto :inline => false, :prawn => options, :page_orientation => :portrait, :filename => file_name
+         render :layout => false
+       else
+         flash[:notice] = 'Print Shell is not yet selected. Please contact your administrator.'
+         redirect_to(qd_profiles_path)
+       end
      else
-       flash[:notice] = 'Print Shell is not yet selected. Please contact your administrator.'
+       flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
        redirect_to(qd_profiles_path)
      end
    else
-     flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
+     flash[:notice] = 'No data selected for Print'
      redirect_to(qd_profiles_path)
    end
  end
 
   def print_labels
-    @profiles = current_user.qd_profiles.to_be_dealer_printed
-    unless @profiles.blank?
-      options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [595, 770] }
-      prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => 'labels.pdf'
-      render :layout => false
+    if params.has_key?('tid_list')
+      @profiles = []
+      params[:tid_list].each do |tid|
+        trigger = TriggerDetail.find(tid, :include => [:qd_profiles])
+        @profiles.concat(trigger.qd_profiles.all) unless trigger.qd_profiles.blank?
+      end
+      @profiles.uniq!
+      unless @profiles.blank?
+        options = { :left_margin => 0, :right_margin => 0, :top_margin => 0, :bottom_margin => 0, :page_size => [595, 770] }
+        prawnto :inline => true, :prawn => options, :page_orientation => :portrait, :filename => 'labels.pdf'
+        render :layout => false
+      else
+        flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
+        redirect_to(qd_profiles_path)
+      end
     else
-      flash[:notice] = 'No Data Marked for printing. Please make sure you have marked data for print.'
+      flash[:error] = 'No data selected for Print Labels.'
       redirect_to(qd_profiles_path)
     end
- end
+  end
 
 
  def csv_print_file
-   qd_profiles = current_user.qd_profiles.to_be_dealer_printed
-   fields_to_be_shown = current_user.dealer_field.fields.sort rescue QdProfile.public_attributes
+   if params.has_key?('tid_list')
+     qd_profiles = []
+     params[:tid_list].each do |tid|
+       trigger = TriggerDetail.find(tid, :include => [:qd_profiles])
+       qd_profiles.concat(trigger.qd_profiles.all) unless trigger.qd_profiles.blank?
+     end
+     qd_profiles.uniq!
+     fields_to_be_shown = current_user.dealer_field.fields.sort rescue QdProfile.public_attributes
 
    #Construct CSV headers
-   dealer_profile_headers = []
-   Profile::CSV_GENERAL_FIELDS.map{ |key| dealer_profile_headers << Profile::CSV_HEADERS[key] }
-   variable_data_labels = PrintFileField.print_file_headers(current_user)
-   variable_data_headers = Profile::PRINT_FILE_VARIABELS.map {|key| variable_data_labels[key]}
-   fields_for_csv = current_user.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
-   #Get and store dealer profile and variable data field values in an array
-   profile_values = Dealer.profile_field_values(fields_for_csv, current_user)
-   variable_values = PrintFileField.variable_field_values(fields_for_csv, current_user)
+     dealer_profile_headers = []
+     Profile::CSV_GENERAL_FIELDS.map{ |key| dealer_profile_headers << Profile::CSV_HEADERS[key] }
+     variable_data_labels = PrintFileField.print_file_headers(current_user)
+     variable_data_headers = Profile::PRINT_FILE_VARIABELS.map {|key| variable_data_labels[key]}
+     fields_for_csv = current_user.csv_extra_field.fields rescue Profile::CSV_GENERAL_FIELDS
+     #Get and store dealer profile and variable data field values in an array
+     profile_values = Dealer.profile_field_values(fields_for_csv, current_user)
+     variable_values = PrintFileField.variable_field_values(fields_for_csv, current_user)
 
-   #Construct CSV row values for dealer profile related fields
-    dealer_profile_field_values = []
-    Profile::CSV_GENERAL_FIELDS.map {|key| dealer_profile_field_values << profile_values[key] }
-    dealer_profile_variable_values = Profile::PRINT_FILE_VARIABELS.map {|key| variable_values[key] }
+     #Construct CSV row values for dealer profile related fields
+     dealer_profile_field_values = []
+     Profile::CSV_GENERAL_FIELDS.map {|key| dealer_profile_field_values << profile_values[key] }
+     dealer_profile_variable_values = Profile::PRINT_FILE_VARIABELS.map {|key| variable_values[key] }
 
-    qd_profile_headers = []
+     qd_profile_headers = []
 
     #only slected filed can shown
-    QdProfile::FIELDS_TO_BE_SHOWN.map{ |key|
-       qd_profile_headers <<  QdProfile::QDPROFILE_HEADERS["#{key}"]  if fields_to_be_shown.include?("#{key}")
-    }
+     QdProfile::FIELDS_TO_BE_SHOWN.map{ |key|
+        qd_profile_headers <<  QdProfile::QDPROFILE_HEADERS["#{key}"]  if fields_to_be_shown.include?("#{key}")
+     }
 
 
-   csv_file = FasterCSV.generate do |csv|
-      csv <<  qd_profile_headers + ['Exported date'] + dealer_profile_headers + variable_data_headers
+     csv_file = FasterCSV.generate do |csv|
+       csv <<  qd_profile_headers + ['Exported date'] + dealer_profile_headers + variable_data_headers
 
-      #Exporting data rows
-      qd_profiles.each do |prof|
+       #Exporting data rows
+       qd_profiles.each do |prof|
 
-        qd_profile_values = []
-        QdProfile::FIELDS_TO_BE_SHOWN.map{ |field|
-          qd_profile_values <<  eval("prof.#{field}") if fields_to_be_shown.include?("#{field}")
-         }
+         qd_profile_values = []
+         QdProfile::FIELDS_TO_BE_SHOWN.map{ |field|
+           qd_profile_values <<  eval("prof.#{field}") if fields_to_be_shown.include?("#{field}")
+          }
 
-         csv << qd_profile_values + ["#{Time.now.strftime('%m-%d-%Y')}"] + dealer_profile_field_values + dealer_profile_variable_values
-      end
-    end #End CSV Export
+           csv << qd_profile_values + ["#{Time.now.strftime('%m-%d-%Y')}"] + dealer_profile_field_values + dealer_profile_variable_values
+        end
+      end #End CSV Export
 
     #sending the file to the browser
-    send_data(csv_file, :filename => "#{Time.now.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')
+      send_data(csv_file, :filename => "#{Time.now.strftime('%m-%d-%Y')}.csv", :type => 'text/csv', :disposition => 'attachment')
+    else
+      flash[:error] = 'No data selected for csv print.'
+      redirect_to(qd_profiles_path)
+    end
  end
 
  private
