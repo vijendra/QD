@@ -224,7 +224,7 @@ class QdProfilesController < ApplicationController
        redirect_to(qd_profiles_path)
      end
    else
-     flash[:notice] = 'No data selected for Print'
+     flash[:error] = 'No data selected for Print'
      redirect_to(qd_profiles_path)
    end
  end
