@@ -2,12 +2,12 @@ set :output, {:error => "/home/rails/d2leads/log/whenever_error.txt", :standard 
 
 
 every 2.minutes do
-  runner "DncNumber.send_for_dnc('weekly')"
+  runner "DncNumber.send_dnc_in_week"
 end
 every 15.days do
-  runner "DncNumber.send_for_dnc('15 days')"
+  runner "DncNumber.send_dnc_twice_in_month"
 end
 every 30.days do
-  runner "DncNumber.send_for_dnc('monthly')"
+  runner "DncNumber.send_dnc_in_month"
 end
 
