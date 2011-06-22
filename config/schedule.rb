@@ -1,5 +1,4 @@
-set :output, {:error => "/home/rails/d2leads/log/whenever_error.txt", :standard => "/home/rails/d2leads/log/whenever_success.txt" }
-env :PATH, "/usr/local/bin:$PATH"
+set :output, {:error => "/home/rails/d2leads/log/whenever_error.txt", :standard => "/home/rails/d2leads/log/whenever_sucess.txt" }
 
 
 every 2.minutes do
