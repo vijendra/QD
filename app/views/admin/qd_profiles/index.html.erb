@@ -13,7 +13,7 @@
     <%  unless super_admin?%>
       <tr>
         <td COLSPAN= "2">
-           <%= 'There are data records pending append. Please refresh after some time to know the status, before generating print file.' if check_for_pending_append  %>
+          <p style="color: #EB2C25"> <%= 'There are data records pending append. Please refresh after some time to know the status, before generating print file.' if check_for_pending_append  %> </p>
         </td>
       </tr>
     <%end%>

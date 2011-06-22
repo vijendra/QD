@@ -6,16 +6,16 @@
 <div id='trigger_qd_profile-list' >
 
 <table cellspacing=0 cellpadding=0 id='top-buttons'>
-    <tr><td style ='vertical-align: middle;'> <span style ="color: #04376E;"><b> Act on marked data: &nbsp; </b></span> </td>
+    <tr><td style ='vertical-align: middle;'> <span style ="color: #04376E;"><b> Act on selected data: &nbsp; </b></span> </td>
        <td style ='vertical-align: top;'>
 
        <%= link_to_function("<span>Print with background </span>","print_with_background();" , :class=> "button")%>   </td>
        <td style ='vertical-align: top;'> <%= link_to_function("<span>Print without background</span>", "print_without_background()", :class=> "button")%> </td>
        <td style ='vertical-align: top;'> <%= link_to_function("<span>Print labels</span>", "print_labels();", :class=> "button")%> </td>
-        <td style ='vertical-align: top;'> <%= link_to_function("<span>Get csv print file</span>", "print_csv_file();", :class=> "button")%> </td>
+        <td style ='vertical-align: top;'> <%= link_to_function("<span>Get CSV print file</span>", "print_csv_file();", :class=> "button")%> </td>
     </tr>
     <tr>
-        <td COLSPAN = "5"><%= 'There are data records pending append. Please refresh after some time to know the status, before generating print file.' unless @pending_append  %> </td>
+        <td COLSPAN = "5"><p style="color: #EB2C25"><%= 'There are data records pending append. Please refresh after some time to know the status, before generating print file.' unless @pending_append  %> </p></td>
     </tr>
 </table>
 <br />
