@@ -5,6 +5,7 @@ class DncNumber < ActiveRecord::Base
   require 'zip/zipfilesystem'
 
   def self.fetch_dnc_numbers(dealer)
+    puts "xxxxxxxxxxxxxxxx"
     agent = WWW::Mechanize.new
     page = agent.get('https://telemarketing.donotcall.gov/login/login.aspx?ReturnUrl=%2fdownload%2fdnld.aspx')
     #First login form
@@ -46,6 +47,7 @@ class DncNumber < ActiveRecord::Base
       end
     end
   end
+
   def self.send_dnc_twice_in_month
     dealers = Dealer.dnc_for_15_days.all
     unless dealers.blank?
