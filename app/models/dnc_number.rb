@@ -38,15 +38,27 @@ class DncNumber < ActiveRecord::Base
 
   def self.send_dnc_in_week
     dealers = Dealer.dnc_for_week
-    dealers.each do |dealer| DncNumber.fetch_dnc_numbers(dealer) end unless dealers.blank?
+    unless dealers.blank?
+      dealers.each do |dealer|
+        DncNumber.fetch_dnc_numbers(dealer)
+      end
+    end
   end
   def self.send_dnc_twice_in_month
     dealers = Dealer.dnc_for_15_days
-    dealers.each do |dealer| DncNumber.fetch_dnc_numbers(dealer) end unless dealers.blank?
+    unless dealers.blank?
+      dealers.each do |dealer|
+        DncNumber.fetch_dnc_numbers(dealer)
+      end
+    end
   end
   def self.send_dnc_in_month
     dealers = Dealer.dnc_for_month
-    dealers.each do |dealer| DncNumber.fetch_dnc_numbers(dealer) end unless dealers.blank?
+    unless dealers.blank?
+      dealers.each do |dealer|
+        DncNumber.fetch_dnc_numbers(dealer)
+      end
+    end
   end
 
   protected
