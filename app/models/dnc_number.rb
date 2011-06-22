@@ -36,6 +36,21 @@ class DncNumber < ActiveRecord::Base
     end
   end
 
+
+  def self.send_for_dnc(type)
+    dealers = case type
+    when 'weekly'
+      Dealer.dnc_for_week
+    when '15 days'
+      Dealer.dnc_for_15_days
+    when 'monthly'
+      Dealer.dnc_for_month
+    end
+    dealers.each do |dealer|
+      DncNumber.fetch_dnc_numbers(dealer)
+    end unless dealers.blank?
+  end
+
   protected
 
   def self.download_dnc_files(link, dealer)

@@ -25,6 +25,7 @@ Rails::Initializer.run do |config|
   config.gem "rghost_barcode"
   config.gem "rubyzip", :lib => "zip/zip"
   config.gem "ruby-openid", :lib => "openid"
+  config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
   #config.gem 'delayed_job', :version => '2.0.3'
   #config.gem 'collectiveidea-delayed_job', :lib => 'delayed_job', :version => '1.8.2', :source => 'http://gems.github.com'
 

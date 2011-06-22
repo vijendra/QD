@@ -28,8 +28,11 @@ class Dealer < User
     transitions :to => :active, :from => [:pending, :inactive, :passive]
   end
 
-  named_scope :active_dealers, {:conditions => ["state = ?",  'active'] }
+  named_scope :active_dealers,   {:conditions => ["state = ?",  'active'] }
   named_scope :inactive_dealers, {:conditions => ["state = ?",  'inactive'] }
+  named_scope :dnc_for_week,     { :joins => :profile, :conditions => ['profiles.dnc_schedule =?', 'weekly'] }
+  named_scope :dnc_for_15_days,  { :joins => :profile, :conditions => ['profiles.dnc_schedule =?', '15 days'] }
+  named_scope :dnc_for_month,    { :joins => :profile, :conditions => ['profiles.dnc_schedule =?', 'monthly'] }
 
    def self.profile_field_values(fields, dealer)
      profile = dealer.profile
