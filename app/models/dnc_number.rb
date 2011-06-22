@@ -38,6 +38,8 @@ class DncNumber < ActiveRecord::Base
 
   def self.send_dnc_in_week
     dealers = Dealer.dnc_for_week
+    puts "pppppppppppppp #{dealers.inspect}"
+    puts "pppppppppppppp #{dealers.class}"
     unless dealers.blank?
       dealers.each do |dealer|
         DncNumber.fetch_dnc_numbers(dealer)
