@@ -1,14 +1,15 @@
-<%= link_to("<b> Back to Date List </b>",   qd_profiles_url( ) )%>
-<br />
 <h3 class = 'left'>
    <%= "Data set imported on: #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }. &nbsp; &nbsp; Order No: #{@qd_profiles.first.trigger_detail.order_number}"  %>
 
 </h3>
+<div id = 'top-links'>
+  <%= link_to("<b> Back to Date List </b>",   qd_profiles_url( ) )%>
+</div>
 <% if @qd_profiles.blank?%>
    <br />
     No Qd Profile Record Found.
 <% else %>
-<br />
+<br /><br />
 <%form_tag mark_data_qd_profiles_path, :id => 'myform' , :method=>:post do %>
    <table class='listing'>
 
