@@ -114,7 +114,7 @@ background : #ffffff;
 border : 1px solid #838F99;
 padding : 1px 1px;
 }
- 
+
 ul {
 padding-left : 2em;
 margin-left : 0;
@@ -128,7 +128,7 @@ height : 38px;
 position: fixed;
 width: 100%;
 border-top: 1px solid #666;
- 
+
 }
 
 #header h1 {
@@ -139,7 +139,7 @@ padding : 0;
 margin : 5px 15px;
 font-size : 22px;
 padding-right: 20px;
- 
+
 }
 
 #header h1 span {
@@ -254,7 +254,7 @@ background : #fff;
 padding : 15px 2%;
 background : #f2f2f3; /* url(/images/contentbody.gif) repeat-x;*/
 width: 96%;
-overflow: hidden; 
+overflow: hidden;
 min-height : 450px;
 }
 
@@ -270,13 +270,13 @@ padding : 0.3em 1em;
 margin : 0.1em 0.1em 0em 0;
 background-color: #2e8b57;
 border: 2px solid #d6dfc6;
-font-weight: bold; 
+font-weight: bold;
 }
 
 .error {
 color : #9f1d20;
 padding : 5px;
- 
+
 margin: 0px auto;
 background-color : #ffb7bc;
 font-weight : bold;
@@ -386,7 +386,7 @@ color : #831f00;
 text-decoration: none;
 font-size : 1em;
 font-weight: bold;
-} 
+}
 
 #footer a:hover {
 color : #000;
@@ -451,7 +451,7 @@ table.listing tr td a {
 color: #222;
 text-decoration : none;
 }
- 
+
 
 table.listing td {
 padding : 0.4em 0.5em 0.4em 0.5em;
@@ -469,7 +469,9 @@ table.listing tr.no_border td{border: none;}
 
 table.listing td.fixed {
  width: 25%;
- 
+}
+table.listing td.red {
+  color: red;
 }
 
 table.listing tr.even td { background : #fff; }
@@ -499,7 +501,7 @@ table.listing .calendar-date{
  width: 120px;
 
  text-align: center;
- 
+
  color: #205891;
 
 }
@@ -513,12 +515,12 @@ float: left;
 
 table.listing .calendar-date a{
  text-align: center;
- 
+
  color: #005591;
 }
 
 table.listing td.brown a{
- 
+
  color: #005591;
 }
 
@@ -712,7 +714,7 @@ a.button {
     display: block;
     float: left;
     font-size: 90%;
- 
+
     height: 27px;
     margin-right: 10px;
     padding-right: 10px; /* sliding doors padding */
@@ -754,7 +756,7 @@ a.button:hover span {
 
 
 #top-links{
-float : right; 
+float : right;
 margin-bottom: 5px;
 font-size: 13px;
 color: #c69000;
@@ -771,8 +773,9 @@ margin: 0px;
 }
 #top-buttons tr td{
  padding: 8px;
- 
+
  vertical-align: middle;
 }
 /*------------------------------ data append ------------------------*/
 .data_append{background: #ebf1fb; margin-bottom: 10px; padding: 5px; border: 1px solid #ddd;}
+

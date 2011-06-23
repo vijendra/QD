@@ -1,5 +1,5 @@
-<h3 class = 'left'> 
-   <%= "Data set imported on: #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }. &nbsp; &nbsp; Order No: #{@qd_profiles.first.trigger_detail.order_number}"  %> 
+<h3 class = 'left'>
+   <%= "Data set imported on: #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }. &nbsp; &nbsp; Order No: #{@qd_profiles.first.trigger_detail.order_number}"  %>
 
 </h3>
 
@@ -7,7 +7,7 @@
   <%= link_to("<b> Back to Date List </b>",  admin_qd_profiles_url( ) )%>
 </div>
 
-<br /> 
+<br />
 <% if @qd_profiles.blank?%>
    <br />
     No Qd Profile Record Found.
@@ -19,8 +19,10 @@
        <th> First Name </th>
        <th> Last Name </th>
        <th> Full address </th>
-       <th> Phone </th>
-       <th>  Dealer  </th>
+       <th> Mobile </th>
+       <th> Compiled landline </th>
+       <th> DA landline </th>
+       <th> Dealer  </th>
        <th> Status</th>
    </tr>
 
@@ -29,7 +31,9 @@
            <td> <%=h profile.fname %> </td>
            <td> <%=h profile.lname  %>
            <td> <%=h profile.full_addrress %> </td>
-           <td> <%=h profile.phone_num %> </td>
+           <td class="<%= check_dnc_present(profile.mobile) %> "> <%=h profile.mobile %> </td>
+           <td class="<%= check_dnc_present(profile.compiled_landline) %> "> <%=h profile.compiled_landline %></td>
+           <td class="<%= check_dnc_present(profile.da_landline) %> "><%=h profile.da_landline %></td>
            <td> <%= link_to profile.dealer.profile.name,  assign_dealer_admin_qd_profile_path(profile.id),:rel => "facebox" %> </td>
            <td> <%=h profile.status%></td>
        </tr>
@@ -38,3 +42,4 @@
 </table>
 
 <%end%>
+

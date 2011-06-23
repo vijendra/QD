@@ -14,6 +14,7 @@
        <th><%= remote_order_by_link(:marked, :text => "Printed?") %> </th>
        <th> Mark for print </th>
        <th> Print file </th>
+       <th> DNC </th>
        <!-- <th> Append data </th> -->
    </tr>
 
@@ -53,6 +54,7 @@
                  <%= trigger.marked == 'printed'? 'Printed' : 'Unmarked' %>
               <% end %>
          </td>
+         <td> <%= trigger.qd_profiles.collect(&:dnc).include?(true)? 'yes' : 'no' %></td>
         <!--
          <td style ='width: 380px; padding-left: 0px;'>
              <%= check_box_tag 'product_type[]', 'll' %> Landline &nbsp;

@@ -23,6 +23,9 @@ class TriggerDetail < ActiveRecord::Base
     DataAppend.create(:no_of_records => self.total_records, :dealer_id => self.dealer_id, :tid => self.id, :requestor_id =>  '', :status_message => 'sent', :product => 'ph', :requestor_id => logged_in_user) if self.dealer.profile.phone_append
 
     DataAppend.create(:no_of_records => self.total_records, :dealer_id => self.dealer_id, :tid => self.id, :requestor_id =>  '', :status_message => 'sent', :product => 'em', :requestor_id => logged_in_user) if self.dealer.profile.email_append
+
+
+
   end
 end
 

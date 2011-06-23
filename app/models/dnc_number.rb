@@ -5,7 +5,6 @@ class DncNumber < ActiveRecord::Base
   require 'zip/zipfilesystem'
 
   def self.fetch_dnc_numbers(dealer)
-    puts "xxxxxxxxxxxxxx"
     agent = WWW::Mechanize.new
     page = agent.get('https://telemarketing.donotcall.gov/login/login.aspx?ReturnUrl=%2fdownload%2fdnld.aspx')
     #First login form
