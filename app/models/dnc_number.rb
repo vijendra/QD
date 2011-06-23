@@ -4,7 +4,7 @@ class DncNumber < ActiveRecord::Base
   belongs_to :dealer
   require 'zip/zipfilesystem'
 
-  named_scope :by_numbers, lambda{|numbers| {:conditions => ["number in (?)",  numbers] }}
+  named_scope :by_number, lambda{|numbers| {:conditions => ["number in (?)",  numbers] }}
 
   def self.fetch_dnc_numbers(dealer)
     agent = WWW::Mechanize.new

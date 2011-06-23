@@ -225,7 +225,7 @@ class DataAppend < ActiveRecord::Base
       value << profile.da_landline if profile.da_landline
       value << profile.mobile if profile.mobile
       value << profile.compiled_landline if profile.compiled_landline
-      profile.update_attribute('dnc', true) if DncNumber.by_numbers(value).first
+      profile.update_attribute('dnc', true) if DncNumber.by_number(value).first
     end
   end
 
