@@ -214,7 +214,19 @@ class DataAppend < ActiveRecord::Base
         end
       end
     end
+    DataAppend.check_profile_for_dnc(profiles) # check profile for dnc number present
+
     remove_file(csv_file)
+  end
+
+  def self.check_profile_for_dnc(qd_profiles)
+    qd_profiles.each do |profile|
+      value = []
+      value << profile.da_landline if profile.da_landline
+      value << profile.mobile if profile.mobile
+      value << profile.compiled_landline if profile.compiled_landline
+      profile.update_attribute('dnc', true) if DncNumber.by_numbers(value).first
+    end
   end
 
   def remove_file(file)
