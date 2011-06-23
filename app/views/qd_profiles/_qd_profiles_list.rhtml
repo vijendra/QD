@@ -1,6 +1,9 @@
 <%= link_to("<b> Back to Date List </b>",   qd_profiles_url( ) )%>
 <br />
+<h3 class = 'left'>
+   <%= "Data set imported on: #{Time.parse(@qd_profiles.first.created_at.to_s).strftime('%b %d, %Y')}. &nbsp; &nbsp; For dealer - #{ @qd_profiles.first.dealer.profile.name }. &nbsp; &nbsp; Order No: #{@qd_profiles.first.trigger_detail.order_number}"  %>
 
+</h3>
 <% if @qd_profiles.blank?%>
    <br />
     No Qd Profile Record Found.
@@ -12,39 +15,45 @@
          <% if @fields_to_be_shown.blank? %>
              <tr>
                 <th> <input type='checkbox' title ="Check All/Uncheck" name='checkall' onclick='checkedAll();'> </th>
-                <th> Imported on </th>
+                <th> Mobile</th>
+                <th> Compiled Landline</th>
+                <th> DA Landline</th>
                 <th> List Id </th>
                 <th> Name </th>
                 <th> Address </th>
                 <th> City </th>
                 <th> State </th>
-                <th> Zip </th>
                 <th> Crrt </th>
                 <th> Status </th>
                 <th> Marked? </th>
              </tr>
 
              <% @qd_profiles.each do |profile| %>
-                 <tr class="<%= cycle('odd', 'even') %>"> 
+                 <tr class="<%= cycle('odd', 'even') %>">
                       <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
-                      <td><%= Time.parse(profile.created_at.to_s).to_date %> </td>
+                      <td class="<%= check_dnc_present(profile.mobile) %> "> <%=h profile.mobile %> </td>
+                      <td class="<%= check_dnc_present(profile.compiled_landline) %> "> <%=h profile.compiled_landline %></td>
+                      <td class="<%= check_dnc_present(profile.da_landline) %> "><%=h profile.da_landline %></td>
                       <td> <%=h profile.listid %> </td>
                       <td> <%=h "#{profile.fname} #{profile.lname}" %> </td>
                       <td> <%=h profile.address %> </td>
                       <td> <%=h profile.city %> </td>
                       <td> <%=h profile.state %> </td>
-                      <td> <%=h profile.zip %> </td>
                       <td> <%=h profile.crrt %> </td>
                       <td> <%=h profile.status %></td>
                       <td> <%= profile.dealer_marked == 'yes'? 'Yes' : 'No'-%> </td>
                  </tr>
              <% end %>
          <% else %>
-             <tr> 
+             <tr>
                  <th> <input type='checkbox' title ="Check all/Uncheck" name='checkall' onclick='checkedAll();'> </th>
-                 <th> Imported on </th>
+                 <th> Mobile</th>
+                 <th> Compiled Landline</th>
+                 <th> DA Landline</th>
                   <% @fields_to_be_shown.each do |qd_field| %>
+                    <%unless ['mobile', 'compiled_landline', 'da_landline'].include?(qd_field) %>
                       <th> <%= qd_field.humanize %> </th>
+                    <%end%>
                   <% end %>
                  <th> Status </th>
                  <th> Marked? </th>
@@ -53,11 +62,15 @@
              <% @qd_profiles.each do |profile| %>
                <tr class="<%= cycle('odd', 'even') %>">
                  <td> <%= check_box_tag("profiles[]", profile.id, false)%></td>
-                 <td> <%= Time.parse(profile.created_at.to_s).strftime('%m-%d-%Y') %> </td>
+                 <td class="<%= check_dnc_present(profile.mobile) %> "> <%=h profile.mobile %> </td>
+                 <td class="<%= check_dnc_present(profile.compiled_landline) %> "> <%=h profile.compiled_landline %></td>
+                 <td class="<%= check_dnc_present(profile.da_landline) %> "><%=h profile.da_landline %></td>
                  <% @fields_to_be_shown.each do |qd_field| %>
-                    <td> <%= eval("profile.#{qd_field}") %> </td>
+                    <%unless ['mobile', 'compiled_landline', 'da_landline'].include?(qd_field) %>
+                      <td> <%= eval("profile.#{qd_field}") %> </td>
+                    <%end%>
                  <% end %>
-		 <td> <%= profile.status == 'printed' ? 'Admin printed' : profile.status  %></td>
+		             <td> <%= profile.status == 'printed' ? 'Admin printed' : profile.status  %></td>
                  <td> <%= profile.dealer_marked == 'yes'? 'Yes' : (profile.dealer_marked == 'printed'? 'Printed' : 'No')-%> </td>
               </tr>
              <% end %>
@@ -72,3 +85,4 @@
 
      <br />
 <%end%>
+

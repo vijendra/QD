@@ -10,6 +10,7 @@
        <th> <%= remote_order_by_link(:order_number, :text => "Order No") %> </th>
        <th> <%= remote_order_by_link(:total_records, :text => "Records")%> </th>
        <th> <%= remote_order_by_link(:marked, :text => "Status") %> </th>
+       <th> DNC </th>
    </tr>
    <% @triggers.each do |trigger| %>
        <tr class="<%= cycle('odd', 'even') %>">
@@ -25,8 +26,10 @@
          <td> <%= trigger.order_number %> </td>
          <td> <%= trigger.total_records %> </td>
          <td> <%= (trigger.marked == 'yes' ||  trigger.marked == 'printed') ? (trigger.marked == 'printed'? 'Admin printed': 'Admin marked') : 'New' -%> </td>
+         <td> <%= trigger.qd_profiles.collect(&:dnc).include?(true)? 'yes' : 'no' %></td>
 
       </tr>
+
    <% end %>
 
   </table>
