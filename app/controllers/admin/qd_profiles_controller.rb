@@ -126,7 +126,7 @@ class Admin::QdProfilesController < ApplicationController
     @search.per_page = 50
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
-    @search.include = [[:dealer], [:dealer => :profile]]
+    @search.include = [[:dealer, :qd_profiles], [:dealer => :profile]]
 
     @search.conditions.dealer.administrator_id = current_user.id unless super_admin?
 

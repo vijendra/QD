@@ -1,7 +1,7 @@
 set :output, {:error => "/home/rails/d2leads/log/whenever_error.txt", :standard => "/home/rails/d2leads/log/whenever_sucess.txt" }
 
 
-every 2.minutes do
+every :sunday, :at => '12pm' do
   runner "DncNumber.send_dnc_in_week"
 end
 every 15.days do
