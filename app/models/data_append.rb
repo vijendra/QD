@@ -167,14 +167,14 @@ class DataAppend < ActiveRecord::Base
           end
         end
       else
-        file_name = csv_file.gsub('.csv','')
+        file_name = csv_file.gsub('.csv','') # file name
         ftp.dir.each do |di|
           if di =~ Regexp.new("#{file_name} *")
              folder = di.split('<DIR>').last.lstrip
              ftp.chdir("#{folder}")
              ftp.getbinaryfile("#{file_name}-processed.csv", out_file)
              import_appended_data
-             #found = true
+             found = true
              break;
            end
         end
@@ -219,7 +219,7 @@ class DataAppend < ActiveRecord::Base
 
           when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
           when 'ncoa' then
-            qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip'))
+            qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip')) # changed state to st
           end
         end
       end
