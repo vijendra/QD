@@ -3,7 +3,7 @@ class Admin::DataAppendsController < ApplicationController
   before_filter :check_login
   def index
     @search = DataAppend.new_search(params[:search])
-    @search.per_page ||= 5
+    @search.per_page ||= 50
     @search.page ||= 1
     @search.order_as ||= "DESC"
     @search.order_by ||= "created_at"
