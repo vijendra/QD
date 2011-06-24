@@ -156,20 +156,29 @@ class DataAppend < ActiveRecord::Base
       end
 
       ftp.chdir('out')
-
-      ftp.list('*.csv').each do |file|
-        if file =~ Regexp.new(csv_file)
-          found = true
-          ftp.getbinaryfile(csv_file, out_file)
-          import_appended_data
-
-          unless self.product == 'ncoa'
+      unless self.product == 'ncoa'
+        ftp.list('*.csv').each do |file|
+          if file =~ Regexp.new(csv_file)
+            found = true
+            ftp.getbinaryfile(csv_file, out_file)
+            import_appended_data
             ftp.getbinaryfile("#{csv_file}.manifest.xml", "#{out_file}.manifest.xml")
             parse_output_xml("#{out_file}.manifest.xml")
           end
         end
+      else
+        file_name = csv_file.gsub('.csv','')
+        ftp.dir.each do |di|
+          if di =~ Regexp.new("#{file_name} *")
+             folder = di.split('<DIR>').last.lstrip
+             ftp.chdir("#{folder}")
+             ftp.getbinaryfile("#{file_name}-processed.csv", out_file)
+             import_appended_data
+             #found = true
+             break;
+           end
+        end
       end
-
       ftp.quit()
 
       if found == false
@@ -198,7 +207,7 @@ class DataAppend < ActiveRecord::Base
     profiles = TriggerDetail.find(tid).qd_profiles rescue []
 
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
-      qd_profile = QdProfile.find(row.field(0)) #row.field(0) is ID
+      qd_profile = QdProfile.find(row.field(0))  rescue next #row.field(0) is ID
       if profiles.include?(qd_profile)
         unless qd_profile.blank?
           self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id)
@@ -209,7 +218,8 @@ class DataAppend < ActiveRecord::Base
             qd_profile.update_attribute('mobile', row.field('Mobile'))
 
           when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
-          when 'ncoa' then qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('state'), 'zip' => row.field('zip'))
+          when 'ncoa' then
+            qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip'))
           end
         end
       end
