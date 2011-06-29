@@ -217,7 +217,7 @@ class DataAppend < ActiveRecord::Base
         when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
         when 'ncoa' then
           qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip')) # changed state to st
-          self.update_attributes(:completed_on => Time.now) )
+          self.update_attributes(:completed_on => Time.now)
         end
       end
     end
