@@ -204,32 +204,32 @@ class DataAppend < ActiveRecord::Base
 
   def import_appended_data
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{self.csv_file_name}"
-    profiles = TriggerDetail.find(tid).qd_profiles rescue []
-
+    
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
       qd_profile = QdProfile.find(row.field(0))  rescue next #row.field(0) is ID
-      if profiles.include?(qd_profile)
-        unless qd_profile.blank?
-          self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id)
-          case self.product
-          when 'ph' then
-            qd_profile.update_attribute('compiled_landline', row.field('Compiled Land Line'))
-            qd_profile.update_attribute('da_landline', row.field('DA Land Line'))
-            qd_profile.update_attribute('mobile', row.field('Mobile'))
-
-          when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
-          when 'ncoa' then
-            qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip')) # changed state to st
-          end
+      unless qd_profile.blank?
+        self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id)
+        case self.product
+        when 'ph' then
+          qd_profile.update_attribute('compiled_landline', row.field('Compiled Land Line'))
+          qd_profile.update_attribute('da_landline', row.field('DA Land Line'))
+          qd_profile.update_attribute('mobile', row.field('Mobile'))
+        when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
+        when 'ncoa' then
+          qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip')) # changed state to st
         end
       end
     end
-    DataAppend.check_profile_for_dnc(profiles) # check profile for dnc number present
-
+    
+    if self.product == 'ph'
+      DataAppend.check_profile_for_dnc(tid) # check profile for dnc number present
+    end
+    
     remove_file(csv_file)
   end
 
-  def self.check_profile_for_dnc(qd_profiles)
+  def self.check_profile_for_dnc(tid)
+    qd_profiles = TriggerDetail.find(tid).qd_profiles rescue []
     qd_profiles.each do |profile|
       value = []
       value << profile.da_landline if profile.da_landline
