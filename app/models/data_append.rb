@@ -114,7 +114,7 @@ class DataAppend < ActiveRecord::Base
 
   #Constructing the csv file to be sent for append
   def construct_csv(trigger)
-    identifier = "#{self.dealer_id}-#{Time.now.strftime('%H%M%S')}.csv"
+    identifier = "#{self.dealer_id}-#{Time.now.strftime('%H%M%S')}-#{self.product}.csv"
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_in/#{identifier}"
     fields  = QdProfile::DATA_APPEND_FIELDS
     FasterCSV.open(csv_file, "w") do |csv|
@@ -204,9 +204,10 @@ class DataAppend < ActiveRecord::Base
 
   def import_appended_data
     csv_file = "#{RAILS_ROOT}/data_appends/data_append_out/#{self.csv_file_name}"
+    trigger = TriggerDetail.find(self.tid)
     
     FasterCSV.foreach(csv_file, :headers => :false) do |row|
-      qd_profile = QdProfile.find(row.field(0))  rescue next #row.field(0) is ID
+      qd_profile = trigger.qd_profiles.find(row.field(0))  rescue next #row.field(0) is ID
       unless qd_profile.blank?
         self.appended_qd_profiles.create(:qd_profile_id => qd_profile.id)
         case self.product

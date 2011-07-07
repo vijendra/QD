@@ -13,7 +13,9 @@
       <th> DA Landline </th>
       <th> Mobile </th>
     <%else-%>
-      <th> <%= DataAppend::AppendProductDisplay[@data_append.product] %> </th>
+       <% unless @data_append.product == 'ncoa' %>
+        <th> <%= DataAppend::AppendProductDisplay[@data_append.product] %> </th>
+       <%end-%>  
     <%end-%>
   </tr>
 
