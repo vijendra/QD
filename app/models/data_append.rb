@@ -169,7 +169,7 @@ class DataAppend < ActiveRecord::Base
       else
         file_name = csv_file.gsub('.csv','') # file name
         ftp.dir.each do |di|
-          if di =~ Regexp.new("#{file_name} *")
+          if di =~ Regexp.new("#{file_name.upcase} *")
              folder = di.split('<DIR>').last.lstrip
              ftp.chdir("#{folder}")
              ftp.getbinaryfile("#{file_name}-processed.csv", out_file)
