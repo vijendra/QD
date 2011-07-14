@@ -13,20 +13,25 @@ for data in @profiles
   p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template4.jpg", :scale => 0.72, :at => [0, box.top]
 
   p_pdf.bounding_box([box.left + 60, box.top - 47], :width => 500) do
-    p_pdf.tags[:medium] = { :font_size => "1.5em" }
-    p_pdf.tags[:big] = { :font_size => "1.5em" }
+    p_pdf.tags[:medium] = { :font_size => "1.6em" }
+    p_pdf.tags[:big] = { :font_size => "1.7em" }
     p_pdf.text "<b><big> #{h(@dealer_profile.display_name)}</big> </b>", :align => 'left'
     p_pdf.text "<medium> #{h(@dealer_address.address)} </medium>" , :align => 'left'
     p_pdf.text "<medium>  #{h(@dealer_address.city)}, #{h(@dealer_address.state)} #{h(@dealer_address.postal_code)} </medium>", :align => 'left'
   end
 
-
-
-
+  #generating postnet barcode
+  doc = RGhost::Document.new :paper => [6.4, 0.45], :margin => [0, 0, 0, 0]
+  doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:background => (@positions[:bg_color] rescue "#FFFFFF"), :height => 0.45})
+  doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
+  
   p_pdf.bounding_box([box.left + 550, box.top - 320], :width => 300) do
-    p_pdf.text h(@name), :size => 14
-    p_pdf.text h(@address), :size => 14
-    p_pdf.text h(@place), :size => 14
+    p_pdf.text h(@name), :size => 18
+    p_pdf.text h(@address), :size => 18
+    p_pdf.text h(@place), :size => 18
+    p_pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left + 1, -1]
+    #remove the image created for bar code
+    FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
   end
 
 
