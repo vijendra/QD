@@ -215,7 +215,7 @@ class DataAppend < ActiveRecord::Base
           qd_profile.update_attribute('compiled_landline', row.field('Compiled Land Line'))
           qd_profile.update_attribute('da_landline', row.field('DA Land Line'))
           qd_profile.update_attribute('mobile', row.field('Mobile'))
-        when 'em' then qd_profile.update_attribute('email', row.field('Email Address'))
+        when 'em' then qd_profile.update_attribute('email', row.field('EmailAddress'))
         when 'ncoa' then
           qd_profile.update_attributes('address' => row.field('address'), 'city' => row.field('city'), 'state' =>  row.field('st'), 'zip' => row.field('zip')) # changed state to st
           self.update_attributes(:completed_on => Time.now)
