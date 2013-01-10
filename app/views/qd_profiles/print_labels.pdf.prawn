@@ -33,7 +33,7 @@ for data in @profiles
     pdf.text place
     pdf.image "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg", :at => [box.left + 1, -1]
 
-    #remove the image created for bar code
+    #remove the image file created for bar code
     FileUtils.rm_r "#{RAILS_ROOT}/public/images/print-file/#{data.zip}.jpg"
   end
 
