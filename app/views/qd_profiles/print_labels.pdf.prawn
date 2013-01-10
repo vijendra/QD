@@ -19,7 +19,7 @@ for data in @profiles
   #generating postnet barcode
   doc = RGhost::Document.new :paper => [3.7, 0.5], :margin => [0, 0, 0, 0]
   doc.barcode_postnet(data.formatted_zip, {:height => 0.5, :background => "#FFFFFF"})
-  doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
+  doc.render :jpeg, :filename => "public/images/print-file/#{data.formatted_zip}.jpg"
   
   case counter % 3 
        when 1 then left = box.left + 19
