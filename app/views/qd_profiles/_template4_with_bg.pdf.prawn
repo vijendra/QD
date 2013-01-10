@@ -22,7 +22,7 @@ for data in @profiles
 
   #generating postnet barcode
   doc = RGhost::Document.new :paper => [6.4, 0.45], :margin => [0, 0, 0, 0]
-  doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:background => (@positions[:bg_color] rescue "#FFFFFF"), :height => 0.45})
+  doc.barcode_postnet(data.formatted_zip, {:background => (@positions[:bg_color] rescue "#FFFFFF"), :height => 0.45})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
   
   p_pdf.bounding_box([box.left + 550, box.top - 320], :width => 300) do

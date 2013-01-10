@@ -11,7 +11,7 @@ for data in @profiles
   @place = "#{data.city}, #{data.state} #{data.zip}"
   #generating postnet barcode
   doc = RGhost::Document.new :paper => [6.4, 0.55], :margin => [0, 0, 0, 0]
-  doc.barcode_postnet("#{data.zip}#{data.zip4}".to_i, {:height => 0.5, :background => "#F4D98B"})
+  doc.barcode_postnet(data.formatted_zip, {:height => 0.5, :background => "#F4D98B"})
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
 
   p_pdf.image "#{RAILS_ROOT}/public/images/print-file/template2.png", :at => [0, box.top], :scale => 0.72

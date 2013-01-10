@@ -67,5 +67,13 @@ class QdProfile < ActiveRecord::Base
   def full_addrress
     "#{address}, #{city}, #{state} - #{zip}"
   end
+  
+  def formatted_zip
+    if self.zip.include?('-')
+      self.zip.gsub('-', '')
+    else
+      "#{self.zip}#{self.zip4}"
+    end
+  end
 end
 
