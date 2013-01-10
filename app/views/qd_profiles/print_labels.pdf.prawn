@@ -22,11 +22,10 @@ for data in @profiles
   doc.render :jpeg, :filename => "public/images/print-file/#{data.zip}.jpg"
   
   case counter % 3 
-       when 1 then left = box.left + 19
-       when 2 then left = box.left + 213
-       when 0 then left = box.left + 404
+    when 1 then left = box.left + 19
+    when 2 then left = box.left + 213
+    when 0 then left = box.left + 404
   end
-
 
   pdf.bounding_box([left, y_val], :width => 200) do
     pdf.text name
