@@ -172,7 +172,7 @@ class QdProfilesController < ApplicationController
      @profiles = []
      params[:tid_list].each do |tid|
        trigger = TriggerDetail.find(tid, :include => [:qd_profiles])
-       @profiles.concat(trigger.qd_profiles.all) unless trigger.qd_profiles.blank?
+       @profiles.concat(trigger.qd_profiles.valid_adddress.all) unless trigger.qd_profiles.blank?
      end
      @profiles.uniq!
 
@@ -234,7 +234,7 @@ class QdProfilesController < ApplicationController
       @profiles = []
       params[:tid_list].each do |tid|
         trigger = TriggerDetail.find(tid, :include => [:qd_profiles])
-        @profiles.concat(trigger.qd_profiles.all) unless trigger.qd_profiles.blank?
+        @profiles.concat(trigger.qd_profiles.valid_adddress.all) unless trigger.qd_profiles.blank?
       end
       @profiles.uniq!
       unless @profiles.blank?
