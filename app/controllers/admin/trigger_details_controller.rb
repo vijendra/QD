@@ -111,7 +111,9 @@ def process_triggers
           #extract order_id from link like 228_Courtesy Dodge_942310_322548.CSV
           links = page.links
           for li in links
-            csv_file_name = li.to_s if li.to_s =~ /[0-9].CSV/
+            unless li.to_s =~ /FCRA/ #skip FCRA standard output file
+              csv_file_name = li.to_s if li.to_s =~ /[0-9].CSV/
+            end  
           end
           #csv_file_name = page.links[5].to_s
           csv_array = csv_file_name.to_s.split('_')
