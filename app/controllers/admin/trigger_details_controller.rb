@@ -103,7 +103,7 @@ def process_triggers
 
           datasource_password = dealer.administrator.administrator_profile.datasource_password rescue '' # datasource password
           datasource_username = dealer.administrator.administrator_profile.datasource_username rescue '' # datasource username
-          login_form.username = datasource_username.blank?? 'ewatson@mailadvanta.com' : datasource_username
+          login_form.username = datasource_username.blank?? 'ewatson' : datasource_username
           login_form.password = datasource_password.blank?? 'a5$DOWNLOAD' :  datasource_password
 
           login_form.checkbox_with(:name => 'saveagreement').check
