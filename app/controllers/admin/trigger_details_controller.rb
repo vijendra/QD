@@ -119,7 +119,7 @@ def process_triggers
           csv_array = csv_file_name.to_s.split('_')
           object_id = ((csv_array[csv_array.length - 1]).split('.'))[0].strip
           #Now we will directly construct link, instead of mimicng csv link click, as its quite difficult
-          csv_link_string = "https://intelidataexpress.tranzactis.com/file/download.aspx?objectid=#{object_id}"
+          csv_link_string = "https://intelidataexpress.datamyx.com/file/download.aspx?objectid=#{object_id}"
 =begin
           #Before tt was asking to login again. Now its working fine.
           page = agent.get(csv_link_string)
