@@ -104,7 +104,7 @@ def process_triggers
           datasource_password = dealer.administrator.administrator_profile.datasource_password rescue '' # datasource password
           datasource_username = dealer.administrator.administrator_profile.datasource_username rescue '' # datasource username
           login_form.username = datasource_username.blank?? 'ewatson' : datasource_username
-          login_form.password = datasource_password.blank?? 'a6$DOWNLOAD' :  datasource_password
+          login_form.password = datasource_password.blank?? ApplicationSetting.find_by_identifier('tranzact_password').value :  datasource_password
 
           login_form.checkbox_with(:name => 'saveagreement').check
           page = agent.submit(login_form)

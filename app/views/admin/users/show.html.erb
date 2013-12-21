@@ -47,7 +47,10 @@
 
 <%= link_to_remote "Seekerinc Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"seekerinc_process_instructions",:id =>@user.id} , :indicator => 'default'%><b>| </b>
 
-<%= link_to_remote "Tranzact Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"tranzact_process_instructions",:id =>@user.id}, :indicator => 'default' %>
+<%= link_to_remote "Tranzact Process Instructions" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"tranzact_process_instructions",:id =>@user.id}, :indicator => 'default' %><b>| </b>
+
+<%= link_to_remote "Tranzact Password" ,:url => { :controller => "admin/users" ,:action => :dispaly_application_setting ,:identifier =>"tranzact_password",:id =>@user.id}, :indicator => 'default' %>
+
 <%= indicator :id => 'default' %>
 <div id="application_settings">
 
