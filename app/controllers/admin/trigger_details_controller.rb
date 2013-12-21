@@ -103,15 +103,16 @@ def process_triggers
 
           datasource_password = dealer.administrator.administrator_profile.datasource_password rescue '' # datasource password
           datasource_username = dealer.administrator.administrator_profile.datasource_username rescue '' # datasource username
+          main_pass =  ActionView::Base.full_sanitizer.sanitize(ApplicationSetting.find_by_identifier('tranzact_password').value).gsub("&nbsp;", '')
           login_form.username = datasource_username.blank?? 'ewatson' : datasource_username
-          login_form.password = datasource_password.blank?? ApplicationSetting.find_by_identifier('tranzact_password').value :  datasource_password
+          login_form.password = datasource_password.blank?? main_pass :  datasource_password
 
           login_form.checkbox_with(:name => 'saveagreement').check
           page = agent.submit(login_form)
           #extract order_id from link like 228_Courtesy Dodge_942310_322548.CSV
           links = page.links
           for li in links
-            unless li.to_s =~ /FCRA/ #skip FCRA standard output file
+            unless li.to_s =~ /FCRA/ || li.to_s =~ /sample/ #skip FCRA standard output file
               csv_file_name = li.to_s if li.to_s =~ /[0-9].CSV/
             end  
           end
