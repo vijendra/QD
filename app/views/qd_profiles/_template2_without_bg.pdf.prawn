@@ -65,7 +65,7 @@ for data in @profiles
     :width    => 150, :height => 60,
     :at       => [@positions['rightbox2_x'], @positions['rightbox2_y']]
 
-  p_pdf.text_box "<b><i>Get</i> your pre-approved <br /> amount and write it in <br /> the space below. </b>",
+  p_pdf.text_box "<b><i>Get</i> your pre-qualified <br /> amount and write it in <br /> the space below. </b>",
     :width    => 150, :height => 60,
     :at       => [@positions['rightbox3_x'], @positions['rightbox3_y']]
 
