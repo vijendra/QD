@@ -24,7 +24,7 @@ class MailProcessor < ActionMailer::Base
       dealer_id = parser.search("table").search("table")[2].at("tr").search("td")[1].inner_text.strip
       no_of_records = parser.search("table").search("table")[2].search("tr")[3].search("td")[1].inner_text.strip
       file_url = parser.search("table").search("table")[2].search("tr")[4].at("td").at("p").at("b").at("span").at("a").attributes['href']
-      order_number = URI.split(file_url)[7].split("=")[1].strip
+      order_number = file_url.split('/')[5].strip
 
       if TriggerDetail.find_by_order_number(order_number).blank?
         dealer_profile = Profile.find_by_user_id(dealer_id)
