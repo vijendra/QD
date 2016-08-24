@@ -64,11 +64,11 @@ for data in @profiles
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 390]
 
-  p_pdf.text_box "<b><i>Get</i> your pre-qualified <br /> amount and write it in <br /> the space below. </b>",
+  p_pdf.text_box "<b><i>Confirm</i> your pre-qualified <br /> amount and write it in <br /> the space below. </b>",
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 480]
 
-  p_pdf.text_box "<b><i>Go</i> to the approved <br /> dealership to choose <br /> your vehicle! </b>",
+  p_pdf.text_box "<b><i>Go</i> to the <br /> dealership to choose <br /> your vehicle! </b>",
     :width    => 150, :height => 60,
     :at       => [box.right - 165, box.top - 550]
 
