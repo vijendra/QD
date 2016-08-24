@@ -63,8 +63,8 @@ for data in @profiles
     p_pdf.tags[:indent] = { :width => "2.1em", :font_size => "1.1em", :font_family => "Times-Roman"}
     p_pdf.text "<indent> 1. Call <b>#{h(@phone)}</b> or log on to #{h(@w_site)}.</indent>"
     p_pdf.text "<indent> 2. Confirm your identity by providing your <b>Authorization #</b> #{h(@auth_code)}</indent>"
-    p_pdf.text "<indent> 3. Get your pre-qualified amount and write it in the space below.</indent>"
-    p_pdf.text "<indent> 4. Go to the approved dealership to choose your vehicle.</indent>"
+    p_pdf.text "<indent> 3. Confirm your pre-qualified amount and write it below.</indent>"
+    p_pdf.text "<indent> 4. Go to the dealership to choose your vehicle.</indent>"
 
     p_pdf.text "<br />"
     p_pdf.tags[:indent] = { :width => "1.2em", :font_size => "1.1em", :font_family => "Times-Roman" }
